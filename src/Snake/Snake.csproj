@@ -43,11 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework\Geometry\IntSize.cs" />
+    <Compile Include="Framework\Graphics\ConsoleGraphicSystem.cs" />
+    <Compile Include="Framework\Graphics\IGraphicSystem.cs" />
     <Compile Include="Game\Snake.cs" />
     <Compile Include="Game\SnakeGame.cs" />
     <Compile Include="Game\SnakeTile.cs" />
-    <Compile Include="Geometry\IntPoint.cs" />
-    <Compile Include="Geometry\IntRectangle.cs" />
+    <Compile Include="Framework\Geometry\IntPoint.cs" />
+    <Compile Include="Framework\Geometry\IntRectangle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

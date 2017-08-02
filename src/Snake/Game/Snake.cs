@@ -1,5 +1,6 @@
 ﻿using System;
-using Snake.Geometry;
+using Snake.Framework.Geometry;
+using Snake.Framework.Graphics;
 
 namespace Snake.Game
 {    
@@ -11,14 +12,14 @@ namespace Snake.Game
         private int movingDirectionX;
         private int movingDirectionY;
         private IntRectangle bounds;
-
-        public void Initialize()
+        
+        public void Initialize(int x, int y, int length, IntRectangle bounds)
         {
             movingSpeed = 1;
             movingDirectionX = movingSpeed;
             movingDirectionY = 0;
-            bounds = new IntRectangle(0, 0, Console.WindowWidth, Console.WindowHeight);
-            Deploy(10, 10, 20);
+            this.bounds = bounds;
+            Deploy(x, y, length);
         }
       
         public void Update()
@@ -30,15 +31,16 @@ namespace Snake.Game
             Move();
         }
 
-        public void Draw()
+        public void Draw(IGraphicSystem graphicSystem)
         {            
             SnakeTile temp = tail;
+			var counter = 0;
 
             while (temp != null)
-            {                
-                Console.SetCursorPosition(temp.X, temp.Y);
-                Console.Write('@');
+            {          
+				graphicSystem.Draw(temp.X, temp.Y, temp.Next == null ? '@' : 'O');
                 temp = temp.Next;
+				counter++;
             }
         }
       

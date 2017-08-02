@@ -1,18 +1,29 @@
 ﻿using System;
-using Snake.Geometry;
+using Snake.Framework.Graphics;
 
 namespace Snake.Game
 {
     public class SnakeGame : IDisposable
     {
-        private Snake snake;
+		private const int MaxSnakes = 1;
+        private IGraphicSystem graphicSystem;
+        private Snake[] snakes;
         private bool gameOver;
 
         public void Initialize()
         {
-            Console.CursorVisible = false;
-            snake = new Snake();
-            snake.Initialize();
+            graphicSystem = new ConsoleGraphicSystem();
+            graphicSystem.Initialize();
+
+            snakes = new Snake[MaxSnakes];
+
+			for (int i = 0; i < MaxSnakes; i++)
+			{
+				var snake = new Snake();
+				snake.Initialize(0, 10 + i, 20, graphicSystem.Bounds);
+            	snakes[i] = snake;
+			}
+
             gameOver = false;
         }
 
@@ -30,14 +41,21 @@ namespace Snake.Game
 
             if (!gameOver)
             {
-                snake.Update();
+                for (int i = 0; i < MaxSnakes; i++)
+                {
+                    snakes[i].Update();
+                }
             }           
         }
 
         public void Draw()
         {
-            Console.Clear();
-            snake.Draw();
+		    for (int i = 0; i < MaxSnakes; i++)
+            {
+                snakes[i].Draw(graphicSystem);
+            }
+
+            graphicSystem.Render();
         }
 
         private bool disposed = false; // To detect redundant calls
@@ -73,7 +91,16 @@ namespace Snake.Game
         {
             if (!gameOver)
             {
-                gameOver = snake.IsOutOfBounds() || snake.IsOverlapped();
+                for (int i = 0; i < MaxSnakes; i++)
+                {
+                    var snake = snakes[i];
+
+                    if(snake.IsOutOfBounds() || snake.IsOverlapped())
+                    {
+                        gameOver = true;
+                        break;
+                    }
+                }                
             }
         }
     }
