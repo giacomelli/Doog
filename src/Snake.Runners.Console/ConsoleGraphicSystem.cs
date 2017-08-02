@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Snake.Framework.Geometry;
+﻿using Snake.Framework.Geometry;
+using Snake.Framework.Graphics;
+using underlying = System.Console;
 
-namespace Snake.Framework.Graphics
+namespace Snake.Runners.Console
 {
     public class ConsoleGraphicSystem : IGraphicSystem
     {
@@ -14,9 +11,9 @@ namespace Snake.Framework.Graphics
 
         public void Initialize()
         {
-            Bounds = new IntRectangle(0, 0, Console.WindowWidth - 1, Console.WindowHeight - 1);
-            m_sprites = new char[Console.WindowWidth, Console.WindowHeight];
-            Console.CursorVisible = false;
+            Bounds = new IntRectangle(0, 0, underlying.WindowWidth - 1, underlying.WindowHeight - 1);
+            m_sprites = new char[underlying.WindowWidth, underlying.WindowHeight];
+            underlying.CursorVisible = false;
         }
 
         public IntRectangle Bounds { get; private set; }
@@ -28,7 +25,7 @@ namespace Snake.Framework.Graphics
 
         public void Render()
         {
-            Console.Clear();
+            underlying.Clear();
 
             for (int x = Bounds.Left; x < Bounds.Right; x++)
             {
@@ -38,8 +35,8 @@ namespace Snake.Framework.Graphics
 
                     if (sprite != EmptySprite)
                     {
-                        Console.SetCursorPosition(x, y);
-                        Console.Write(sprite);
+                        underlying.SetCursorPosition(x, y);
+                        underlying.Write(sprite);
 
                         m_sprites[x, y] = EmptySprite;
                     }

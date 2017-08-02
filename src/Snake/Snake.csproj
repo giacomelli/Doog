@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2410BD9F-180C-480B-AE43-7821BB9124BE}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Snake</RootNamespace>
     <AssemblyName>Snake</AssemblyName>
@@ -44,14 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Framework\Geometry\IntSize.cs" />
-    <Compile Include="Framework\Graphics\ConsoleGraphicSystem.cs" />
     <Compile Include="Framework\Graphics\IGraphicSystem.cs" />
     <Compile Include="Game\Snake.cs" />
     <Compile Include="Game\SnakeGame.cs" />
     <Compile Include="Game\SnakeTile.cs" />
     <Compile Include="Framework\Geometry\IntPoint.cs" />
     <Compile Include="Framework\Geometry\IntRectangle.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

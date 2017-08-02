@@ -10,17 +10,17 @@ namespace Snake.Game
         private Snake[] snakes;
         private bool gameOver;
 
-        public void Initialize()
+        public void Initialize(IGraphicSystem graphicSystem)
         {
-            graphicSystem = new ConsoleGraphicSystem();
-            graphicSystem.Initialize();
+			this.graphicSystem = graphicSystem;
+            this.graphicSystem.Initialize();
 
             snakes = new Snake[MaxSnakes];
 
 			for (int i = 0; i < MaxSnakes; i++)
 			{
 				var snake = new Snake();
-				snake.Initialize(0, 10 + i, 20, graphicSystem.Bounds);
+				snake.Initialize(0, 10 + i, 20, this.graphicSystem.Bounds);
             	snakes[i] = snake;
 			}
 
