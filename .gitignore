@@ -3,6 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+
 # User-specific files
 *.suo
 *.user
@@ -23,6 +24,14 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+
+/src/Snake.Runners.Unity/[Ll]ibrary/
+/src/Snake.Runners.Unity/[Tt]emp/
+/src/Snake.Runners.Unity/[Oo]bj/
+/src/Snake.Runners.Unity/[Bb]uild/
+/src/Snake.Runners.Unity/Bb]uilds/
+/src/Snake.Runners.Unity/Assets/AssetStoreTools*
+*.pidb.meta
 
 # Visual Studio 2015 cache/options directory
 .vs/

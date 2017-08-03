@@ -4,14 +4,14 @@ using underlying = System.Console;
 
 namespace Snake.Runners.Console
 {
-    public class ConsoleGraphicSystem : IGraphicSystem
+    public class GraphicSystem : IGraphicSystem
     {
         private const char EmptySprite = ' ';
         private char[,] m_sprites;
 
         public void Initialize()
         {
-            Bounds = new IntRectangle(0, 0, underlying.WindowWidth - 1, underlying.WindowHeight - 1);
+            Bounds = new IntRectangle(0, 0, underlying.WindowWidth, underlying.WindowHeight);
             m_sprites = new char[underlying.WindowWidth, underlying.WindowHeight];
             underlying.CursorVisible = false;
         }
