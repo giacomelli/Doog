@@ -31,6 +31,8 @@ bld/
 /src/Snake.Runners.Unity/[Bb]uild/
 /src/Snake.Runners.Unity/Bb]uilds/
 /src/Snake.Runners.Unity/Assets/AssetStoreTools*
+/src/Snake.Runners.Unity/Assets/Scripts/references/
+
 *.pidb.meta
 
 # Visual Studio 2015 cache/options directory

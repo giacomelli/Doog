@@ -1,6 +1,8 @@
 Snake
 ===========
 
+[![Build status](https://ci.appveyor.com/api/projects/status/urkx8eku6gl6wo6f?svg=true)](https://ci.appveyor.com/project/giacomelli/snake)
+
 We will use classic game programming patterns in order to create a snake implementation that is agnostic of how its graphics, sounds and inputs are really implemented.
 
 The first result will be quite simple, just a console rendering, but in the future we will implement more sofisticated output using Unity3D.

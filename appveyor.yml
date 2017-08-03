@@ -1,0 +1,31 @@
+version: 0.0.{build}
+os: Visual Studio 2015
+configuration: Release
+environment:
+  clone_folder: c:\snake
+  COVERALLS_REPO_TOKEN:
+    secure: 6eJLlLIXj6mm1BzhRfZWP08uHu0mREaAZfJhPIx4sAhRqiTrirtjxrj8kAKcCYVk
+ assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+    
+before_build:
+- cmd: nuget restore .\src\Snake.sln
+
+build:
+  project: src\Snake.sln
+  verbosity: minimal
+
+test_script:
+- ps: >-
+    .\src\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -skipautoprops -register:user -target:nunit3-console.exe -register:user "-targetargs:src\Snake.Framework.UnitTests\bin\$env:CONFIGURATION\Snake.Framework.UnitTests.dll " -filter:"+[Snake.Framework]*" -output:opencoverCoverage.xml
+
+- ps: >-
+    .\src\packages\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i opencoverCoverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
+
+artifacts:
+  - path: .\src\Snake.Runners.Console\bin\Release\*.*
+    name: Snake.Runners.Console.zip
