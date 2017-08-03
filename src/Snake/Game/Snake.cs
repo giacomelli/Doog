@@ -25,7 +25,7 @@ namespace Snake.Game
         public void Update()
         {
             // TODO: This user input should be deferred to a command pattern in the case we implement the multiplayer mode.
-            // Besides, this pattern will allow us to easy send commands over network, create a demo mode and even a AI mode.
+            // Besides, this pattern will allow us to easily send commands over network, create a demo mode and even a AI mode.
             HandleUserInput();
 
             Move();
