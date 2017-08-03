@@ -6,7 +6,7 @@ namespace Snake.Runners.Console
 {
     public class GraphicSystem : IGraphicSystem
     {
-        private const char EmptySprite = ' ';
+        private const char EmptySprite = '\0';
         private char[,] m_sprites;
 
         public void Initialize()

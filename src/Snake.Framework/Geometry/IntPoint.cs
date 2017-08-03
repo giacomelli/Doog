@@ -1,5 +1,10 @@
-﻿namespace Snake.Framework.Geometry
+﻿using System;
+
+namespace Snake.Framework.Geometry
 {
+    /// <summary>
+    /// An immutable integer 2D point.
+    /// </summary>
     public struct IntPoint
     {
         private readonly int x;
@@ -25,6 +30,11 @@
             {
                 return y;
             }
+        }
+
+        public double DistanceFrom(IntPoint other)
+        {
+            return Math.Sqrt(Math.Pow(other.x - x, 2) + Math.Pow(other.y - y, 2));
         }
     }
 }

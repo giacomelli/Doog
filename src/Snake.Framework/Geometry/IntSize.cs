@@ -1,5 +1,8 @@
 ﻿namespace Snake.Framework.Geometry
 {
+    /// <summary>
+    /// An immutable integer size.
+    /// </summary>
     public struct IntSize
     {
         private readonly int width;
@@ -24,14 +27,6 @@
             get
             {
                 return height;
-            }
-        }
-
-        public int Area
-        {
-            get
-            {
-                return width * height;
             }
         }
     }

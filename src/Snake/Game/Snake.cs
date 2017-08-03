@@ -80,10 +80,7 @@ namespace Snake.Game
 
         public bool IsOutOfBounds()
         {
-            return head.X <= bounds.Left ||
-                    head.X >= bounds.Right ||
-                    head.Y <= bounds.Top ||
-                    head.Y >= bounds.Bottom;
+            return !bounds.Contains(head.X, head.Y);
         }
 
         public bool IsOverlapped()

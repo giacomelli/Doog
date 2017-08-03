@@ -1,5 +1,8 @@
 ﻿namespace Snake.Framework.Geometry
 {
+    /// <summary>
+    /// An immutable integer rectangle.
+    /// </summary>
     public struct IntRectangle
     {
         private readonly int left;
@@ -45,6 +48,14 @@
             {
                 return bottom;
             }
+        }
+
+        public bool Contains(int x, int y)
+        {
+            return !(x < left ||
+                    x > right ||
+                    y < top ||
+                    y > bottom);
         }
     }
 }
