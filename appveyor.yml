@@ -5,12 +5,6 @@ environment:
   clone_folder: c:\snake
   COVERALLS_REPO_TOKEN:
     secure: 6eJLlLIXj6mm1BzhRfZWP08uHu0mREaAZfJhPIx4sAhRqiTrirtjxrj8kAKcCYVk
- assembly_info:
-  patch: true
-  file: '**\AssemblyInfo.*'
-  assembly_version: '{version}'
-  assembly_file_version: '{version}'
-  assembly_informational_version: '{version}'
     
 before_build:
 - cmd: nuget restore .\src\Snake.sln
