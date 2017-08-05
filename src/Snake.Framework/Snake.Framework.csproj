@@ -39,12 +39,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\IUpdatable.cs" />
+    <Compile Include="ComponentBase.cs" />
     <Compile Include="Geometry\IntPoint.cs" />
+    <Compile Include="Geometry\IntRectangleExtensions.cs" />
     <Compile Include="Geometry\IntRectangle.cs" />
-    <Compile Include="Geometry\IntSize.cs" />
+    <Compile Include="Geometry\TransformComponent.cs" />
+    <Compile Include="Graphics\DrawContext.cs" />
+    <Compile Include="Graphics\ICanvas.cs" />
+    <Compile Include="Graphics\ICanvasExtensions.cs" />
+    <Compile Include="Graphics\IDrawContext.cs" />
     <Compile Include="Graphics\IGraphicSystem.cs" />
+    <Compile Include="Graphics\IDrawable.cs" />
+    <Compile Include="IComponent.cs" />
+    <Compile Include="IWorldContext.cs" />
+    <Compile Include="IWorld.cs" />
+    <Compile Include="Physics\Collision.cs" />
+    <Compile Include="Physics\ICollidable.cs" />
+    <Compile Include="Physics\PhysicSystem.cs" />
+    <Compile Include="Physics\IPhysicSystem.cs" />
+    <Compile Include="World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

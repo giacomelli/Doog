@@ -1,23 +1,53 @@
-﻿namespace Snake.Game
+﻿using System;
+using Snake.Framework;
+using Snake.Framework.Geometry;
+using Snake.Framework.Graphics;
+using Snake.Framework.Physics;
+
+namespace Snake.Game
 {
-    public class SnakeTile
-    {
-        public int X { get; set; }
+	public class SnakeTile : ComponentBase, ICollidable, IDrawable
+	{
+		private Action onCollisionFood;
+		private Action onCollisionTile;
 
-        public int Y { get; set; }
+		public SnakeTile(int x, int y, Action onCollisionFood, Action onCollisionTile)
+		{
+			this.onCollisionFood = onCollisionFood;
+			this.onCollisionTile = onCollisionTile;
 
-        public SnakeTile Next { get; set; }
+			Transform = new TransformComponent
+			{
+				Position = new IntPoint(x, y)
+			};
+		}
 
-        public SnakeTile(int x, int y)
-        {
-            X = x;
-            Y = y;
-        }
+		public SnakeTile Next { get; set; }
 
-        public void CopyPosition(SnakeTile other)
-        {
-            X = other.X;
-            Y = other.Y;
-        }
-    }
+		public TransformComponent Transform { get; private set; }
+
+		public void CopyPosition(SnakeTile other)
+		{
+			Transform.Position = other.Transform.Position;
+		}
+
+		public void Draw(IDrawContext context)
+		{
+			context.Canvas.Draw(Transform, '@');
+		}
+
+		public void OnCollision(Collision collision)
+		{
+			switch (collision.Other.Tag)
+			{
+				case "SnakeTile":
+					onCollisionTile();
+					break;
+
+				case "Food":
+					onCollisionFood();
+					break;
+			}
+		}
+	}
 }

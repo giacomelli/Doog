@@ -2,11 +2,9 @@
 
 namespace Snake.Framework.Graphics
 {
-    public interface IGraphicSystem
+    public interface IGraphicSystem : ICanvas
     {
         void Initialize();
-        IntRectangle Bounds { get; }
-        void Draw(int x, int y, char sprite);
         void Render();
     }
 }

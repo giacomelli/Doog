@@ -1,28 +1,37 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using Snake.Framework;
+using Snake.Framework.Behaviors;
 using Snake.Framework.Graphics;
+using Snake.Framework.Physics;
 
 namespace Snake.Game
 {
     public class SnakeGame : IDisposable
     {
 		private const int MaxSnakes = 1;
-        private IGraphicSystem graphicSystem;
+        private IWorld world;        
         private Snake[] snakes;
         private bool gameOver;
-
         public void Initialize(IGraphicSystem graphicSystem)
         {
-			this.graphicSystem = graphicSystem;
-            this.graphicSystem.Initialize();
-
+			world = new World(graphicSystem, new PhysicSystem());
+			
+            // Create the snakes.
             snakes = new Snake[MaxSnakes];
 
 			for (int i = 0; i < MaxSnakes; i++)
 			{
 				var snake = new Snake();
-				snake.Initialize(0, 10 + i, 20, this.graphicSystem.Bounds);
+				snake.Initialize(0, 10 + i, 6, graphicSystem.Bounds, world);
             	snakes[i] = snake;
+
+                world.AddComponent(snake);
 			}
+
+            // Create the food spawner.
+            world.AddComponent(new FoodSpawner(graphicSystem.Bounds, world));
 
             gameOver = false;
         }
@@ -41,21 +50,13 @@ namespace Snake.Game
 
             if (!gameOver)
             {
-                for (int i = 0; i < MaxSnakes; i++)
-                {
-                    snakes[i].Update();
-                }
+                world.Update();
             }           
         }
 
         public void Draw()
         {
-		    for (int i = 0; i < MaxSnakes; i++)
-            {
-                snakes[i].Draw(graphicSystem);
-            }
-
-            graphicSystem.Render();
+            world.Draw();
         }
 
         private bool disposed = false; // To detect redundant calls
@@ -95,7 +96,7 @@ namespace Snake.Game
                 {
                     var snake = snakes[i];
 
-                    if(snake.IsOutOfBounds() || snake.IsOverlapped())
+                    if(snake.IsOutOfBounds() || snake.Dead)
                     {
                         gameOver = true;
                         break;
