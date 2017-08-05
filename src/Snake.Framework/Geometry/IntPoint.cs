@@ -1,12 +1,17 @@
-﻿using System;
+using System;
+using System.Diagnostics;
 
 namespace Snake.Framework.Geometry
 {
     /// <summary>
     /// An immutable integer 2D point.
     /// </summary>
-    public struct IntPoint
+	[DebuggerDisplay("{X}, {Y}")]
+	public struct IntPoint
     {
+		public static readonly IntPoint Zero = new IntPoint(0, 0);
+		public static readonly IntPoint One = new IntPoint(1, 1);
+
         private readonly int x;
         private readonly int y;
 
@@ -36,5 +41,5 @@ namespace Snake.Framework.Geometry
         {
             return Math.Sqrt(Math.Pow(other.x - x, 2) + Math.Pow(other.y - y, 2));
         }
-    }
+	}
 }
