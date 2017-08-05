@@ -48,6 +48,8 @@
     <Compile Include="Game\SnakeGame.cs" />
     <Compile Include="Game\SnakeTile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Game\Wall.cs" />
+    <Compile Include="Game\WallSpawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
