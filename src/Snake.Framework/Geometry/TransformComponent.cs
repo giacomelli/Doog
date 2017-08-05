@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿using System.Diagnostics;
 
 namespace Snake.Framework.Geometry
 {
+	/// <summary>
+	/// Component used to manipulate the position and size.
+	/// <remarks>
+	/// In the future we can add rotation and scale to it.
+	/// </remarks>
+	/// </summary>
 	[DebuggerDisplay("{BoundingBox}")]
 	public class TransformComponent : ComponentBase
 	{
@@ -31,6 +33,7 @@ namespace Snake.Framework.Geometry
 				RebuildBoundingBox();
 			}
 		}
+
 		public IntPoint Size
 		{
 			get
@@ -42,14 +45,6 @@ namespace Snake.Framework.Geometry
 			{
 				size = value;
 				RebuildBoundingBox();
-			}
-		}
-
-		public IntRectangle BoundingBox
-		{
-			get
-			{
-				return boundingBox;
 			}
 		}
 

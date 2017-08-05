@@ -5,6 +5,9 @@ using Snake.Framework.Physics;
 
 namespace Snake.Framework
 {
+    /// <summary>
+    /// Responsible to control the game loop flow.
+    /// </summary>
     public class World : IWorld
     {
         private IGraphicSystem graphicSystem;

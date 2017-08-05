@@ -39,7 +39,7 @@ namespace Snake.Runners.Console
                     if (sprite != EmptySprite)
                     {
                         underlying.SetCursorPosition(x, y);
-                        underlying.Write(sprite);
+				        underlying.Write(sprite);
 
                         m_sprites[x, y] = EmptySprite;
                     }
