@@ -12,7 +12,9 @@ namespace Snake.Runners.Console
             var sleepTime = (int)Math.Round(1000.0 / fps);
             using (var game = new SnakeGame())
             {
-				game.Initialize(new GraphicSystem());
+				var gfx = new GraphicSystem();
+
+				game.Initialize(gfx, new TextSystem(gfx, "Slant"));
 
                 for (;;)
                 {
