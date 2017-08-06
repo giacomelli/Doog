@@ -7,27 +7,27 @@ using Snake.Framework.Physics;
 
 namespace Snake.Framework.UnitTests.Geometry
 {
-    [TestFixture]
-    public class WorldTest
-    {
+	[TestFixture]
+	public class WorldTest
+	{
 		private IGraphicSystem graphicSystem;
 		private IPhysicSystem physicSystem;
 		private World target;
 
-        [SetUp]
-        public void InitializeTest()
-        {
+		[SetUp]
+		public void InitializeTest()
+		{
 			graphicSystem = MockRepository.GenerateMock<IGraphicSystem>();
 			physicSystem = MockRepository.GenerateMock<IPhysicSystem>();
 			target = new World(graphicSystem, physicSystem);
-        }
+		}
 
 		[Test]
 		public void AddComponent_IUpdatable_Updated()
 		{
-            var updatable1 = MockRepository.GenerateMock<IUpdatable>();
+			var updatable1 = MockRepository.GenerateMock<IUpdatable>();
 			updatable1.Expect(u => u.Update(null)).IgnoreArguments().Repeat.Once();
-            updatable1.Expect(u => u.Enabled).Return(true) ;
+			updatable1.Expect(u => u.Enabled).Return(true);
 
 			var updatable2 = MockRepository.GenerateMock<IUpdatable>();
 			updatable2.Expect(u => u.Update(null)).IgnoreArguments().Repeat.Times(0);
@@ -36,8 +36,8 @@ namespace Snake.Framework.UnitTests.Geometry
 
 			target.AddComponent(updatable1);
 			Assert.AreEqual(1, target.Components.Count);
-			
-            target.AddComponent(updatable2);
+
+			target.AddComponent(updatable2);
 			Assert.AreEqual(2, target.Components.Count);
 
 			target.Update();
@@ -51,7 +51,7 @@ namespace Snake.Framework.UnitTests.Geometry
 		[Test]
 		public void AddComponent_IDrawable_Drawn()
 		{
-            var drawable1 = MockRepository.GenerateMock<IDrawable>();
+			var drawable1 = MockRepository.GenerateMock<IDrawable>();
 			drawable1.Expect(u => u.Draw(null)).IgnoreArguments().Repeat.Once();
 			drawable1.Expect(u => u.Enabled).Return(true);
 
@@ -74,14 +74,14 @@ namespace Snake.Framework.UnitTests.Geometry
 			physicSystem.VerifyAllExpectations();
 		}
 
-        [Test]
-        public void AddComponent_ICollidable_AddedToPhysicsSystem()
+		[Test]
+		public void AddComponent_ICollidable_AddedToPhysicsSystem()
 		{
-            var collidable1 = MockRepository.GenerateMock<ICollidable>();
-	        var collidable2 = MockRepository.GenerateMock<ICollidable>();
-	
+			var collidable1 = MockRepository.GenerateMock<ICollidable>();
+			var collidable2 = MockRepository.GenerateMock<ICollidable>();
+
 			physicSystem.Expect(g => g.Update()).Repeat.Once();
-            physicSystem.Expect(g => g.AddCollidable(null)).IgnoreArguments().Repeat.Times(2);
+			physicSystem.Expect(g => g.AddCollidable(null)).IgnoreArguments().Repeat.Times(2);
 
 			target.AddComponent(collidable1);
 			Assert.AreEqual(1, target.Components.Count);
@@ -96,5 +96,22 @@ namespace Snake.Framework.UnitTests.Geometry
 			graphicSystem.VerifyAllExpectations();
 			physicSystem.VerifyAllExpectations();
 		}
-    }
+
+		[Test]
+		public void RemoveComponent_Component_Disabled()
+		{
+			var collidable1 = MockRepository.GenerateMock<ICollidable>();
+			collidable1.Expect(c => c.Enabled).SetPropertyWithArgument(false);
+
+			var collidable2 = MockRepository.GenerateMock<ICollidable>();
+
+			target.AddComponent(collidable1);
+			target.AddComponent(collidable2);
+
+			target.RemoveComponent(collidable1);
+
+			collidable1.VerifyAllExpectations();
+			collidable2.VerifyAllExpectations();
+		}
+	}
 }

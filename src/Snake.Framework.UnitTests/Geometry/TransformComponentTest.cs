@@ -39,6 +39,8 @@ namespace Snake.Framework.UnitTests.Geometry
 			target.IncrementPosition(-1, -1);
 			target.Size = IntPoint.One;
 			Assert.IsTrue(target.Intersect(new TransformComponent()));
+			Assert.AreEqual(1, target.Size.X);
+			Assert.AreEqual(1, target.Size.Y);
 		}
 	}
 }
