@@ -2,32 +2,37 @@
 using Snake.Framework.Behaviors;
 using Snake.Framework.Graphics;
 using Snake.Framework.Physics;
+using Snake.Framework.Texts;
 
 namespace Snake.Framework
 {
-    public class World : IWorld
-    {
-        private IGraphicSystem graphicSystem;
-        private IDrawContext drawContext;
-        private IList<IUpdatable> updatables;
-        private IList<IDrawable> drawables;
-        private int updatablesCount;
-        private int drawablesCount;
-	
-        public World(IGraphicSystem graphicSystem, IPhysicSystem physicSystem)
-        {            
-            graphicSystem.Initialize();
-            drawContext = new DrawContext(graphicSystem);
-            this.graphicSystem = graphicSystem;
+	public class World : IWorld
+	{
+		private IGraphicSystem graphicSystem;
+		private IDrawContext drawContext;
+		private IList<IUpdatable> updatables;
+		private IList<IDrawable> drawables;
+		private int updatablesCount;
+		private int drawablesCount;
+
+		public World(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
+		{
+			graphicSystem.Initialize();
+			drawContext = new DrawContext(graphicSystem);
+			this.graphicSystem = graphicSystem;
 
 			PhysicSystem = physicSystem;
 
-            Components = new List<IComponent>();
-            updatables = new List<IUpdatable>();
-            drawables = new List<IDrawable>();
-        }
+			textSystem.Initialize();
+			TextSystem = textSystem;
+
+			Components = new List<IComponent>();
+			updatables = new List<IUpdatable>();
+			drawables = new List<IDrawable>();
+		}
 
 		public IPhysicSystem PhysicSystem { get; private set; }
+		public ITextSystem TextSystem { get; private set;}
 
         public IList<IComponent> Components { get; private set; }
 
