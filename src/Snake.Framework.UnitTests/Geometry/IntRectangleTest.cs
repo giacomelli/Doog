@@ -51,5 +51,36 @@ namespace Snake.Framework.UnitTests.Geometry
 			Assert.IsTrue(target.Intersect(new IntRectangle(3, 8, 5, 10)));
 			Assert.IsTrue(target.Intersect(new IntRectangle(6, 11, 7, 12)));
 		}
+
+		[Test]
+		public void GetCenter_NoArgs_CenterPoint()
+		{
+			var target = new IntRectangle(0, 0, 15, 20);
+			var actual = target.GetCenter();
+			Assert.AreEqual(7, actual.X);
+			Assert.AreEqual(10, actual.Y);
+
+			target = new IntRectangle(5, 10, 15, 20);
+			actual = target.GetCenter();
+			Assert.AreEqual(10, actual.X);
+			Assert.AreEqual(15, actual.Y);
+		}
+
+		[Test]
+		public void Scale_Scale_NewRectangleScaled()
+		{
+			var target = new IntRectangle(5, 10, 15, 20);
+			var actual = target.Scale(2);
+			Assert.AreEqual(5, actual.Left);
+			Assert.AreEqual(10, actual.Top);
+			Assert.AreEqual(30, actual.Right);
+			Assert.AreEqual(40, actual.Bottom);
+
+			actual = target.Scale(0.5f);
+			Assert.AreEqual(5, actual.Left);
+			Assert.AreEqual(10, actual.Top);
+			Assert.AreEqual(8, actual.Right);
+			Assert.AreEqual(10, actual.Bottom);
+		}
 	}
 }

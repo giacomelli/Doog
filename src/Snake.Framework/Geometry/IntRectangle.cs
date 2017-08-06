@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 
 namespace Snake.Framework.Geometry
@@ -68,6 +68,18 @@ namespace Snake.Framework.Geometry
 					other.left > right ||
 					other.bottom < top ||
 					 other.top > bottom);
+		}
+
+		public IntPoint GetCenter()
+		{
+			return new IntPoint(
+				left + (right - left) / 2,
+				top + (bottom - top) / 2);
+		}
+
+		public IntRectangle Scale(float scale)
+		{
+			return new IntRectangle(left, top, Convert.ToInt32(right * scale), Convert.ToInt32(bottom * scale));
 		}
 	}
 }
