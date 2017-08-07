@@ -35,11 +35,19 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Geometry\IntRectangleTest.cs" />
     <Compile Include="Geometry\IntPointTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Geometry\TransformComponentTest.cs" />
+    <Compile Include="Geometry\IntRectangleExtensionsTest.cs" />
+    <Compile Include="WorldTest.cs" />
+    <Compile Include="Graphics\CanvasExtensionsTest.cs" />
+    <Compile Include="Physics\PhysicSystemTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -52,6 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Graphics\" />
+    <Folder Include="Physics\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

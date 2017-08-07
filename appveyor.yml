@@ -4,7 +4,7 @@ configuration: Release
 environment:
   clone_folder: c:\snake
   COVERALLS_REPO_TOKEN:
-    secure: 6eJLlLIXj6mm1BzhRfZWP08uHu0mREaAZfJhPIx4sAhRqiTrirtjxrj8kAKcCYVk
+    secure: IuPjLlnWW2ybi9qyQ3p6+y1loYFlP7NEJjVjM6czrHU4gruHvpjoiMq39E9rQG2F
     
 before_build:
 - cmd: nuget restore .\src\Snake.sln
