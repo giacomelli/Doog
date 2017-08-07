@@ -1,7 +1,7 @@
 Snake
 ===========
 
-[![Build status](https://ci.appveyor.com/api/projects/status/urkx8eku6gl6wo6f?svg=true)](https://ci.appveyor.com/project/giacomelli/snake) [![Coverage Status](https://coveralls.io/repos/github/adrianoviana87/snake/badge.svg?branch=master)](https://coveralls.io/github/adrianoviana87/snake?branch=master)
+[![Build status](https://ci.appveyor.com/api/projects/status/4ixai1j2xs9pn90q/branch/master?svg=true)](https://ci.appveyor.com/project/giacomelli/snake-mg07x/branch/master) [![Coverage Status](https://coveralls.io/repos/github/giacomelli/snake/badge.svg?branch=master)](https://coveralls.io/github/adrianoviana87/snake?branch=master)
 
 We will use classic game programming patterns in order to create a snake implementation that is agnostic of how its graphics, sounds and inputs are really implemented.
 
