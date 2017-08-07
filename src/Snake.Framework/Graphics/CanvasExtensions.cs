@@ -6,7 +6,10 @@ using Snake.Framework.Geometry;
 
 namespace Snake.Framework.Graphics
 {
-    public static class ICanvasExtensions
+    /// <summary>
+    /// ICanvas extension methods.
+    /// </summary>
+    public static class CanvasExtensions
     {
         public static void Draw(this ICanvas canvas, TransformComponent transform, char sprite)
         {

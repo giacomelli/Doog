@@ -6,20 +6,23 @@ using Snake.Framework.Physics;
 
 namespace Snake.Framework
 {
-	public class World : IWorld
-	{
-		private IGraphicSystem graphicSystem;
-		private IDrawContext drawContext;
-		private IList<IUpdatable> updatables;
-		private IList<IDrawable> drawables;
-		private int updatablesCount;
-		private int drawablesCount;
-
-		public World(IGraphicSystem graphicSystem, IPhysicSystem physicSystem)
-		{
-			graphicSystem.Initialize();
-			drawContext = new DrawContext(graphicSystem);
-			this.graphicSystem = graphicSystem;
+    /// <summary>
+    /// Responsible to control the game loop flow.
+    /// </summary>
+    public class World : IWorld
+    {
+        private IGraphicSystem graphicSystem;
+        private IDrawContext drawContext;
+        private IList<IUpdatable> updatables;
+        private IList<IDrawable> drawables;
+        private int updatablesCount;
+        private int drawablesCount;
+	
+        public World(IGraphicSystem graphicSystem, IPhysicSystem physicSystem)
+        {            
+            graphicSystem.Initialize();
+            drawContext = new DrawContext(graphicSystem);
+            this.graphicSystem = graphicSystem;
 
 			Bounds = graphicSystem.Bounds;
 			PhysicSystem = physicSystem;
