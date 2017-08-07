@@ -10,23 +10,22 @@ using Snake.Framework.Physics;
 
 namespace Snake.Game
 {
-	public class Food : ComponentBase, IDrawable, ICollidable
+	public class Wall : ComponentBase, IDrawable, ICollidable
 	{
-		public Food()
+		public Wall(int x, int y)
 		{
-			Transform = new TransformComponent();
+			Transform = new TransformComponent(x, y);
 		}
 
 		public TransformComponent Transform { get; private set; }
 
 		public void Draw(IDrawContext context)
 		{
-			context.Canvas.Draw(Transform, '$');
+			context.Canvas.Draw(Transform, '#');
 		}
 
 		public void OnCollision(Collision collision)
 		{
-			Enabled = false;
 		}
 	}
 }

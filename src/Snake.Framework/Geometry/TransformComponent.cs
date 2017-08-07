@@ -20,6 +20,12 @@ namespace Snake.Framework.Geometry
 			Size = IntPoint.Zero;
 		}
 
+		public TransformComponent(int x, int y)
+			: this()
+		{
+			Position = new IntPoint(x, y);
+		}
+
 		public IntPoint Position
 		{
 			get

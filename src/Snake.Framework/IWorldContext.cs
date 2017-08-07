@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Snake.Framework.Geometry;
 using Snake.Framework.Physics;
 
 namespace Snake.Framework
@@ -10,5 +11,6 @@ namespace Snake.Framework
         void RemoveComponent(IComponent component);
 
 		IPhysicSystem PhysicSystem { get; }
+		IntRectangle Bounds { get; }
     }
 }
