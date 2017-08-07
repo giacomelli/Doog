@@ -47,7 +47,7 @@
     <Compile Include="Geometry\TransformComponent.cs" />
     <Compile Include="Graphics\DrawContext.cs" />
     <Compile Include="Graphics\ICanvas.cs" />
-    <Compile Include="Graphics\ICanvasExtensions.cs" />
+    <Compile Include="Graphics\CanvasExtensions.cs" />
     <Compile Include="Graphics\IDrawContext.cs" />
     <Compile Include="Graphics\IGraphicSystem.cs" />
     <Compile Include="Graphics\IDrawable.cs" />

@@ -32,6 +32,7 @@ bld/
 /src/Snake.Runners.Unity/Bb]uilds/
 /src/Snake.Runners.Unity/Assets/AssetStoreTools*
 /src/Snake.Runners.Unity/Assets/Scripts/references/
+*.orig
 
 *.pidb.meta
 

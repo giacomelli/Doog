@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Snake.Framework.Physics
 {
+    /// <summary>
+    /// A very basic physic system.
+    /// </summary>
 	public class PhysicSystem : IPhysicSystem
 	{
 		private IList<ICollidable> collidables = new List<ICollidable>();
@@ -33,8 +36,6 @@ namespace Snake.Framework.Physics
 
             FindCollisions((collidable1, collidable2) =>
 			{
-				collidable1.OnCollision(new Collision(collidable1, collidable2));
-				collidable2.OnCollision(new Collision(collidable2, collidable1));
 				result = true;
 				return false;
 			});

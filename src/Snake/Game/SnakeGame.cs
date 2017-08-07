@@ -22,14 +22,18 @@ namespace Snake.Game
 			this.graphicSystem = graphicSystem;
 			world = new World(graphicSystem, new PhysicSystem(), textSystem);
 
+			// Create the walls.
+			var wallSpawner = new WallSpawner();
+			wallSpawner.Spawn(world);
+
 			// Create the snakes.
 			snakes = new Snake[MaxSnakes];
 
 			for (int i = 0; i < MaxSnakes; i++)
 			{
 				var snake = new Snake();
-				snake.Initialize(0, 10 + i, 20, graphicSystem.Bounds, world);
-				snakes[i] = snake;
+				snake.Initialize(0, 10 + i, 6, graphicSystem.Bounds, world);
+            	snakes[i] = snake;
 
 				world.AddComponent(snake);
 			}
@@ -108,7 +112,7 @@ namespace Snake.Game
 				{
 					var snake = snakes[i];
 
-					if (snake.IsOutOfBounds() || snake.Dead)
+					if (snake.Dead)
 					{
 						gameOver = true;
 						break;

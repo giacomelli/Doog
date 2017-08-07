@@ -82,6 +82,7 @@ namespace Snake.Game
 				x,
 				y,
 				() => { EatFood(); },
+				() => { Dead = true; },
 				() => { Dead = true; });
 
 			worldContext.AddComponent(tile);
@@ -101,11 +102,6 @@ namespace Snake.Game
 			tail.Next = temp;
 
 			FoodsEatenCount++;
-		}
-
-		public bool IsOutOfBounds()
-		{
-			return !bounds.Contains(head.Transform.Position.X, head.Transform.Position.Y);
 		}
 
 		private void HandleUserInput()

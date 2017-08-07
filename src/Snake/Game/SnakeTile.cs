@@ -10,11 +10,13 @@ namespace Snake.Game
 	{
 		private Action onCollisionFood;
 		private Action onCollisionTile;
+		private Action onCollisionWall;
 
-		public SnakeTile(int x, int y, Action onCollisionFood, Action onCollisionTile)
+		public SnakeTile(int x, int y, Action onCollisionFood, Action onCollisionTile, Action onCollisionWall)
 		{
 			this.onCollisionFood = onCollisionFood;
 			this.onCollisionTile = onCollisionTile;
+            this.onCollisionWall = onCollisionWall;
 
 			Transform = new TransformComponent
 			{
@@ -42,6 +44,10 @@ namespace Snake.Game
 			{
 				case "SnakeTile":
 					onCollisionTile();
+					break;
+
+				case "Wall":
+					onCollisionWall();
 					break;
 
 				case "Food":
