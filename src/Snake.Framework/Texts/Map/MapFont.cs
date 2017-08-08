@@ -88,7 +88,7 @@ namespace Snake.Framework.Texts.Map
 		{
 			foreach (char c in text.ToUpperInvariant())
 			{
-				x += Draw(x, y, c, processChar) + 1;
+				x += Draw(x, y, c, processChar);
 			}
 		}
 

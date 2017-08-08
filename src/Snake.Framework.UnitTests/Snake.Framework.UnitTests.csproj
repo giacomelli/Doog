@@ -49,6 +49,7 @@
     <Compile Include="WorldTest.cs" />
     <Compile Include="Graphics\CanvasExtensionsTest.cs" />
     <Compile Include="Physics\PhysicSystemTest.cs" />
+    <Compile Include="Texts\Map\MapTextSystemTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -66,6 +67,23 @@
     <Folder Include="Texts\" />
     <Folder Include="Graphics\" />
     <Folder Include="Physics\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Resources\Fonts\" />
+    <Folder Include="Texts\Map\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Avatar.txt">
+      <Link>Resources\Fonts\Avatar.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Big.txt">
+      <Link>Resources\Fonts\Big.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Default.txt">
+      <Link>Resources\Fonts\Default.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
