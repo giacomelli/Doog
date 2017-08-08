@@ -14,7 +14,7 @@ namespace Snake.Framework.Texts
 
 		public static void DrawCenter(this ITextSystem textSystem, int offsetX, int offsetY, string text, IntRectangle bounds, string fontName = null)
 		{
-			var size = textSystem.GetTextSize(text, fontName);
+			var size = textSystem.GetFont(fontName).GetTextSize(text);
 			var boundsCenter = bounds.GetCenter();
 			var x = boundsCenter.X - (size.X / 2);
 			var y = boundsCenter.Y - (size.Y / 2);
@@ -24,7 +24,7 @@ namespace Snake.Framework.Texts
 
 		public static void DrawCenterX(this ITextSystem textSystem, int y, string text, IntRectangle bounds, string fontName = null)
 		{
-			var size = textSystem.GetTextSize(text, fontName);
+			var size = textSystem.GetFont(fontName).GetTextSize(text);
 			var boundsCenter = bounds.GetCenter();
 			var x = boundsCenter.X - (size.X / 2);
 
@@ -33,7 +33,7 @@ namespace Snake.Framework.Texts
 
 		public static void DrawCenterY(this ITextSystem textSystem, int x, string text, IntRectangle bounds, string fontName = null)
 		{
-			var size = textSystem.GetTextSize(text, fontName);
+			var size = textSystem.GetFont(fontName).GetTextSize(text);
 			var boundsCenter = bounds.GetCenter();
 			var y = boundsCenter.Y - (size.Y / 2);
 

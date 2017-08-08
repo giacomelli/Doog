@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Snake.Framework.Texts.Map;
 using Snake.Game;
 
 namespace Snake.Runners.Console
@@ -14,7 +15,7 @@ namespace Snake.Runners.Console
             {
 				var gfx = new GraphicSystem();
 
-				game.Initialize(gfx, new TextSystem(gfx, "Slant"));
+				game.Initialize(gfx, new MapTextSystem(gfx, "Slant"));
 
                 for (;;)
                 {

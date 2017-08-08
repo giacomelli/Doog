@@ -2,27 +2,51 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Snake.Framework.Graphics;
+using Snake.Framework.Geometry;
 
-namespace Snake.Runners.Console
+namespace Snake.Framework.Texts.Map
 {
-	public class Font
+	/// <summary>
+	/// An IFont implementation that use a map (file) to build the texts.
+	/// </summary>
+	/// <remarks>
+	/// To see the map file format, take a look on existing map font files on Resources/Fonts folder.
+	/// </remarks>
+	public class MapFont : IFont
 	{
 		private Dictionary<char, List<string>> charsData = new Dictionary<char, List<string>>();
+		private Dictionary<string, IntPoint> textsSizeCache = new Dictionary<string, IntPoint>();
 
-		private Font()
+
+		private MapFont()
 		{
 		}
 
 		public string Name { get; private set; }
-		public string Url { get; private set; }
-		public int Width { get; private set; }
-		public int Height { get; private set; }
+		public IntPoint Size { get; private set; }
 
-		public static Font LoadFromFile(string fileName)
+		public IntPoint GetTextSize(string text)
 		{
-			var font = new Font();
-			var content = File.ReadLines(fileName).ToArray();
+			if (!textsSizeCache.ContainsKey(text))
+			{
+				var x = 0;
+
+				Process(
+					0,
+					0,
+					text,
+					(cx, cy, c) => { x = cx; });
+
+				textsSizeCache.Add(text, new IntPoint(x, Size.Y));
+			}
+
+			return textsSizeCache[text];
+		}
+
+		public static MapFont LoadFromFile(string fileName)
+		{
+			var font = new MapFont();
+			var content = File.ReadAllLines(fileName).ToArray();
 			var currentChar = '!';
 			var currentCharData = new List<string>();
 
@@ -32,20 +56,20 @@ namespace Snake.Runners.Console
 			// Width:
 			// Height:
 			font.Name = ReadMetadata(content, 0);
-			font.Url = ReadMetadata(content, 1);
-			font.Width = Convert.ToInt32(ReadMetadata(content, 2));
-			font.Height = Convert.ToInt32(ReadMetadata(content, 3));
+			font.Size = new IntPoint(
+				Convert.ToInt32(ReadMetadata(content, 2)),
+				Convert.ToInt32(ReadMetadata(content, 3)));
 
 			var currentCharReadLines = 0;
 
 			// Space.
-			font.charsData.Add(' ', new List<string> { string.Empty.PadRight(font.Width, ' ') });
+			font.charsData.Add(' ', new List<string> { string.Empty.PadRight(font.Size.X, ' ') });
 
 			for (int i = 4; i < content.Length; i++)
 			{
 				var line = content[i].TrimEnd();
 
-				if (currentCharReadLines == font.Height)
+				if (currentCharReadLines == font.Size.Y)
 				{
 					font.charsData.Add(currentChar, currentCharData);
 					currentChar++;
@@ -91,7 +115,7 @@ namespace Snake.Runners.Console
 					}
 				}
 			}
-		
+
 			return longestLine;
 		}
 

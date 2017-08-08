@@ -62,10 +62,26 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Texts\ITextSystem.cs" />
     <Compile Include="Texts\TextSystemExtensions.cs" />
+    <Compile Include="Texts\Map\MapFont.cs" />
+    <Compile Include="Texts\Map\MapTextSystem.cs" />
+    <Compile Include="Texts\IFont.cs" />
+    <Compile Include="Texts\StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Folder Include="Texts\" />
+    <Folder Include="Texts\Map\" />
+    <Folder Include="Texts\Map\Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Texts\Map\Resources\Fonts\Default.txt" />
+    <Content Include="Texts\Map\Resources\Fonts\Slant.txt" />
+    <Content Include="Texts\Map\Resources\Fonts\Avatar.txt" />
+    <Content Include="Texts\Map\Resources\Fonts\Big.txt" />
+    <Content Include="Texts\Map\Resources\Fonts\Blocks.txt" />
+    <Content Include="Texts\Map\Resources\Fonts\Doom.txt" />
+    <Content Include="Texts\Map\Resources\Fonts\Graceful.txt" />
+    <Content Include="Texts\Map\Resources\Fonts\Modular.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
