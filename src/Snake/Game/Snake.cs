@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Snake.Framework;
 using Snake.Framework.Behaviors;
 using Snake.Framework.Geometry;
@@ -22,6 +22,7 @@ namespace Snake.Game
 		private IWorldContext worldContext;
 
 		public bool Dead { get; set; }
+		public int FoodsEatenCount { get; private set; }
 
 		public void Initialize(int x, int y, int length, IntRectangle bounds, IWorldContext worldContext)
 		{
@@ -99,6 +100,8 @@ namespace Snake.Game
 				tail.Transform.Position.Y + (tail.Transform.Position.Y - next.Transform.Position.Y));
 
 			tail.Next = temp;
+
+			FoodsEatenCount++;
 		}
 
 		private void HandleUserInput()

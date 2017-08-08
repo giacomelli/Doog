@@ -3,6 +3,7 @@ using Snake.Framework.Behaviors;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 using Snake.Framework.Physics;
+using Snake.Framework.Texts;
 
 namespace Snake.Framework
 {
@@ -18,7 +19,7 @@ namespace Snake.Framework
         private int updatablesCount;
         private int drawablesCount;
 	
-        public World(IGraphicSystem graphicSystem, IPhysicSystem physicSystem)
+        public World(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
         {            
             graphicSystem.Initialize();
             drawContext = new DrawContext(graphicSystem);
@@ -26,6 +27,9 @@ namespace Snake.Framework
 
 			Bounds = graphicSystem.Bounds;
 			PhysicSystem = physicSystem;
+
+			textSystem.Initialize();
+			TextSystem = textSystem;
 
 			Components = new List<IComponent>();
 			updatables = new List<IUpdatable>();
@@ -35,6 +39,7 @@ namespace Snake.Framework
 		public IntRectangle Bounds { get; private set; }
 
 		public IPhysicSystem PhysicSystem { get; private set; }
+		public ITextSystem TextSystem { get; private set;}
 
 		public IList<IComponent> Components { get; private set; }
 

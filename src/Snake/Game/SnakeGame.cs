@@ -5,6 +5,7 @@ using Snake.Framework;
 using Snake.Framework.Behaviors;
 using Snake.Framework.Graphics;
 using Snake.Framework.Physics;
+using Snake.Framework.Texts;
 
 namespace Snake.Game
 {
@@ -14,9 +15,12 @@ namespace Snake.Game
 		private IWorld world;
 		private Snake[] snakes;
 		private bool gameOver;
-		public void Initialize(IGraphicSystem graphicSystem)
+		private IGraphicSystem graphicSystem;
+
+		public void Initialize(IGraphicSystem graphicSystem, ITextSystem textSystem)
 		{
-			world = new World(graphicSystem, new PhysicSystem());
+			this.graphicSystem = graphicSystem;
+			world = new World(graphicSystem, new PhysicSystem(), textSystem);
 
 			// Create the walls.
 			var wallSpawner = new WallSpawner();
@@ -29,7 +33,7 @@ namespace Snake.Game
 			{
 				var snake = new Snake();
 				snake.Initialize(0, 10 + i, 6, graphicSystem.Bounds, world);
-				snakes[i] = snake;
+            	snakes[i] = snake;
 
 				world.AddComponent(snake);
 			}
@@ -52,8 +56,16 @@ namespace Snake.Game
 		{
 			CheckGameOver();
 
-			if (!gameOver)
+			if (gameOver)
 			{
+				world.TextSystem.DrawCenter("Game over", graphicSystem.Bounds);
+				world.TextSystem.DrawCenter(0, 7, "Score: "+  snakes[0].FoodsEatenCount, graphicSystem.Bounds, "Default");
+			}
+			else
+			{
+				world.TextSystem.DrawCenterX(1, "Doog's Snake", graphicSystem.Bounds);
+				world.TextSystem.DrawCenterX(7, "Score: "+  snakes[0].FoodsEatenCount, graphicSystem.Bounds, "Default");
+
 				world.Update();
 			}
 		}

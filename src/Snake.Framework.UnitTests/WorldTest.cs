@@ -4,6 +4,7 @@ using Snake.Framework.Behaviors;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 using Snake.Framework.Physics;
+using Snake.Framework.Texts;
 
 namespace Snake.Framework.UnitTests.Geometry
 {
@@ -19,7 +20,7 @@ namespace Snake.Framework.UnitTests.Geometry
 		{
 			graphicSystem = MockRepository.GenerateMock<IGraphicSystem>();
 			physicSystem = MockRepository.GenerateMock<IPhysicSystem>();
-			target = new World(graphicSystem, physicSystem);
+			target = new World(graphicSystem, physicSystem, MockRepository.GenerateMock<ITextSystem>());
 		}
 
 		[Test]

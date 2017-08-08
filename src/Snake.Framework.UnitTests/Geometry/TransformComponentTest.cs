@@ -9,7 +9,7 @@ namespace Snake.Framework.UnitTests.Geometry
 		[Test]
 		public void IncrementPosition_XAndY_PositionChanged()
 		{
-			var target = new TransformComponent();
+			var target = new TransformComponent(0, 0);
 
 			target.IncrementPosition(1, -1);
 			Assert.AreEqual(1, target.Position.X);
