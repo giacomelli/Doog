@@ -36,8 +36,13 @@ namespace Snake.Framework.Physics
 
             FindCollisions((collidable1, collidable2) =>
 			{
-				result = true;
-				return false;
+				if (collidable == collidable1 || collidable == collidable2)
+				{
+					result = true;
+					return false;
+				}
+
+				return true;
 			});
 
 			return result;
