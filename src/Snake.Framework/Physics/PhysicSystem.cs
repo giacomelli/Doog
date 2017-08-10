@@ -17,6 +17,11 @@ namespace Snake.Framework.Physics
 			collidables.Add(collidable);
 		}
 
+		public void RemoveCollidable(ICollidable collidable)
+		{
+			collidables.Remove(collidable);
+		}
+
 		public IList<Collision> GetCollisions(ICollidable collidable)
 		{
 			var collisions = new List<Collision>();

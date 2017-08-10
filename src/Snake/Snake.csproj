@@ -50,6 +50,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Game\Wall.cs" />
     <Compile Include="Game\WallSpawner.cs" />
+    <Compile Include="Game\Scenes\ClassicModeLevelScene.cs" />
+    <Compile Include="Game\Scenes\GameOverScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -63,6 +65,7 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Resources\Fonts\" />
+    <Folder Include="Game\Scenes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Default.txt">
@@ -71,6 +74,10 @@
     </Content>
     <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Slant.txt">
       <Link>Resources\Fonts\Slant.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Debug.txt">
+      <Link>Resources\Fonts\Debug.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

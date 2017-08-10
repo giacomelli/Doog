@@ -20,7 +20,9 @@ namespace Snake.Framework.UnitTests.Geometry
 		{
 			graphicSystem = MockRepository.GenerateMock<IGraphicSystem>();
 			physicSystem = MockRepository.GenerateMock<IPhysicSystem>();
-			target = new World(graphicSystem, physicSystem, MockRepository.GenerateMock<ITextSystem>());
+			var textSystem = MockRepository.GenerateMock<ITextSystem>();
+			textSystem.Expect(t => t.GetFont(null)).IgnoreArguments().Return(MockRepository.GenerateMock<IFont>());
+			target = new World(graphicSystem, physicSystem, textSystem);
 		}
 
 		[Test]
