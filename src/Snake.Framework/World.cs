@@ -20,7 +20,8 @@ namespace Snake.Framework
 		private int updatablesCount;
 		private int drawablesCount;
 		private IList<IComponent> componentsToRemove;
-	
+		private IScene pendingSceneToOpen;
+
 		public World(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
 		{
 			CurrentScene = new NullScene();
@@ -88,32 +89,44 @@ namespace Snake.Framework
 
 		public void OpenScene(IScene scene)
 		{
-			// Call new scene initialization, in this moment the scene decide which components will be kept
-			// on world and wich objects will be removed.
-			scene.Initialize(this);
+			pendingSceneToOpen = scene;
+		}
 
-			// Remove the scene survivors from components to remove.
-			var sceneSurvivables = componentsToRemove.Where(c => (c is ISceneSurvivable) && ((ISceneSurvivable)c).CanSurvive(CurrentScene, scene));
-			sceneSurvivables.EnableAll();
-			componentsToRemove = componentsToRemove.Except(sceneSurvivables).ToList();
-
-			// Remove the components selected by the scene to be removed from world.
-			foreach (var c in componentsToRemove)
+		private void OpenSceneIfPending()
+		{
+			if (pendingSceneToOpen != null)
 			{
-				Components.Remove(c as IComponent);
-				updatables.Remove(c as IUpdatable);
-				drawables.Remove(c as IDrawable);
-				PhysicSystem.RemoveCollidable(c as ICollidable);
+				// Call new scene initialization, in this moment the scene decide which components will be kept
+				// on world and wich objects will be removed.
+				pendingSceneToOpen.Initialize(this);
+
+				// Remove the scene survivors from components to remove.
+				var sceneSurvivables = componentsToRemove
+					.Where(c => (c is ISceneSurvivable) && ((ISceneSurvivable)c).CanSurvive(CurrentScene, pendingSceneToOpen));
+				sceneSurvivables.EnableAll();
+				componentsToRemove = componentsToRemove.Except(sceneSurvivables).ToList();
+
+				// Remove the components selected by the scene to be removed from world.
+				foreach (var c in componentsToRemove)
+				{
+					Components.Remove(c as IComponent);
+					updatables.Remove(c as IUpdatable);
+					drawables.Remove(c as IDrawable);
+					PhysicSystem.RemoveCollidable(c as ICollidable);
+				}
+
+				componentsToRemove.Clear();
+
+				// Change the current world scene.
+				CurrentScene = pendingSceneToOpen;
+
+				pendingSceneToOpen = null;
 			}
-
-			componentsToRemove.Clear();
-
-			// Change the current world scene.
-			CurrentScene = scene;
 		}
 
 		public void Update()
 		{
+			OpenSceneIfPending();
 			CurrentScene.Update(this);
 
 			updatablesCount = updatables.Count;
