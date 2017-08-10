@@ -4,12 +4,15 @@ using System.Linq;
 
 namespace Snake.Framework
 {
+    /// <summary>
+    /// Component extension methods.
+    /// </summary>
 	public static class ComponentExtensions
 	{
 		public static IEnumerable<TComponent> Get<TComponent>(this IEnumerable<IComponent> components)
 			where TComponent : IComponent
 		{
-			return components.Where(c => c.GetType() == typeof(TComponent)).Cast<TComponent>();
+			return components.Where(c => c is TComponent).Cast<TComponent>();
 		}
 
 		public static IEnumerable<IComponent> GetWithTag(this IEnumerable<IComponent> components, string tag)
