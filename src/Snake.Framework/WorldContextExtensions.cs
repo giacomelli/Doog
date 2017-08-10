@@ -1,7 +1,8 @@
-using System;
-
 namespace Snake.Framework
 {
+    /// <summary>
+    /// World context extension methods.
+    /// </summary>
 	public static class WorldContextExtensions
 	{
 		public static void RemoveComponentsWithoutTag(this IWorldContext worldContext, string tag)
