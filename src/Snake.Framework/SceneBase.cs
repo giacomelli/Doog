@@ -5,7 +5,7 @@ namespace Snake.Framework
 {
 	public abstract class SceneBase : ComponentBase, IScene
 	{
-		public virtual void Initialize(IWorld world)
+		public virtual void Initialize(IWorldContext worldContext)
 		{
 		}
 

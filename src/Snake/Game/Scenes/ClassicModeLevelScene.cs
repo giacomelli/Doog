@@ -8,14 +8,14 @@ namespace Snake.Game.Scenes
 		private Snake[] snakes;
 		private bool gameOver;
 
-		public override void Initialize(IWorld world)
+		public override void Initialize(IWorldContext worldContext)
 		{
-			world.RemoveAllComponents();
-			var bounds = world.GraphicSystem.Bounds;
+			worldContext.RemoveAllComponents();
+			var bounds = worldContext.GraphicSystem.Bounds;
 
 			// Create the walls.
 			var wallSpawner = new WallSpawner();
-			wallSpawner.Spawn(world);
+			wallSpawner.Spawn(worldContext);
 
 			// Create the snakes.
 			snakes = new Snake[MaxSnakes];
@@ -23,14 +23,14 @@ namespace Snake.Game.Scenes
 			for (int i = 0; i < MaxSnakes; i++)
 			{
 				var snake = new Snake();
-				snake.Initialize(0, 10 + i, 6, bounds, world);
+				snake.Initialize(0, 10 + i, 6, bounds, worldContext);
 				snakes[i] = snake;
 
-				world.AddComponent(snake);
+				worldContext.AddComponent(snake);
 			}
 
 			// Create the food spawner.
-			world.AddComponent(new FoodSpawner(bounds, world));
+			worldContext.AddComponent(new FoodSpawner(bounds, worldContext));
 
 			gameOver = false;
 		}

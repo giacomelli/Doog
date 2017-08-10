@@ -6,6 +6,6 @@ namespace Snake.Framework
 {
 	public interface IScene : IUpdatable, IDrawable
 	{
-		void Initialize(IWorld world);
+		void Initialize(IWorldContext worldContext);
 	}
 }

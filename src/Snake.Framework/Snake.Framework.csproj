@@ -70,7 +70,7 @@
     <Compile Include="NullScene.cs" />
     <Compile Include="SceneBase.cs" />
     <Compile Include="ComponentExtensions.cs" />
-    <Compile Include="WorldExtensions.cs" />
+    <Compile Include="WorldContextExtensions.cs" />
     <Compile Include="Diagnostics\WorldStatsConsole.cs" />
     <Compile Include="Behaviors\ISceneSurvivable.cs" />
     <Compile Include="Diagnostics\Debug.cs" />

@@ -9,12 +9,12 @@ namespace Snake.Game.Scenes
 	{
 		private int foodEatenCount;
 
-		public override void Initialize(IWorld world)
+		public override void Initialize(IWorldContext worldContext)
 		{
-			var snakes = world.Components.Get<Snake>();
+			var snakes = worldContext.Components.Get<Snake>();
 			foodEatenCount = snakes.First().FoodsEatenCount;
 
-			world.RemoveComponentsWithoutTag("Wall");
+			worldContext.RemoveComponentsWithoutTag("Wall");
 		}
 
 		public override void Update(IWorldContext context)
