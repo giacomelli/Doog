@@ -69,6 +69,7 @@
     <Compile Include="Diagnostics\DebugTest.cs" />
     <Compile Include="Diagnostics\WorldStatsConsoleTest.cs" />
     <Compile Include="ComponentExtensionsTest.cs" />
+    <Compile Include="SceneBaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

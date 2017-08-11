@@ -1,5 +1,4 @@
-﻿using System;
-using Snake.Framework.Graphics;
+﻿ using Snake.Framework.Graphics;
 
 namespace Snake.Framework
 {
@@ -14,12 +13,10 @@ namespace Snake.Framework
 
 		public virtual void Draw(IDrawContext context)
 		{
-			
-		}
+  		}
 
 		public virtual void Update(IWorldContext context)
-		{
-			
+		{	
 		}
 	}
 }

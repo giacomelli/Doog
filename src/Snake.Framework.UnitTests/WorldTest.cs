@@ -128,7 +128,7 @@ namespace Snake.Framework.UnitTests
 			target.AddComponent(oldComponent2);
 			target.AddComponent(oldComponent3);
 
-			var scene = MockRepository.GenerateMock<SceneBase>();
+			var scene = MockRepository.GenerateMock<IScene>();
 			var newComponent1 = MockRepository.GenerateMock<IUpdatable>();
 			newComponent1.Expect(c => c.Enabled).Return(true);
 			newComponent1.Expect(c => c.Update(target));

@@ -14,7 +14,11 @@ namespace Snake.Framework.UnitTests.Diagnostics
         {
             var target = new WorldStatsConsole(10, 20);
             var ctx = MockRepository.GenerateMock<IWorldContext>();
-            ctx.Expect(c => c.Components).Return(new IComponent[0]);
+            ctx.Expect(c => c.Components).Return(new IComponent[]
+            {
+                MockRepository.GenerateMock<IComponent>(),
+                MockRepository.GenerateMock<IComponent>()
+            });
             ctx.Expect(c => c.TextSystem).Return(MockRepository.GenerateMock<ITextSystem>());
 
             target.Update((ctx));
