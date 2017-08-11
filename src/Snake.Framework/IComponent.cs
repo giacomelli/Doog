@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Snake.Framework
+﻿namespace Snake.Framework
 {
+    /// <summary>
+    /// Define an interface for components.
+    /// </summary>
     public interface IComponent
     {
         bool Enabled { get; set; }
