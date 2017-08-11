@@ -38,6 +38,21 @@
     <Reference Include="Rhino.Mocks">
       <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>..\packages\Smocks.0.7.3\lib\net45\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb">
+      <HintPath>..\packages\Smocks.0.7.3\lib\net45\Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb">
+      <HintPath>..\packages\Smocks.0.7.3\lib\net45\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks">
+      <HintPath>..\packages\Smocks.0.7.3\lib\net45\Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="Smocks">
+      <HintPath>..\packages\Smocks.0.7.3\lib\net45\Smocks.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Geometry\IntRectangleTest.cs" />
@@ -50,6 +65,11 @@
     <Compile Include="Graphics\CanvasExtensionsTest.cs" />
     <Compile Include="Physics\PhysicSystemTest.cs" />
     <Compile Include="Texts\Map\MapTextSystemTest.cs" />
+    <Compile Include="WorldContextExtensionsTest.cs" />
+    <Compile Include="Diagnostics\DebugTest.cs" />
+    <Compile Include="Diagnostics\WorldStatsConsoleTest.cs" />
+    <Compile Include="ComponentExtensionsTest.cs" />
+    <Compile Include="SceneBaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -70,6 +90,7 @@
     <Folder Include="Resources\" />
     <Folder Include="Resources\Fonts\" />
     <Folder Include="Texts\Map\" />
+    <Folder Include="Diagnostics\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Avatar.txt">

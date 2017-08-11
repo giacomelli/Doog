@@ -1,43 +1,41 @@
 ﻿using Snake.Framework.Geometry;
+using Snake.Framework.Texts;
 
-namespace Snake.Framework.Texts
+/// <summary>
+/// ITextSystem extension methods.
+/// </summary>
+public static class TextSystemExtensions
 {
-	/// <summary>
-	/// ITextSystem extension methods.
-	/// </summary>
-	public static class TextSystemExtensions
+	public static void DrawCenter(this ITextSystem textSystem, string text, IntRectangle bounds, string fontName = null)
 	{
-		public static void DrawCenter(this ITextSystem textSystem, string text, IntRectangle bounds, string fontName = null)
-		{
-			DrawCenter(textSystem, 0, 0, text, bounds, fontName);
-		}
+		DrawCenter(textSystem, 0, 0, text, bounds, fontName);
+	}
 
-		public static void DrawCenter(this ITextSystem textSystem, int offsetX, int offsetY, string text, IntRectangle bounds, string fontName = null)
-		{
-			var size = textSystem.GetFont(fontName).GetTextSize(text);
-			var boundsCenter = bounds.GetCenter();
-			var x = boundsCenter.X - (size.X / 2);
-			var y = boundsCenter.Y - (size.Y / 2);
+	public static void DrawCenter(this ITextSystem textSystem, int offsetX, int offsetY, string text, IntRectangle bounds, string fontName = null)
+	{
+		var size = textSystem.GetFont(fontName).GetTextSize(text);
+		var boundsCenter = bounds.GetCenter();
+		var x = boundsCenter.X - (size.X / 2);
+		var y = boundsCenter.Y - (size.Y / 2);
 
-			textSystem.Draw(x + offsetX, y + offsetY, text, fontName);
-		}
+		textSystem.Draw(x + offsetX, y + offsetY, text, fontName);
+	}
 
-		public static void DrawCenterX(this ITextSystem textSystem, int y, string text, IntRectangle bounds, string fontName = null)
-		{
-			var size = textSystem.GetFont(fontName).GetTextSize(text);
-			var boundsCenter = bounds.GetCenter();
-			var x = boundsCenter.X - (size.X / 2);
+	public static void DrawCenterX(this ITextSystem textSystem, int y, string text, IntRectangle bounds, string fontName = null)
+	{
+		var size = textSystem.GetFont(fontName).GetTextSize(text);
+		var boundsCenter = bounds.GetCenter();
+		var x = boundsCenter.X - (size.X / 2);
 
-			textSystem.Draw(x, y, text, fontName);
-		}
+		textSystem.Draw(x, y, text, fontName);
+	}
 
-		public static void DrawCenterY(this ITextSystem textSystem, int x, string text, IntRectangle bounds, string fontName = null)
-		{
-			var size = textSystem.GetFont(fontName).GetTextSize(text);
-			var boundsCenter = bounds.GetCenter();
-			var y = boundsCenter.Y - (size.Y / 2);
+	public static void DrawCenterY(this ITextSystem textSystem, int x, string text, IntRectangle bounds, string fontName = null)
+	{
+		var size = textSystem.GetFont(fontName).GetTextSize(text);
+		var boundsCenter = bounds.GetCenter();
+		var y = boundsCenter.Y - (size.Y / 2);
 
-			textSystem.Draw(x, y, text, fontName);
-		}
+		textSystem.Draw(x, y, text, fontName);
 	}
 }

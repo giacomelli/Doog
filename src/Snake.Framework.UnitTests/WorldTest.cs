@@ -6,7 +6,7 @@ using Snake.Framework.Graphics;
 using Snake.Framework.Physics;
 using Snake.Framework.Texts;
 
-namespace Snake.Framework.UnitTests.Geometry
+namespace Snake.Framework.UnitTests
 {
 	[TestFixture]
 	public class WorldTest
@@ -20,7 +20,9 @@ namespace Snake.Framework.UnitTests.Geometry
 		{
 			graphicSystem = MockRepository.GenerateMock<IGraphicSystem>();
 			physicSystem = MockRepository.GenerateMock<IPhysicSystem>();
-			target = new World(graphicSystem, physicSystem, MockRepository.GenerateMock<ITextSystem>());
+			var textSystem = MockRepository.GenerateMock<ITextSystem>();
+			textSystem.Expect(t => t.GetFont(null)).IgnoreArguments().Return(MockRepository.GenerateMock<IFont>());
+			target = new World(graphicSystem, physicSystem, textSystem);
 		}
 
 		[Test]
@@ -113,6 +115,96 @@ namespace Snake.Framework.UnitTests.Geometry
 
 			collidable1.VerifyAllExpectations();
 			collidable2.VerifyAllExpectations();
+		}
+
+		[Test]
+		public void OpenScene_FirstScene_OnlyNewSceneComponents()
+		{
+			var oldComponent1 = MockRepository.GenerateMock<IUpdatable>();
+			var oldComponent2 = MockRepository.GenerateMock<IDrawable>();
+			var oldComponent3 = MockRepository.GenerateMock<ICollidable>();
+
+			target.AddComponent(oldComponent1);
+			target.AddComponent(oldComponent2);
+			target.AddComponent(oldComponent3);
+
+			var scene = MockRepository.GenerateMock<IScene>();
+			var newComponent1 = MockRepository.GenerateMock<IUpdatable>();
+			newComponent1.Expect(c => c.Enabled).Return(true);
+			newComponent1.Expect(c => c.Update(target));
+
+			var newComponent2 = MockRepository.GenerateMock<IDrawable>();
+			newComponent2.Expect(c => c.Enabled).Return(true);
+			newComponent2.Expect(c => c.Draw(null)).IgnoreArguments();
+
+			var newComponent3 = MockRepository.GenerateMock<ICollidable>();
+
+			scene.Expect(s => s.Initialize(target)).WhenCalled((m) =>
+			{
+				var ctx = m.Arguments[0] as IWorldContext;
+
+				ctx.RemoveAllComponents();
+				ctx.AddComponent(newComponent1);
+				ctx.AddComponent(newComponent2);
+				ctx.AddComponent(newComponent3);
+			});
+			scene.Expect(s => s.Update(null)).IgnoreArguments();
+			scene.Expect(s => s.Draw(null)).IgnoreArguments();
+
+			target.OpenScene(scene);
+			Assert.AreEqual(3, target.Components.Count);
+
+			physicSystem.Expect(p => p.Update());
+			target.Update();
+			target.Draw();
+
+			oldComponent1.VerifyAllExpectations();
+			oldComponent2.VerifyAllExpectations();
+			oldComponent3.VerifyAllExpectations();
+
+			newComponent1.VerifyAllExpectations();
+			newComponent2.VerifyAllExpectations();
+			newComponent3.VerifyAllExpectations();
+			physicSystem.VerifyAllExpectations();
+		}
+
+		[Test]
+		public void OpenScene_FromIUpdatable_OpenScenesIsDeferedToBeginOfNextUpdateCycle()
+		{
+			var oldComponent1 = MockRepository.GenerateMock<IUpdatable>();
+			oldComponent1.Expect(c => c.Enabled).Return(true);
+			oldComponent1.Expect(c => c.Update(target));
+
+			var oldComponent2 = MockRepository.GenerateMock<IUpdatable>();
+			oldComponent2.Expect(c => c.Enabled).Return(true);
+		
+			var scene = MockRepository.GenerateMock<IScene>();
+
+			oldComponent2.Expect(c => c.Update(null)).IgnoreArguments().WhenCalled(m =>
+			{
+				((IWorldContext)m.Arguments[0]).OpenScene(scene);
+			});
+
+			var oldComponent3 = MockRepository.GenerateMock<IUpdatable>();
+			oldComponent3.Expect(c => c.Enabled).Return(true);
+			oldComponent3.Expect(c => c.Update(target));
+
+			target.AddComponent(oldComponent1);
+			target.AddComponent(oldComponent2);
+			target.AddComponent(oldComponent3);
+
+			target.Update();
+			Assert.AreEqual(typeof(NullScene), target.CurrentScene.GetType());
+	
+			// Now scene should be opened.
+			scene.Expect(s => s.Initialize(target));
+			target.Update();
+			Assert.AreSame(scene, target.CurrentScene);
+			scene.VerifyAllExpectations();
+
+			oldComponent1.VerifyAllExpectations();
+			oldComponent2.VerifyAllExpectations();
+			oldComponent3.VerifyAllExpectations();
 		}
 	}
 }

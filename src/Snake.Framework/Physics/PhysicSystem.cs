@@ -17,6 +17,11 @@ namespace Snake.Framework.Physics
 			collidables.Add(collidable);
 		}
 
+		public void RemoveCollidable(ICollidable collidable)
+		{
+			collidables.Remove(collidable);
+		}
+
 		public IList<Collision> GetCollisions(ICollidable collidable)
 		{
 			var collisions = new List<Collision>();
@@ -36,8 +41,13 @@ namespace Snake.Framework.Physics
 
             FindCollisions((collidable1, collidable2) =>
 			{
-				result = true;
-				return false;
+				if (collidable == collidable1 || collidable == collidable2)
+				{
+					result = true;
+					return false;
+				}
+
+				return true;
 			});
 
 			return result;

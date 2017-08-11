@@ -8,11 +8,6 @@ namespace Snake.Game
 {
 	public class Snake : ComponentBase, IUpdatable
 	{
-		void HandleAction()
-		{
-
-		}
-
 		private SnakeTile head;
 		private SnakeTile tail;
 		private int movingSpeed;
