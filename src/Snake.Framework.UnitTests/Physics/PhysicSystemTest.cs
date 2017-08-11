@@ -1,12 +1,11 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Rhino.Mocks;
 using Snake.Framework.Geometry;
 using Snake.Framework.Physics;
 
 namespace Snake.Framework.UnitTests.Physics
 {
-	[TestFixture]
+    [TestFixture]
 	public class PhysicSystemTest
 	{
 		[Test]
@@ -55,6 +54,11 @@ namespace Snake.Framework.UnitTests.Physics
 			target.AddCollidable(collidable3);
 			Assert.IsTrue(target.AnyCollision(collidable1));
 			Assert.IsTrue(target.AnyCollision(collidable2));
+			Assert.IsFalse(target.AnyCollision(collidable3));
+
+            target.RemoveCollidable(collidable2);
+			Assert.IsFalse(target.AnyCollision(collidable1));
+			Assert.IsFalse(target.AnyCollision(collidable2));
 			Assert.IsFalse(target.AnyCollision(collidable3));
 
 			collidable1.VerifyAllExpectations();
