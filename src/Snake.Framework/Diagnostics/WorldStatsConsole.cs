@@ -11,11 +11,11 @@ namespace Snake.Framework.Diagnostics
 	/// </summary>
 	public class WorldStatsConsole : ComponentBase, IUpdatable, ISceneSurvivable
 	{
-		private readonly IntPoint position;
+		private readonly Point position;
 
-		public WorldStatsConsole(int x, int y)
+		public WorldStatsConsole(float x, float y)
 		{
-			this.position = new IntPoint(x, y);
+			this.position = new Point(x, y);
 		}
 
 		public void Update(IWorldContext context)

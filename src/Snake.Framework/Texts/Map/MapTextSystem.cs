@@ -33,7 +33,7 @@ namespace Snake.Framework.Texts.Map
 			}
 		}
 
-		public void Draw(int x, int y, string text, string fontName = null)
+		public void Draw(float x, float y, string text, string fontName = null)
 		{
 			((MapFont)GetFont(fontName)).Process(
 				x,

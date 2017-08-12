@@ -14,10 +14,10 @@ namespace Snake.Framework.UnitTests
 		{
 			var target = MockRepository.GenerateMock<ITextSystem>();
 			var font = MockRepository.GenerateMock<IFont>();
-			font.Expect(f => f.GetTextSize("Test")).Return(new IntPoint(4, 1));
+			font.Expect(f => f.GetTextSize("Test")).Return(new Point(4, 1));
 			target.Expect(t => t.GetFont("Default")).Return(font);
-			target.Expect(t => t.Draw(13, 150, "Test", "Default"));
-			target.DrawCenter("Test", new IntRectangle(10, 100, 20, 200), "Default");
+			target.Expect(t => t.Draw(13, 149.5f, "Test", "Default"));
+			target.DrawCenter("Test", new Rectangle(10, 100, 20, 200), "Default");
 
 			target.VerifyAllExpectations();
 		}
@@ -27,10 +27,10 @@ namespace Snake.Framework.UnitTests
 		{
 			var target = MockRepository.GenerateMock<ITextSystem>();
 			var font = MockRepository.GenerateMock<IFont>();
-			font.Expect(f => f.GetTextSize("Test")).Return(new IntPoint(4, 1));
+			font.Expect(f => f.GetTextSize("Test")).Return(new Point(4, 1));
 			target.Expect(t => t.GetFont("Default")).Return(font);
-			target.Expect(t => t.Draw(23, 170, "Test", "Default"));
-			target.DrawCenter(10, 20, "Test", new IntRectangle(10, 100, 20, 200), "Default");
+			target.Expect(t => t.Draw(23, 169.5f, "Test", "Default"));
+			target.DrawCenter(10, 20, "Test", new Rectangle(10, 100, 20, 200), "Default");
 
 			target.VerifyAllExpectations();
 		}
@@ -40,10 +40,10 @@ namespace Snake.Framework.UnitTests
 		{
 			var target = MockRepository.GenerateMock<ITextSystem>();
 			var font = MockRepository.GenerateMock<IFont>();
-			font.Expect(f => f.GetTextSize("Test")).Return(new IntPoint(4, 1));
+			font.Expect(f => f.GetTextSize("Test")).Return(new Point(4, 1));
 			target.Expect(t => t.GetFont("Default")).Return(font);
 			target.Expect(t => t.Draw(13, 10, "Test", "Default"));
-			target.DrawCenterX(10, "Test", new IntRectangle(10, 100, 20, 200), "Default");
+			target.DrawCenterX(10, "Test", new Rectangle(10, 100, 20, 200), "Default");
 
 			target.VerifyAllExpectations();
 		}
@@ -53,10 +53,10 @@ namespace Snake.Framework.UnitTests
 		{
 			var target = MockRepository.GenerateMock<ITextSystem>();
 			var font = MockRepository.GenerateMock<IFont>();
-			font.Expect(f => f.GetTextSize("Test")).Return(new IntPoint(4, 1));
+			font.Expect(f => f.GetTextSize("Test")).Return(new Point(4, 1));
 			target.Expect(t => t.GetFont("Default")).Return(font);
-			target.Expect(t => t.Draw(10, 150, "Test", "Default"));
-			target.DrawCenterY(10, "Test", new IntRectangle(10, 100, 20, 200), "Default");
+			target.Expect(t => t.Draw(10, 149.5f, "Test", "Default"));
+			target.DrawCenterY(10, "Test", new Rectangle(10, 100, 20, 200), "Default");
 
 			target.VerifyAllExpectations();
 		}

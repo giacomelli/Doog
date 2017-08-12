@@ -16,7 +16,7 @@ namespace Snake.Framework
 
 		ITextSystem TextSystem { get; }
 
-		IntRectangle Bounds { get; }
+		Rectangle Bounds { get; }
 
         ITime Time { get; }
 

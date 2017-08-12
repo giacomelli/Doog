@@ -8,9 +8,9 @@ namespace Snake.Game
 		{
 			var bounds = context.Bounds;
 
-			for (int x = bounds.Left; x < bounds.Right; x++)
+			for (var x = bounds.Left; x < bounds.Right; x++)
 			{
-				for (int y = bounds.Top; y < bounds.Bottom; y++)
+				for (var y = bounds.Top; y < bounds.Bottom; y++)
 				{
 					if (x == bounds.Left||
 					   x == bounds.Right -1 ||

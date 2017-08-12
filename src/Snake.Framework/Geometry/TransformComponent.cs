@@ -11,22 +11,22 @@ namespace Snake.Framework.Geometry
 	[DebuggerDisplay("{BoundingBox}")]
 	public class TransformComponent : ComponentBase
 	{
-		private IntPoint position;
-		private IntPoint size;
-		private IntRectangle boundingBox;
+		private Point position;
+		private Point size;
+		private Rectangle boundingBox;
 
 		public TransformComponent()
 		{
-			Size = IntPoint.Zero;
+			Size = Point.Zero;
 		}
 
-		public TransformComponent(int x, int y)
+		public TransformComponent(float x, float y)
 			: this()
 		{
-			Position = new IntPoint(x, y);
+			Position = new Point(x, y);
 		}
 
-		public IntPoint Position
+		public Point Position
 		{
 			get
 			{
@@ -40,7 +40,7 @@ namespace Snake.Framework.Geometry
 			}
 		}
 
-		public IntPoint Size
+		public Point Size
 		{
 			get
 			{
@@ -54,9 +54,9 @@ namespace Snake.Framework.Geometry
 			}
 		}
 
-		public void IncrementPosition(int x, int y)
+		public void IncrementPosition(float x, float y)
 		{
-			Position = new IntPoint(position.X + x, position.Y + y);
+			Position = new Point(position.X + x, position.Y + y);
 		}
 
 		public bool Intersect(TransformComponent other)
@@ -66,7 +66,7 @@ namespace Snake.Framework.Geometry
 
 		private void RebuildBoundingBox()
 		{
-			boundingBox = new IntRectangle(position.X, position.Y, position.X + size.X, position.Y + size.Y);
+			boundingBox = new Rectangle(position.X, position.Y, position.X + size.X, position.Y + size.Y);
 		}
 	}
 }

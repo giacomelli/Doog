@@ -4,17 +4,17 @@ using System.Diagnostics;
 namespace Snake.Framework.Geometry
 {
 	/// <summary>
-	/// An immutable integer rectangle.
+	/// An immutable rectangle.
 	/// </summary>
 	[DebuggerDisplay("{Left}, {Top}, {Right}, {Bottom}")]
-	public struct IntRectangle
+	public struct Rectangle
 	{
-		private readonly int left;
-		private readonly int top;
-		private readonly int right;
-		private readonly int bottom;
+		private readonly float left;
+		private readonly float top;
+		private readonly float right;
+		private readonly float bottom;
 
-		public IntRectangle(int left, int top, int right, int bottom)
+		public Rectangle(float left, float top, float right, float bottom)
 		{
 			this.left = left;
 			this.top = top;
@@ -22,7 +22,7 @@ namespace Snake.Framework.Geometry
 			this.bottom = bottom;
 		}
 
-		public int Left
+		public float Left
 		{
 			get
 			{
@@ -30,7 +30,7 @@ namespace Snake.Framework.Geometry
 			}
 		}
 
-		public int Top
+		public float Top
 		{
 			get
 			{
@@ -38,7 +38,7 @@ namespace Snake.Framework.Geometry
 			}
 		}
 
-		public int Right
+		public float Right
 		{
 			get
 			{
@@ -46,7 +46,7 @@ namespace Snake.Framework.Geometry
 			}
 		}
 
-		public int Bottom
+		public float Bottom
 		{
 			get
 			{
@@ -54,7 +54,7 @@ namespace Snake.Framework.Geometry
 			}
 		}
 
-		public bool Contains(int x, int y)
+		public bool Contains(float x, float y)
 		{
 			return !(x < left ||
 					x > right ||
@@ -62,7 +62,7 @@ namespace Snake.Framework.Geometry
 					y > bottom);
 		}
 
-		public bool Intersect(IntRectangle other)
+		public bool Intersect(Rectangle other)
 		{
 			return !(other.right < left ||
 					other.left > right ||
@@ -70,16 +70,16 @@ namespace Snake.Framework.Geometry
 					 other.top > bottom);
 		}
 
-		public IntPoint GetCenter()
+		public Point GetCenter()
 		{
-			return new IntPoint(
+			return new Point(
 				left + (right - left) / 2,
 				top + (bottom - top) / 2);
 		}
 
-		public IntRectangle Scale(float scale)
+		public Rectangle Scale(float scale)
 		{
-			return new IntRectangle(left, top, Convert.ToInt32(right * scale), Convert.ToInt32(bottom * scale));
+			return new Rectangle(left, top, right * scale, bottom * scale);
 		}
 	}
 }

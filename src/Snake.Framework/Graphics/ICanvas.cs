@@ -4,7 +4,7 @@ namespace Snake.Framework.Graphics
 {
     public interface ICanvas
     {
-        IntRectangle Bounds { get; }
-        void Draw(int x, int y, char sprite);
+        Rectangle Bounds { get; }
+        void Draw(float x, float y, char sprite);
     }
 }

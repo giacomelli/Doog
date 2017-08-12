@@ -30,7 +30,7 @@ namespace Snake.Game.Scenes
 			}
 
 			// Create the food spawner.
-			worldContext.AddComponent(new FoodSpawner(bounds, worldContext));
+			worldContext.AddComponent(new FoodSpawner(worldContext));
 
 			gameOver = false;
 		}

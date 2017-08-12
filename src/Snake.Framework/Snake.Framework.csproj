@@ -41,9 +41,9 @@
   <ItemGroup>
     <Compile Include="Behaviors\IUpdatable.cs" />
     <Compile Include="ComponentBase.cs" />
-    <Compile Include="Geometry\IntPoint.cs" />
-    <Compile Include="Geometry\IntRectangleExtensions.cs" />
-    <Compile Include="Geometry\IntRectangle.cs" />
+    <Compile Include="Geometry\Point.cs" />
+    <Compile Include="Geometry\RectangleExtensions.cs" />
+    <Compile Include="Geometry\Rectangle.cs" />
     <Compile Include="Geometry\TransformComponent.cs" />
     <Compile Include="Graphics\DrawContext.cs" />
     <Compile Include="Graphics\ICanvas.cs" />

@@ -47,7 +47,7 @@ namespace Snake.Framework
 
 		public IScene CurrentScene { get; private set; }
 
-		public IntRectangle Bounds { get; private set; }
+		public Rectangle Bounds { get; private set; }
 
         public ITime Time
         {

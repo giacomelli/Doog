@@ -11,12 +11,12 @@ namespace Snake.Game
 {
     public class FoodSpawner : ComponentBase, IUpdatable
     {
-        private IntRectangle bounds;
+        private Rectangle bounds;
         private Food food;
 
-        public FoodSpawner(IntRectangle bounds, IWorldContext context)
+        public FoodSpawner(IWorldContext context)
         {
-            this.bounds = bounds;
+            this.bounds = context.Bounds;
             food = new Food() { Enabled = false };
             context.AddComponent(food);
         }
@@ -27,7 +27,7 @@ namespace Snake.Game
             {
 				do
 				{
-					food.Transform.Position = bounds.RandomIntPoint();
+					food.Transform.Position = bounds.RandomPoint();
 				} while (context.PhysicSystem.AnyCollision(food));
 
                 food.Enabled = true;
