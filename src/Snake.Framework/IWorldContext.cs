@@ -18,6 +18,8 @@ namespace Snake.Framework
 
 		IntRectangle Bounds { get; }
 
+        ITime Time { get; }
+
 		void AddComponent(IComponent component);
 
 		void RemoveComponent(IComponent component);

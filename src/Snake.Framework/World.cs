@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Snake.Framework.Behaviors;
@@ -21,10 +22,12 @@ namespace Snake.Framework
 		private int drawablesCount;
 		private IList<IComponent> componentsToRemove;
 		private IScene pendingSceneToOpen;
+        private Time time;
 
 		public World(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
 		{
-			CurrentScene = new NullScene();
+            time = new Time();
+			pendingSceneToOpen = new NullScene();
 
 			graphicSystem.Initialize();
 			drawContext = new DrawContext(graphicSystem);
@@ -45,6 +48,14 @@ namespace Snake.Framework
 		public IScene CurrentScene { get; private set; }
 
 		public IntRectangle Bounds { get; private set; }
+
+        public ITime Time
+        {
+            get
+            {
+                return time;
+            }
+        }
 
 		public IGraphicSystem GraphicSystem { get; private set; }
 
@@ -92,7 +103,7 @@ namespace Snake.Framework
 			pendingSceneToOpen = scene;
 		}
 
-		private void OpenSceneIfPending()
+		private void OpenSceneIfPending(DateTime now)
 		{
 			if (pendingSceneToOpen != null)
 			{
@@ -121,12 +132,21 @@ namespace Snake.Framework
 				CurrentScene = pendingSceneToOpen;
 
 				pendingSceneToOpen = null;
+
+                // Time.
+                if(Time.SinceGameStart.TotalMilliseconds <= double.Epsilon)
+                {
+                    time.MarkAsGameStarted(now);
+                }
+
+                time.MarkAsSceneStarted(now);
 			}
 		}
 
-		public void Update()
+		public void Update(DateTime now)
 		{
-			OpenSceneIfPending();
+           	OpenSceneIfPending(now);
+			time.Update(now);
 			CurrentScene.Update(this);
 
 			updatablesCount = updatables.Count;

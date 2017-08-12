@@ -20,8 +20,11 @@ namespace Snake.Runners.Console
 
 				for (;;)
 				{
-					game.Update();
+					game.Update(DateTime.Now);
 					game.Draw();
+
+                    // TODO: this should be moved to game loop inside the World class.
+                    // There are samples how to implement it on chapter GAME LOOP.
 					Thread.Sleep(sleepTime);
 				}
 			}

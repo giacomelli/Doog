@@ -74,6 +74,8 @@
     <Compile Include="Diagnostics\WorldStatsConsole.cs" />
     <Compile Include="Behaviors\ISceneSurvivable.cs" />
     <Compile Include="Diagnostics\Debug.cs" />
+    <Compile Include="Time.cs" />
+    <Compile Include="ITime.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

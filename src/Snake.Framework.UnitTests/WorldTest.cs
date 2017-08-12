@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using Rhino.Mocks;
 using Snake.Framework.Behaviors;
 using Snake.Framework.Geometry;
@@ -43,7 +44,7 @@ namespace Snake.Framework.UnitTests
 			target.AddComponent(updatable2);
 			Assert.AreEqual(2, target.Components.Count);
 
-			target.Update();
+			target.Update(DateTime.Now);
 			target.Draw();
 
 			updatable1.VerifyAllExpectations();
@@ -69,7 +70,7 @@ namespace Snake.Framework.UnitTests
 			target.AddComponent(updatable2);
 			Assert.AreEqual(2, target.Components.Count);
 
-			target.Update();
+			target.Update(DateTime.Now);
 			target.Draw();
 
 			drawable1.VerifyAllExpectations();
@@ -92,7 +93,7 @@ namespace Snake.Framework.UnitTests
 			target.AddComponent(collidable2);
 			Assert.AreEqual(2, target.Components.Count);
 
-			target.Update();
+			target.Update(DateTime.Now);
 			target.Draw();
 
 			collidable1.VerifyAllExpectations();
@@ -151,12 +152,38 @@ namespace Snake.Framework.UnitTests
 			scene.Expect(s => s.Update(null)).IgnoreArguments();
 			scene.Expect(s => s.Draw(null)).IgnoreArguments();
 
-			target.OpenScene(scene);
+            // Game not started yet.
+
+            var now = DateTime.Now;
+            Assert.AreEqual(0, target.Time.SinceGameStart.TotalSeconds);
+            Assert.AreEqual(0, target.Time.SinceSceneStart.TotalSeconds);
+
+            // NullScene will be opened and game started.
+			target.Update(now);
+			Assert.AreEqual(0, target.Time.SinceGameStart.TotalSeconds);
+			Assert.AreEqual(0, target.Time.SinceSceneStart.TotalSeconds);
+
+            // It's been 5 seconds since game and scene started.
+			target.Update(now.AddSeconds(5));
+			Assert.AreEqual(5, target.Time.SinceGameStart.TotalSeconds);
+			Assert.AreEqual(5, target.Time.SinceSceneStart.TotalSeconds);
+
+       		target.OpenScene(scene);
 			Assert.AreEqual(3, target.Components.Count);
 
 			physicSystem.Expect(p => p.Update());
-			target.Update();
+            target.Update(now.AddSeconds(10));
 			target.Draw();
+
+			// New scene was opened, it's been 10 seconds since game startedd and 0 since new scene started.
+			Assert.AreEqual(10, target.Time.SinceGameStart.TotalSeconds);
+			Assert.AreEqual(0, target.Time.SinceSceneStart.TotalSeconds);
+
+			// It's been 20 seconds since game startedd and 10 since new scene started.
+			target.Update(now.AddSeconds(20));
+			Assert.AreEqual(20, target.Time.SinceGameStart.TotalSeconds);
+			Assert.AreEqual(10, target.Time.SinceSceneStart.TotalSeconds);
+
 
 			oldComponent1.VerifyAllExpectations();
 			oldComponent2.VerifyAllExpectations();
@@ -193,12 +220,12 @@ namespace Snake.Framework.UnitTests
 			target.AddComponent(oldComponent2);
 			target.AddComponent(oldComponent3);
 
-			target.Update();
+			target.Update(DateTime.Now);
 			Assert.AreEqual(typeof(NullScene), target.CurrentScene.GetType());
 	
 			// Now scene should be opened.
 			scene.Expect(s => s.Initialize(target));
-			target.Update();
+			target.Update(DateTime.Now);
 			Assert.AreSame(scene, target.CurrentScene);
 			scene.VerifyAllExpectations();
 

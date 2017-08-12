@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Snake.Framework
@@ -5,7 +6,7 @@ namespace Snake.Framework
     public interface IWorld : IWorldContext
     {
 		IScene CurrentScene { get; }
-        void Update();
+        void Update(DateTime now);
         void Draw(); 
     }
 }

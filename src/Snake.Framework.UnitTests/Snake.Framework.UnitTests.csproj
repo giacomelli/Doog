@@ -70,6 +70,7 @@
     <Compile Include="Diagnostics\WorldStatsConsoleTest.cs" />
     <Compile Include="ComponentExtensionsTest.cs" />
     <Compile Include="SceneBaseTest.cs" />
+    <Compile Include="TimeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
