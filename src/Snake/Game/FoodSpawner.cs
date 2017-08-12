@@ -27,7 +27,7 @@ namespace Snake.Game
             {
 				do
 				{
-					food.Transform.Position = bounds.RandomPoint();
+					food.Transform.Position = bounds.RandomPoint().Truncate();
 				} while (context.PhysicSystem.AnyCollision(food));
 
                 food.Enabled = true;
