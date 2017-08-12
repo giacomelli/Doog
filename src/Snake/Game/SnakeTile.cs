@@ -12,7 +12,7 @@ namespace Snake.Game
 		private Action onCollisionTile;
 		private Action onCollisionWall;
 
-		public SnakeTile(int x, int y, Action onCollisionFood, Action onCollisionTile, Action onCollisionWall)
+		public SnakeTile(float x, float y, Action onCollisionFood, Action onCollisionTile, Action onCollisionWall)
 		{
 			this.onCollisionFood = onCollisionFood;
 			this.onCollisionTile = onCollisionTile;
@@ -20,7 +20,7 @@ namespace Snake.Game
 
 			Transform = new TransformComponent
 			{
-				Position = new IntPoint(x, y)
+				Position = new Point(x, y)
 			};
 		}
 

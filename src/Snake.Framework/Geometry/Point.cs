@@ -4,24 +4,24 @@ using System.Diagnostics;
 namespace Snake.Framework.Geometry
 {
     /// <summary>
-    /// An immutable integer 2D point.
+    /// An immutable 2D point.
     /// </summary>
 	[DebuggerDisplay("{X}, {Y}")]
-	public struct IntPoint
+	public struct Point
     {
-		public static readonly IntPoint Zero = new IntPoint(0, 0);
-		public static readonly IntPoint One = new IntPoint(1, 1);
+		public static readonly Point Zero = new Point(0, 0);
+		public static readonly Point One = new Point(1, 1);
 
-        private readonly int x;
-        private readonly int y;
+        private readonly float x;
+        private readonly float y;
 
-        public IntPoint(int x, int y)
+        public Point(float x, float y)
         {
             this.x = x;
             this.y = y;
         }
 
-        public int X
+        public float X
         {
             get
             {
@@ -29,7 +29,7 @@ namespace Snake.Framework.Geometry
             }
         }
 
-        public int Y
+        public float Y
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Snake.Framework.Geometry
             }
         }
 
-        public double DistanceFrom(IntPoint other)
+        public double DistanceFrom(Point other)
         {
             return Math.Sqrt(Math.Pow(other.x - x, 2) + Math.Pow(other.y - y, 2));
         }

@@ -13,13 +13,13 @@ namespace Snake.Game
 		private int movingSpeed;
 		private int movingDirectionX;
 		private int movingDirectionY;
-		private IntRectangle bounds;
+		private Rectangle bounds;
 		private IWorldContext worldContext;
 
 		public bool Dead { get; set; }
 		public int FoodsEatenCount { get; private set; }
 
-		public void Initialize(int x, int y, int length, IntRectangle bounds, IWorldContext worldContext)
+		public void Initialize(float x, float y, int length, Rectangle bounds, IWorldContext worldContext)
 		{
 			movingSpeed = 1;
 			movingDirectionX = movingSpeed;
@@ -48,7 +48,7 @@ namespace Snake.Game
 			head.Next = null;
 		}
 
-		private void Deploy(int x, int y, int length)
+		private void Deploy(float x, float y, int length)
 		{
 			if (length < 3)
 			{
@@ -71,7 +71,7 @@ namespace Snake.Game
 			}
 		}
 
-		private SnakeTile CreateTile(int x, int y)
+		private SnakeTile CreateTile(float x, float y)
 		{
 			var tile = new SnakeTile(
 				x,

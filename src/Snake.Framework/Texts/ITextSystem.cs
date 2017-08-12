@@ -9,7 +9,7 @@ namespace Snake.Framework.Texts
 	public interface ITextSystem
 	{
 		void Initialize();
-		void Draw(int x, int y, string text, string fontName = null);
+		void Draw(float x, float y, string text, string fontName = null);
 		IFont GetFont(string fontName = null);
 	}
 }

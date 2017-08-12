@@ -11,35 +11,37 @@ namespace Snake.Runners.Console
 
         public void Initialize()
         {
-            Bounds = new IntRectangle(0, 0, underlying.WindowWidth - 1, underlying.WindowHeight -1);
+            Bounds = new Rectangle(0, 0, underlying.WindowWidth - 1, underlying.WindowHeight -1);
             m_sprites = new char[underlying.WindowWidth, underlying.WindowHeight];
             underlying.CursorVisible = false;
         }
 
-        public IntRectangle Bounds { get; private set; }
+        public Rectangle Bounds { get; private set; }
 
-        public void Draw(int x, int y, char sprite)
+        public void Draw(float x, float y, char sprite)
         {
 			if (Bounds.Contains(x, y))
 			{
-				m_sprites[x, y] = sprite;
+				m_sprites[(int)x, (int)y] = sprite;
 			}
         }
 
         public void Render()
         {
             underlying.Clear();
+            var left = (int)Bounds.Left;
+            var top  = (int)Bounds.Top;
 
-            for (int x = Bounds.Left; x < Bounds.Right; x++)
+            for (int x = left; x < Bounds.Right; x++)
             {
-                for (int y = Bounds.Top; y < Bounds.Bottom; y++)
+                for (int y = top; y < Bounds.Bottom; y++)
                 {
                     var sprite = m_sprites[x, y];
 
                     if (sprite != EmptySprite)
                     {
-				        underlying.SetCursorPosition(x, y);
-				        underlying.Write(sprite);
+                        underlying.SetCursorPosition(x, y);
+                        underlying.Write(sprite);
 
                         m_sprites[x, y] = EmptySprite;
                     }

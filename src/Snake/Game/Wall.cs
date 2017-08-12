@@ -12,7 +12,7 @@ namespace Snake.Game
 {
 	public class Wall : ComponentBase, IDrawable, ICollidable
 	{
-		public Wall(int x, int y)
+		public Wall(float x, float y)
 		{
 			Transform = new TransformComponent(x, y);
 		}

@@ -4,12 +4,12 @@ using Snake.Framework.Geometry;
 namespace Snake.Framework.UnitTests.Geometry
 {
 	[TestFixture]
-	public class IntRectangleTest
+	public class RectangleTest
 	{
 		[Test]
 		public void Contains_PointOutside_False()
 		{
-			var target = new IntRectangle(0, 1, 10, 11);
+			var target = new Rectangle(0, 1, 10, 11);
 
 			Assert.IsFalse(target.Contains(-1, 1));
 			Assert.IsFalse(target.Contains(0, 0));
@@ -20,16 +20,16 @@ namespace Snake.Framework.UnitTests.Geometry
 		[Test]
 		public void Contains_PoinInside_True()
 		{
-			var target = new IntRectangle(0, 1, 10, 11);
+			var target = new Rectangle(0, 1, 10, 11);
 
 			Assert.IsTrue(target.Contains(0, 1));
 			Assert.IsTrue(target.Contains(1, 2));
 			Assert.IsTrue(target.Contains(10, 11));
 			Assert.IsTrue(target.Contains(0, 11));
 
-			for (int x = target.Left; x < target.Right; x++)
+			for (int x = (int) target.Left; x < target.Right; x++)
 			{
-				for (int y = target.Top; y < target.Bottom; y++)
+				for (int y = (int) target.Top; y < target.Bottom; y++)
 				{
 					Assert.IsTrue(target.Contains(x, y), "{0}, {1}", x, y);
 				}
@@ -39,28 +39,28 @@ namespace Snake.Framework.UnitTests.Geometry
 		[Test]
 		public void Intersect_NonInterserction_False()
 		{
-			var target = new IntRectangle(5, 10, 15, 20);
-			Assert.IsFalse(target.Intersect(new IntRectangle(3, 8, 4, 9)));
-			Assert.IsFalse(target.Intersect(new IntRectangle(1, 21, 10, 23)));
+			var target = new Rectangle(5, 10, 15, 20);
+			Assert.IsFalse(target.Intersect(new Rectangle(3, 8, 4, 9)));
+			Assert.IsFalse(target.Intersect(new Rectangle(1, 21, 10, 23)));
 		}
 
 		[Test]
 		public void Intersect_Intersection_True()
 		{
-			var target = new IntRectangle(5, 10, 15, 20);
-			Assert.IsTrue(target.Intersect(new IntRectangle(3, 8, 5, 10)));
-			Assert.IsTrue(target.Intersect(new IntRectangle(6, 11, 7, 12)));
+			var target = new Rectangle(5, 10, 15, 20);
+			Assert.IsTrue(target.Intersect(new Rectangle(3, 8, 5, 10)));
+			Assert.IsTrue(target.Intersect(new Rectangle(6, 11, 7, 12)));
 		}
 
 		[Test]
 		public void GetCenter_NoArgs_CenterPoint()
 		{
-			var target = new IntRectangle(0, 0, 15, 20);
+			var target = new Rectangle(0, 0, 15, 20);
 			var actual = target.GetCenter();
-			Assert.AreEqual(7, actual.X);
+			Assert.AreEqual(7.5f, actual.X);
 			Assert.AreEqual(10, actual.Y);
 
-			target = new IntRectangle(5, 10, 15, 20);
+			target = new Rectangle(5, 10, 15, 20);
 			actual = target.GetCenter();
 			Assert.AreEqual(10, actual.X);
 			Assert.AreEqual(15, actual.Y);
@@ -69,7 +69,7 @@ namespace Snake.Framework.UnitTests.Geometry
 		[Test]
 		public void Scale_Scale_NewRectangleScaled()
 		{
-			var target = new IntRectangle(5, 10, 15, 20);
+			var target = new Rectangle(5, 10, 15, 20);
 			var actual = target.Scale(2);
 			Assert.AreEqual(5, actual.Left);
 			Assert.AreEqual(10, actual.Top);
@@ -79,7 +79,7 @@ namespace Snake.Framework.UnitTests.Geometry
 			actual = target.Scale(0.5f);
 			Assert.AreEqual(5, actual.Left);
 			Assert.AreEqual(10, actual.Top);
-			Assert.AreEqual(8, actual.Right);
+			Assert.AreEqual(7.5, actual.Right);
 			Assert.AreEqual(10, actual.Bottom);
 		}
 	}
