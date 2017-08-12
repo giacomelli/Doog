@@ -4,37 +4,37 @@ namespace Snake.Framework
 {
     public class Time : ITime
     {
-        private DateTime? gameStartedTime;
-        private DateTime? sceneStartedTime;
+        private long? gameStartedTicks;
+        private long? sceneStartedTicks;
 
         internal Time()
         {
         }
 
-        public TimeSpan SinceGameStart { get; private set; }
-        public TimeSpan SinceSceneStart { get; private set; }
+        public float SinceGameStart { get; private set; }
+        public float SinceSceneStart { get; private set; }
 
         public void Update(DateTime now)
         {
-            if (gameStartedTime.HasValue)
+            if (gameStartedTicks.HasValue)
             {
-                SinceGameStart = now - gameStartedTime.Value;
+                SinceGameStart = (now.Ticks - gameStartedTicks.Value) / TimeSpan.TicksPerSecond;
 
-                if (sceneStartedTime.HasValue)
+                if (sceneStartedTicks.HasValue)
                 {
-                    SinceSceneStart = now - sceneStartedTime.Value;
+                    SinceSceneStart = (now.Ticks - sceneStartedTicks.Value) / TimeSpan.TicksPerSecond;
                 }
             }
         }
 
         public void MarkAsGameStarted(DateTime now)
         {
-            gameStartedTime = now;
+            gameStartedTicks = now.Ticks;
         }
 
         public void MarkAsSceneStarted(DateTime now)
         {
-            sceneStartedTime = now;
+            sceneStartedTicks = now.Ticks;
         }
     }
 }

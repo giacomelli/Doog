@@ -15,14 +15,14 @@ namespace Snake.Framework.UnitTests
 
 			// Game not started yet.
 		    target.Update(now.AddSeconds(10));
-            Assert.AreEqual(0, target.SinceGameStart.TotalSeconds);
-            Assert.AreEqual(0, target.SinceSceneStart.TotalSeconds);
+            Assert.AreEqual(0, target.SinceGameStart);
+            Assert.AreEqual(0, target.SinceSceneStart);
 
             // Game started.
             target.MarkAsGameStarted(now);
           	target.Update(now.AddSeconds(15));
-			Assert.GreaterOrEqual(target.SinceGameStart.TotalSeconds, 5);
-            Assert.GreaterOrEqual(target.SinceSceneStart.TotalSeconds, 0);
+			Assert.GreaterOrEqual(target.SinceGameStart, 5);
+            Assert.GreaterOrEqual(target.SinceSceneStart, 0);
         }
 
 		[Test]
@@ -34,14 +34,14 @@ namespace Snake.Framework.UnitTests
             // First scene
 			target.MarkAsGameStarted(now);
 			target.Update(now.AddSeconds(5));
-			Assert.GreaterOrEqual(target.SinceGameStart.TotalSeconds, 5);
-			Assert.GreaterOrEqual(target.SinceSceneStart.TotalSeconds, 0);
+			Assert.GreaterOrEqual(target.SinceGameStart, 5);
+			Assert.GreaterOrEqual(target.SinceSceneStart, 0);
 
             // Second scene.
             target.MarkAsSceneStarted(now);
 			target.Update(now.AddSeconds(10));
-			Assert.GreaterOrEqual(target.SinceGameStart.TotalSeconds, 10);
-			Assert.GreaterOrEqual(target.SinceSceneStart.TotalSeconds, 5);
+			Assert.GreaterOrEqual(target.SinceGameStart, 10);
+			Assert.GreaterOrEqual(target.SinceSceneStart, 5);
 		}
     }
 }

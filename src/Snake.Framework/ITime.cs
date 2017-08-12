@@ -8,13 +8,13 @@ namespace Snake.Framework
     public interface ITime
     {
         /// <summary>
-        /// Gets the time since the game started.
+        /// Gets the time in seconds since the game started.
         /// </summary>
-        TimeSpan SinceGameStart { get; }
+        float SinceGameStart { get; }
 
         /// <summary>
-        /// Gets the time since the current scene started.
+        /// Gets the time in seconds since the current scene started.
         /// </summary>
-        TimeSpan SinceSceneStart { get;  }
+        float SinceSceneStart { get;  }
     }
 }

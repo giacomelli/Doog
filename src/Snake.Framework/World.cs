@@ -134,7 +134,7 @@ namespace Snake.Framework
 				pendingSceneToOpen = null;
 
                 // Time.
-                if(Time.SinceGameStart.TotalMilliseconds <= double.Epsilon)
+                if(Time.SinceGameStart <= float.Epsilon)
                 {
                     time.MarkAsGameStarted(now);
                 }
