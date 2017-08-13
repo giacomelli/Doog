@@ -2,11 +2,16 @@
 {
 	public class NullScene : SceneBase
 	{
-		public override void Update(IWorldContext context)
+		public NullScene(IWorldContext context)
+            : base(context)
+        {
+		}
+
+		public override void Update()
 		{
-			context.TextSystem.DrawCenter(
+			Context.TextSystem.DrawCenter(
 				"TIP: You have not set any scene yet. Use the World.OpenScene to open the first scene of your game",
-				context.Bounds,
+				Context.Bounds,
 				"Default");
 		}
 	}

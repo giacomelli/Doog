@@ -5,6 +5,6 @@ namespace Snake.Framework.Behaviors
 	/// </summary>
 	public interface IUpdatable : IComponent
 	{
-		void Update(IWorldContext context);
+		void Update();
 	}
 }

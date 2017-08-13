@@ -15,7 +15,8 @@ namespace Snake.Framework.UnitTests.Graphics
             var target = MockRepository.GenerateMock<ICanvas>();
             target.Expect(t => t.Draw(1, 2, '#'));
 
-            target.Draw(new TransformComponent { Position = new IntPoint(1, 2) }, '#');
+            var context = MockRepository.GenerateMock<IWorldContext>();
+            target.Draw(new TransformComponent(context) { Position = new IntPoint(1, 2)}, '#');
             target.VerifyAllExpectations();
         }
     }

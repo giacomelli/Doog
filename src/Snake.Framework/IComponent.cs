@@ -9,5 +9,6 @@ namespace Snake.Framework
     {
         bool Enabled { get; set; }
 		string Tag { get; }
+        IWorldContext Context { get; }
     }
 }

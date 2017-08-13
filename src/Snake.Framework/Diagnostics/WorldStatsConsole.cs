@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿﻿using System.Linq;
 using Snake.Framework.Behaviors;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
@@ -13,14 +13,15 @@ namespace Snake.Framework.Diagnostics
 	{
 		private readonly IntPoint position;
 
-		public WorldStatsConsole(int x, int y)
+		public WorldStatsConsole(int x, int y, IWorldContext Context)
+            : base(Context)
 		{
 			this.position = new IntPoint(x, y);
 		}
 
-		public void Update(IWorldContext context)
+		public void Update()
 		{
-			var components = context.Components;
+			var components = Context.Components;
 			var enabledComponentsCount = components.Count(c => c.Enabled);
 			var disabledComponentsCount = components.Count(c => !c.Enabled);
 			var updatablesCount = components.Count(c => c is IUpdatable);
@@ -30,7 +31,7 @@ namespace Snake.Framework.Diagnostics
 
 			var x = position.X;
 			var y = position.Y;
-			var ts = context.TextSystem;
+			var ts = Context.TextSystem;
 
 			ts.Draw(x, y,   "Components                 : {0}".With(components.Count), "Debug");
 			ts.Draw(x, ++y, "Enabled components         : {0}".With(enabledComponentsCount), "Debug");

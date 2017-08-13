@@ -9,25 +9,31 @@ namespace Snake.Game.Scenes
 	{
 		private int foodEatenCount;
 
-		public override void Initialize(IWorldContext worldContext)
+        public GameOverScene(IWorldContext context)
+            : base(context)
+        {
+            
+        }
+
+		public override void Initialize()
 		{
-			var snakes = worldContext.Components.Get<Snake>();
+			var snakes = Context.Components.Get<Snake>();
 			foodEatenCount = snakes.First().FoodsEatenCount;
 
-			worldContext.RemoveComponentsWithoutTag("Wall");
+			Context.RemoveComponentsWithoutTag("Wall");
 		}
 
-		public override void Update(IWorldContext context)
+		public override void Update()
 		{
-			var ts = context.TextSystem;
-			var bounds = context.GraphicSystem.Bounds;
+			var ts = Context.TextSystem;
+			var bounds = Context.GraphicSystem.Bounds;
 
 			ts.DrawCenter("Game over", bounds);
 			ts.DrawCenter(0, 7, "Score: {0}".With(foodEatenCount), bounds, "Default");
 
 			if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Enter)
 			{
-				context.OpenScene(new ClassicModeLevelScene());
+				Context.OpenScene(new ClassicModeLevelScene(Context));
 			}
 		}
 	}

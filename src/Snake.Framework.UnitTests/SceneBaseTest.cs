@@ -9,9 +9,10 @@ namespace Snake.Framework.UnitTests
         [Test]
         public void Initialize_Default_Methods()
         {
-            var target = MockRepository.GeneratePartialMock<SceneBase>();
-            target.Initialize(null);
-            target.Update(null);
+            var context = MockRepository.GenerateMock<IWorldContext>();
+            var target = MockRepository.GeneratePartialMock<SceneBase>(context);
+            target.Initialize();
+            target.Update();
             target.Draw(null);
         }
     }
