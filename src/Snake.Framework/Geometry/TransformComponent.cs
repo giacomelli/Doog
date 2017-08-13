@@ -15,13 +15,14 @@ namespace Snake.Framework.Geometry
 		private IntPoint size;
 		private IntRectangle boundingBox;
 
-		public TransformComponent()
+		public TransformComponent(IWorldContext context)
+            : base(context)
 		{
 			Size = IntPoint.Zero;
 		}
 
-		public TransformComponent(int x, int y)
-			: this()
+		public TransformComponent(int x, int y, IWorldContext context)
+			: this(context)
 		{
 			Position = new IntPoint(x, y);
 		}

@@ -12,9 +12,10 @@ namespace Snake.Game
 {
 	public class Food : ComponentBase, IDrawable, ICollidable
 	{
-		public Food()
+		public Food(IWorldContext context)
+            : base(context)
 		{
-			Transform = new TransformComponent();
+			Transform = new TransformComponent(context);
 		}
 
 		public TransformComponent Transform { get; private set; }

@@ -12,9 +12,10 @@ namespace Snake.Game
 {
 	public class Wall : ComponentBase, IDrawable, ICollidable
 	{
-		public Wall(int x, int y)
+		public Wall(int x, int y, IWorldContext context)
+            : base (context)
 		{
-			Transform = new TransformComponent(x, y);
+			Transform = new TransformComponent(x, y, context);
 		}
 
 		public TransformComponent Transform { get; private set; }

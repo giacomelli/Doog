@@ -11,14 +11,15 @@ namespace Snake.Framework.UnitTests.Physics
 		[Test]
 		public void AnyCollision_NoCollision_False()
 		{
+            var context = MockRepository.GenerateMock<IWorldContext>();
 			var target = new PhysicSystem();
 			var collidable1 = MockRepository.GenerateMock<ICollidable>();
 			collidable1.Expect(c => c.Enabled).Return(true);
-			collidable1.Expect(c => c.Transform).Return(new TransformComponent { Position = new IntPoint(1, 1) });
+			collidable1.Expect(c => c.Transform).Return(new TransformComponent(context) { Position = new IntPoint(1, 1) });
 
 			var collidable2 = MockRepository.GenerateMock<ICollidable>();
 			collidable2.Expect(c => c.Enabled).Return(true);
-			collidable2.Expect(c => c.Transform).Return(new TransformComponent { Position = new IntPoint(2, 2) });
+			collidable2.Expect(c => c.Transform).Return(new TransformComponent(context) { Position = new IntPoint(2, 2) });
 
 			Assert.IsFalse(target.AnyCollision(collidable1));
 
@@ -36,18 +37,19 @@ namespace Snake.Framework.UnitTests.Physics
 		[Test]
 		public void AnyCollision_Collisions_True()
 		{
+            var context = MockRepository.GenerateMock<IWorldContext>();
 			var target = new PhysicSystem();
 			var collidable1 = MockRepository.GenerateMock<ICollidable>();
 			collidable1.Expect(c => c.Enabled).Return(true);
-			collidable1.Expect(c => c.Transform).Return(new TransformComponent { Position = new IntPoint(1, 1) });
+			collidable1.Expect(c => c.Transform).Return(new TransformComponent(context) { Position = new IntPoint(1, 1) });
 
 			var collidable2 = MockRepository.GenerateMock<ICollidable>();
 			collidable2.Expect(c => c.Enabled).Return(true);
-			collidable2.Expect(c => c.Transform).Return(new TransformComponent { Position = new IntPoint(1, 1) });
+			collidable2.Expect(c => c.Transform).Return(new TransformComponent(context) { Position = new IntPoint(1, 1) });
 
 			var collidable3 = MockRepository.GenerateMock<ICollidable>();
 			collidable3.Expect(c => c.Enabled).Return(true);
-			collidable3.Expect(c => c.Transform).Return(new TransformComponent { Position = new IntPoint(2, 2) });
+			collidable3.Expect(c => c.Transform).Return(new TransformComponent(context) { Position = new IntPoint(2, 2) });
 
 			target.AddCollidable(collidable1);
 			target.AddCollidable(collidable2);
@@ -69,18 +71,19 @@ namespace Snake.Framework.UnitTests.Physics
 		[Test]
 		public void GetCollisions_Collidables_Collisions()
 		{
+            var context = MockRepository.GenerateMock<IWorldContext>();
 			var target = new PhysicSystem();
 			var collidable1 = MockRepository.GenerateMock<ICollidable>();
 			collidable1.Expect(c => c.Enabled).Return(true);
-			collidable1.Expect(c => c.Transform).Return(new TransformComponent { Position = new IntPoint(1, 1) });
+			collidable1.Expect(c => c.Transform).Return(new TransformComponent(context) { Position = new IntPoint(1, 1) });
 
 			var collidable2 = MockRepository.GenerateMock<ICollidable>();
 			collidable2.Expect(c => c.Enabled).Return(true);
-			collidable2.Expect(c => c.Transform).Return(new TransformComponent { Position = new IntPoint(1, 1) });
+			collidable2.Expect(c => c.Transform).Return(new TransformComponent(context) { Position = new IntPoint(1, 1) });
 
 			var collidable3 = MockRepository.GenerateMock<ICollidable>();
 			collidable3.Expect(c => c.Enabled).Return(true);
-			collidable3.Expect(c => c.Transform).Return(new TransformComponent { Position = new IntPoint(1, 1) });
+			collidable3.Expect(c => c.Transform).Return(new TransformComponent(context) { Position = new IntPoint(1, 1) });
 
 			var collidable4 = MockRepository.GenerateMock<ICollidable>();
 			collidable4.Expect(c => c.Enabled).Return(false);
@@ -103,20 +106,21 @@ namespace Snake.Framework.UnitTests.Physics
 		[Test]
 		public void Update_Collisions_OnCollisionCalled()
 		{
+			var context = MockRepository.GenerateMock<IWorldContext>();
 			var target = new PhysicSystem();
 			var collidable1 = MockRepository.GenerateMock<ICollidable>();
 			collidable1.Expect(c => c.Enabled).Return(true);
-			collidable1.Expect(c => c.Transform).Return(new TransformComponent { Position = new IntPoint(1, 1) });
+			collidable1.Expect(c => c.Transform).Return(new TransformComponent(context) { Position = new IntPoint(1, 1) });
 			collidable1.Expect(c => c.OnCollision(null)).IgnoreArguments().Repeat.Times(2);
 
 			var collidable2 = MockRepository.GenerateMock<ICollidable>();
 			collidable2.Expect(c => c.Enabled).Return(true);
-			collidable2.Expect(c => c.Transform).Return(new TransformComponent { Position = new IntPoint(1, 1) });
+			collidable2.Expect(c => c.Transform).Return(new TransformComponent(context) { Position = new IntPoint(1, 1) });
 			collidable2.Expect(c => c.OnCollision(null)).IgnoreArguments().Repeat.Times(2);
 
 			var collidable3 = MockRepository.GenerateMock<ICollidable>();
 			collidable3.Expect(c => c.Enabled).Return(true);
-			collidable3.Expect(c => c.Transform).Return(new TransformComponent { Position = new IntPoint(1, 1) });
+			collidable3.Expect(c => c.Transform).Return(new TransformComponent(context) { Position = new IntPoint(1, 1) });
 			collidable3.Expect(c => c.OnCollision(null)).IgnoreArguments().Repeat.Times(2);
 
 			var collidable4 = MockRepository.GenerateMock<ICollidable>();

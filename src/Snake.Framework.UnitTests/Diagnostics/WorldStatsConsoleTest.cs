@@ -12,16 +12,17 @@ namespace Snake.Framework.UnitTests.Diagnostics
         [Test]
         public void Update_World_TextsDrawn()
         {
-            var target = new WorldStatsConsole(10, 20);
-            var ctx = MockRepository.GenerateMock<IWorldContext>();
-            ctx.Expect(c => c.Components).Return(new IComponent[]
-            {
-                MockRepository.GenerateMock<IComponent>(),
-                MockRepository.GenerateMock<IComponent>()
-            });
-            ctx.Expect(c => c.TextSystem).Return(MockRepository.GenerateMock<ITextSystem>());
+			var ctx = MockRepository.GenerateMock<IWorldContext>();
+			ctx.Expect(c => c.Components).Return(new IComponent[]
+			{
+				MockRepository.GenerateMock<IComponent>(),
+				MockRepository.GenerateMock<IComponent>()
+			});
+			ctx.Expect(c => c.TextSystem).Return(MockRepository.GenerateMock<ITextSystem>());
 
-            target.Update((ctx));
+			var target = new WorldStatsConsole(10, 20, ctx);
+           
+            target.Update();
             Assert.IsTrue(target.CanSurvive(null, null));
         }
     }

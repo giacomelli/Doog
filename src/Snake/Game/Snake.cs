@@ -14,22 +14,26 @@ namespace Snake.Game
 		private int movingDirectionX;
 		private int movingDirectionY;
 		private IntRectangle bounds;
-		private IWorldContext worldContext;
-
+	
 		public bool Dead { get; set; }
 		public int FoodsEatenCount { get; private set; }
 
-		public void Initialize(int x, int y, int length, IntRectangle bounds, IWorldContext worldContext)
+        public Snake(IWorldContext context)
+            : base(context)
+        {
+            
+        }
+
+		public void Initialize(int x, int y, int length, IntRectangle bounds)
 		{
 			movingSpeed = 1;
 			movingDirectionX = movingSpeed;
 			movingDirectionY = 0;
 			this.bounds = bounds;
-			this.worldContext = worldContext;
 			Deploy(x, y, length);
 		}
 
-		public void Update(IWorldContext context)
+		public void Update()
 		{
 			// TODO: This user input should be deferred to a command pattern in the case we implement the multiplayer mode.
 			// Besides, this pattern will allow us to easily send commands over network, create a demo mode and even a AI mode.
@@ -73,14 +77,15 @@ namespace Snake.Game
 
 		private SnakeTile CreateTile(int x, int y)
 		{
-			var tile = new SnakeTile(
+            var tile = new SnakeTile(
 				x,
 				y,
+                Context,
 				() => { EatFood(); },
 				() => { Dead = true; },
 				() => { Dead = true; });
 
-			worldContext.AddComponent(tile);
+			Context.AddComponent(tile);
 
 			return tile;
 		}

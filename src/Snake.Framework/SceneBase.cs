@@ -1,4 +1,4 @@
-﻿ using Snake.Framework.Graphics;
+﻿using Snake.Framework.Graphics;
 
 namespace Snake.Framework
 {
@@ -6,17 +6,23 @@ namespace Snake.Framework
     /// A base classe for scenes.
     /// </summary>
 	public abstract class SceneBase : ComponentBase, IScene
-	{
-		public virtual void Initialize(IWorldContext worldContext)
-		{
-		}
+    {
+        protected SceneBase(IWorldContext context)
+            : base(context)
+        {
 
-		public virtual void Draw(IDrawContext context)
-		{
-  		}
+        }
 
-		public virtual void Update(IWorldContext context)
-		{	
-		}
-	}
+        public virtual void Initialize()
+        {
+        }
+
+        public virtual void Draw(IDrawContext context)
+        {
+        }
+
+        public virtual void Update()
+        {
+        }
+    }
 }
