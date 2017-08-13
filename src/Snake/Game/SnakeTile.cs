@@ -12,13 +12,14 @@ namespace Snake.Game
 		private Action onCollisionTile;
 		private Action onCollisionWall;
 
-		public SnakeTile(float x, float y, Action onCollisionFood, Action onCollisionTile, Action onCollisionWall)
-		{
+		public SnakeTile(float x, float y, IWorldContext context, Action onCollisionFood, Action onCollisionTile, Action onCollisionWall)
+		    : base (context)
+        {
 			this.onCollisionFood = onCollisionFood;
 			this.onCollisionTile = onCollisionTile;
             this.onCollisionWall = onCollisionWall;
 
-			Transform = new TransformComponent
+			Transform = new TransformComponent(context)
 			{
 				Position = new Point(x, y)
 			};

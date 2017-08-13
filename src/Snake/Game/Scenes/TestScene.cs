@@ -7,26 +7,31 @@ namespace Snake.Game.Scenes
 {
     public class TestScene : SceneBase
     {
-        public override void Initialize(IWorldContext worldContext)
+        public TestScene(IWorldContext context)
+            : base (context)
         {
-            worldContext.RemoveAllComponents();
+        }    
+        
+        public override void Initialize()
+        {
+            Context.RemoveAllComponents();
 
             // Sample 1.
-            var food1 = new Food();
+            var food1 = new Food(Context);
             food1
-                .Animate("MoveTo", new FloatTween(1, 10, 5, worldContext, (v) => food1.Transform.Position = new Point(v, 10)), worldContext)
+                .Animate("MoveTo", new FloatTween(1, 10, 5, Context, (v) => food1.Transform.Position = new Point(v, 10)), Context)
                 .PingPong();
 
-            worldContext.AddComponent(food1);
+            Context.AddComponent(food1);
 
             // Sample 2.
-			var food2 = new Food();
+			var food2 = new Food(Context);
             food2.Transform.Position = new Point(1, 11);
             food2.Transform
-                 .MoveTo(10, 20, 5, Easing.Linear, worldContext)
+                 .MoveTo(10, 20, 5, Easing.Linear, Context)
                  .PingPong();
 
-			worldContext.AddComponent(food2);
+			Context.AddComponent(food2);
         }
     }
 }

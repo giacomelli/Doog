@@ -8,8 +8,9 @@ namespace Snake.Framework
         private bool enabled;
         private IList<IComponent> children;
 
-        protected ComponentBase()
+        protected ComponentBase(IWorldContext context)
         {
+            Context = context;
             enabled = true;
 			Tag = GetType().Name;
             children = new List<IComponent>();
@@ -37,11 +38,12 @@ namespace Snake.Framework
         }
 
 		public string Tag { get; protected set; }
+        public IWorldContext Context { get; private set; }
 
-        public void AddChild(IComponent component, IWorldContext worldContext)
+        public void AddChild(IComponent component)
         {
             children.Add(component);
-            worldContext.AddComponent(component);
+            Context.AddComponent(component);
         }
 
         public IEnumerable<IComponent> GetChildren()

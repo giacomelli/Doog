@@ -9,8 +9,9 @@ namespace Snake.Game
 	public class Wall : ComponentBase, IDrawable, ICollidable
 	{
         public Wall(float x, float y, IWorldContext context)
+            : base(context)
         {
-            Transform = new TransformComponent(x, y);
+            Transform = new TransformComponent(x, y, context);
 
             var bounds = context.Bounds;
             var offsetX = 0;
@@ -45,7 +46,7 @@ namespace Snake.Game
             var tween = new PositionTween(Transform, pos, 1, context);
             tween.Ease = Easing.InBack;
             tween.Loop();
-            AddChild(tween, context);
+            AddChild(tween);
 		}
 
 		public TransformComponent Transform { get; private set; }

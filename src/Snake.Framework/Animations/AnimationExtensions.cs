@@ -17,7 +17,7 @@ namespace Snake.Framework.Animations
             AbortAnimation(id);
 
             tween.Play();
-            owner.AddChild(tween, context);
+            owner.AddChild(tween);
 
             var animation = new Animation(id, tween);
             AnimationCache.Add(animation);

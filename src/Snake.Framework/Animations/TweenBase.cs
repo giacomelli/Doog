@@ -11,12 +11,11 @@ namespace Snake.Framework.Animations
 
         private float playStartedTime;
         private float duration;
-        private IWorldContext context;
 
         protected TweenBase(float duration, IWorldContext context)
+            : base(context)
         {
             this.duration = duration;
-            this.context = context;
             Ease = LinearEase.Default;
         }
 
@@ -46,7 +45,7 @@ namespace Snake.Framework.Animations
 
         public virtual void Play()
         {
-            playStartedTime = context.Time.SinceSceneStart;
+            playStartedTime = Context.Time.SinceSceneStart;
             State = TweenState.Playing;
         }
 
@@ -72,11 +71,11 @@ namespace Snake.Framework.Animations
 
         public abstract void Reverse();
 
-        public void Update(IWorldContext context)
+        public void Update()
         {
             if(State == TweenState.Playing)
             {
-                var time = (context.Time.SinceSceneStart - playStartedTime) / duration;
+                var time = (Context.Time.SinceSceneStart - playStartedTime) / duration;
 
                 if (time <= 1)
                 {

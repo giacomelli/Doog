@@ -9,10 +9,9 @@ namespace Snake.Framework
     {
         bool Enabled { get; set; }
 		string Tag { get; }
+        IWorldContext Context { get; }
 
-        // TODO: maybe IComponent should hold a property to his own IWorldContext to avoid
-        // the need to pass the worldcontext everywhere.
-        void AddChild(IComponent component, IWorldContext worldContext);
+        void AddChild(IComponent component);
         IEnumerable<IComponent> GetChildren();
     }
 }

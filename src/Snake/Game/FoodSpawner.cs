@@ -15,20 +15,21 @@ namespace Snake.Game
         private Food food;
 
         public FoodSpawner(IWorldContext context)
+            :base(context)
         {
-            this.bounds = context.Bounds;
-            food = new Food() { Enabled = false };
+            this.bounds = Context.Bounds;
+            food = new Food(Context) { Enabled = false };
             context.AddComponent(food);
         }
 
-        public void Update(IWorldContext context)
+        public void Update()
         {
             if(!food.Enabled)
             {
 				do
 				{
 					food.Transform.Position = bounds.RandomPoint().Truncate();
-				} while (context.PhysicSystem.AnyCollision(food));
+				} while (Context.PhysicSystem.AnyCollision(food));
 
                 food.Enabled = true;
             }

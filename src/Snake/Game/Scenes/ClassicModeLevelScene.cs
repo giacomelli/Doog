@@ -11,34 +11,40 @@ namespace Snake.Game.Scenes
 		private bool gameOver;
         private float scoreX;
 
-		public override void Initialize(IWorldContext worldContext)
-		{
-			worldContext.RemoveAllComponents();
-			var bounds = worldContext.GraphicSystem.Bounds;
+        public ClassicModeLevelScene(IWorldContext context)
+            : base(context)
+        {
 
-			// Create the walls.
-			var wallSpawner = new WallSpawner();
-			wallSpawner.Spawn(worldContext);
+        }
 
-			// Create the snakes.
-			snakes = new Snake[MaxSnakes];
+        public override void Initialize()
+        {
+            Context.RemoveAllComponents();
+            var bounds = Context.GraphicSystem.Bounds;
 
-			for (int i = 0; i < MaxSnakes; i++)
-			{
-				var snake = new Snake();
-				snake.Initialize(0, 10 + i, 6, bounds, worldContext);
-				snakes[i] = snake;
+            // Create the walls.
+            var wallSpawner = new WallSpawner(Context);
+            wallSpawner.Spawn();
 
-				worldContext.AddComponent(snake);
+            // Create the snakes.
+            snakes = new Snake[MaxSnakes];
 
-                var offset = worldContext.Bounds.Width * 0.45f;
-                var duration = worldContext.Bounds.Width * 0.1f;
-				scoreX = worldContext.Bounds.Left + offset;
+            for (int i = 0; i < MaxSnakes; i++)
+            {
+                var snake = new Snake(Context);
+                snake.Initialize(0, 10 + i, 6);
+                snakes[i] = snake;
+
+				Context.AddComponent(snake);
+
+                var offset = Context.Bounds.Width * 0.45f;
+                var duration = Context.Bounds.Width * 0.1f;
+				scoreX = Context.Bounds.Left + offset;
 				scoreX.Tween(
-                    worldContext.Bounds.Right - offset,
+                    Context.Bounds.Right - offset,
                     duration,
                     Easing.InBack,
-                    worldContext,
+                    Context,
                     (v) =>
                     {
                         scoreX = v;
@@ -47,46 +53,46 @@ namespace Snake.Game.Scenes
             }
 
 			// Create the food spawner.
-			worldContext.AddComponent(new FoodSpawner(worldContext));
+			Context.AddComponent(new FoodSpawner(Context));
 
-			gameOver = false;
-		}
+            gameOver = false;
+        }
 
-		public override void Update(IWorldContext context)
-		{
-			CheckGameOver();
+        public override void Update()
+        {
+            CheckGameOver();
 
 			if (gameOver)
 			{
-				context.OpenScene(new GameOverScene());
+				Context.OpenScene(new GameOverScene(Context));
 			}
 			else
 			{
-				context.TextSystem.DrawCenterX(1, "Doog's Snake", context.Bounds);
-				context.TextSystem.Draw(scoreX, 7, "Score: " + snakes[0].FoodsEatenCount, "Default");
+				Context.TextSystem.DrawCenterX(1, "Doog's Snake", Context.Bounds);
+				Context.TextSystem.Draw(scoreX, 7, "Score: " + snakes[0].FoodsEatenCount, "Default");
 
                 if(Console.KeyAvailable && Console.ReadKey().Key == ConsoleKey.T)
                 {
-                    context.OpenScene(new TestScene());
+                    Context.OpenScene(new TestScene(Context));
                 }
 			}
 		}
 
-		private void CheckGameOver()
-		{
-			if (!gameOver)
-			{
-				for (int i = 0; i < MaxSnakes; i++)
-				{
-					var snake = snakes[i];
+        private void CheckGameOver()
+        {
+            if (!gameOver)
+            {
+                for (int i = 0; i < MaxSnakes; i++)
+                {
+                    var snake = snakes[i];
 
-					if (snake.Dead)
-					{
-						gameOver = true;
-						break;
-					}
-				}
-			}
-		}
-	}
+                    if (snake.Dead)
+                    {
+                        gameOver = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }

@@ -4,9 +4,15 @@ namespace Snake.Game
 {
 	public class WallSpawner : ComponentBase
 	{
-		public void Spawn(IWorldContext context)
+        public WallSpawner(IWorldContext context)
+            : base(context)
+        {
+            
+        }
+
+		public void Spawn()
 		{
-			var bounds = context.Bounds;
+			var bounds = Context.Bounds;
 
 			for (var x = bounds.Left; x < bounds.Right; x++)
 			{
@@ -17,7 +23,7 @@ namespace Snake.Game
 					   y == bounds.Top ||
 					   y == bounds.Bottom -1)
 					{
-						context.AddComponent(new Wall(x, y, context));
+						Context.AddComponent(new Wall(x, y, Context));
 					}
 				}
 			}

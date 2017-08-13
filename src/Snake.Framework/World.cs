@@ -28,7 +28,7 @@ namespace Snake.Framework
 		public World(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
 		{
             time = new Time();
-			pendingSceneToOpen = new NullScene();
+			pendingSceneToOpen = new NullScene(this);
 
 			graphicSystem.Initialize();
 			drawContext = new DrawContext(graphicSystem);
@@ -112,7 +112,7 @@ namespace Snake.Framework
 
 				// Call new scene initialization, in this moment the scene decide which components will be kept
 				// on world and wich objects will be removed.
-				pendingSceneToOpen.Initialize(this);
+				pendingSceneToOpen.Initialize();
 
 				// Remove the scene survivors from components to remove.
 				var sceneSurvivables = componentsToRemove
@@ -137,7 +137,7 @@ namespace Snake.Framework
 				pendingSceneToOpen = null;
 
                 // Time.
-                if(Time.SinceGameStart <= float.Epsilon)
+                if(time.SinceGameStart <= float.Epsilon)
                 {
                     time.MarkAsGameStarted(now);
                 }
@@ -150,7 +150,7 @@ namespace Snake.Framework
 		{
            	OpenSceneIfPending(now);
 			time.Update(now);
-			CurrentScene.Update(this);
+			CurrentScene.Update();
 
 			updatablesCount = updatables.Count;
 			drawablesCount = drawables.Count;
@@ -159,7 +159,7 @@ namespace Snake.Framework
 			{
 				if (updatables[i].Enabled)
 				{
-					updatables[i].Update(this);
+					updatables[i].Update();
 				}
 			}
 

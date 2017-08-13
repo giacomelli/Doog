@@ -30,11 +30,11 @@ namespace Snake.Framework.UnitTests
 		public void AddComponent_IUpdatable_Updated()
 		{
 			var updatable1 = MockRepository.GenerateMock<IUpdatable>();
-			updatable1.Expect(u => u.Update(null)).IgnoreArguments().Repeat.Once();
+			updatable1.Expect(u => u.Update()).Repeat.Once();
 			updatable1.Expect(u => u.Enabled).Return(true);
 
 			var updatable2 = MockRepository.GenerateMock<IUpdatable>();
-			updatable2.Expect(u => u.Update(null)).IgnoreArguments().Repeat.Times(0);
+            updatable2.Expect(u => u.Update()).Repeat.Times(0);
 
 			physicSystem.Expect(g => g.Update()).Repeat.Once();
 
@@ -132,7 +132,7 @@ namespace Snake.Framework.UnitTests
 			var scene = MockRepository.GenerateMock<IScene>();
 			var newComponent1 = MockRepository.GenerateMock<IUpdatable>();
 			newComponent1.Expect(c => c.Enabled).Return(true);
-			newComponent1.Expect(c => c.Update(target));
+			newComponent1.Expect(c => c.Update());
 
 			var newComponent2 = MockRepository.GenerateMock<IDrawable>();
 			newComponent2.Expect(c => c.Enabled).Return(true);
@@ -140,16 +140,14 @@ namespace Snake.Framework.UnitTests
 
 			var newComponent3 = MockRepository.GenerateMock<ICollidable>();
 
-			scene.Expect(s => s.Initialize(target)).WhenCalled((m) =>
+			scene.Expect(s => s.Initialize()).WhenCalled((m) =>
 			{
-				var ctx = m.Arguments[0] as IWorldContext;
-
-				ctx.RemoveAllComponents();
-				ctx.AddComponent(newComponent1);
-				ctx.AddComponent(newComponent2);
-				ctx.AddComponent(newComponent3);
+				target.RemoveAllComponents();
+				target.AddComponent(newComponent1);
+				target.AddComponent(newComponent2);
+				target.AddComponent(newComponent3);
 			});
-			scene.Expect(s => s.Update(null)).IgnoreArguments();
+			scene.Expect(s => s.Update());
 			scene.Expect(s => s.Draw(null)).IgnoreArguments();
 
             // Game not started yet.
@@ -200,21 +198,21 @@ namespace Snake.Framework.UnitTests
 		{
 			var oldComponent1 = MockRepository.GenerateMock<IUpdatable>();
 			oldComponent1.Expect(c => c.Enabled).Return(true);
-			oldComponent1.Expect(c => c.Update(target));
+			oldComponent1.Expect(c => c.Update());
 
 			var oldComponent2 = MockRepository.GenerateMock<IUpdatable>();
 			oldComponent2.Expect(c => c.Enabled).Return(true);
 		
 			var scene = MockRepository.GenerateMock<IScene>();
 
-			oldComponent2.Expect(c => c.Update(null)).IgnoreArguments().WhenCalled(m =>
+			oldComponent2.Expect(c => c.Update()).WhenCalled(m =>
 			{
-				((IWorldContext)m.Arguments[0]).OpenScene(scene);
+				target.OpenScene(scene);
 			});
 
 			var oldComponent3 = MockRepository.GenerateMock<IUpdatable>();
 			oldComponent3.Expect(c => c.Enabled).Return(true);
-			oldComponent3.Expect(c => c.Update(target));
+			oldComponent3.Expect(c => c.Update());
 
 			target.AddComponent(oldComponent1);
 			target.AddComponent(oldComponent2);
@@ -224,7 +222,7 @@ namespace Snake.Framework.UnitTests
 			Assert.AreEqual(typeof(NullScene), target.CurrentScene.GetType());
 	
 			// Now scene should be opened.
-			scene.Expect(s => s.Initialize(target));
+			scene.Expect(s => s.Initialize());
 			target.Update(DateTime.Now);
 			Assert.AreSame(scene, target.CurrentScene);
 			scene.VerifyAllExpectations();

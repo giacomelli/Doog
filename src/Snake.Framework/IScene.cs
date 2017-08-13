@@ -15,7 +15,6 @@ namespace Snake.Framework
         /// Here is where the scene should decide which world components should be kept, which ones should be removed
         /// and which ones should be added the the world context.
         /// </remarks>
-        /// <param name="worldContext">The world context.</param>
-		void Initialize(IWorldContext worldContext);
+      	void Initialize();
 	}
 }
