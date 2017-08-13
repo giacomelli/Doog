@@ -71,6 +71,8 @@
     <Compile Include="ComponentExtensionsTest.cs" />
     <Compile Include="SceneBaseTest.cs" />
     <Compile Include="TimeTest.cs" />
+    <Compile Include="Animations\LinearEaseTest.cs" />
+    <Compile Include="Geometry\PointExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -92,6 +94,7 @@
     <Folder Include="Resources\Fonts\" />
     <Folder Include="Texts\Map\" />
     <Folder Include="Diagnostics\" />
+    <Folder Include="Animations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Avatar.txt">

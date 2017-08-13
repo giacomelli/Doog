@@ -54,6 +54,22 @@ namespace Snake.Framework.Geometry
 			}
 		}
 
+        public float Width
+        {
+            get 
+            {
+                return right - left;    
+            }
+        }
+
+        public float Height 
+        {
+            get 
+            {
+                return bottom - top;        
+            }
+        }
+
 		public bool Contains(float x, float y)
 		{
 			return !(x < left ||

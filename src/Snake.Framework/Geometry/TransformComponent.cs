@@ -9,6 +9,7 @@ namespace Snake.Framework.Geometry
 	/// </remarks>
 	/// </summary>
 	[DebuggerDisplay("{BoundingBox}")]
+    // TODO: maybe only Transform is a better name.
 	public class TransformComponent : ComponentBase
 	{
 		private Point position;
@@ -57,6 +58,16 @@ namespace Snake.Framework.Geometry
 		public void IncrementPosition(float x, float y)
 		{
 			Position = new Point(position.X + x, position.Y + y);
+		}
+
+		public void SetX(float x)
+		{
+			Position = new Point(x, position.Y);
+		}
+
+		public void SetY(float y)
+		{
+			Position = new Point(position.X, y);
 		}
 
 		public bool Intersect(TransformComponent other)

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Snake.Framework.Animations;
 using Snake.Framework.Behaviors;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
@@ -107,6 +108,8 @@ namespace Snake.Framework
 		{
 			if (pendingSceneToOpen != null)
 			{
+                TweenFactory.Reset();
+
 				// Call new scene initialization, in this moment the scene decide which components will be kept
 				// on world and wich objects will be removed.
 				pendingSceneToOpen.Initialize(this);

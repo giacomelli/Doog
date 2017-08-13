@@ -1,4 +1,6 @@
-﻿using Snake.Framework;
+﻿using System;
+using Snake.Framework;
+using Snake.Framework.Animations;
 
 namespace Snake.Game.Scenes
 {
@@ -7,6 +9,7 @@ namespace Snake.Game.Scenes
 		private const int MaxSnakes = 1;
 		private Snake[] snakes;
 		private bool gameOver;
+        private float scoreX;
 
 		public override void Initialize(IWorldContext worldContext)
 		{
@@ -27,7 +30,21 @@ namespace Snake.Game.Scenes
 				snakes[i] = snake;
 
 				worldContext.AddComponent(snake);
-			}
+
+                var offset = worldContext.Bounds.Width * 0.45f;
+                var duration = worldContext.Bounds.Width * 0.1f;
+				scoreX = worldContext.Bounds.Left + offset;
+				scoreX.Tween(
+                    worldContext.Bounds.Right - offset,
+                    duration,
+                    Easing.InBack,
+                    worldContext,
+                    (v) =>
+                    {
+                        scoreX = v;
+                    })
+				 .PingPong();
+            }
 
 			// Create the food spawner.
 			worldContext.AddComponent(new FoodSpawner(worldContext));
@@ -46,7 +63,12 @@ namespace Snake.Game.Scenes
 			else
 			{
 				context.TextSystem.DrawCenterX(1, "Doog's Snake", context.Bounds);
-				context.TextSystem.DrawCenterX(7, "Score: " + snakes[0].FoodsEatenCount, context.Bounds, "Default");
+				context.TextSystem.Draw(scoreX, 7, "Score: " + snakes[0].FoodsEatenCount, "Default");
+
+                if(Console.KeyAvailable && Console.ReadKey().Key == ConsoleKey.T)
+                {
+                    context.OpenScene(new TestScene());
+                }
 			}
 		}
 
