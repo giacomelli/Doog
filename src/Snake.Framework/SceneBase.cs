@@ -8,7 +8,7 @@ namespace Snake.Framework
 	public abstract class SceneBase : ComponentBase, IScene
     {
         protected SceneBase(IWorldContext context)
-            : base(context)
+            : base(context, false)
         {
 
         }

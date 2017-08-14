@@ -21,10 +21,10 @@ namespace Snake.Game
 		{
 			if (Debug.Enabled)
 			{
-				AddComponent(new WorldStatsConsole(2, 2, this));
+				WorldStatsConsole.Create(2, 2, this);
 			}
 
-			OpenScene(new ClassicModeLevelScene(this));
+			this.OpenScene<ClassicModeLevelScene>();
 		}
 
 		protected virtual void Dispose(bool disposing)

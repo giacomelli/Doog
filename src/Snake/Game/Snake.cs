@@ -84,8 +84,6 @@ namespace Snake.Game
 				() => { Dead = true; },
 				() => { Dead = true; });
 
-			Context.AddComponent(tile);
-
 			return tile;
 		}
 

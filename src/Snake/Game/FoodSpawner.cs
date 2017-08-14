@@ -14,12 +14,11 @@ namespace Snake.Game
         private Rectangle bounds;
         private Food food;
 
-        public FoodSpawner(IWorldContext context)
+        private FoodSpawner(IWorldContext context)
             :base(context)
         {
             this.bounds = Context.Bounds;
             food = new Food(Context) { Enabled = false };
-            context.AddComponent(food);
         }
 
         public void Update()
@@ -33,6 +32,11 @@ namespace Snake.Game
 
                 food.Enabled = true;
             }
+        }
+
+        public static FoodSpawner Create(IWorldContext context)
+        {
+            return new FoodSpawner(context);
         }
     }
 }

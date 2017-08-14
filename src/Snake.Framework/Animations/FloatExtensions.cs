@@ -14,8 +14,7 @@ namespace Snake.Framework.Animations
                     var tween = new FloatTween(from, to, duration, context, changeValue);
                     tween.Ease = ease;
                     tween.Play();
-                    context.AddComponent(tween);
-                 
+                   
                     return tween;
                 });
 

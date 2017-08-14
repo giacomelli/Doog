@@ -20,7 +20,7 @@ namespace Snake.Framework.UnitTests.Diagnostics
 			});
 			ctx.Expect(c => c.TextSystem).Return(MockRepository.GenerateMock<ITextSystem>());
 
-			var target = new WorldStatsConsole(10, 20, ctx);
+			var target = WorldStatsConsole.Create(10, 20, ctx);
            
             target.Update();
             Assert.IsTrue(target.CanSurvive(null, null));

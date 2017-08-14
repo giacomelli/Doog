@@ -23,7 +23,7 @@ namespace Snake.Game
 					   y == bounds.Top ||
 					   y == bounds.Bottom -1)
 					{
-						Context.AddComponent(new Wall(x, y, Context));
+						Wall.Create(x, y, Context);
 					}
 				}
 			}

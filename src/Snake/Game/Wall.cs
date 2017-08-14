@@ -1,4 +1,5 @@
-﻿using Snake.Framework;
+﻿using System;
+using Snake.Framework;
 using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
@@ -8,7 +9,7 @@ namespace Snake.Game
 {
 	public class Wall : ComponentBase, IDrawable, ICollidable
 	{
-        public Wall(float x, float y, IWorldContext context)
+        private Wall(float x, float y, IWorldContext context)
             : base(context)
         {
             Transform = new TransformComponent(x, y, context);
@@ -49,7 +50,12 @@ namespace Snake.Game
             AddChild(tween);
 		}
 
-		public TransformComponent Transform { get; private set; }
+        public static Wall Create(float x, float y, IWorldContext context)
+        {
+            return new Wall(x, y, context);
+        }
+
+        public TransformComponent Transform { get; private set; }
 
 		public void Draw(IDrawContext context)
 		{

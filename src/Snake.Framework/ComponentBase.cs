@@ -8,13 +8,23 @@ namespace Snake.Framework
         private bool enabled;
         private IList<IComponent> children;
 
-        protected ComponentBase(IWorldContext context)
+        protected ComponentBase(IWorldContext context, bool addToContext)
         {
             Context = context;
             enabled = true;
 			Tag = GetType().Name;
             children = new List<IComponent>();
+
+            if (addToContext)
+            {
+                context.AddComponent(this);
+            }
         }
+
+		protected ComponentBase(IWorldContext context)
+            : this(context, true)
+		{
+		}
 
         public virtual bool Enabled
         {
@@ -43,7 +53,6 @@ namespace Snake.Framework
         public void AddChild(IComponent component)
         {
             children.Add(component);
-            Context.AddComponent(component);
         }
 
         public IEnumerable<IComponent> GetChildren()

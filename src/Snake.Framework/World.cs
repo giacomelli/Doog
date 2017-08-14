@@ -27,6 +27,11 @@ namespace Snake.Framework
 
 		public World(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
 		{
+			Components = new List<IComponent>();
+			componentsToRemove = new List<IComponent>();
+			updatables = new List<IUpdatable>();
+			drawables = new List<IDrawable>();
+
             time = new Time();
 			pendingSceneToOpen = new NullScene(this);
 
@@ -39,11 +44,6 @@ namespace Snake.Framework
 
 			textSystem.Initialize();
 			TextSystem = textSystem;
-
-			Components = new List<IComponent>();
-			componentsToRemove = new List<IComponent>();
-			updatables = new List<IUpdatable>();
-			drawables = new List<IDrawable>();
 		}
 
 		public IScene CurrentScene { get; private set; }
@@ -68,7 +68,7 @@ namespace Snake.Framework
 
 		public void AddComponent(IComponent component)
 		{
-			Components.Add(component);
+           	Components.Add(component);
 
 			var u = component as IUpdatable;
 
