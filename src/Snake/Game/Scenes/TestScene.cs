@@ -18,15 +18,16 @@ namespace Snake.Game.Scenes
 
             // Sample 1.
             var food1 = new Food(Context);
+            food1.Transform.Position = new Point(1, 10);
             food1
-                .Animate("MoveTo", new FloatTween(1, 10, 5, Context, (v) => food1.Transform.Position = new Point(v, 10)), Context)
+                .Animate("MoveTo", new PositionTween(food1.Transform, new Point(10, 0), 5))
                 .PingPong();
             
             // Sample 2.
 			var food2 = new Food(Context);
             food2.Transform.Position = new Point(1, 11);
             food2.Transform
-                 .MoveTo(10, 20, 5, Easing.Linear, Context)
+                 .MoveTo(10, 20, 5, Easing.Linear)
                  .PingPong();
 
 	    }

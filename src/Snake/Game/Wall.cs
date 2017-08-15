@@ -44,7 +44,7 @@ namespace Snake.Game
 			}
 
             var pos = new Point(x + offsetX, y + offsetY);
-            var tween = new PositionTween(Transform, pos, 1, context);
+            var tween = new PositionTween(Transform, pos, 1);
             tween.Ease = Easing.InBack;
             tween.Loop();
             AddChild(tween);

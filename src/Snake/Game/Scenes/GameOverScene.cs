@@ -26,10 +26,9 @@ namespace Snake.Game.Scenes
         public override void Update()
         {
             var ts = Context.TextSystem;
-            var bounds = Context.GraphicSystem.Bounds;
-
-            ts.DrawCenter("Game over", bounds);
-            ts.DrawCenter(0, 7, "Score: {0}".With(foodEatenCount), bounds, "Default");
+         
+            ts.DrawCenter("Game over");
+            ts.DrawCenter(0, 7, "Score: {0}".With(foodEatenCount), "Default");
 
             if (Console.KeyAvailable)
             {

@@ -9,8 +9,7 @@ namespace Snake.Game.Scenes
 		private const int MaxSnakes = 1;
 		private Snake[] snakes;
 		private bool gameOver;
-        private float scoreX;
-
+      
         public ClassicModeLevelScene(IWorldContext context)
             : base(context)
         {
@@ -29,28 +28,14 @@ namespace Snake.Game.Scenes
             // Create the snakes.
             snakes = new Snake[MaxSnakes];
 
-            for (int i = 0; i < MaxSnakes; i++)
-            {
-                var snake = new Snake(Context);
-                snake.Initialize(0, 10 + i, 6);
-                snakes[i] = snake;
+			for (int i = 0; i < MaxSnakes; i++)
+			{
+				var snake = new Snake(Context);
+				snake.Initialize(0, 10 + i, 6);
+				snakes[i] = snake;
+			}
 
-                var offset = Context.Bounds.Width * 0.45f;
-                var duration = Context.Bounds.Width * 0.1f;
-				scoreX = Context.Bounds.Left + offset;
-				scoreX.Tween(
-                    Context.Bounds.Right - offset,
-                    duration,
-                    Easing.InBack,
-                    Context,
-                    (v) =>
-                    {
-                        scoreX = v;
-                    })
-				 .PingPong();
-            }
-
-			// Create the food spawner.
+      		// Create the food spawner.
 			FoodSpawner.Create(Context);
 
             gameOver = false;
@@ -67,8 +52,8 @@ namespace Snake.Game.Scenes
 			}
 			else
 			{
-				Context.TextSystem.DrawCenterX(1, "Doog's Snake", Context.Bounds);
-				Context.TextSystem.Draw(scoreX, 7, "Score: " + snakes[0].FoodsEatenCount, "Default");
+				Context.TextSystem.DrawCenterX(1, "Doog's Snake");
+				Context.TextSystem.DrawCenterX(7, "Score: " + snakes[0].FoodsEatenCount, "Default");
 			}
 		}
 

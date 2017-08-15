@@ -9,8 +9,8 @@ namespace Snake.Framework.Animations
         private Point from;
         private Point to;
 
-        public PositionTween(TransformComponent transform, Point to, float duration, IWorldContext context)
-            : base(duration, context)
+        public PositionTween(TransformComponent transform, Point to, float duration)
+            : base(duration, transform.Context)
         {
             this.transform = transform;
             this.from = transform.Position;

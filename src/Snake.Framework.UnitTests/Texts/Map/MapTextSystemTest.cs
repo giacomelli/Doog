@@ -12,8 +12,10 @@ namespace Snake.Framework.UnitTests
 		[Test]
 		public void GetFont_WrongFontName_Exception()
 		{
-			var gfx = MockRepository.GenerateMock<IGraphicSystem>();
-			var target = new MapTextSystem(gfx, "Avatar");
+		    var ctx = MockRepository.GenerateMock<IWorldContext>();
+            ctx.Expect(c => c.GraphicSystem).Return(MockRepository.GenerateMock<IGraphicSystem>());
+
+			var target = new MapTextSystem(ctx, "Avatar");
 			target.Initialize();
 
 			Assert.Catch<ArgumentException>(() =>
@@ -25,8 +27,10 @@ namespace Snake.Framework.UnitTests
 		[Test]
 		public void GetFont_FontName_Font()
 		{
-			var gfx = MockRepository.GenerateMock<IGraphicSystem>();
-			var target = new MapTextSystem(gfx, "Avatar");
+			var ctx = MockRepository.GenerateMock<IWorldContext>();
+			ctx.Expect(c => c.GraphicSystem).Return(MockRepository.GenerateMock<IGraphicSystem>());
+
+			var target = new MapTextSystem(ctx, "Avatar");
 			target.Initialize();
 			var actual = target.GetFont();
 			Assert.AreEqual("Avatar", actual.Name);
@@ -44,11 +48,14 @@ namespace Snake.Framework.UnitTests
 		[Test]
 		public void Draw_Args_Drawn()
 		{
-			var gfx = MockRepository.GenerateMock<IGraphicSystem>();
+			var ctx = MockRepository.GenerateMock<IWorldContext>();
+            var gfx = MockRepository.GenerateMock<IGraphicSystem>();
+			ctx.Expect(c => c.GraphicSystem).Return(gfx);
+
 			gfx.Expect(g => g.Draw(5, 10, 'A'));
 			gfx.Expect(g => g.Draw(6, 10, 'B'));
 			gfx.Expect(g => g.Draw(7, 10, 'C'));
-			var target = new MapTextSystem(gfx, "Avatar");
+			var target = new MapTextSystem(ctx, "Avatar");
 			target.Initialize();
 			target.Draw(5, 10, "ABC", "Default");
 

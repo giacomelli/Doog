@@ -25,7 +25,7 @@ namespace Snake.Framework
 		private IScene pendingSceneToOpen;
         private Time time;
 
-		public World(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
+		public virtual void Initialize(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
 		{
 			Components = new List<IComponent>();
 			componentsToRemove = new List<IComponent>();

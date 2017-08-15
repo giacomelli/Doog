@@ -23,7 +23,9 @@ namespace Snake.Framework.UnitTests
 			physicSystem = MockRepository.GenerateMock<IPhysicSystem>();
 			var textSystem = MockRepository.GenerateMock<ITextSystem>();
 			textSystem.Expect(t => t.GetFont(null)).IgnoreArguments().Return(MockRepository.GenerateMock<IFont>());
-			target = new World(graphicSystem, physicSystem, textSystem);
+            textSystem.Expect(t => t.Context).Return(MockRepository.GenerateMock<IWorldContext>());
+            target = new World();
+            target.Initialize(graphicSystem, physicSystem, textSystem);
 		}
 
 		[Test]

@@ -9,8 +9,7 @@ namespace Snake.Framework.Animations
         public static Animation Animate(
             this IComponent owner,
             string name,
-            ITween tween,
-            IWorldContext context)
+            ITween tween)
         {
             var id = new AnimationId(owner, name);
 
