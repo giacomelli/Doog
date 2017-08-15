@@ -83,13 +83,11 @@
     <Compile Include="Animations\IEase.cs" />
     <Compile Include="Animations\LinearEase.cs" />
     <Compile Include="Animations\PositionTween.cs" />
-    <Compile Include="Animations\FloatExtensions.cs" />
-    <Compile Include="Animations\TweenFactory.cs" />
+    <Compile Include="Animations\ComponentExtensions.cs" />
     <Compile Include="Animations\FloatTween.cs" />
     <Compile Include="Geometry\PointExtensions.cs" />
     <Compile Include="Animations\TweenExtensions.cs" />
     <Compile Include="Animations\Easing.cs" />
-    <Compile Include="Animations\TweenEndedEventArgs.cs" />
     <Compile Include="Animations\InBackEase.cs" />
     <Compile Include="Animations\Animation.cs" />
     <Compile Include="Animations\AnimationExtensions.cs" />

@@ -17,12 +17,6 @@ namespace Snake.Framework.Animations
             this.to = to;
         }
 
-        public override void Play()
-        {
-            //from = transform.Position;
-            base.Play();
-        }
-
         protected override void UpdateValue(float time)
         {
             transform.Position = new Point(

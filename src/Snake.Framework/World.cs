@@ -108,8 +108,6 @@ namespace Snake.Framework
 		{
 			if (pendingSceneToOpen != null)
 			{
-                TweenFactory.Reset();
-
 				// Call new scene initialization, in this moment the scene decide which components will be kept
 				// on world and wich objects will be removed.
 				pendingSceneToOpen.Initialize();

@@ -18,11 +18,11 @@ namespace Snake.Framework
         {
             if (gameStartedTicks.HasValue)
             {
-                SinceGameStart = (now.Ticks - gameStartedTicks.Value) / TimeSpan.TicksPerSecond;
+                SinceGameStart = (float)(now.Ticks - gameStartedTicks.Value) / TimeSpan.TicksPerSecond;
 
                 if (sceneStartedTicks.HasValue)
                 {
-                    SinceSceneStart = (now.Ticks - sceneStartedTicks.Value) / TimeSpan.TicksPerSecond;
+                    SinceSceneStart = (float)(now.Ticks - sceneStartedTicks.Value) / TimeSpan.TicksPerSecond;
                 }
             }
         }

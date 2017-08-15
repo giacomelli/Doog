@@ -15,10 +15,13 @@ namespace Snake.Framework.Animations
     /// </summary>
     public interface ITween : IUpdatable
     {
-        event EventHandler<TweenEndedEventArgs> Ended;
+        event EventHandler Started;
+        event EventHandler Ended;
 
         TweenState State { get; }
 		IEase Ease { get; set; }
+        float Delay { get; set; }
+
         void Play();
         void Pause();
         void Resume();

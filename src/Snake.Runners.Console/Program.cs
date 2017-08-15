@@ -10,8 +10,8 @@ namespace Snake.Runners.Console
 	{
 		private static void Main(string[] args)
 		{
-			var fps = 10.0;
-			var sleepTime = (int)Math.Round(1000.0 / fps);
+            var fps = 60f;
+			var sleepTime = (int)Math.Round(1000f / fps);
 			
 			using (var game = new SnakeGame())
 			{

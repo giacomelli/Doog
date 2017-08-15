@@ -7,48 +7,18 @@ using Snake.Framework.Physics;
 
 namespace Snake.Game
 {
-	public class Wall : ComponentBase, IDrawable, ICollidable
-	{
+    public class Wall : ComponentBase, IDrawable, ICollidable
+    {
+        private bool shouldInvertSprite = true;
+
         private Wall(float x, float y, IWorldContext context)
             : base(context)
         {
             Transform = new TransformComponent(x, y, context);
 
-            var bounds = context.Bounds;
-            var offsetX = 0;
-
-            if (y % 2 == 0)
-            {
-                if (x == bounds.Left)
-                {
-                    offsetX = -1;
-                }
-                else if (x == bounds.Right - 1)
-                {
-                    offsetX = 1;
-                }
-            }
-
-            var offsetY = 0;
-
-			if (x % 2 == 0)
-			{
-				if (y == bounds.Top)
-				{
-					offsetY = -1;
-				}
-				else if (y == bounds.Bottom - 1)
-				{
-					offsetY = 1;
-				}
-			}
-
-            var pos = new Point(x + offsetX, y + offsetY);
-            var tween = new PositionTween(Transform, pos, 1);
-            tween.Ease = Easing.InBack;
-            tween.Loop();
-            AddChild(tween);
-		}
+            this.Toogle(true, 5f, Easing.Linear, (v) => shouldInvertSprite = v)
+                .Loop();
+        }
 
         public static Wall Create(float x, float y, IWorldContext context)
         {
@@ -57,13 +27,13 @@ namespace Snake.Game
 
         public TransformComponent Transform { get; private set; }
 
-		public void Draw(IDrawContext context)
-		{
-			context.Canvas.Draw(Transform, '#');
-		}
+        public void Draw(IDrawContext context)
+        {
+            context.Canvas.Draw(Transform, shouldInvertSprite ? '#' : 'X');
+        }
 
-		public void OnCollision(Collision collision)
-		{
-		}
-	}
+        public void OnCollision(Collision collision)
+        {
+        }
+    }
 }

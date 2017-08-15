@@ -10,7 +10,7 @@ namespace Snake.Framework.Animations
             var tween = new PositionTween(transform, new Point(x, y), duration);
             tween.Ease = easing;
 
-            return transform.Animate("MoveToX", tween);
+            return transform.Animate("MoveTo", tween);
         }
     }
 }

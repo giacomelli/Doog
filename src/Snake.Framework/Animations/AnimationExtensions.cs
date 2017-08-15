@@ -46,5 +46,12 @@ namespace Snake.Framework.Animations
                 AnimationCache.Remove(id);
             }
         }
+
+        public static Animation Delay(this Animation animation, float seconds)
+        {
+            animation.Tween.Delay = seconds;
+
+            return animation;
+        }       
     }
 }

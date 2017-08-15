@@ -7,16 +7,18 @@ namespace Snake.Framework.Animations
     /// </summary>
     public abstract class TweenBase : ComponentBase, ITween
     {
-        public event EventHandler<TweenEndedEventArgs> Ended;
+        public event EventHandler Started;
+        public event EventHandler Ended;
 
         private float playStartedTime;
         private float duration;
+        private float originalDelay;
 
         protected TweenBase(float duration, IWorldContext context)
             : base(context)
         {
             this.duration = duration;
-            Ease = LinearEase.Default;
+            Ease = Easing.Linear;
         }
 
         public override bool Enabled
@@ -42,11 +44,15 @@ namespace Snake.Framework.Animations
 
         public TweenState State { get; private set; }
         public IEase Ease { get; set; }
+        public float Delay { get; set; }
 
         public virtual void Play()
         {
+            originalDelay = Delay;
             playStartedTime = Context.Time.SinceSceneStart;
             State = TweenState.Playing;
+
+            OnStarted(EventArgs.Empty);
         }
 
         public void Pause()
@@ -62,10 +68,12 @@ namespace Snake.Framework.Animations
         public void Stop()
         {
             State = TweenState.Stopped;
+            Delay = 0;
         }
 
         public virtual void Reset()
         {
+            Delay = originalDelay;
             Play();
         }
 
@@ -75,7 +83,14 @@ namespace Snake.Framework.Animations
         {
             if(State == TweenState.Playing)
             {
-                var time = (Context.Time.SinceSceneStart - playStartedTime) / duration;
+                var elapsed = (Context.Time.SinceSceneStart - playStartedTime) - Delay;
+
+                if(elapsed < 0)
+                {
+                    return;
+                }
+
+                var time = elapsed  / duration;
 
                 if (time <= 1)
                 {
@@ -84,12 +99,20 @@ namespace Snake.Framework.Animations
                 else 
                 {
                     Stop();
-                    OnEnded(new TweenEndedEventArgs(this));
+                    OnEnded(EventArgs.Empty);
                 }
             }
         }
 
-        protected virtual void OnEnded(TweenEndedEventArgs args)
+		protected virtual void OnStarted(EventArgs args)
+		{
+			if (Started != null)
+			{
+				Started(this, args);
+			}
+		}
+
+        protected virtual void OnEnded(EventArgs args)
         {
             if(Ended != null)
             {
