@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Snake.Framework.Logging;
 
 namespace Snake.Framework
 {
     public abstract class ComponentBase : IComponent
     {
-        private bool enabled;
         private IList<IComponent> children;
+        private bool enabled;
 
         protected ComponentBase(IWorldContext context, bool addToContext)
         {
@@ -26,29 +27,40 @@ namespace Snake.Framework
 		{
 		}
 
-        public virtual bool Enabled
+        public bool Enabled
         {
-            get
+            get 
             {
                 return enabled;
             }
 
-            set
+            set 
             {
                 if(value != enabled)
                 {
                     enabled = value;
 
-                    foreach(var child in children)
+                    if (value)
                     {
-                        child.Enabled = value;
+                        OnEnabled();
                     }
-                }
+                    else 
+                    {
+                        OnDisabled();    
+                    }
+                }    
             }
         }
-
 		public string Tag { get; protected set; }
         public IWorldContext Context { get; private set; }
+
+        protected ILogSystem Log 
+        {
+            get
+            {
+                return Context.LogSystem;    
+            }
+        }
 
         public void AddChild(IComponent component)
         {
@@ -58,6 +70,15 @@ namespace Snake.Framework
         public IEnumerable<IComponent> GetChildren()
         {
             return children;
+        }
+
+        protected virtual void OnEnabled()
+        {
+           
+        }
+
+        protected virtual void OnDisabled()
+        {
         }
     }
 }

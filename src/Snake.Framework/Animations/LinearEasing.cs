@@ -1,14 +1,11 @@
 ﻿using System;
 namespace Snake.Framework.Animations
 {
-    public class LinearEase : IEase
+    /// <summary>
+    /// A linear easing.
+    /// </summary>
+    public class LinearEasing : IEasing
     {
-        public static readonly LinearEase Default = new LinearEase();
-
-        private LinearEase()
-        {
-        }
-
         public float Calculate(float start, float target, float time)
         {
             return start + (target - start) * time;

@@ -4,6 +4,7 @@ using Rhino.Mocks;
 using Snake.Framework.Behaviors;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
+using Snake.Framework.Logging;
 using Snake.Framework.Physics;
 using Snake.Framework.Texts;
 
@@ -24,6 +25,7 @@ namespace Snake.Framework.UnitTests
 			var textSystem = MockRepository.GenerateMock<ITextSystem>();
 			textSystem.Expect(t => t.GetFont(null)).IgnoreArguments().Return(MockRepository.GenerateMock<IFont>());
             textSystem.Expect(t => t.Context).Return(MockRepository.GenerateMock<IWorldContext>());
+            var logSystem = MockRepository.GenerateMock<ILogSystem>();
             target = new World();
             target.Initialize(graphicSystem, physicSystem, textSystem);
 		}

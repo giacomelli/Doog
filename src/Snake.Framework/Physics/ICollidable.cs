@@ -8,7 +8,7 @@ namespace Snake.Framework.Physics
 {
     public interface ICollidable : IComponent
     {
-		TransformComponent Transform { get; }
+		Transform Transform { get; }
         void OnCollision(Collision collision);
     }
 }

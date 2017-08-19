@@ -1,26 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Snake.Framework.Animations
 {
-    public static class AnimationCache
+    /// <summary>
+    /// An animation cache used by animation extension methods to control animation life cycle.
+    /// </summary>
+    internal static class AnimationCache
     {
-        private static readonly Dictionary<AnimationId, Animation> animations;
+        private static readonly Dictionary<AnimationId, IAnimation> animations;
 
 		static AnimationCache()
 		{
-			animations = new Dictionary<AnimationId, Animation>();
+			animations = new Dictionary<AnimationId, IAnimation>();
 		}
 
-        public static void Add(Animation animation)
+        public static void Add(IAnimation animation)
         {
             animations.Add(animation.Id, animation);
         }
 
-        public static Animation Get(AnimationId id)
+        public static IAnimation<TComponent> Get<TComponent>(AnimationId id)
+            where TComponent : IComponent
         {
-            return animations[id];
+            return (IAnimation<TComponent>) animations[id];
         }
+
+		public static IAnimation Get(AnimationId id)
+		{
+			return animations[id];
+		}
 
         public static bool Contains(AnimationId id)
         {

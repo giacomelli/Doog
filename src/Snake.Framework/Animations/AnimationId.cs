@@ -1,14 +1,18 @@
 ﻿using System;
+
 namespace Snake.Framework.Animations
 {
+    /// <summary>
+    /// Represents an animation id that is composed by the owner and the animation name.
+    /// </summary>
     public class AnimationId
     {
         private readonly string id;
 
-		public AnimationId(IComponent owner, string name)
-		{
-			id = BuildId(owner, name);
-		}
+        public AnimationId(IComponent owner, string name)
+        {
+            id = BuildId(owner, name);
+        }
 
 		private static string BuildId(IComponent owner, string name)
 		{
@@ -30,6 +34,11 @@ namespace Snake.Framework.Animations
         public override int GetHashCode()
         {
             return id.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return id;
         }
     }
 }

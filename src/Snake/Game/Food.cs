@@ -10,10 +10,10 @@ namespace Snake.Game
 		public Food(IWorldContext context)
             : base(context)
 		{
-			Transform = new TransformComponent(context);
+			Transform = new Transform(context);
 		}
 
-		public TransformComponent Transform { get; private set; }
+		public Transform Transform { get; private set; }
 
 		public void Draw(IDrawContext context)
 		{

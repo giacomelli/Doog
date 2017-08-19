@@ -31,7 +31,7 @@ namespace Snake.Game.Scenes
 			for (int i = 0; i < MaxSnakes; i++)
 			{
 				var snake = new Snake(Context);
-				snake.Initialize(0, 10 + i, 6);
+				snake.Initialize(1, 10 + i, 6);
 				snakes[i] = snake;
 			}
 

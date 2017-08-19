@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Snake.Framework
 {
@@ -16,8 +17,8 @@ namespace Snake.Framework
 
         internal static void Initialize(params string[] args)
         {
-			// Debug mode can be enable by passing the parameter "debug" to the game executable.
-			Enabled = args.Length > 1 && args[1].Equals("debug", StringComparison.OrdinalIgnoreCase);
+			// Debug mode can be enable by passing the parameter "debug-enabled" to the game executable.
+			Enabled = args.Contains ("debug-enabled");
         }
 
 		/// <summary>

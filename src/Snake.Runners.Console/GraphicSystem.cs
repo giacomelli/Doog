@@ -11,9 +11,13 @@ namespace Snake.Runners.Console
         private char[,] m_sprites;
         private char[,] m_lastFrame;
 
+        public GraphicSystem()
+        {
+			Bounds = new Rectangle(0, 0, underlying.WindowWidth - 1, underlying.WindowHeight - 1);
+		}
+
         public void Initialize()
         {
-            Bounds = new Rectangle(0, 0, underlying.WindowWidth - 1, underlying.WindowHeight -1);
             m_sprites = new char[underlying.WindowWidth, underlying.WindowHeight];
             Fill(m_sprites, EmptySprite);
             m_lastFrame = new char[underlying.WindowWidth, underlying.WindowHeight];

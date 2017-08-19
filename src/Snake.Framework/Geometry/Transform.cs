@@ -9,20 +9,19 @@ namespace Snake.Framework.Geometry
 	/// </remarks>
 	/// </summary>
 	[DebuggerDisplay("{BoundingBox}")]
-    // TODO: maybe only Transform is a better name.
-	public class TransformComponent : ComponentBase
+   	public class Transform : ComponentBase
 	{
 		private Point position;
 		private Point size;
 		private Rectangle boundingBox;
 
-		public TransformComponent(IWorldContext context)
+		public Transform(IWorldContext context)
             : base(context)
 		{
 			Size = Point.Zero;
 		}
 
-		public TransformComponent(float x, float y, IWorldContext context)
+		public Transform(float x, float y, IWorldContext context)
 			: this(context)
 		{
 			Position = new Point(x, y);
@@ -71,7 +70,7 @@ namespace Snake.Framework.Geometry
 			Position = new Point(position.X, y);
 		}
 
-		public bool Intersect(TransformComponent other)
+		public bool Intersect(Transform other)
 		{
 			return boundingBox.Intersect(other.boundingBox);
 		}

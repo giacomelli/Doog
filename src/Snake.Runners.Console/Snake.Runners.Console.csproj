@@ -33,6 +33,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GraphicSystem.cs" />
+    <Compile Include="ConsoleLogSystem.cs" />
+    <Compile Include="FileLogSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Snake.Framework\Snake.Framework.csproj">

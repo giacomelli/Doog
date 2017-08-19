@@ -16,5 +16,10 @@ namespace Snake.Framework
         /// Gets the time in seconds since the current scene started.
         /// </summary>
         float SinceSceneStart { get;  }
+
+        /// <summary>
+        /// Gets the time in seconds since last frame.
+        /// </summary>
+        float SinceLastFrame { get; }
     }
 }

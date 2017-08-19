@@ -1,9 +1,19 @@
 ﻿using System;
 namespace Snake.Framework.Animations
 {
+    /// <summary>
+    /// Availables easings.
+    /// </summary>
     public static class Easing
     {
-        public static readonly IEase Linear = LinearEase.Default;
-        public static readonly IEase InBack = InBackEase.Default;
+        /// <summary>
+        /// Linear easing.
+        /// </summary>
+        public static readonly IEasing Linear = new LinearEasing();
+
+        /// <summary>
+        /// InBack easing.
+        /// </summary>
+        public static readonly IEasing InBack = new InBackEasing();
     }
 }

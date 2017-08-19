@@ -3,12 +3,12 @@
 namespace Snake.Framework.Animations
 {
 	/// <summary>
-	/// Define an interface to ease that calculate the easing function.
+	/// Define an interface to easing function.
 	/// </summary>
 	/// <remarks>
 	/// http://easings.net
 	/// </remarks>
-	public interface IEase
+	public interface IEasing
     {
         float Calculate(float start, float target, float time);
     }

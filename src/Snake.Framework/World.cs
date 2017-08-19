@@ -6,6 +6,7 @@ using Snake.Framework.Animations;
 using Snake.Framework.Behaviors;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
+using Snake.Framework.Logging;
 using Snake.Framework.Physics;
 using Snake.Framework.Texts;
 
@@ -44,6 +45,8 @@ namespace Snake.Framework
 
 			textSystem.Initialize();
 			TextSystem = textSystem;
+
+            LogSystem = new NullLogSystem();
 		}
 
 		public IScene CurrentScene { get; private set; }
@@ -63,6 +66,8 @@ namespace Snake.Framework
 		public IPhysicSystem PhysicSystem { get; private set; }
 
 		public ITextSystem TextSystem { get; private set; }
+
+        public ILogSystem LogSystem { get; set; }
 
 		public IList<IComponent> Components { get; private set; }
 
@@ -108,6 +113,17 @@ namespace Snake.Framework
 		{
 			if (pendingSceneToOpen != null)
 			{
+                LogSystem.Debug("WORLD: opening scene {0}", pendingSceneToOpen.GetType().Name);
+
+				// Time.
+				if (time.SinceGameStart <= float.Epsilon)
+				{
+					time.MarkAsGameStarted(now);
+				}
+
+				time.MarkAsSceneStarted(now);
+                time.Update(now);
+
 				// Call new scene initialization, in this moment the scene decide which components will be kept
 				// on world and wich objects will be removed.
 				pendingSceneToOpen.Initialize();
@@ -134,20 +150,17 @@ namespace Snake.Framework
 
 				pendingSceneToOpen = null;
 
-                // Time.
-                if(time.SinceGameStart <= float.Epsilon)
-                {
-                    time.MarkAsGameStarted(now);
-                }
-
-                time.MarkAsSceneStarted(now);
+                LogSystem.Debug("WORLD: scene opened");
 			}
+            else 
+            {
+                time.Update(now);
+            }
 		}
 
 		public void Update(DateTime now)
 		{
-           	OpenSceneIfPending(now);
-			time.Update(now);
+			OpenSceneIfPending(now);
 			CurrentScene.Update();
 
 			updatablesCount = updatables.Count;

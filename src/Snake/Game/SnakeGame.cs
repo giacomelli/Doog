@@ -2,6 +2,7 @@ using System;
 using Snake.Framework;
 using Snake.Framework.Diagnostics;
 using Snake.Framework.Graphics;
+using Snake.Framework.Logging;
 using Snake.Framework.Physics;
 using Snake.Framework.Texts;
 using Snake.Game.Scenes;

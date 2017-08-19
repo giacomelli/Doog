@@ -59,7 +59,7 @@
     <Compile Include="Geometry\PointTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Texts\TextSystemExtensionsTest.cs" />
-    <Compile Include="Geometry\TransformComponentTest.cs" />
+    <Compile Include="Geometry\TransformTest.cs" />
     <Compile Include="Geometry\RectangleExtensionsTest.cs" />
     <Compile Include="WorldTest.cs" />
     <Compile Include="Graphics\CanvasExtensionsTest.cs" />

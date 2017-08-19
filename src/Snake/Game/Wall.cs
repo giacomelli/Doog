@@ -14,10 +14,10 @@ namespace Snake.Game
         private Wall(float x, float y, IWorldContext context)
             : base(context)
         {
-            Transform = new TransformComponent(x, y, context);
+            Transform = new Transform(x, y, context);
 
-            this.Toogle(true, 5f, Easing.Linear, (v) => shouldInvertSprite = v)
-                .Loop();
+            this.Toogle(true, 10f, Easing.Linear, (v) => shouldInvertSprite = v)
+               .Loop();
         }
 
         public static Wall Create(float x, float y, IWorldContext context)
@@ -25,7 +25,7 @@ namespace Snake.Game
             return new Wall(x, y, context);
         }
 
-        public TransformComponent Transform { get; private set; }
+        public Transform Transform { get; private set; }
 
         public void Draw(IDrawContext context)
         {

@@ -3,14 +3,18 @@ using Snake.Framework.Geometry;
 
 namespace Snake.Framework.Animations
 {
-    public class FloatTween : TweenBase
+    /// <summary>
+    /// A float animation.
+    /// </summary>
+    public class FloatAnimation<TComponent> : AnimationBase<TComponent>
+        where TComponent : IComponent
     {
         private float from;
         private float to;
         private Action<float> changeValue;
 
-        public FloatTween(float from, float to, float duration, IWorldContext context, Action<float> changeValue)
-            : base(duration, context)
+        public FloatAnimation(TComponent owner, string name, float from, float to, float duration, Action<float> changeValue)
+            : base(owner, name, duration)
         {
             this.from = from;
             this.to = to;
@@ -19,7 +23,7 @@ namespace Snake.Framework.Animations
 
         protected override void UpdateValue(float time)
         {
-            changeValue(Ease.Calculate(from, to, time));
+            changeValue(Easing.Calculate(from, to, time));
         }
 
         public override void Reverse()
@@ -27,7 +31,6 @@ namespace Snake.Framework.Animations
             var temp = from;
             from = to;
             to = temp;
-            Play();
         }
     }
 }

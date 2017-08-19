@@ -19,7 +19,7 @@ namespace Snake.Game
 			this.onCollisionTile = onCollisionTile;
             this.onCollisionWall = onCollisionWall;
 
-			Transform = new TransformComponent(context)
+			Transform = new Transform(context)
 			{
 				Position = new Point(x, y)
 			};
@@ -27,7 +27,7 @@ namespace Snake.Game
 
 		public SnakeTile Next { get; set; }
 
-		public TransformComponent Transform { get; private set; }
+		public Transform Transform { get; private set; }
 
 		public void CopyPosition(SnakeTile other)
 		{
