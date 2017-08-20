@@ -24,5 +24,17 @@ namespace Snake.Game
 		{
 			Enabled = false;
 		}
+
+        protected override void OnEnabled()
+        {
+            base.OnEnabled();
+            Transform.Enabled = true;
+        }
+
+        protected override void OnDisabled()
+        {
+            base.OnDisabled();
+            Transform.Enabled = false;
+        }
 	}
 }

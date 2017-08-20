@@ -97,6 +97,10 @@
     <Compile Include="Animations\DelayAnimation.cs" />
     <Compile Include="Animations\AnimationPipeline.cs" />
     <Compile Include="Animations\DelayExtensions.cs" />
+    <Compile Include="Animations\AnimationPipelineController.cs" />
+    <Compile Include="Animations\IAnimationPipeline.cs" />
+    <Compile Include="Animations\IAnimationPipelineController.cs" />
+    <Compile Include="Animations\DestroyedAnimationPipeline.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

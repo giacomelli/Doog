@@ -15,6 +15,7 @@ namespace Snake.Framework.Animations
         public event EventHandler Ended;
 
         private float playStartedTime;
+        private float pauseStartedTime;
         private float duration;
         private IEasing easing;
 
@@ -66,12 +67,14 @@ namespace Snake.Framework.Animations
         public void Pause()
         {
             Log.Debug("{0}: pause", Name);
+            pauseStartedTime = Context.Time.SinceSceneStart;
             State = AnimationState.Paused;
         }
 
         public void Resume()
         {
             Log.Debug("{0}: resume", Name);
+            playStartedTime = Context.Time.SinceSceneStart - (pauseStartedTime - playStartedTime);
             State = AnimationState.Playing;
         }
 

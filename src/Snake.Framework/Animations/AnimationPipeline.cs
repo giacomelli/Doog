@@ -1,39 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Snake.Framework.Geometry;
 
 namespace Snake.Framework.Animations
 {
-    public enum PipelineKind
-    {
-        Once = 0,
-        Loop,
-        PingPong
-    }
-
-    public class AnimationPipeline<TOwner>
+    internal class AnimationPipeline<TOwner> : IAnimationPipeline<TOwner>
         where TOwner : IComponent
     {
-        private List<IAnimation<TOwner>> animations;
         private int currentAnimationIndex;
         private PipelineKind kind = PipelineKind.Once;
         private int runTimes;
+        private List<IAnimation<TOwner>> animations;
+        private IAnimation<TOwner> currentAnimation;
+        private IAnimationPipelineController controller;
 
-        private AnimationPipeline()
+        protected AnimationPipeline()
         {
             animations = new List<IAnimation<TOwner>>();
         }
 
-        public TOwner Owner { get; private set; }
+        public TOwner Owner { get; protected set; }
+
+        public virtual AnimationState State
+        {
+            get
+            {
+                return currentAnimation.State;
+            }
+        }
 
         public static AnimationPipeline<TOwner> Create(IAnimation<TOwner> firstAnimation)
         {
             var pipeline = new AnimationPipeline<TOwner>();
             pipeline.Add(firstAnimation);
-			pipeline.Owner = firstAnimation.Owner;
+            pipeline.Owner = firstAnimation.Owner;
+            pipeline.currentAnimation = firstAnimation;
 
-			return pipeline;
+            return pipeline;
         }
 
         public void Add(IAnimation<TOwner> animation)
@@ -41,30 +43,64 @@ namespace Snake.Framework.Animations
             animations.Add(animation);
         }
 
-        public void Join(AnimationPipeline<TOwner> other)
-        {
-            foreach (var a in other.animations)
-            {
-                Add(a);
-            }
-        }
-
-        private void Run()
+        protected virtual void Run()
         {
             runTimes++;
             currentAnimationIndex = 0;
             PlayCurrent();
         }
 
-        public void Once()
+        public IAnimationPipelineController Once()
         {
-            kind = PipelineKind.Once;
-            Run();
+            return Run(PipelineKind.Once);
+        }
+
+        public IAnimationPipelineController Loop()
+        {
+           return Run(PipelineKind.Loop);
+        }
+
+        public IAnimationPipelineController PingPong()
+        {
+            return Run(PipelineKind.PingPong);
+        }
+
+        public virtual void Pause()
+        {
+            currentAnimation.Pause();
+        }
+
+        public virtual void Resume()
+        {
+            currentAnimation.Resume();
+        }
+
+        public virtual void Destroy()
+        {
+            if (animations.Count > 0)
+            {
+                currentAnimation.Pause();
+
+                foreach (var a in animations)
+                {
+                    var component = a as IComponent;
+
+                    if (component != null)
+                    {
+                        component.Enabled = false;
+                        a.Owner.Context.RemoveComponent(component);
+                    }
+                }
+
+                animations.Clear();
+                controller.Destroy();
+            }
         }
 
         private void PlayCurrent()
         {
-            var current = animations[currentAnimationIndex];
+            currentAnimation = animations[currentAnimationIndex];
+            var current = currentAnimation;
             current.Ended -= CurrentAnimationEnded;
             current.Ended += CurrentAnimationEnded;
 
@@ -87,7 +123,7 @@ namespace Snake.Framework.Animations
             current.Play();
         }
 
-        void CurrentAnimationEnded(object sender, EventArgs e)
+        private void CurrentAnimationEnded(object sender, EventArgs e)
         {
             var animation = (IAnimation)sender;
             Log("Animation {0} ended.", animation.Name);
@@ -114,23 +150,28 @@ namespace Snake.Framework.Animations
                         Run();
                         break;
 
-                    default:
+                    case PipelineKind.Once:
+                        Destroy();
                         Log("ended");
                         break;
                 }
             }
         }
 
-        public void PingPong()
+        private IAnimationPipelineController Run(PipelineKind kind)
         {
-            kind = PipelineKind.PingPong;
-            Run();
-        }
+            if (controller == null)
+            {
+                this.kind = kind;
+                Run();
 
-        public void Loop()
-        {
-            kind = PipelineKind.Loop;
-            Run();
+                controller = new AnimationPipelineController<TOwner>(this);
+                return controller;
+            }
+            else 
+            {
+                throw new InvalidOperationException("You can call Once/Loop/PingPong just once by pipeline.");    
+            }
         }
 
         private void Log(string message, params object[] args)

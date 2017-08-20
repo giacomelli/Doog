@@ -16,13 +16,9 @@ namespace Snake.Framework.Animations
         /// <param name="y">The y coordinate.</param>
         /// <param name="duration">Duration.</param>
         /// <param name="easing">Easing.</param>
-        public static AnimationPipeline<Transform> MoveTo(this Transform transform, float x, float y, float duration, IEasing easing = null, string name = null)
+        public static IAnimationPipeline<Transform> MoveTo(this Transform transform, float x, float y, float duration, IEasing easing = null, string name = null)
         {
-            name = name ?? "MoveFrom{0}To{1},{2}".With(transform.Position, x, y);
-            var animation = new PositionAnimation(transform, name, new Point(x, y), duration);
-            animation.Easing = easing;
-
-            return AnimationPipeline<Transform>.Create(animation);
+            return AnimationPipeline<Transform>.Create(CreateMoveToAnimation(transform, x, y, duration, easing, name));
         }
 
 		/// <summary>
@@ -33,16 +29,25 @@ namespace Snake.Framework.Animations
 		/// <param name="point">The point.</param>
 		/// <param name="duration">Duration.</param>
 		/// <param name="easing">Easing.</param>
-		public static AnimationPipeline<Transform> MoveTo(this Transform transform, Point point, float duration, IEasing easing = null, string name = null)
+		public static IAnimationPipeline<Transform> MoveTo(this Transform transform, Point point, float duration, IEasing easing = null, string name = null)
 		{
             return transform.MoveTo(point.X, point.Y, duration, easing, name);
 		}
 
-		public static AnimationPipeline<Transform> MoveTo(this AnimationPipeline<Transform> pipeline, Point point, float duration, IEasing easing = null, string name = null)
+		public static IAnimationPipeline<Transform> MoveTo(this IAnimationPipeline<Transform> pipeline, Point point, float duration, IEasing easing = null, string name = null)
 		{
-            pipeline.Join(pipeline.Owner.MoveTo(point.X, point.Y, duration, easing, name));
+            pipeline.Add(CreateMoveToAnimation(pipeline.Owner, point.X, point.Y, duration, easing, name));
       
             return pipeline;
+		}
+
+        private static IAnimation<Transform> CreateMoveToAnimation(Transform transform, float x, float y, float duration, IEasing easing = null, string name = null)
+        {
+			name = name ?? "MoveFrom{0}To{1},{2}".With(transform.Position, x, y);
+			var animation = new PositionAnimation(transform, name, new Point(x, y), duration);
+			animation.Easing = easing;
+
+            return animation;
 		}
     }
 }
