@@ -2,11 +2,13 @@ using System;
 using Snake.Framework;
 using Snake.Framework.Behaviors;
 using Snake.Framework.Geometry;
+using Snake.Framework.Behaviors.Commands;
 
 namespace Snake.Game
 {
     public class Snake : ComponentBase, IUpdatable
     {
+        private readonly ICommandReader m_commandReader;
         private SnakeTile head;
         private SnakeTile tail;
         private int movingDirectionX;
@@ -17,11 +19,12 @@ namespace Snake.Game
         public int FoodsEatenCount { get; private set; }
         public float Speed { get; set; }
 
-        public Snake(IWorldContext context)
+        public Snake(IWorldContext context, ICommandReader commandReader)
             : base(context)
         {
             bounds = context.Bounds;
             Speed = 10f;
+            m_commandReader = commandReader;
         }
 
         public void Initialize(int x, int y, int length)
@@ -33,10 +36,11 @@ namespace Snake.Game
 
         public void Update()
         {
-            // TODO: This user input should be deferred to a command pattern in the case we implement the multiplayer mode.
-            // Besides, this pattern will allow us to easily send commands over network, create a demo mode and even a AI mode.
-            HandleUserInput();
-
+            foreach(var command in m_commandReader.Read())
+            {
+                command.Execute(this);
+            }
+            
             Move();
         }
 
@@ -123,48 +127,39 @@ namespace Snake.Game
 
         private void ChangeMovingDirection(int x, int y)
         {
-			movingDirectionX = x;
-			movingDirectionY = y;
+            movingDirectionX = x;
+            movingDirectionY = y;
         }
 
-        private void HandleUserInput()
+        public void MoveLeft()
         {
-            if (Console.KeyAvailable)
+            if (movingDirectionX == 0)
             {
-                switch (Console.ReadKey(true).Key)
-                {
-                    case ConsoleKey.LeftArrow:
-                    case ConsoleKey.H:
-                        if (movingDirectionX == 0)
-                        {
-                            ChangeMovingDirection(-1, 0);
-                        }
-                        break;
+                ChangeMovingDirection(-1, 0);
+            }
+        }
 
-                    case ConsoleKey.UpArrow:
-                    case ConsoleKey.K:
-                        if (movingDirectionY == 0)
-                        {
-                            ChangeMovingDirection(0, -1);
-                        }
-                        break;
+        public void MoveUp()
+        {
+            if (movingDirectionY == 0)
+            {
+                ChangeMovingDirection(0, -1);
+            }
+        }
 
-                    case ConsoleKey.RightArrow:
-                    case ConsoleKey.L:
-                        if (movingDirectionX == 0)
-                        {
-                            ChangeMovingDirection(1, 0);
-                        }
-                        break;
+        public void MoveRight()
+        {
+            if (movingDirectionX == 0)
+            {
+                ChangeMovingDirection(1, 0);
+            }
+        }
 
-                    case ConsoleKey.DownArrow:
-                    case ConsoleKey.J:
-                        if (movingDirectionY == 0)
-                        {
-                            ChangeMovingDirection(0, 1);
-                        }
-                        break;
-                }
+        public void MoveDown()
+        {
+            if (movingDirectionY == 0)
+            {
+                ChangeMovingDirection(0, 1);
             }
         }
     }
