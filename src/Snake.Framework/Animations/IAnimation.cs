@@ -10,6 +10,13 @@ namespace Snake.Framework.Animations
 		Stopped
 	}
 
+    public enum AnimationDirection
+    {
+        Any = 0,
+        Forward,
+        Backward
+    }
+
 	public interface IAnimation
     {
 		event EventHandler Started;
@@ -18,6 +25,7 @@ namespace Snake.Framework.Animations
 		AnimationId Id { get; }
 		string Name { get; }
 		AnimationState State { get; }
+        AnimationDirection Direction { get; set; }
 		IEasing Easing { get; set; }
 
 		void Play();

@@ -69,12 +69,37 @@ namespace Snake.Game.Scenes
                 b
 				    .Delay(i * 0.05f)
 					.Enable(1f, Easing.Linear)
-                    //.Reverse() TODO: implement it.
                     .Enable(0.5f, Easing.Linear)
 					.Enable(0.5f, Easing.Linear)
                    	.Once();
             }
 
+            // Ping-pong move
+            var length = 100;
+            var speed = 0.1f;
+            var maxTime = (length -1) * speed;
+
+			for (var i = 0; i < length; i++)
+			{
+				var b = new Food(Context);
+              	b.Transform.Position = new Point(31 + i, 13);
+                b
+                    .Disable(i * speed, Easing.Linear).OnlyForward()
+                    .Delay(maxTime - (i * speed)).OnlyForward()
+                   
+                    .Delay(maxTime - ((length -1 - i) * speed)).OnlyBackward()
+                    .Enable(((length - 1) - i) * speed, Easing.Linear).OnlyBackward()
+						
+                    .PingPong();
+			}
+
+            // ScaleTo wall
+            var wall = Wall.Create(140, 10, Context);
+            wall.Transform.Size = new Point(10, 10);
+            //wall.Transform
+                //.ScaleTo(new Point(20, 10), 1, Easing.InBack)
+                //.MoveTo(new Point(150, 20), 1, Easing.InBack)
+                //.PingPong();
         }
 
         public override void Update()

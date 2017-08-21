@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Snake.Framework.Animations
+﻿namespace Snake.Framework.Animations
 {
 	public enum PipelineKind
 	{
@@ -11,12 +7,22 @@ namespace Snake.Framework.Animations
 		PingPong
 	}
 
-	public interface IAnimationPipeline<TOwner>
+    public enum PipelineDirection
+    {
+        Forward = 0,
+        Backward
+    }
+
+    public interface IAnimationPipeline<TOwner>
 		where TOwner : IComponent
 	{
 		TOwner Owner { get;  }
-
+        PipelineKind Kind { get; }
+        PipelineDirection Direction { get; }
+        int Length { get; }
         void Add(IAnimation<TOwner> animation);
+        IAnimation<TOwner> Get(int index);
+        void Replace(int index, IAnimation<TOwner> animation);
         IAnimationPipelineController Once();
         IAnimationPipelineController PingPong();
         IAnimationPipelineController Loop();

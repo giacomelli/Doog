@@ -30,6 +30,7 @@ namespace Snake.Framework.Animations
             easing = Animations.Easing.Linear;
             owner.AddChild(this);
             State = AnimationState.NotPlayed;
+            Direction = AnimationDirection.Any;
         }
 
         public AnimationId Id { get; private set; }
@@ -38,6 +39,8 @@ namespace Snake.Framework.Animations
         public TComponent Owner { get; private set; }
 
         public AnimationState State { get; private set; }
+        public AnimationDirection Direction { get; set; }
+
         public IEasing Easing
         {
             get

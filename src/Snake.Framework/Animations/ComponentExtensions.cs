@@ -65,13 +65,25 @@ namespace Snake.Framework.Animations
 		public static IAnimationPipeline<TComponent> Enable<TComponent>(this TComponent component, float duration, IEasing easing = null)
 		    where TComponent : IComponent
         {
-            return component.Toogle(component.Enabled, duration, easing, v => component.Enabled = v);
+            return component.Toogle(false, duration, easing, v => component.Enabled = v);
 		}
 
 		public static IAnimationPipeline<TComponent> Enable<TComponent>(this IAnimationPipeline<TComponent> pipeline, float duration, IEasing easing = null)
 			where TComponent : IComponent
 		{
-			return pipeline.Toogle(pipeline.Owner.Enabled, duration, easing, v => pipeline.Owner.Enabled = v);
+			return pipeline.Toogle(false, duration, easing, v => pipeline.Owner.Enabled = v);
+		}
+
+		public static IAnimationPipeline<TComponent> Disable<TComponent>(this TComponent component, float duration, IEasing easing = null)
+			where TComponent : IComponent
+		{
+			return component.Toogle(true, duration, easing, v => component.Enabled = v);
+		}
+
+		public static IAnimationPipeline<TComponent> Disable<TComponent>(this IAnimationPipeline<TComponent> pipeline, float duration, IEasing easing = null)
+			where TComponent : IComponent
+		{
+			return pipeline.Toogle(true, duration, easing, v => pipeline.Owner.Enabled = v);
 		}
     }
 }

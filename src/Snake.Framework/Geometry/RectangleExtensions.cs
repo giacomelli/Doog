@@ -46,19 +46,19 @@ namespace Snake.Framework.Geometry
 
         public static bool IsXBorder(this Rectangle rect, float x)
         {
-            return x.EqualsTo(rect.Left) || x.EqualsTo(rect.Right - 1);    
+            return x.EqualsTo(rect.Left) || x.EqualsTo(rect.Right);    
         }
 
 		public static bool IsYBorder(this Rectangle rect, float y)
 		{
-			return y.EqualsTo(rect.Top) || y.EqualsTo(rect.Bottom - 1);
+			return y.EqualsTo(rect.Top) || y.EqualsTo(rect.Bottom);
 		}
 
         public static void Iterate(this Rectangle rect, Action<float, float> step, float stepSize = 1f)
         {
-            for (var x = rect.Left; x < rect.Right; x += stepSize)
+            for (var x = rect.Left; x <= rect.Right; x += stepSize)
             {
-				for (var y = rect.Top; y < rect.Bottom; y += stepSize)
+				for (var y = rect.Top; y <= rect.Bottom; y += stepSize)
 				{
                     step(x, y);
 				}

@@ -13,8 +13,7 @@ namespace Snake.Framework.Geometry
 	{
 		private Point position;
 		private Point size;
-		private Rectangle boundingBox;
-
+		
 		public Transform(IWorldContext context)
             : base(context)
 		{
@@ -55,6 +54,9 @@ namespace Snake.Framework.Geometry
 			}
 		}
 
+        public Rectangle BoundingBox { get; private set; }
+
+
 		public void IncrementPosition(float x, float y)
 		{
 			Position = new Point(position.X + x, position.Y + y);
@@ -72,12 +74,12 @@ namespace Snake.Framework.Geometry
 
 		public bool Intersect(Transform other)
 		{
-			return boundingBox.Intersect(other.boundingBox);
+			return BoundingBox.Intersect(other.BoundingBox);
 		}
 
 		private void RebuildBoundingBox()
 		{
-			boundingBox = new Rectangle(position.X, position.Y, position.X + size.X, position.Y + size.Y);
+			BoundingBox = new Rectangle(position.X, position.Y, position.X + size.X, position.Y + size.Y);
 		}
 	}
 }

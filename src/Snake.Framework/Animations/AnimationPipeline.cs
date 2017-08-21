@@ -7,7 +7,6 @@ namespace Snake.Framework.Animations
         where TOwner : IComponent
     {
         private int currentAnimationIndex;
-        private PipelineKind kind = PipelineKind.Once;
         private int runTimes;
         private List<IAnimation<TOwner>> animations;
         private IAnimation<TOwner> currentAnimation;
@@ -16,9 +15,21 @@ namespace Snake.Framework.Animations
         protected AnimationPipeline()
         {
             animations = new List<IAnimation<TOwner>>();
+            Kind = PipelineKind.Once;
+            Direction = PipelineDirection.Forward;
         }
 
         public TOwner Owner { get; protected set; }
+        public PipelineKind Kind { get; private set; }
+        public PipelineDirection Direction { get; private set; }
+       
+        public int Length 
+        {
+            get 
+            {
+                return animations.Count;
+            }
+        }
 
         public virtual AnimationState State
         {
@@ -43,6 +54,16 @@ namespace Snake.Framework.Animations
             animations.Add(animation);
         }
 
+		public IAnimation<TOwner> Get(int index)
+        {
+            return animations[index];
+        }
+
+		public void Replace(int index, IAnimation<TOwner> animation)
+        {
+            animations[index] = animation;
+        }
+
         protected virtual void Run()
         {
             runTimes++;
@@ -57,7 +78,7 @@ namespace Snake.Framework.Animations
 
         public IAnimationPipelineController Loop()
         {
-           return Run(PipelineKind.Loop);
+            return Run(PipelineKind.Loop);
         }
 
         public IAnimationPipelineController PingPong()
@@ -100,28 +121,53 @@ namespace Snake.Framework.Animations
         private void PlayCurrent()
         {
             currentAnimation = animations[currentAnimationIndex];
-            var current = currentAnimation;
-            current.Ended -= CurrentAnimationEnded;
-            current.Ended += CurrentAnimationEnded;
+           
+            // Looking for an animation that can be played in pipeline current direction.
+            while(!CanPlay(currentAnimation))
+            {
+                currentAnimationIndex++;
 
-            Log("Playing animation {0}", current.Name);
+                if(currentAnimationIndex >= animations.Count)
+                {
+                    CurrentAnimationEnded(currentAnimation, EventArgs.Empty);
+                }
+                else 
+                {
+                    currentAnimation = animations[currentAnimationIndex];
+                }
+            }
+
+            currentAnimation.Ended -= CurrentAnimationEnded;
+            currentAnimation.Ended += CurrentAnimationEnded;
+
+            Log("Playing animation {0}", currentAnimation.Name);
 
             if (runTimes > 1)
             {
-                switch (kind)
+                switch (Kind)
                 {
                     case PipelineKind.Loop:
-                        current.Reset();
+                        currentAnimation.Reset();
                         break;
 
                     case PipelineKind.PingPong:
-                        current.Reverse();
+                        currentAnimation.Reverse();
                         break;
                 }
             }
 
-            current.Play();
+            currentAnimation.Play();
         }
+
+        private bool CanPlay(IAnimation<TOwner> animatino)
+        {
+            var animationDirection = animatino.Direction;
+
+            return animationDirection == AnimationDirection.Any
+                || (animationDirection == AnimationDirection.Forward && Direction == PipelineDirection.Forward)
+                || (animationDirection == AnimationDirection.Backward && Direction == PipelineDirection.Backward);
+
+		}
 
         private void CurrentAnimationEnded(object sender, EventArgs e)
         {
@@ -137,7 +183,7 @@ namespace Snake.Framework.Animations
             }
             else
             {
-                switch (kind)
+                switch (Kind)
                 {
                     case PipelineKind.Loop:
                         Log("loop");
@@ -147,7 +193,11 @@ namespace Snake.Framework.Animations
                     case PipelineKind.PingPong:
                         Log("ping-pong");
                         animations.Reverse();
-                        Run();
+						Direction = Direction == PipelineDirection.Forward
+															   ? PipelineDirection.Backward
+															   : PipelineDirection.Forward;
+
+						Run();
                         break;
 
                     case PipelineKind.Once:
@@ -162,15 +212,15 @@ namespace Snake.Framework.Animations
         {
             if (controller == null)
             {
-                this.kind = kind;
+                this.Kind = kind;
                 Run();
 
                 controller = new AnimationPipelineController<TOwner>(this);
                 return controller;
             }
-            else 
+            else
             {
-                throw new InvalidOperationException("You can call Once/Loop/PingPong just once by pipeline.");    
+                throw new InvalidOperationException("You can call Once/Loop/PingPong just once by pipeline.");
             }
         }
 
