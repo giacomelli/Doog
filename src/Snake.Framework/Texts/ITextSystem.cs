@@ -8,7 +8,7 @@
         IWorldContext Context { get; }
 
 		void Initialize();
-		void Draw(float x, float y, string text, string fontName = null);
+		ITextSystem Draw(float x, float y, string text, string fontName = null);
 		IFont GetFont(string fontName = null);
 	}
 }

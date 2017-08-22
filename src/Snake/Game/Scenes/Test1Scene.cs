@@ -103,8 +103,9 @@ namespace Snake.Game.Scenes
 
         public override void Update()
         {
-            Context.TextSystem.DrawCenter(0, -10, numberSample1.ToString("N0"));
-            Context.TextSystem.DrawCenter(0, 0, numberSample2.ToString("N0"));
+            Context.TextSystem
+                   .DrawCenter(0, -10, numberSample1.ToString("N0"))
+                   .DrawCenter(0, 0, numberSample2.ToString("N0"));
 
             if (Console.KeyAvailable)
             {

@@ -52,8 +52,9 @@ namespace Snake.Game.Scenes
 			}
 			else
 			{
-				Context.TextSystem.DrawCenterX(1, "Doog's Snake");
-				Context.TextSystem.DrawCenterX(7, "Score: " + snakes[0].FoodsEatenCount, "Default");
+				Context.TextSystem
+                       .DrawCenterX(1, "Doog's Snake")
+				       .DrawCenterX(7, "Score: " + snakes[0].FoodsEatenCount, "Default");
 			}
 		}
 

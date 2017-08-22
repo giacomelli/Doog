@@ -34,13 +34,15 @@ namespace Snake.Framework.Texts.Map
 			}
 		}
 
-		public void Draw(float x, float y, string text, string fontName = null)
+		public ITextSystem Draw(float x, float y, string text, string fontName = null)
 		{
 			((MapFont)GetFont(fontName)).Process(
 				x,
 				y,
 				text,
 				(cx, cy, c) => Context.GraphicSystem.Draw(cx, cy, c));
+
+            return this;
 		}
 
 		public IFont GetFont(string fontName = null)

@@ -27,8 +27,8 @@ namespace Snake.Game.Scenes
         {
             var ts = Context.TextSystem;
          
-            ts.DrawCenter("Game over");
-            ts.DrawCenter(0, 7, "Score: {0}".With(foodEatenCount), "Default");
+            ts.DrawCenter("Game over")
+              .DrawCenter(0, 7, "Score: {0}".With(foodEatenCount), "Default");
 
             if (Console.KeyAvailable)
             {
