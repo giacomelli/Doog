@@ -52,7 +52,8 @@
     <Compile Include="Game\WallSpawner.cs" />
     <Compile Include="Game\Scenes\ClassicModeLevelScene.cs" />
     <Compile Include="Game\Scenes\GameOverScene.cs" />
-    <Compile Include="Game\Scenes\TestScene.cs" />
+    <Compile Include="Game\Scenes\Test1Scene.cs" />
+    <Compile Include="Game\Scenes\Test2Scene.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

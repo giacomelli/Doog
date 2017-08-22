@@ -6,7 +6,7 @@ using Snake.Framework.Graphics;
 
 namespace Snake.Game.Scenes
 {
-    public class TestScene : SceneBase
+    public class Test1Scene : SceneBase
     {
         private Rectangle moveToSampleArea = new Rectangle(1, 10, 11, 21);
         private float numberSample1;
@@ -14,7 +14,7 @@ namespace Snake.Game.Scenes
         private IAnimationPipelineController controller1;
         private IAnimationPipelineController controller2;
 
-        public TestScene(IWorldContext context)
+        public Test1Scene(IWorldContext context)
             : base(context)
         {
         }

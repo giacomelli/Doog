@@ -38,9 +38,13 @@ namespace Snake.Game.Scenes
                         Context.OpenScene<ClassicModeLevelScene>();
                         break;
 
-                    case ConsoleKey.T:
-                        Context.OpenScene<TestScene>();
+                    case ConsoleKey.D1:
+                        Context.OpenScene<Test1Scene>();
                         break;
+
+					case ConsoleKey.D2:
+						Context.OpenScene<Test2Scene>();
+						break;
                 }
             }
         }
