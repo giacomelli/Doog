@@ -12,12 +12,12 @@ namespace Snake.Framework.Geometry
    	public class Transform : ComponentBase
 	{
 		private Point position;
-		private Point size;
+        private Point scale;
 		
 		public Transform(IWorldContext context)
             : base(context)
 		{
-			Size = Point.Zero;
+			Scale = Point.One;
 		}
 
 		public Transform(float x, float y, IWorldContext context)
@@ -40,16 +40,16 @@ namespace Snake.Framework.Geometry
 			}
 		}
 
-		public Point Size
+		public Point Scale
 		{
 			get
 			{
-				return size;
+				return scale;
 			}
 
 			set
 			{
-				size = value;
+				scale = value;
 				RebuildBoundingBox();
 			}
 		}
@@ -79,7 +79,7 @@ namespace Snake.Framework.Geometry
 
 		private void RebuildBoundingBox()
 		{
-			BoundingBox = new Rectangle(position.X, position.Y, position.X + size.X, position.Y + size.Y);
+			BoundingBox = new Rectangle(position.X, position.Y, position.X + scale.X, position.Y + scale.Y);
 		}
 	}
 }

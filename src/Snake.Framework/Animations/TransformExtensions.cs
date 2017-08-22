@@ -43,9 +43,9 @@ namespace Snake.Framework.Animations
 
 		public static IAnimationPipeline<Transform> ScaleTo(this Transform transform, Point to, float duration, IEasing easing = null)
 		{
-            var animation = new PointAnimation<Transform>(transform, "ScaleTo", transform.Size, to, duration, (v) =>
+            var animation = new PointAnimation<Transform>(transform, "ScaleTo", transform.Scale, to, duration, (v) =>
             {
-                transform.Size = v;
+                transform.Scale = v;
             });
 
             animation.Easing = easing;

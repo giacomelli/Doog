@@ -22,7 +22,10 @@ namespace Snake.Game
 
 		public void OnCollision(Collision collision)
 		{
-			Enabled = false;
+            if (collision.Other.Tag != "Food")
+            {
+                Enabled = false;
+            }
 		}
 
         protected override void OnEnabled()

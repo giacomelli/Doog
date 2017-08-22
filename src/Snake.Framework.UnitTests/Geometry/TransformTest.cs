@@ -29,20 +29,20 @@ namespace Snake.Framework.UnitTests.Geometry
 
 			Assert.IsTrue(target.Intersect(new Transform(ctx)));
 
-			target.IncrementPosition(1, 0);
+            target.Position = new Point(1, 1);
 			Assert.IsFalse(target.Intersect(new Transform(ctx)));
 
-			target.IncrementPosition(-1, 1);
+			target.Position = new Point(-1, -1);
 			Assert.IsFalse(target.Intersect(new Transform(ctx)));
 
-			target.IncrementPosition(0, -1);
+			target.Position = new Point(0, 0);
 			Assert.IsTrue(target.Intersect(new Transform(ctx)));
 
-			target.IncrementPosition(-1, -1);
-			target.Size = Point.One;
+			target.Position = new Point(0, 0);
+			target.Scale = new Point(2, 2);
 			Assert.IsTrue(target.Intersect(new Transform(ctx)));
-			Assert.AreEqual(1, target.Size.X);
-			Assert.AreEqual(1, target.Size.Y);
+			Assert.AreEqual(2, target.Scale.X);
+			Assert.AreEqual(2, target.Scale.Y);
 		}
 	}
 }

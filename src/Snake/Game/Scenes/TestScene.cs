@@ -95,11 +95,10 @@ namespace Snake.Game.Scenes
 
             // ScaleTo wall
             var wall = Wall.Create(140, 10, Context);
-            wall.Transform.Size = new Point(10, 10);
-            //wall.Transform
-                //.ScaleTo(new Point(20, 10), 1, Easing.InBack)
-                //.MoveTo(new Point(150, 20), 1, Easing.InBack)
-                //.PingPong();
+            wall.Transform
+                .ScaleTo(new Point(20, 10), 1, Easing.Linear)
+                .MoveTo(new Point(150, 20), 1, Easing.InBack)
+                .PingPong();
         }
 
         public override void Update()

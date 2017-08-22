@@ -3,53 +3,70 @@ using Snake.Framework.Geometry;
 
 namespace Snake.Framework.UnitTests.Geometry
 {
-	[TestFixture]
-	public class RectangleTest
-	{
-		[Test]
-		public void Contains_PointOutside_False()
-		{
-			var target = new Rectangle(0, 1, 10, 11);
+    [TestFixture]
+    public class RectangleTest
+    {
+        [Test]
+        public void Contains_PointOutside_False()
+        {
+            var target = new Rectangle(0, 1, 10, 11);
 
-			Assert.IsFalse(target.Contains(-1, 1));
-			Assert.IsFalse(target.Contains(0, 0));
-			Assert.IsFalse(target.Contains(11, 1));
-			Assert.IsFalse(target.Contains(10, 12));
-		}
+            Assert.IsFalse(target.Contains(-1, 1));
+            Assert.IsFalse(target.Contains(0, 0));
+            Assert.IsFalse(target.Contains(11, 1));
+            Assert.IsFalse(target.Contains(10, 12));
+        }
 
-		[Test]
-		public void Contains_PoinInside_True()
-		{
-			var target = new Rectangle(0, 1, 10, 11);
+        [Test]
+        public void Contains_PoinInside_True()
+        {
+            var target = new Rectangle(0, 1, 10, 11);
 
-			Assert.IsTrue(target.Contains(0, 1));
-			Assert.IsTrue(target.Contains(1, 2));
-			Assert.IsTrue(target.Contains(10, 11));
-			Assert.IsTrue(target.Contains(0, 11));
+            Assert.IsTrue(target.Contains(0, 1));
+            Assert.IsTrue(target.Contains(1, 2));
+            Assert.IsTrue(target.Contains(10, 11));
+            Assert.IsTrue(target.Contains(0, 11));
 
-			for (int x = (int) target.Left; x < target.Right; x++)
-			{
-				for (int y = (int) target.Top; y < target.Bottom; y++)
-				{
-					Assert.IsTrue(target.Contains(x, y), "{0}, {1}", x, y);
-				}
-			}
-		}
+            for (int x = (int)target.Left; x < target.Right; x++)
+            {
+                for (int y = (int)target.Top; y < target.Bottom; y++)
+                {
+                    Assert.IsTrue(target.Contains(x, y), "{0}, {1}", x, y);
+                }
+            }
+        }
 
-		[Test]
-		public void Intersect_NonInterserction_False()
-		{
-			var target = new Rectangle(5, 10, 15, 20);
-			Assert.IsFalse(target.Intersect(new Rectangle(3, 8, 4, 9)));
-			Assert.IsFalse(target.Intersect(new Rectangle(1, 21, 10, 23)));
-		}
+        [Test]
+        public void Intersect_NonInterserction_False()
+        {
+            var target = new Rectangle(5, 10, 15, 20);
+            Assert.IsFalse(target.Intersect(new Rectangle(3, 8, 4, 9)));
+            Assert.IsFalse(target.Intersect(new Rectangle(1, 21, 10, 23)));
+
+            target = new Rectangle(0, 0, 1, 1);
+            Assert.IsFalse(target.Intersect(new Rectangle(1, 1, 1, 1)));
+            Assert.IsFalse(target.Intersect(new Rectangle(0, 0, 0, 0)));
+
+            target = new Rectangle(0, 0, 1, 1);
+            Assert.IsFalse(target.Intersect(new Rectangle(1, 1, 1, 1)));
+            Assert.IsFalse(target.Intersect(new Rectangle(0, 0, 0, 0)));
+
+            target = new Rectangle(1, 1, 2, 2);
+            Assert.IsFalse(target.Intersect(new Rectangle(0, 0, 1, 1)));
+
+			target = new Rectangle(1, 22, 2, 23);
+			Assert.IsFalse(target.Intersect(new Rectangle(1, 10, 2, 11)));
+        }
 
 		[Test]
 		public void Intersect_Intersection_True()
 		{
 			var target = new Rectangle(5, 10, 15, 20);
-			Assert.IsTrue(target.Intersect(new Rectangle(3, 8, 5, 10)));
+			Assert.IsTrue(target.Intersect(new Rectangle(3, 8, 6, 11)));
 			Assert.IsTrue(target.Intersect(new Rectangle(6, 11, 7, 12)));
+
+			target = new Rectangle(1, 1, 1, 1);
+			Assert.IsTrue(target.Intersect(new Rectangle(1, 1, 1, 1)));
 		}
 
 		[Test]

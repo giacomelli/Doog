@@ -62,13 +62,13 @@ namespace Snake.Framework.Geometry
             }
         }
 
-		public float Height
-		{
-			get
-			{
+        public float Height
+        {
+            get
+            {
                 return bottom - top;
-			}
-		}
+            }
+        }
 
         public bool Contains(float x, float y)
         {
@@ -80,10 +80,22 @@ namespace Snake.Framework.Geometry
 
         public bool Intersect(Rectangle other)
         {
-            return !(other.right < left ||
-                    other.left > right ||
-                    other.bottom < top ||
-                     other.top > bottom);
+            if (this == other)
+            {
+                return true;
+            }
+
+            if (left >= other.right || other.left >= right)
+            {
+                return false;
+            }
+
+            if (top >= other.bottom || other.top >= bottom)
+            {
+                return false;
+            }
+
+			return true;
         }
 
         public Point GetCenter()
@@ -97,5 +109,40 @@ namespace Snake.Framework.Geometry
         {
             return new Rectangle(left, top, right * scale, bottom * scale);
         }
+
+		public override bool Equals(object obj)
+		{
+			if (!(obj is Rectangle))
+			{
+				return false;
+			}
+
+			return ((Rectangle)obj) == this;
+		}
+
+		public override int GetHashCode()
+		{
+			float hash = 23;
+            hash = hash * 31 + left;
+			hash = hash * 31 + top;
+            hash = hash * 31 + right;
+            hash = hash * 31 + bottom;
+
+			return (int)hash;
+		}
+
+		public static bool operator ==(Rectangle a, Rectangle b)
+		{
+            return a.left.EqualsTo(b.left)
+                    && a.top.EqualsTo(b.top)
+                    && a.right.EqualsTo(b.Right)
+                    && a.bottom.EqualsTo(b.bottom);
+                 
+		}
+
+		public static bool operator !=(Rectangle a, Rectangle b)
+		{
+			return !(a == b);
+		}
     }
 }
