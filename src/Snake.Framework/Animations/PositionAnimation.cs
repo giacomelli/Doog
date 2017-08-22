@@ -8,6 +8,7 @@ namespace Snake.Framework.Animations
     /// </summary>
     public class PositionAnimation : AnimationBase<Transform>
     {
+        private Point? originalFrom;
         private Point from;
         private Point to;
 
@@ -19,7 +20,12 @@ namespace Snake.Framework.Animations
 
         public override void Play()
         {
-            this.from = Owner.Position;
+            if (!originalFrom.HasValue)
+            {
+                originalFrom = Owner.Position;
+            }
+
+            this.from = originalFrom.Value;
             base.Play();
         }
 
