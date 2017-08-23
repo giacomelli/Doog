@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using Snake.Framework.Geometry;
-using Snake.Framework.Logging;
 using Snake.Framework.Physics;
 using Snake.Framework.Texts.Map;
 using Snake.Game;
@@ -14,9 +13,6 @@ namespace Snake.Runners.Console
     {
         private static void Main(string[] args)
         {
-            var fps = 60f;
-            var sleepTime = (int)Math.Round(1000f / fps);
-
             using (var game = new SnakeGame())
             {
                 var gs = new GraphicSystem();
@@ -31,21 +27,29 @@ namespace Snake.Runners.Console
                 {
                     game.LogSystem = new FileLogSystem(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt"));
                 }
-				else if (args.Contains("console-log"))
-				{
-					game.LogSystem = new ConsoleLogSystem(
-					    new Rectangle(1, gs.Bounds.Bottom * 0.8f, gs.Bounds.Right -1, gs.Bounds.Bottom -1), 
-				    	game);
-				}
+                else if (args.Contains("console-log"))
+                {
+                    game.LogSystem = new ConsoleLogSystem(
+                        new Rectangle(1, gs.Bounds.Bottom * 0.8f, gs.Bounds.Right - 1, gs.Bounds.Bottom - 1),
+                        game);
+                }
 
+                var fpsPosition = game.Bounds.RightTopPoint() + new Point(-15, 1);
+                var secondsPerFrame = 1f / 30f;
+             
                 for (;;)
                 {
-                    game.Update(DateTime.Now);
+                    var startTime = DateTime.Now;
+                    game.Update(startTime);
                     game.Draw();
 
                     // TODO: this should be moved to game loop inside the World class.
                     // There are samples how to implement it on chapter GAME LOOP.
-                    Thread.Sleep(sleepTime);
+                    // Thread.Sleep(sleepTime);
+                    var wait = startTime.AddSeconds(secondsPerFrame) - DateTime.Now;
+
+                    if (wait.TotalMilliseconds > 0)
+                        Thread.Sleep(wait);
                 }
             }
         }
