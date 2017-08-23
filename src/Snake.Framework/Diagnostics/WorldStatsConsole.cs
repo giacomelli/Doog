@@ -9,7 +9,7 @@ namespace Snake.Framework.Diagnostics
     /// <summary>
     /// A console to show stats by game world.
     /// </summary>
-    public class WorldStatsConsole : ComponentBase, IUpdatable, ISceneSurvivable
+    public class WorldStatsConsole : ComponentBase, IDrawable, ISceneSurvivable
     {
         private readonly Point position;
 
@@ -24,7 +24,7 @@ namespace Snake.Framework.Diagnostics
             return new WorldStatsConsole(x, y, context);
         }
 
-        public void Update()
+        public void Draw(IDrawContext ctx)
         {
             var components = Context.Components;
             var enabledComponentsCount = components.Count(c => c.Enabled);

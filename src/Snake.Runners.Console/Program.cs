@@ -34,22 +34,29 @@ namespace Snake.Runners.Console
                         game);
                 }
 
-                var fpsPosition = game.Bounds.RightTopPoint() + new Point(-15, 1);
-                var secondsPerFrame = 1f / 30f;
-             
+				// TODO: this should be moved to game loop inside the World class.
+				// There are samples how to implement it on chapter GAME LOOP.
+				// The game loop bellow is the "Fixed update time step, variable renderinga
+				var secondsPerFrame = 1f / 30f;
+                var previous = DateTime.Now;
+                var lag = 0.0;
+
                 for (;;)
                 {
-                    var startTime = DateTime.Now;
-                    game.Update(startTime);
+                    var current = DateTime.Now;
+                    var elapsed = current - previous;
+                    previous = current;
+                    lag += elapsed.TotalSeconds;
+
+                    // game.ProcessInput();
+
+                    while(lag >= secondsPerFrame)
+                    {
+                        game.Update(DateTime.Now);
+                        lag -= secondsPerFrame;
+                    }
+
                     game.Draw();
-
-                    // TODO: this should be moved to game loop inside the World class.
-                    // There are samples how to implement it on chapter GAME LOOP.
-                    // Thread.Sleep(sleepTime);
-                    var wait = startTime.AddSeconds(secondsPerFrame) - DateTime.Now;
-
-                    if (wait.TotalMilliseconds > 0)
-                        Thread.Sleep(wait);
                 }
             }
         }

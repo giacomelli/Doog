@@ -2,6 +2,7 @@
 using System;
 using Snake.Framework;
 using Snake.Framework.Diagnostics;
+using Snake.Framework.Graphics;
 
 namespace Snake.Game.Scenes
 {
@@ -25,11 +26,6 @@ namespace Snake.Game.Scenes
 
         public override void Update()
         {
-            var ts = Context.TextSystem;
-         
-            ts.DrawCenter("Game over")
-              .DrawCenter(0, 7, "Score: {0}".With(foodEatenCount), "Default");
-
             if (Console.KeyAvailable)
             {
                 switch (Console.ReadKey(true).Key)
@@ -48,5 +44,13 @@ namespace Snake.Game.Scenes
                 }
             }
         }
+
+        public override void Draw(IDrawContext context)
+        {
+            Context.TextSystem
+                   .DrawCenter("Game over")
+			       .DrawCenter(0, 7, "Score: {0}".With(foodEatenCount), "Default");
+
+		}
     }
 }

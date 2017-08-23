@@ -103,10 +103,6 @@ namespace Snake.Game.Scenes
 
         public override void Update()
         {
-            Context.TextSystem
-                   .DrawCenter(0, -10, numberSample1.ToString("N0"))
-                   .DrawCenter(0, 0, numberSample2.ToString("N0"));
-
             if (Console.KeyAvailable)
             {
                 switch (Console.ReadKey(true).Key)
@@ -159,6 +155,11 @@ namespace Snake.Game.Scenes
         public override void Draw(IDrawContext context)
         {
             context.Canvas.DrawRectangle(moveToSampleArea);
-        }
+			
+            Context.TextSystem
+				.DrawCenter(0, -10, numberSample1.ToString("N0"))
+				.DrawCenter(0, 0, numberSample2.ToString("N0"));
+
+		}
     }
 }

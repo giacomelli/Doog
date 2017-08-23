@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Snake.Framework;
-using Snake.Framework.Behaviors;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 using Snake.Framework.Logging;
@@ -10,7 +9,7 @@ namespace Snake.Runners.Console
 {
     // TODO: move to the Framework project, because it do not have any dependency to Console
     // Maybe we can change the name to something like DebugLogSystem.
-    public class ConsoleLogSystem : LogSystemBase, IUpdatable
+    public class ConsoleLogSystem : LogSystemBase, IDrawable
     {
         private Rectangle bounds;
         private List<string> lines = new List<string>();
@@ -30,7 +29,7 @@ namespace Snake.Runners.Console
 
         public IWorldContext Context { get; private set; }
 
-		public void Update()
+		public void Draw(IDrawContext ctx)
 		{
             Context.GraphicSystem.DrawRectangle(bounds);
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using Snake.Framework;
 using Snake.Framework.Animations;
+using Snake.Framework.Graphics;
 
 namespace Snake.Game.Scenes
 {
@@ -50,13 +51,14 @@ namespace Snake.Game.Scenes
                 Context.Components.DisableAll();
 				Context.OpenScene<GameOverScene>();
 			}
-			else
-			{
-				Context.TextSystem
-                       .DrawCenterX(1, "Doog's Snake")
-				       .DrawCenterX(7, "Score: " + snakes[0].FoodsEatenCount, "Default");
-			}
 		}
+
+        public override void Draw(IDrawContext context)
+        {
+			Context.TextSystem
+						.DrawCenterX(1, "Doog's Snake")
+						.DrawCenterX(7, "Score: " + snakes[0].FoodsEatenCount, "Default");
+        }
 
         private void CheckGameOver()
         {
