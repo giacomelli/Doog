@@ -23,18 +23,18 @@ public static class RectangleExtensions
 
     public static Point RightTopPoint(this Rectangle rect)
     {
-        return new Point(rect.Right, rect.Top);
+        return new Point(rect.Right - 1, rect.Top);
     }
 
     public static Point RightBottomPoint(this Rectangle rect)
     {
-        return new Point(rect.Right, rect.Bottom);
+        return new Point(rect.Right - 1, rect.Bottom -1);
 
     }
 
     public static Point LeftBottomPoint(this Rectangle rect)
     {
-        return new Point(rect.Left, rect.Bottom);
+        return new Point(rect.Left, rect.Bottom -1);
 
     }
 

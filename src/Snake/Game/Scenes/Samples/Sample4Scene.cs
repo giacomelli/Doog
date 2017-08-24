@@ -43,7 +43,7 @@ namespace Snake.Game.Scenes.Samples
         {
 			var bounds = Context.Bounds;
 			var minDuration = 1f;
-			var timeScale = 0.01f;
+			var timeScale = 0.1f;
 
 			for (float y = bounds.Top; y < bounds.Bottom; y++)
 			{
@@ -65,7 +65,7 @@ namespace Snake.Game.Scenes.Samples
         {
 			var bounds = Context.Bounds;
 			var minDuration = 1f;
-			var timeScale = 0.01f;
+			var timeScale = 0.2f;
 
 			for (float x = bounds.Left; x < bounds.Right; x++)
 			{

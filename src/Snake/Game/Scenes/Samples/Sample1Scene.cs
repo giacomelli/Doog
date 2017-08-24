@@ -48,21 +48,18 @@ namespace Snake.Game.Scenes.Samples
                 .Loop();
 
             controller1 = blinkFood
-                .To(0, 100, 1, Easing.Linear, (v) => numberSample1 = v)
+                .To(0, 100, 19, Easing.Linear, (v) => numberSample1 = v)
                 .Loop();
 
-			controller2 = blinkFood
-				.To(0, 100, 1, Easing.Linear, (v) => numberSample2 = v)
-				.PingPong();
-
-            //controller2 = blinkFood
-                    //.To(0, 10, 10, Easing.Linear, (v) => numberSample2 = v)
-                    //.Delay(5)
-                    //.To(10, 30, 10, Easing.Linear, (v) => numberSample2 = v)
-                    //.Delay(5)
-                    //.To(30, 100, 10, Easing.Linear, (v) => numberSample2 = v)
-                    //.Delay(5)
-                    //.PingPong();
+		
+            controller2 = blinkFood
+                    .To(0, 10, 10, Easing.Linear, (v) => numberSample2 = v)
+                    .Delay(5)
+                    .To(10, 30, 10, Easing.Linear, (v) => numberSample2 = v)
+                    .Delay(5)
+                    .To(30, 100, 10, Easing.Linear, (v) => numberSample2 = v)
+                    .Delay(5)
+                    .PingPong();
 
 
             // Once blink
