@@ -118,6 +118,7 @@ namespace Snake.Framework.Animations
                 }
                 else
                 {
+                    UpdateValue(1);
                     Stop();
                     OnEnded(EventArgs.Empty);
                 }
