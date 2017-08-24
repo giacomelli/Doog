@@ -41,6 +41,8 @@ namespace Snake.Runners.Console
                 var previous = DateTime.Now;
                 var lag = 0.0;
 
+                game.Update(previous);
+
                 for (;;)
                 {
                     var current = DateTime.Now;
