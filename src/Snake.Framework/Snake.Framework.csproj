@@ -87,8 +87,6 @@
     <Compile Include="Animations\InBackEasing.cs" />
     <Compile Include="Animations\AnimationBase.cs" />
     <Compile Include="Animations\TransformExtensions.cs" />
-    <Compile Include="Animations\AnimationCache.cs" />
-    <Compile Include="Animations\AnimationId.cs" />
     <Compile Include="FloatExtensions.cs" />
     <Compile Include="Logging\ILogSystem.cs" />
     <Compile Include="Logging\NullLogSystem.cs" />

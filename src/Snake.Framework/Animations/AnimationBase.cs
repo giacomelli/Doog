@@ -19,22 +19,17 @@ namespace Snake.Framework.Animations
         private float duration;
         private IEasing easing;
 
-        protected AnimationBase(TComponent owner, string name, float duration)
+        protected AnimationBase(TComponent owner, float duration)
             : base(owner.Context)
         {
-            Id = new AnimationId(owner, name);
             Owner = owner;
-            Name = name;
-
+       
             this.duration = duration;
             easing = Animations.Easing.Linear;
             owner.AddChild(this);
             State = AnimationState.NotPlayed;
             Direction = AnimationDirection.Any;
         }
-
-        public AnimationId Id { get; private set; }
-        public string Name { get; private set; }
 
         public TComponent Owner { get; private set; }
 
@@ -58,7 +53,7 @@ namespace Snake.Framework.Animations
 
         public virtual void Play()
         {
-            Log.Debug("{0}: play", Name);
+            Log.Debug("{0}: play", this);
 
             PlayCount++;
             playStartedTime = Context.Time.SinceSceneStart;
@@ -69,14 +64,14 @@ namespace Snake.Framework.Animations
 
         public void Pause()
         {
-            Log.Debug("{0}: pause", Name);
+            Log.Debug("{0}: pause", this);
             pauseStartedTime = Context.Time.SinceSceneStart;
             State = AnimationState.Paused;
         }
 
         public void Resume()
         {
-            Log.Debug("{0}: resume", Name);
+            Log.Debug("{0}: resume", this);
             playStartedTime = Context.Time.SinceSceneStart - (pauseStartedTime - playStartedTime);
             State = AnimationState.Playing;
         }
@@ -85,14 +80,14 @@ namespace Snake.Framework.Animations
         {
             if (State != AnimationState.NotPlayed)
             {
-                Log.Debug("{0}: stop", Name);
+                Log.Debug("{0}: stop", this);
                 State = AnimationState.Stopped;
             }
         }
 
         public virtual void Reset()
         {
-            Log.Debug("{0}: reset", Name);
+            Log.Debug("{0}: reset", this);
             playStartedTime = 0;
             State = AnimationState.NotPlayed;
         }
@@ -125,6 +120,11 @@ namespace Snake.Framework.Animations
             }
         }
 
+        public override string ToString()
+        {
+            return GetType().Name;
+        }
+
         protected override void OnEnabled()
         {
             Resume();
@@ -149,8 +149,6 @@ namespace Snake.Framework.Animations
             {
                 Ended(this, args);
             }
-
-
         }
 
         protected abstract void UpdateValue(float time);

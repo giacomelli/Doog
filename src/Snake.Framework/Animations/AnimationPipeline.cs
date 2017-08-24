@@ -143,7 +143,7 @@ namespace Snake.Framework.Animations
             currentAnimation.Ended -= CurrentAnimationEnded;
             currentAnimation.Ended += CurrentAnimationEnded;
 
-            Log("Playing animation {0}", currentAnimation.Name);
+            Log("Playing animation {0}", currentAnimation);
 
             if (runTimes > 1)
             {
@@ -175,7 +175,7 @@ namespace Snake.Framework.Animations
         private void CurrentAnimationEnded(object sender, EventArgs e)
         {
             var animation = (IAnimation)sender;
-            Log("Animation {0} ended.", animation.Name);
+            Log("Animation {0} ended.", animation);
 
             animation.Ended -= CurrentAnimationEnded;
 

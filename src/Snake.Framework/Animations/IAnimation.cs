@@ -22,8 +22,6 @@ namespace Snake.Framework.Animations
 		event EventHandler Started;
 		event EventHandler Ended;
 
-		AnimationId Id { get; }
-		string Name { get; }
 		AnimationState State { get; }
         AnimationDirection Direction { get; set; }
 		IEasing Easing { get; set; }

@@ -3,8 +3,8 @@
     public class DelayAnimation<TComponent> : AnimationBase<TComponent>
         where TComponent : IComponent
     {
-        public DelayAnimation(TComponent owner, string name, float duration)
-            : base(owner, name, duration)
+        public DelayAnimation(TComponent owner, float duration)
+            : base(owner, duration)
         {
         }
 

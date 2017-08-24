@@ -14,8 +14,8 @@ namespace Snake.Framework.Animations
         private Point? fromBackward;
 		private Point toBackward;
 
-        public PositionAnimation(Transform owner, string name, Point to, float duration)
-            : base(owner, name, duration)
+        public PositionAnimation(Transform owner, Point to, float duration)
+            : base(owner, duration)
         {
             if (Direction == AnimationDirection.Backward)
             {

@@ -14,8 +14,8 @@ namespace Snake.Framework.Animations
         private Point to;
         private Action<Point> callback;
 
-        public PointAnimation(TOwner owner, string name, Func<TOwner, Point> getFrom, Point to, float duration, Action<Point> callback)
-            : base(owner, name, duration)
+        public PointAnimation(TOwner owner, Func<TOwner, Point> getFrom, Point to, float duration, Action<Point> callback)
+            : base(owner, duration)
         {
             this.getFrom = getFrom;
             this.to = to;

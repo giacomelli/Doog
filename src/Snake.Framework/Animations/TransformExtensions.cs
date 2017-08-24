@@ -52,7 +52,7 @@ public static class TransformExtensions
 
     public static IAnimationPipeline<Transform> ScaleTo(this Transform transform, Point to, float duration, IEasing easing = null)
     {
-        var animation = new PointAnimation<Transform>(transform, "ScaleTo1", t => t.Scale, to, duration, (v) =>
+        var animation = new PointAnimation<Transform>(transform, t => t.Scale, to, duration, (v) =>
         {
             transform.Scale = v;
         });
@@ -70,7 +70,7 @@ public static class TransformExtensions
     public static IAnimationPipeline<Transform> ScaleTo(this IAnimationPipeline<Transform> pipeline, Point to, float duration, IEasing easing = null)
     {
         var owner = pipeline.Owner;
-        var animation = new PointAnimation<Transform>(owner, "ScaleTo2", t => t.Scale, to, duration, (v) =>
+        var animation = new PointAnimation<Transform>(owner, t => t.Scale, to, duration, (v) =>
         {
             owner.Scale = v;
         });
@@ -83,8 +83,7 @@ public static class TransformExtensions
 
     private static IAnimation<Transform> CreateMoveToAnimation(Transform transform, float x, float y, float duration, IEasing easing = null, string name = null)
     {
-        name = name ?? "MoveFrom{0}To{1},{2}".With(transform.Position, x, y);
-        var animation = new PositionAnimation(transform, name, new Point(x, y), duration);
+        var animation = new PositionAnimation(transform, new Point(x, y), duration);
         animation.Easing = easing;
 
         return animation;

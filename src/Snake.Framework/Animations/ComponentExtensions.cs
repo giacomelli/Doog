@@ -20,7 +20,7 @@ namespace Snake.Framework.Animations
         public static IAnimationPipeline<TComponent> To<TComponent>(this TComponent component, float from, float to, float duration, IEasing easing, Action<float> callback)
             where TComponent : IComponent
         {
-            var animation = new FloatAnimation<TComponent>(component, "To", from, to, duration, callback);
+            var animation = new FloatAnimation<TComponent>(component, from, to, duration, callback);
             animation.Easing = easing;
 
             return AnimationPipeline<TComponent>.Create(animation);
@@ -29,7 +29,7 @@ namespace Snake.Framework.Animations
 		public static IAnimationPipeline<TComponent> To<TComponent>(this IAnimationPipeline<TComponent> pipeline, float from, float to, float duration, IEasing easing, Action<float> callback)
 		  where TComponent : IComponent
 		{
-			var animation = new FloatAnimation<TComponent>(pipeline.Owner, "To", from, to, duration, callback);
+			var animation = new FloatAnimation<TComponent>(pipeline.Owner, from, to, duration, callback);
 			animation.Easing = easing;
             pipeline.Add(animation);
 

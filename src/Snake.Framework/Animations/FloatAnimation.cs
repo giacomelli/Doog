@@ -13,8 +13,8 @@ namespace Snake.Framework.Animations
         private float to;
         private Action<float> changeValue;
 
-        public FloatAnimation(TComponent owner, string name, float from, float to, float duration, Action<float> changeValue)
-            : base(owner, name, duration)
+        public FloatAnimation(TComponent owner, float from, float to, float duration, Action<float> changeValue)
+            : base(owner, duration)
         {
             this.from = from;
             this.to = to;
