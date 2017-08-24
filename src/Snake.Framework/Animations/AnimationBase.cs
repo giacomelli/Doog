@@ -8,7 +8,7 @@ namespace Snake.Framework.Animations
     /// Represents an animation.
     /// </summary>
     [DebuggerDisplay("{Name}: {State}")]
-    public abstract class AnimationBase<TComponent> : ComponentBase, IAnimation<TComponent>, IUpdatable
+    public abstract class AnimationBase<TComponent, TValue> : ComponentBase, IAnimation<TComponent>, IUpdatable
         where TComponent : IComponent
     {
         public event EventHandler Started;
@@ -32,7 +32,6 @@ namespace Snake.Framework.Animations
         }
 
         public TComponent Owner { get; private set; }
-
         public AnimationState State { get; private set; }
         public AnimationDirection Direction { get; set; }
 
@@ -49,31 +48,40 @@ namespace Snake.Framework.Animations
             }
         }
 
-        protected int PlayCount { get; private set; }
+        protected TValue From { get; set; }
+        protected TValue To { get; set; }
 
         public virtual void Play()
         {
-            Log.Debug("{0}: play", this);
+            if (State == AnimationState.NotPlayed || State == AnimationState.Stopped)
+            {
+                Log.Debug("{0}: play", this);
 
-            PlayCount++;
-            playStartedTime = Context.Time.SinceSceneStart;
-            State = AnimationState.Playing;
+                playStartedTime = Context.Time.SinceSceneStart;
+                State = AnimationState.Playing;
 
-            OnStarted(EventArgs.Empty);
+                OnStarted(EventArgs.Empty);
+            }
         }
 
         public void Pause()
         {
-            Log.Debug("{0}: pause", this);
-            pauseStartedTime = Context.Time.SinceSceneStart;
-            State = AnimationState.Paused;
+            if (State == AnimationState.Playing)
+            {
+                Log.Debug("{0}: pause", this);
+                pauseStartedTime = Context.Time.SinceSceneStart;
+                State = AnimationState.Paused;
+            }
         }
 
         public void Resume()
         {
-            Log.Debug("{0}: resume", this);
-            playStartedTime = Context.Time.SinceSceneStart - (pauseStartedTime - playStartedTime);
-            State = AnimationState.Playing;
+            if (State == AnimationState.Paused)
+            {
+                Log.Debug("{0}: resume", this);
+                playStartedTime = Context.Time.SinceSceneStart - (pauseStartedTime - playStartedTime);
+                State = AnimationState.Playing;
+            }
         }
 
         public void Stop()
@@ -92,7 +100,12 @@ namespace Snake.Framework.Animations
             State = AnimationState.NotPlayed;
         }
 
-        public abstract void Reverse();
+        public virtual void Reverse()
+        {
+			var temp = From;
+			From = To;
+			To = temp;
+        }
       
         public void Update()
         {
@@ -122,7 +135,7 @@ namespace Snake.Framework.Animations
 
         public override string ToString()
         {
-            return GetType().Name;
+            return "{0}<{1}>({2}..{3})".With(GetType().Name, Owner.GetType().Name, From, To);
         }
 
         protected override void OnEnabled()
