@@ -11,6 +11,7 @@ namespace Snake.Framework.Animations
         private List<IAnimation<TOwner>> animations;
         private IAnimation<TOwner> currentAnimation;
         private IAnimationPipelineController controller;
+        private int times;
 
         protected AnimationPipeline()
         {
@@ -76,13 +77,15 @@ namespace Snake.Framework.Animations
             return Run(PipelineKind.Once);
         }
 
-        public IAnimationPipelineController Loop()
+        public IAnimationPipelineController Loop(int times = 0)
         {
+            this.times = times;
             return Run(PipelineKind.Loop);
         }
 
-        public IAnimationPipelineController PingPong()
+        public IAnimationPipelineController PingPong(int times = 0)
         {
+            this.times = times;
             return Run(PipelineKind.PingPong);
         }
 
@@ -183,27 +186,35 @@ namespace Snake.Framework.Animations
             }
             else
             {
-                switch (Kind)
+                // Loop or PingPong with maxTimes.
+                if (times > 0 && runTimes / 2 == times)
                 {
-                    case PipelineKind.Loop:
-                        Log("loop");
-                        Run();
-                        break;
+                    Destroy();
+                }
+                else
+                {
+                    switch (Kind)
+                    {
+                        case PipelineKind.Loop:
+                            Log("loop");
+                            Run();
+                            break;
 
-                    case PipelineKind.PingPong:
-                        Log("ping-pong");
-                        animations.Reverse();
-						Direction = Direction == PipelineDirection.Forward
-															   ? PipelineDirection.Backward
-															   : PipelineDirection.Forward;
+                        case PipelineKind.PingPong:
+                            Log("ping-pong");
+                            animations.Reverse();
+                            Direction = Direction == PipelineDirection.Forward
+                                                   ? PipelineDirection.Backward
+                                                   : PipelineDirection.Forward;
 
-						Run();
-                        break;
+                            Run();
+                            break;
 
-                    case PipelineKind.Once:
-                        Destroy();
-                        Log("ended");
-                        break;
+                        case PipelineKind.Once:
+                            Destroy();
+                            Log("ended");
+                            break;
+                    }
                 }
             }
         }

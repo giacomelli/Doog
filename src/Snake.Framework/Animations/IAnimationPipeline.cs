@@ -24,7 +24,7 @@
         IAnimation<TOwner> Get(int index);
         void Replace(int index, IAnimation<TOwner> animation);
         IAnimationPipelineController Once();
-        IAnimationPipelineController PingPong();
-        IAnimationPipelineController Loop();
+        IAnimationPipelineController PingPong(int times = 0);
+        IAnimationPipelineController Loop(int times = 0);
 	}
 }
