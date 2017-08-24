@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System;
 using Snake.Framework;
-using Snake.Framework.Diagnostics;
 using Snake.Framework.Graphics;
+using Snake.Game.Scenes.Samples;
 
 namespace Snake.Game.Scenes
 {
@@ -35,11 +35,19 @@ namespace Snake.Game.Scenes
                         break;
 
                     case ConsoleKey.D1:
-                        Context.OpenScene<Test1Scene>();
+                        Context.OpenScene<Sample1Scene>();
                         break;
 
 					case ConsoleKey.D2:
-						Context.OpenScene<Test2Scene>();
+						Context.OpenScene<Sample2Scene>();
+						break;
+
+					case ConsoleKey.D3:
+						Context.OpenScene<Sample3Scene>();
+						break;
+
+					case ConsoleKey.D4:
+						Context.OpenScene<Sample4Scene>();
 						break;
                 }
             }

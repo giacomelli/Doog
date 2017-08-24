@@ -74,6 +74,12 @@ namespace Snake.Framework.Animations
 			return pipeline.Toogle(false, duration, easing, v => pipeline.Owner.Enabled = v);
 		}
 
+		public static IAnimationPipeline<TComponent> Enable<TComponent>(this IAnimationPipeline<TComponent> pipeline)
+			where TComponent : IComponent
+		{
+			return pipeline.Toogle(false, 0.001f, Easing.Linear, v => pipeline.Owner.Enabled = true);
+		}
+
 		public static IAnimationPipeline<TComponent> Disable<TComponent>(this TComponent component, float duration, IEasing easing = null)
 			where TComponent : IComponent
 		{
@@ -84,6 +90,12 @@ namespace Snake.Framework.Animations
 			where TComponent : IComponent
 		{
 			return pipeline.Toogle(true, duration, easing, v => pipeline.Owner.Enabled = v);
+		}
+
+		public static IAnimationPipeline<TComponent> Disable<TComponent>(this IAnimationPipeline<TComponent> pipeline)
+			where TComponent : IComponent
+		{
+			return pipeline.Toogle(true, 0.001f, Easing.Linear, v => pipeline.Owner.Enabled = false);
 		}
     }
 }

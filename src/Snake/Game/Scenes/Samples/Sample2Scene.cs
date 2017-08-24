@@ -4,11 +4,11 @@ using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 
-namespace Snake.Game.Scenes
+namespace Snake.Game.Scenes.Samples
 {
-    public class Test2Scene : SceneBase
+    public class Sample2Scene : SceneBase
     {
-        public Test2Scene(IWorldContext context)
+        public Sample2Scene(IWorldContext context)
             : base(context)
         {
         }

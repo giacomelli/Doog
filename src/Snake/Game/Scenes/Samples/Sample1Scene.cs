@@ -1,12 +1,12 @@
-﻿using System;
+﻿﻿using System;
 using Snake.Framework;
 using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 
-namespace Snake.Game.Scenes
+namespace Snake.Game.Scenes.Samples
 {
-    public class Test1Scene : SceneBase
+    public class Sample1Scene : SceneBase
     {
         private Rectangle moveToSampleArea = new Rectangle(1, 10, 11, 21);
         private float numberSample1;
@@ -14,7 +14,7 @@ namespace Snake.Game.Scenes
         private IAnimationPipelineController controller1;
         private IAnimationPipelineController controller2;
 
-        public Test1Scene(IWorldContext context)
+        public Sample1Scene(IWorldContext context)
             : base(context)
         {
         }
@@ -48,17 +48,21 @@ namespace Snake.Game.Scenes
                 .Loop();
 
             controller1 = blinkFood
-                .To(0, 100, 10, Easing.Linear, (v) => numberSample1 = v)
+                .To(0, 100, 1, Easing.Linear, (v) => numberSample1 = v)
                 .Loop();
 
-            controller2 = blinkFood
-                    .To(0, 10, 10, Easing.Linear, (v) => numberSample2 = v)
-                    .Delay(5)
-                    .To(10, 30, 10, Easing.Linear, (v) => numberSample2 = v)
-                    .Delay(5)
-                    .To(30, 100, 10, Easing.Linear, (v) => numberSample2 = v)
-                    .Delay(5)
-                    .PingPong();
+			controller2 = blinkFood
+				.To(0, 100, 1, Easing.Linear, (v) => numberSample2 = v)
+				.PingPong();
+
+            //controller2 = blinkFood
+                    //.To(0, 10, 10, Easing.Linear, (v) => numberSample2 = v)
+                    //.Delay(5)
+                    //.To(10, 30, 10, Easing.Linear, (v) => numberSample2 = v)
+                    //.Delay(5)
+                    //.To(30, 100, 10, Easing.Linear, (v) => numberSample2 = v)
+                    //.Delay(5)
+                    //.PingPong();
 
 
             // Once blink
@@ -93,11 +97,11 @@ namespace Snake.Game.Scenes
                     .PingPong();
 			}
 
-            // ScaleTo wall
-            var wall = Wall.Create(140, 10, Context);
+            // ScaleTo
+            var wall = Wall.Create(140, 1, Context);
             wall.Transform
                 .ScaleTo(new Point(20, 10), 1, Easing.Linear)
-                .MoveTo(new Point(150, 20), 1, Easing.InBack)
+                .MoveTo(new Point(140, 60), 1, Easing.InBack)
                 .PingPong();
         }
 

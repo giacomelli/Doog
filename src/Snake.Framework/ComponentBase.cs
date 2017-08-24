@@ -27,7 +27,7 @@ namespace Snake.Framework
 		{
 		}
 
-        public bool Enabled
+        public virtual bool Enabled
         {
             get 
             {

@@ -15,6 +15,7 @@ namespace Snake.Framework
 
 		IPhysicSystem PhysicSystem { get; }
 
+        // TODO: Mover para dentro do IDrawContext.
 		ITextSystem TextSystem { get; }
 
         ILogSystem LogSystem { get; }

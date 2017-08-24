@@ -52,8 +52,11 @@
     <Compile Include="Game\WallSpawner.cs" />
     <Compile Include="Game\Scenes\ClassicModeLevelScene.cs" />
     <Compile Include="Game\Scenes\GameOverScene.cs" />
-    <Compile Include="Game\Scenes\Test1Scene.cs" />
-    <Compile Include="Game\Scenes\Test2Scene.cs" />
+    <Compile Include="Game\Scenes\Samples\Sample1Scene.cs" />
+    <Compile Include="Game\Scenes\Samples\Sample2Scene.cs" />
+    <Compile Include="Game\Scenes\Samples\Sample3Scene.cs" />
+    <Compile Include="Game\Scenes\Samples\SampleComponent.cs" />
+    <Compile Include="Game\Scenes\Samples\Sample4Scene.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -68,6 +71,7 @@
     <Folder Include="Resources\" />
     <Folder Include="Resources\Fonts\" />
     <Folder Include="Game\Scenes\" />
+    <Folder Include="Game\Scenes\Samples\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Default.txt">

@@ -12,6 +12,7 @@ namespace Snake.Framework.Geometry
         private readonly float left;
         private readonly float top;
         private readonly float right;
+
         private readonly float bottom;
 
         public Rectangle(float left, float top, float right, float bottom)
