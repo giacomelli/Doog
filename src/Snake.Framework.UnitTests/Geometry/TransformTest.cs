@@ -44,5 +44,27 @@ namespace Snake.Framework.UnitTests.Geometry
 			Assert.AreEqual(2, target.Scale.X);
 			Assert.AreEqual(2, target.Scale.Y);
 		}
+
+		[Test]
+		public void SetX_X_NewPosition()
+		{
+			var target = new Transform(0, 0, MockRepository.GenerateMock<IWorldContext>());
+
+            var oldPosition = target.Position;
+			target.SetX(1);
+            Assert.AreEqual(new Point(1, 0), target.Position);
+            Assert.AreNotSame(oldPosition, target.Position);
+		}
+
+		[Test]
+		public void SetY_Y_NewPosition()
+		{
+			var target = new Transform(0, 0, MockRepository.GenerateMock<IWorldContext>());
+
+			var oldPosition = target.Position;
+			target.SetY(1);
+			Assert.AreEqual(new Point(0, 1), target.Position);
+			Assert.AreNotSame(oldPosition, target.Position);
+		}
 	}
 }

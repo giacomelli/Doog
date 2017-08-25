@@ -58,5 +58,15 @@ namespace Snake.Framework.UnitTests
 			c3.VerifyAllExpectations();
 			ctx.VerifyAllExpectations();
 		}
+
+		[Test]
+		public void OpenScene_SceneType_SceneOpened()
+		{
+			var ctx = MockRepository.GenerateMock<IWorldContext>();
+            ctx.Expect(c => c.OpenScene(Arg<NullScene>.Is.TypeOf));
+			ctx.OpenScene<NullScene>();
+
+            ctx.VerifyAllExpectations();
+		}
     }
 }

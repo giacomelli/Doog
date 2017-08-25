@@ -74,11 +74,12 @@ namespace Snake.Framework
 
         protected virtual void OnEnabled()
         {
-           
+            Log.Debug("{0} enabled.", this);
         }
 
         protected virtual void OnDisabled()
         {
+            Log.Debug("{0} disabled.", this);
         }
     }
 }

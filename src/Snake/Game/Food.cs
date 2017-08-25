@@ -17,7 +17,7 @@ namespace Snake.Game
 
 		public void Draw(IDrawContext context)
 		{
-			context.Canvas.DrawRectangle(Transform.BoundingBox, true, '$');
+			context.Canvas.Draw(Transform.BoundingBox, true, '$');
 		}
 
 		public void OnCollision(Collision collision)

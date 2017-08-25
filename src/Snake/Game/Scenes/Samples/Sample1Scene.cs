@@ -155,7 +155,7 @@ namespace Snake.Game.Scenes.Samples
 
         public override void Draw(IDrawContext context)
         {
-            context.Canvas.DrawRectangle(moveToSampleArea);
+            context.Canvas.Draw(moveToSampleArea);
 			
             Context.TextSystem
 				.DrawCenter(0, -10, numberSample1.ToString("N0"))

@@ -7,18 +7,18 @@ namespace Snake.Runners.Console
     // TODO: move to a Framework.IO project.
     public class FileLogSystem : LogSystemBase, IDisposable
     {
-        private StreamWriter m_file;
+        private StreamWriter file;
 		private bool disposedValue = false;
 
 		public FileLogSystem(string filePath)
         {
-            m_file = File.CreateText(filePath);
-            m_file.AutoFlush = true;
+            file = File.CreateText(filePath);
+            file.AutoFlush = true;
         }
 
         protected override void Write(string fullMessage)
         {
-            m_file.WriteLine(fullMessage);
+            file.WriteLine(fullMessage);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -27,7 +27,7 @@ namespace Snake.Runners.Console
             {
                 if (disposing)
                 {
-                    m_file.Close();
+                    file.Close();
                 }
            
                 disposedValue = true;

@@ -29,7 +29,7 @@ namespace Snake.Game
 
         public void Draw(IDrawContext context)
         {
-            context.Canvas.DrawRectangle(Transform.BoundingBox, true, shouldInvertSprite ? '#' : 'X');
+            context.Canvas.Draw(Transform.BoundingBox, true, shouldInvertSprite ? '#' : 'X');
         }
 
         public void OnCollision(Collision collision)

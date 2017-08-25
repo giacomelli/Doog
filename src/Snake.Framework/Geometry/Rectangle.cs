@@ -123,13 +123,16 @@ namespace Snake.Framework.Geometry
 
 		public override int GetHashCode()
 		{
-			float hash = 23;
-            hash = hash * 31 + left;
-			hash = hash * 31 + top;
-            hash = hash * 31 + right;
-            hash = hash * 31 + bottom;
+            unchecked
+            {
+                int hash = 17;
+                hash = hash * 23 + left.GetHashCode();
+                hash = hash * 23 + top.GetHashCode();
+                hash = hash * 23 + right.GetHashCode();
+                hash = hash * 23 + bottom.GetHashCode();
 
-			return (int)hash;
+                return hash;
+            }
 		}
 
 		public static bool operator ==(Rectangle a, Rectangle b)

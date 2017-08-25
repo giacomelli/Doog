@@ -6,10 +6,10 @@ namespace Snake.Framework.Animations
     internal class AnimationPipeline<TOwner> : IAnimationPipeline<TOwner>
         where TOwner : IComponent
     {
-        private int currentAnimationIndex;
         private int runTimes;
         private List<IAnimation<TOwner>> animations;
-        private IAnimation<TOwner> currentAnimation;
+		private int currentAnimationIndex;
+        private IAnimation currentAnimation;
         private IAnimationPipelineController controller;
         private int times;
 
@@ -36,7 +36,7 @@ namespace Snake.Framework.Animations
         {
             get
             {
-                return currentAnimation.State;
+                return currentAnimation == null ? AnimationState.Stopped : currentAnimation.State;
             }
         }
 
@@ -58,11 +58,6 @@ namespace Snake.Framework.Animations
 		public IAnimation<TOwner> Get(int index)
         {
             return animations[index];
-        }
-
-		public void Replace(int index, IAnimation<TOwner> animation)
-        {
-            animations[index] = animation;
         }
 
         protected virtual void Run()
@@ -91,12 +86,18 @@ namespace Snake.Framework.Animations
 
         public virtual void Pause()
         {
-            currentAnimation.Pause();
+            if (currentAnimation != null)
+            {
+                currentAnimation.Pause();
+            }
         }
 
         public virtual void Resume()
         {
-            currentAnimation.Resume();
+            if (currentAnimation != null)
+            {
+                currentAnimation.Resume();
+            }
         }
 
         public virtual void Destroy()
@@ -104,7 +105,8 @@ namespace Snake.Framework.Animations
             if (animations.Count > 0)
             {
                 currentAnimation.Pause();
-
+                currentAnimation = null;
+            
                 foreach (var a in animations)
                 {
                     var component = a as IComponent;
@@ -162,7 +164,7 @@ namespace Snake.Framework.Animations
             currentAnimation.Play();
         }
 
-        private bool CanPlay(IAnimation<TOwner> animatino)
+        private bool CanPlay(IAnimation animatino)
         {
             var animationDirection = animatino.Direction;
 

@@ -55,11 +55,14 @@ namespace Snake.Framework.Geometry
 
         public override int GetHashCode()
         {
-            float hash = 23;
-			hash = hash * 31 + x;
-			hash = hash * 31 + y;
+            unchecked
+            {
+                int hash = 17;
+                hash = hash * 23 + x.GetHashCode();
+                hash = hash * 23 + y.GetHashCode();
 
-            return (int)hash;
+                return hash;
+            }
         }
 
         public override string ToString()

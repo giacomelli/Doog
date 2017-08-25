@@ -31,7 +31,7 @@ namespace Snake.Runners.Console
 
 		public void Draw(IDrawContext ctx)
 		{
-            Context.GraphicSystem.DrawRectangle(bounds);
+            Context.GraphicSystem.Draw(bounds);
 
             for (int i = 0; i < lines.Count; i++)
             {

@@ -73,6 +73,8 @@
     <Compile Include="TimeTest.cs" />
     <Compile Include="Animations\LinearEaseTest.cs" />
     <Compile Include="Geometry\PointExtensionsTest.cs" />
+    <Compile Include="ComponentBaseTest.cs" />
+    <Compile Include="Animations\AnimationPipelineTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

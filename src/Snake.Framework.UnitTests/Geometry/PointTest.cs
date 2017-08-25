@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 using Snake.Framework.Geometry;
 
 namespace Snake.Framework.UnitTests.Geometry
@@ -50,5 +51,71 @@ namespace Snake.Framework.UnitTests.Geometry
 
 			Assert.AreEqual(new Point(-4, -3), a - b);
 		}
+
+        [Test]
+        public void DiffOperator_Equals_False()
+		{
+			var a = new Point(1, 1);
+			var b = new Point(1, 1);
+
+			Assert.IsFalse(a != b);
+		}
+
+        [Test]
+        public void DiffOperator_Diff_True()
+		{
+			var a = new Point(1, 1);
+			var b = new Point(2, 1);
+
+			Assert.IsTrue(a != b);
+		}
+
+		[Test]
+		public void Equals_OtherNotAPoint_False()
+		{
+            var target = new Point(1, 2);
+
+            Assert.IsFalse(target.Equals(1));
+            Assert.IsFalse(target.Equals("1"));
+		}
+
+        [Test]
+        public void Equals_DiffXOrY_False()
+		{
+			var target = new Point(1, 2);
+
+            Assert.IsFalse(target.Equals(new Point(2, 1)));
+			Assert.IsFalse(target.Equals(new Point(1, 1)));
+		}
+
+		[Test]
+		public void Equals_EqualsXandY_True()
+		{
+			var target = new Point(1, 2);
+
+			Assert.IsTrue(target.Equals(new Point(1, 2)));
+		}
+
+		[Test]
+		public void GetHashCode_DiffPoints_DiffHashCode()
+		{
+            var hashes = new List<int>();
+            var bounds = new Rectangle(10, 0, 20, 9);
+
+            bounds.Iterate((x, y) => {
+                hashes.Add(new Point(x, y).GetHashCode()); 
+            });
+
+            CollectionAssert.AllItemsAreUnique(hashes);
+		}
+
+
+        [Test]
+        public void ToString_NoArgs_XAndy()
+        {
+            var target = new Point(1, 2);
+
+            Assert.AreEqual("X=1, Y=2", target.ToString());
+        }
     }
 }
