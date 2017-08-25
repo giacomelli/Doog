@@ -33,8 +33,8 @@ namespace Snake.Game
 
                 food.Enabled = true;
                 food.Transform
-                    .ScaleTo(2, 2, 0.1f, Easing.InBack)
-                    .PingPong(2);
+                    .ScaleTo(2, 2, 0.2f, Easing.InBack)
+                    .PingPong(1);
             }
         }
 

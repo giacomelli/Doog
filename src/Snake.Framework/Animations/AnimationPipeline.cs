@@ -6,12 +6,13 @@ namespace Snake.Framework.Animations
     internal class AnimationPipeline<TOwner> : IAnimationPipeline<TOwner>
         where TOwner : IComponent
     {
-        private int runTimes;
         private List<IAnimation<TOwner>> animations;
-		private int currentAnimationIndex;
+        private int currentAnimationIndex;
         private IAnimation currentAnimation;
         private IAnimationPipelineController controller;
-        private int times;
+        private int currentTimes;
+        private int maxTimes;
+        private int timesDivider;
 
         protected AnimationPipeline()
         {
@@ -55,14 +56,14 @@ namespace Snake.Framework.Animations
             animations.Add(animation);
         }
 
-		public IAnimation<TOwner> Get(int index)
+        public IAnimation<TOwner> Get(int index)
         {
             return animations[index];
         }
 
         protected virtual void Run()
         {
-            runTimes++;
+            currentTimes++;
             currentAnimationIndex = 0;
             PlayCurrent();
         }
@@ -72,15 +73,17 @@ namespace Snake.Framework.Animations
             return Run(PipelineKind.Once);
         }
 
-        public IAnimationPipelineController Loop(int times = 0)
+        public IAnimationPipelineController Loop(int maxTimes = 0)
         {
-            this.times = times;
+            this.maxTimes = maxTimes;
+            timesDivider = 1;
             return Run(PipelineKind.Loop);
         }
 
-        public IAnimationPipelineController PingPong(int times = 0)
+        public IAnimationPipelineController PingPong(int maxTimes = 0)
         {
-            this.times = times;
+            this.maxTimes = maxTimes;
+            timesDivider = 2;
             return Run(PipelineKind.PingPong);
         }
 
@@ -147,7 +150,7 @@ namespace Snake.Framework.Animations
 
             Log("Playing animation {0}", currentAnimation);
 
-            if (runTimes > 1)
+            if (currentTimes > 1)
             {
                 switch (Kind)
                 {
@@ -172,7 +175,7 @@ namespace Snake.Framework.Animations
                 || (animationDirection == AnimationDirection.Forward && Direction == PipelineDirection.Forward)
                 || (animationDirection == AnimationDirection.Backward && Direction == PipelineDirection.Backward);
 
-		}
+        }
 
         private void CurrentAnimationEnded(object sender, EventArgs e)
         {
@@ -189,7 +192,7 @@ namespace Snake.Framework.Animations
             else
             {
                 // Loop or PingPong with maxTimes.
-                if (times > 0 && runTimes / 2 == times)
+                if (maxTimes > 0 && currentTimes / timesDivider == maxTimes)
                 {
                     Destroy();
                 }

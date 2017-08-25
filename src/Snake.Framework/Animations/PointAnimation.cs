@@ -32,5 +32,11 @@ namespace Snake.Framework.Animations
                 Easing.Calculate(From.X, To.X, time),
                 Easing.Calculate(From.Y, To.Y, time)));
         }
+
+		public override void Reset()
+		{
+            callback(From);
+			base.Reset();
+		}
     }
 }
