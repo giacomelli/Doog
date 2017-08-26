@@ -12,13 +12,16 @@ namespace Snake.Framework.UnitTests.Animations
     {
         private IWorldContext ctx;
         private Transform owner;
+        private float sinceSceneStart;
 
         [SetUp]
         public void InitializeTest()
         {
 			ctx = MockRepository.GenerateMock<IWorldContext>();
 			ctx.Expect(t => t.LogSystem).Return(MockRepository.GenerateMock<ILogSystem>());
-			ctx.Expect(t => t.Time).Return(MockRepository.GenerateMock<ITime>());
+            var time = MockRepository.GenerateMock<ITime>();
+            time.Expect(t => t.SinceSceneStart).WhenCalled(m => m.ReturnValue = sinceSceneStart).Return(0);
+			ctx.Expect(t => t.Time).Return(time);
 
 			owner = new Transform(ctx);   
         }
@@ -60,7 +63,9 @@ namespace Snake.Framework.UnitTests.Animations
 
 			actual.Loop();
 			Assert.AreEqual(PipelineKind.Loop, actual.Kind);
+            sinceSceneStart = 5.1f;
             ((IUpdatable)actual.Get(0)).Update();
+            ((IUpdatable)actual.Get(1)).Update();
 		}
 
 		[Test]
@@ -80,7 +85,9 @@ namespace Snake.Framework.UnitTests.Animations
 
 			actual.Loop();
 			Assert.AreEqual(PipelineKind.Loop, actual.Kind);
-            ((IUpdatable)actual.Get(0)).Update();
+			sinceSceneStart = 5.1f;
+			((IUpdatable)actual.Get(0)).Update();
+			((IUpdatable)actual.Get(1)).Update();
 		}
 
 		[Test]
@@ -100,7 +107,9 @@ namespace Snake.Framework.UnitTests.Animations
 
 			actual.Loop();
 			Assert.AreEqual(PipelineKind.Loop, actual.Kind);
-            ((IUpdatable)actual.Get(0)).Update();
+			sinceSceneStart = 5.1f;
+			((IUpdatable)actual.Get(0)).Update();
+			((IUpdatable)actual.Get(1)).Update();
 		}
     }
 }
