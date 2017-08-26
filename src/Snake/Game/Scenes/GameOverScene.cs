@@ -26,30 +26,25 @@ namespace Snake.Game.Scenes
 
         public override void Update()
         {
-            if (Console.KeyAvailable)
+            if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.Enter))
             {
-                switch (Console.ReadKey(true).Key)
-                {
-                    case ConsoleKey.Enter:
-                        Context.OpenScene<ClassicModeLevelScene>();
-                        break;
-
-                    case ConsoleKey.D1:
-                        Context.OpenScene<Sample1Scene>();
-                        break;
-
-					case ConsoleKey.D2:
-						Context.OpenScene<Sample2Scene>();
-						break;
-
-					case ConsoleKey.D3:
-						Context.OpenScene<Sample3Scene>();
-						break;
-
-					case ConsoleKey.D4:
-						Context.OpenScene<Sample4Scene>();
-						break;
-                }
+                Context.OpenScene<ClassicModeLevelScene>();
+            }
+            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D1))
+            {
+                Context.OpenScene<Sample1Scene>();
+            }
+            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D2))
+            {
+                Context.OpenScene<Sample2Scene>();
+            }
+            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D3))
+            {
+                Context.OpenScene<Sample3Scene>();
+            }
+            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D4))
+            {
+                Context.OpenScene<Sample4Scene>();
             }
         }
 
