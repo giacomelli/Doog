@@ -42,6 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game\Commands\KeyBinding.cs" />
+    <Compile Include="Game\Commands\KeyboardCommandReader.cs" />
+    <Compile Include="Game\Commands\MoveDownCommand.cs" />
+    <Compile Include="Game\Commands\MoveLeftCommand.cs" />
+    <Compile Include="Game\Commands\MoveRightCommand.cs" />
+    <Compile Include="Game\Commands\MoveUpCommand.cs" />
+    <Compile Include="Game\Commands\SnakeCommandPool.cs" />
     <Compile Include="Game\FoodSpawner.cs" />
     <Compile Include="Game\Food.cs" />
     <Compile Include="Game\Snake.cs" />
@@ -67,6 +74,7 @@
       <Name>Snake.Framework</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Resources\Fonts\" />

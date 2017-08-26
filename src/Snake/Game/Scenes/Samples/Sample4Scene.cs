@@ -22,65 +22,58 @@ namespace Snake.Game.Scenes.Samples
 
         public override void Update()
         {
-            if(Console.KeyAvailable)
+            if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.X))
             {
-                var key = Console.ReadKey(true).Key;
-
-                switch(key)
-                {
-                    case ConsoleKey.X:
-                        DeployX();
-                        break;
-
-					case ConsoleKey.Y:
-						DeployY();
-						break;
-                }
+                DeployX();
+            }
+            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.Y))
+            {
+                DeployY();
             }
         }
 
         private void DeployY()
         {
-			var bounds = Context.Bounds;
-			var minDuration = 1f;
-			var timeScale = 0.1f;
+            var bounds = Context.Bounds;
+            var minDuration = 1f;
+            var timeScale = 0.1f;
 
-			for (float y = bounds.Top; y < bounds.Bottom; y++)
-			{
-				new SampleComponent(bounds.Left, y, Context)
-					.Transform
-					.MoveTo(bounds.Right, y, minDuration + y * timeScale)
+            for (float y = bounds.Top; y < bounds.Bottom; y++)
+            {
+                new SampleComponent(bounds.Left, y, Context)
+                    .Transform
+                    .MoveTo(bounds.Right, y, minDuration + y * timeScale)
                     .Disable(1f)
-					.Once();
+                    .Once();
 
-				new SampleComponent(bounds.Right, y, Context)
-					.Transform
-					.MoveTo(bounds.Left, y, minDuration + y * timeScale)
+                new SampleComponent(bounds.Right, y, Context)
+                    .Transform
+                    .MoveTo(bounds.Left, y, minDuration + y * timeScale)
                     .Disable(1f)
-					.Once();
-			}
-		}
+                    .Once();
+            }
+        }
 
         private void DeployX()
         {
-			var bounds = Context.Bounds;
-			var minDuration = 1f;
-			var timeScale = 0.2f;
+            var bounds = Context.Bounds;
+            var minDuration = 1f;
+            var timeScale = 0.2f;
 
-			for (float x = bounds.Left; x < bounds.Right; x++)
-			{
-				new SampleComponent(x, bounds.Top, Context)
-					.Transform
-					.MoveTo(x, bounds.Bottom, minDuration + x * timeScale)
+            for (float x = bounds.Left; x < bounds.Right; x++)
+            {
+                new SampleComponent(x, bounds.Top, Context)
+                    .Transform
+                    .MoveTo(x, bounds.Bottom, minDuration + x * timeScale)
                     .Disable(1f)
-					.Once();
+                    .Once();
 
-				new SampleComponent(x, bounds.Bottom, Context)
-					.Transform
-					.MoveTo(x, bounds.Top, minDuration + x * timeScale)
+                new SampleComponent(x, bounds.Bottom, Context)
+                    .Transform
+                    .MoveTo(x, bounds.Top, minDuration + x * timeScale)
                     .Disable(1f)
-					.Once();
-			}
+                    .Once();
+            }
         }
 
         public override void Draw(IDrawContext context)

@@ -2,6 +2,7 @@
 using Snake.Framework;
 using Snake.Framework.Animations;
 using Snake.Framework.Graphics;
+using Snake.Game.Commands;
 
 namespace Snake.Game.Scenes
 {
@@ -31,7 +32,7 @@ namespace Snake.Game.Scenes
 
 			for (int i = 0; i < MaxSnakes; i++)
 			{
-				var snake = new Snake(Context);
+				var snake = new Snake(Context, new KeyboardCommandReader(Context.InputSystem, KeyBinding.Default));
 				snake.Initialize(1, 10 + i, 6);
 				snakes[i] = snake;
 			}

@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using Snake.Framework;
 using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
@@ -51,7 +51,7 @@ namespace Snake.Game.Scenes.Samples
                 .To(0, 100, 19, Easing.Linear, (v) => numberSample1 = v)
                 .Loop();
 
-		
+
             controller2 = blinkFood
                     .To(0, 10, 10, Easing.Linear, (v) => numberSample2 = v)
                     .Delay(5)
@@ -65,34 +65,34 @@ namespace Snake.Game.Scenes.Samples
             // Once blink
             for (var i = 0; i < 100; i++)
             {
-				var b = new Food(Context);
-				b.Transform.Position = new Point(31 + i, 11);
+                var b = new Food(Context);
+                b.Transform.Position = new Point(31 + i, 11);
                 b
-				    .Delay(i * 0.05f)
-					.Enable(1f, Easing.Linear)
+                    .Delay(i * 0.05f)
+                    .Enable(1f, Easing.Linear)
                     .Enable(0.5f, Easing.Linear)
-					.Enable(0.5f, Easing.Linear)
-                   	.Once();
+                    .Enable(0.5f, Easing.Linear)
+                       .Once();
             }
 
             // Ping-pong move
             var length = 100;
             var speed = 0.1f;
-            var maxTime = (length -1) * speed;
+            var maxTime = (length - 1) * speed;
 
-			for (var i = 0; i < length; i++)
-			{
-				var b = new Food(Context);
-              	b.Transform.Position = new Point(31 + i, 13);
+            for (var i = 0; i < length; i++)
+            {
+                var b = new Food(Context);
+                b.Transform.Position = new Point(31 + i, 13);
                 b
                     .Disable(i * speed, Easing.Linear).OnlyForward()
                     .Delay(maxTime - (i * speed)).OnlyForward()
-                   
-                    .Delay(maxTime - ((length -1 - i) * speed)).OnlyBackward()
+
+                    .Delay(maxTime - ((length - 1 - i) * speed)).OnlyBackward()
                     .Enable(((length - 1) - i) * speed, Easing.Linear).OnlyBackward()
-						
+
                     .PingPong();
-			}
+            }
 
             // ScaleTo
             var wall = Wall.Create(140, 1, Context);
@@ -104,40 +104,35 @@ namespace Snake.Game.Scenes.Samples
 
         public override void Update()
         {
-            if (Console.KeyAvailable)
+            if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D1))
             {
-                switch (Console.ReadKey(true).Key)
-                {
-                    case ConsoleKey.D1:
-                        ToogleAnimation(controller1);
-                        break;
-
-                    case ConsoleKey.D2:
-                        ToogleAnimation(controller2);
-                        break;
-
-                    case ConsoleKey.D3:
-                        ToogleAnimation(controller1);
-                        ToogleAnimation(controller2);
-                        break;
-
-                    case ConsoleKey.D0:
-                        controller1.Destroy();
-                        controller2.Destroy();
-                        break;
-
-					case ConsoleKey.D7:
-						AnimationPipelineController.PauseAll();
-						break;
-					
-                    case ConsoleKey.D8:
-						AnimationPipelineController.ResumeAll();
-						break;
-
-					case ConsoleKey.D9:
-                        AnimationPipelineController.DestroyAll();
-						break;
-                }
+                ToogleAnimation(controller1);
+            }
+            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D2))
+            {
+                ToogleAnimation(controller2);
+            }
+            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D3))
+            {
+                ToogleAnimation(controller1);
+                ToogleAnimation(controller2);
+            }
+            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D0))
+            {
+                controller1.Destroy();
+                controller2.Destroy();
+            }
+            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D7))
+            {
+                AnimationPipelineController.PauseAll();
+            }
+            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D8))
+            {
+                AnimationPipelineController.ResumeAll();
+            }
+            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D9))
+            {
+                AnimationPipelineController.DestroyAll();
             }
         }
 
@@ -156,11 +151,11 @@ namespace Snake.Game.Scenes.Samples
         public override void Draw(IDrawContext context)
         {
             context.Canvas.Draw(moveToSampleArea);
-			
-            Context.TextSystem
-				.DrawCenter(0, -10, numberSample1.ToString("N0"))
-				.DrawCenter(0, 0, numberSample2.ToString("N0"));
 
-		}
+            Context.TextSystem
+                .DrawCenter(0, -10, numberSample1.ToString("N0"))
+                .DrawCenter(0, 0, numberSample2.ToString("N0"));
+
+        }
     }
 }

@@ -6,6 +6,7 @@ using Snake.Framework.Geometry;
 using Snake.Framework.Physics;
 using Snake.Framework.Texts.Map;
 using Snake.Game;
+using Snake.Runners.Console.Input;
 
 namespace Snake.Runners.Console
 {
@@ -17,11 +18,12 @@ namespace Snake.Runners.Console
             {
                 var gs = new GraphicSystem();
                 var ts = new MapTextSystem(game, "Slant");
-
+                var inputSystem = new InputSystem();
                 game.Initialize(
                     gs,
                     new PhysicSystem(),
-                    ts);
+                    ts,
+                    inputSystem);
 
                 if (args.Contains("file-log"))
                 {

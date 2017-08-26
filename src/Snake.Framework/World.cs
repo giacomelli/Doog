@@ -7,6 +7,7 @@ using Snake.Framework.Graphics;
 using Snake.Framework.Logging;
 using Snake.Framework.Physics;
 using Snake.Framework.Texts;
+using Snake.Framework.Input;
 
 namespace Snake.Framework
 {
@@ -24,7 +25,7 @@ namespace Snake.Framework
 		private IScene pendingSceneToOpen;
         private Time time;
 
-		public virtual void Initialize(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
+		public virtual void Initialize(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem, IInputSystem inputSystem)
 		{
 			Components = new List<IComponent>();
 			componentsToRemove = new List<IComponent>();
@@ -37,7 +38,7 @@ namespace Snake.Framework
 			graphicSystem.Initialize();
 			drawContext = new DrawContext(graphicSystem);
 			GraphicSystem = graphicSystem;
-
+            
 			Bounds = graphicSystem.Bounds;
 			PhysicSystem = physicSystem;
 
@@ -45,6 +46,8 @@ namespace Snake.Framework
 			TextSystem = textSystem;
 
             LogSystem = new NullLogSystem();
+
+            InputSystem = inputSystem;
 		}
 
 		public IScene CurrentScene { get; private set; }
@@ -60,6 +63,8 @@ namespace Snake.Framework
         }
 
 		public IGraphicSystem GraphicSystem { get; private set; }
+
+        public IInputSystem InputSystem { get; private set; }
 
 		public IPhysicSystem PhysicSystem { get; private set; }
 
@@ -173,6 +178,7 @@ namespace Snake.Framework
 			}
 
 			PhysicSystem.Update();
+            InputSystem.Update();
 		}
 
 		public void Draw()
