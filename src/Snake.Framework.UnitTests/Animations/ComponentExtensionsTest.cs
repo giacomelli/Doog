@@ -83,11 +83,18 @@ namespace Snake.Framework.UnitTests.Animations
 			Assert.AreEqual(2, actual.Length);
 			Assert.AreEqual(typeof(FloatAnimation<Transform>), actual.Get(1).GetType());
 
+			actual.Enable(5);
+			Assert.AreEqual(3, actual.Length);
+			Assert.AreEqual(typeof(FloatAnimation<Transform>), actual.Get(2).GetType());
+
 			actual.Loop();
 			Assert.AreEqual(PipelineKind.Loop, actual.Kind);
 			sinceSceneStart = 5.1f;
 			((IUpdatable)actual.Get(0)).Update();
+            sinceSceneStart = 5.1f;
 			((IUpdatable)actual.Get(1)).Update();
+			sinceSceneStart = 5.1f;
+			((IUpdatable)actual.Get(2)).Update();
 		}
 
 		[Test]
@@ -105,11 +112,18 @@ namespace Snake.Framework.UnitTests.Animations
 			Assert.AreEqual(2, actual.Length);
 			Assert.AreEqual(typeof(FloatAnimation<Transform>), actual.Get(1).GetType());
 
+			actual.Disable();
+			Assert.AreEqual(3, actual.Length);
+			Assert.AreEqual(typeof(FloatAnimation<Transform>), actual.Get(2).GetType());
+
 			actual.Loop();
 			Assert.AreEqual(PipelineKind.Loop, actual.Kind);
 			sinceSceneStart = 5.1f;
 			((IUpdatable)actual.Get(0)).Update();
+			sinceSceneStart = 5.1f;
 			((IUpdatable)actual.Get(1)).Update();
+			sinceSceneStart = 5.1f;
+			((IUpdatable)actual.Get(2)).Update();
 		}
     }
 }
