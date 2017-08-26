@@ -135,7 +135,12 @@ namespace Snake.Framework.Animations
 
         public override string ToString()
         {
-            return "{0}<{1}>({2}..{3})".With(GetType().Name, Owner.GetType().Name, From, To);
+            return "{0}<{1}>({2}..{3} in {4}s)".With(
+                GetType().Name.TrimEnd('`', '1'), 
+                Owner.GetType().Name, 
+                From, 
+                To, 
+                duration);
         }
 
         protected override void OnEnabled()

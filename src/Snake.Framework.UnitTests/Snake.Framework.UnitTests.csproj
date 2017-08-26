@@ -88,6 +88,7 @@
     <Compile Include="Animations\AnimationPipelineExtensionsTest.cs" />
     <Compile Include="Animations\PointAnimationTest.cs" />
     <Compile Include="Animations\InBackEasingTest.cs" />
+    <Compile Include="Animations\AnimationBaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
