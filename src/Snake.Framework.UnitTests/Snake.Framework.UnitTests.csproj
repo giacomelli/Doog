@@ -75,6 +75,10 @@
     <Compile Include="Geometry\PointExtensionsTest.cs" />
     <Compile Include="ComponentBaseTest.cs" />
     <Compile Include="Animations\AnimationPipelineTest.cs" />
+    <Compile Include="Animations\AnimationPipelineControllerTest.cs" />
+    <Compile Include="Animations\DestroyedAnimationPipelineTest.cs" />
+    <Compile Include="Logging\NullLogSystemTest.cs" />
+    <Compile Include="Animations\PositionAnimationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -97,6 +101,7 @@
     <Folder Include="Texts\Map\" />
     <Folder Include="Diagnostics\" />
     <Folder Include="Animations\" />
+    <Folder Include="Logging\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Avatar.txt">

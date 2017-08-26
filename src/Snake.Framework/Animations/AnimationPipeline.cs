@@ -122,7 +122,11 @@ namespace Snake.Framework.Animations
                 }
 
                 animations.Clear();
-                controller.Destroy();
+
+                if (controller != null)
+                {
+                    controller.Destroy();
+                }
             }
         }
 
@@ -137,7 +141,9 @@ namespace Snake.Framework.Animations
 
                 if(currentAnimationIndex >= animations.Count)
                 {
+                    // There is no more animations.
                     CurrentAnimationEnded(currentAnimation, EventArgs.Empty);
+                    return;
                 }
                 else 
                 {
@@ -228,10 +234,10 @@ namespace Snake.Framework.Animations
         {
             if (controller == null)
             {
+                controller = new AnimationPipelineController<TOwner>(this);
                 this.Kind = kind;
                 Run();
 
-                controller = new AnimationPipelineController<TOwner>(this);
                 return controller;
             }
             else

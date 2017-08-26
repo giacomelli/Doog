@@ -1,5 +1,4 @@
-﻿using System;
-namespace Snake.Framework.Animations
+﻿namespace Snake.Framework.Animations
 {
     internal class DestroyedAnimationPipeline<TOwner> : AnimationPipeline<TOwner>
         where TOwner : IComponent

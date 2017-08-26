@@ -92,6 +92,21 @@ namespace Snake.Framework.UnitTests.Animations
             secondAnimation.VerifyAllExpectations();
         }
 
+		[Test]
+		public void Once_OnlyBackwardsAnimations_Destroyed()
+		{
+            firstAnimationDirection = AnimationDirection.Backward;
+            secondAnimationDirection = AnimationDirection.Backward;
+			secondAnimation.Expect(t => t.Pause());
+
+			var controller = target.Once();
+			Assert.AreEqual(0, target.Length);
+			
+			Assert.AreEqual(AnimationState.Stopped, controller.State);
+			firstAnimation.VerifyAllExpectations();
+			secondAnimation.VerifyAllExpectations();
+		}
+
         [Test]
         public void Loop_TimesAndFinished_Destroyed()
         {

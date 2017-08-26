@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Snake.Framework.Animations
 {
@@ -14,7 +15,8 @@ namespace Snake.Framework.Animations
 			}
 		}
 
-		public static void ResumeAll()
+  
+        public static void ResumeAll()
 		{
 			foreach (var c in controllers)
 			{
@@ -28,6 +30,8 @@ namespace Snake.Framework.Animations
 			{
 				c.Destroy();
 			}
+
+            controllers.Clear();
 		}
 
         internal static void AddController(IAnimationPipelineController controller)
@@ -39,6 +43,12 @@ namespace Snake.Framework.Animations
         {
 			controllers.Remove(controller);
 		}
+
+		internal static void Clear()
+		{
+			controllers.Clear();
+		}
+
 	}
 
 	public class AnimationPipelineController<TOwner> : IAnimationPipelineController
