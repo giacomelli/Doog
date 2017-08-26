@@ -14,6 +14,7 @@ namespace Snake.Game
     {
         private Rectangle bounds;
         private Food food;
+        private IAnimationPipelineController animContr;
 
         private FoodSpawner(IWorldContext context)
             :base(context)
@@ -32,7 +33,13 @@ namespace Snake.Game
 				} while (Context.PhysicSystem.AnyCollision(food));
 
                 food.Enabled = true;
-                food.Transform
+
+                if (animContr != null) {
+                    animContr.Destroy();
+                    food.Transform.Scale = Point.One;
+                }
+
+                animContr = food.Transform
                     .ScaleTo(2, 2, 0.2f, Easing.InBack)
                     .PingPong(1);
             }
