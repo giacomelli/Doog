@@ -167,9 +167,9 @@ namespace Snake.Framework.Animations
             currentAnimation.Play();
         }
 
-        private bool CanPlay(IAnimation animatino)
+        private bool CanPlay(IAnimation animation)
         {
-            var animationDirection = animatino.Direction;
+            var animationDirection = animation.Direction;
 
             return animationDirection == AnimationDirection.Any
                 || (animationDirection == AnimationDirection.Forward && Direction == PipelineDirection.Forward)
