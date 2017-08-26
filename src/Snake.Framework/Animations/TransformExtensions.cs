@@ -15,9 +15,9 @@ public static class TransformExtensions
     /// <param name="y">The y coordinate.</param>
     /// <param name="duration">Duration.</param>
     /// <param name="easing">Easing.</param>
-    public static IAnimationPipeline<Transform> MoveTo(this Transform transform, float x, float y, float duration, IEasing easing = null, string name = null)
+    public static IAnimationPipeline<Transform> MoveTo(this Transform transform, float x, float y, float duration, IEasing easing = null)
     {
-        return AnimationPipeline<Transform>.Create(CreateMoveToAnimation(transform, x, y, duration, easing, name));
+        return AnimationPipeline<Transform>.Create(CreateMoveToAnimation(transform, x, y, duration, easing));
     }
 
     /// <summary>
@@ -28,21 +28,21 @@ public static class TransformExtensions
     /// <param name="point">The point.</param>
     /// <param name="duration">Duration.</param>
     /// <param name="easing">Easing.</param>
-    public static IAnimationPipeline<Transform> MoveTo(this Transform transform, Point point, float duration, IEasing easing = null, string name = null)
+    public static IAnimationPipeline<Transform> MoveTo(this Transform transform, Point point, float duration, IEasing easing = null)
     {
-        return transform.MoveTo(point.X, point.Y, duration, easing, name);
+        return transform.MoveTo(point.X, point.Y, duration, easing);
     }
 
-    public static IAnimationPipeline<Transform> MoveTo(this IAnimationPipeline<Transform> pipeline, Point point, float duration, IEasing easing = null, string name = null)
+    public static IAnimationPipeline<Transform> MoveTo(this IAnimationPipeline<Transform> pipeline, Point point, float duration, IEasing easing = null)
     {
-        pipeline.Add(CreateMoveToAnimation(pipeline.Owner, point.X, point.Y, duration, easing, name));
+        pipeline.Add(CreateMoveToAnimation(pipeline.Owner, point.X, point.Y, duration, easing));
 
         return pipeline;
     }
 
-    public static IAnimationPipeline<Transform> MoveTo(this IAnimationPipeline<Transform> pipeline, float x, float y, float duration, IEasing easing = null, string name = null)
+    public static IAnimationPipeline<Transform> MoveTo(this IAnimationPipeline<Transform> pipeline, float x, float y, float duration, IEasing easing = null)
     {
-        return pipeline.MoveTo(new Point(x, y), duration, easing, name);
+        return pipeline.MoveTo(new Point(x, y), duration, easing);
     }
 
     public static IAnimationPipeline<Transform> ScaleTo(this Transform transform, float x, float y, float duration, IEasing easing = null)
@@ -81,7 +81,7 @@ public static class TransformExtensions
         return pipeline;
     }
 
-    private static IAnimation<Transform> CreateMoveToAnimation(Transform transform, float x, float y, float duration, IEasing easing = null, string name = null)
+    private static IAnimation<Transform> CreateMoveToAnimation(Transform transform, float x, float y, float duration, IEasing easing = null)
     {
         var animation = new PositionAnimation(transform, new Point(x, y), duration);
         animation.Easing = easing;

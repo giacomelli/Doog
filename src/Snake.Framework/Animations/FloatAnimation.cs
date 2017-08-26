@@ -19,6 +19,12 @@ namespace Snake.Framework.Animations
             this.changeValue = changeValue;
         }
 
+        public override void Reset()
+        {
+            changeValue(From);
+            base.Reset();
+        }
+
         protected override void UpdateValue(float time)
         {
             changeValue(Easing.Calculate(From, To, time));

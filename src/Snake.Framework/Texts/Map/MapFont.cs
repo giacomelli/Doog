@@ -69,7 +69,7 @@ namespace Snake.Framework.Texts.Map
 			{
 				var line = content[i].TrimEnd();
 
-				if (currentCharReadLines == font.Size.Y)
+				if (font.Size.Y.EqualsTo(currentCharReadLines))
 				{
 					font.charsData.Add(currentChar, currentCharData);
 					currentChar++;

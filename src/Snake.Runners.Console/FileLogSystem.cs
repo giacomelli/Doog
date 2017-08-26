@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Snake.Framework;
 using Snake.Framework.Logging;
 
 namespace Snake.Runners.Console
@@ -8,9 +9,10 @@ namespace Snake.Runners.Console
     public class FileLogSystem : LogSystemBase, IDisposable
     {
         private StreamWriter file;
-		private bool disposedValue = false;
+        private bool disposedValue = false;
 
-		public FileLogSystem(string filePath)
+        public FileLogSystem(string filePath, IWorldContext context)
+            : base(context)
         {
             file = File.CreateText(filePath);
             file.AutoFlush = true;
@@ -29,7 +31,7 @@ namespace Snake.Runners.Console
                 {
                     file.Close();
                 }
-           
+
                 disposedValue = true;
             }
         }

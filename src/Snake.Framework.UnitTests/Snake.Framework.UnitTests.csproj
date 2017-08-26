@@ -71,7 +71,7 @@
     <Compile Include="ComponentExtensionsTest.cs" />
     <Compile Include="SceneBaseTest.cs" />
     <Compile Include="TimeTest.cs" />
-    <Compile Include="Animations\LinearEaseTest.cs" />
+    <Compile Include="Animations\LinearEasingTest.cs" />
     <Compile Include="Geometry\PointExtensionsTest.cs" />
     <Compile Include="ComponentBaseTest.cs" />
     <Compile Include="Animations\AnimationPipelineTest.cs" />
@@ -79,6 +79,15 @@
     <Compile Include="Animations\DestroyedAnimationPipelineTest.cs" />
     <Compile Include="Logging\NullLogSystemTest.cs" />
     <Compile Include="Animations\PositionAnimationTest.cs" />
+    <Compile Include="Animations\FloatAnimationTest.cs" />
+    <Compile Include="Logging\LogSystemBaseTest.cs" />
+    <Compile Include="Logging\StubLogSystem.cs" />
+    <Compile Include="Animations\ComponentExtensionsTest.cs" />
+    <Compile Include="Animations\DelayExtensionsTest.cs" />
+    <Compile Include="Animations\TransformExtensionsTest.cs" />
+    <Compile Include="Animations\AnimationPipelineExtensionsTest.cs" />
+    <Compile Include="Animations\PointAnimationTest.cs" />
+    <Compile Include="Animations\InBackEasingTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

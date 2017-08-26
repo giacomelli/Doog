@@ -25,7 +25,9 @@ namespace Snake.Runners.Console
 
                 if (args.Contains("file-log"))
                 {
-                    game.LogSystem = new FileLogSystem(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt"));
+                    game.LogSystem = new FileLogSystem(
+                        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt"),
+                        game);
                 }
                 else if (args.Contains("console-log"))
                 {

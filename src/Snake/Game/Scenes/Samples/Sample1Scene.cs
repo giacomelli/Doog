@@ -26,9 +26,9 @@ namespace Snake.Game.Scenes.Samples
             var moveToFood1 = new Food(Context);
             moveToFood1.Transform.Position = moveToSampleArea.LeftTopPoint();
             moveToFood1.Transform
-                       .MoveTo(moveToSampleArea.RightBottomPoint(), 2, Easing.InBack, "anim1")
+                       .MoveTo(moveToSampleArea.RightBottomPoint(), 2, Easing.InBack)
                        .Delay(1)
-                       .MoveTo(moveToSampleArea.RightTopPoint(), 2, Easing.Linear, "anim2")
+                       .MoveTo(moveToSampleArea.RightTopPoint(), 2, Easing.Linear)
                        //.Loop();
                        .PingPong();
             //.Once();

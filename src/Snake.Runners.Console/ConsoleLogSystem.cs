@@ -15,6 +15,7 @@ namespace Snake.Runners.Console
         private List<string> lines = new List<string>();
 
         public ConsoleLogSystem(Rectangle bounds, IWorldContext context)
+            : base(context)
         {
             this.bounds = bounds;
             Context = context;

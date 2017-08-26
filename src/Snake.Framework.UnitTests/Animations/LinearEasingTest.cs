@@ -4,7 +4,7 @@ using Snake.Framework.Animations;
 namespace Snake.Framework.UnitTests.Animations
 {
     [TestFixture]
-    public class LinearEaseTest
+    public class LinearEasingTest
     {
         [Test]
         public void Calculate_FromLowerThanTo_Value()

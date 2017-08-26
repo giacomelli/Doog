@@ -21,5 +21,10 @@ namespace Snake.Framework
         /// Gets the time in seconds since last frame.
         /// </summary>
         float SinceLastFrame { get; }
+
+        /// <summary>
+        /// Gets the DateTime of the real world on the start of current update.
+        /// </summary>
+        DateTime Now { get; }
     }
 }
