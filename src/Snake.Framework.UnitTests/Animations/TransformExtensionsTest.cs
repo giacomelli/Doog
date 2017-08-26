@@ -29,7 +29,7 @@ namespace Snake.Framework.UnitTests.Animations
 		[Test]
 		public void MoveTo_OwnerXY_Pipeline()
 		{
-			var actual = owner.MoveTo(1, 2, 3, Easing.Linear);
+			var actual = owner.MoveTo(1, 2, 5, Easing.Linear);
 
 			Assert.AreSame(owner, actual.Owner);
 			Assert.AreEqual(1, actual.Length);
@@ -37,7 +37,7 @@ namespace Snake.Framework.UnitTests.Animations
 			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
 			Assert.AreEqual(typeof(PositionAnimation), actual.Get(0).GetType());
 
-			actual.MoveTo(1, 2, 3, Easing.Linear);
+			actual.MoveTo(1, 2, 5, Easing.Linear);
 			Assert.AreEqual(2, actual.Length);
 			Assert.AreEqual(typeof(PositionAnimation), actual.Get(1).GetType());
 
@@ -46,13 +46,14 @@ namespace Snake.Framework.UnitTests.Animations
 
 			sinceSceneStart = 5.1f;
 			((IUpdatable)actual.Get(0)).Update();
+            sinceSceneStart += 5.1f;
 			((IUpdatable)actual.Get(1)).Update();
 		}
 
 		[Test]
 		public void MoveTo_OwnerPoint_Pipeline()
 		{
-            var actual = owner.MoveTo(new Point(1, 2), 3, Easing.Linear);
+            var actual = owner.MoveTo(new Point(1, 2), 5, Easing.Linear);
 
 			Assert.AreSame(owner, actual.Owner);
 			Assert.AreEqual(1, actual.Length);
@@ -60,7 +61,7 @@ namespace Snake.Framework.UnitTests.Animations
 			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
 			Assert.AreEqual(typeof(PositionAnimation), actual.Get(0).GetType());
 
-            actual.MoveTo(new Point(1, 2), 3, Easing.Linear);
+            actual.MoveTo(new Point(1, 2), 5, Easing.Linear);
 			Assert.AreEqual(2, actual.Length);
 			Assert.AreEqual(typeof(PositionAnimation), actual.Get(1).GetType());
 
@@ -69,13 +70,14 @@ namespace Snake.Framework.UnitTests.Animations
 
 			sinceSceneStart = 5.1f;
 			((IUpdatable)actual.Get(0)).Update();
+            sinceSceneStart += 5.1f;
 			((IUpdatable)actual.Get(1)).Update();
 		}
 
 		[Test]
 		public void ScaleTo_OwnerXY_Pipeline()
 		{
-			var actual = owner.ScaleTo(1, 2, 3, Easing.Linear);
+			var actual = owner.ScaleTo(1, 2, 5, Easing.Linear);
 
 			Assert.AreSame(owner, actual.Owner);
 			Assert.AreEqual(1, actual.Length);
@@ -83,7 +85,7 @@ namespace Snake.Framework.UnitTests.Animations
 			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
 			Assert.AreEqual(typeof(PointAnimation<Transform>), actual.Get(0).GetType());
 
-			actual.ScaleTo(1, 2, 3, Easing.Linear);
+			actual.ScaleTo(1, 2, 5, Easing.Linear);
 			Assert.AreEqual(2, actual.Length);
 			Assert.AreEqual(typeof(PointAnimation<Transform>), actual.Get(1).GetType());
 
@@ -92,6 +94,7 @@ namespace Snake.Framework.UnitTests.Animations
 
 			sinceSceneStart = 5.1f;
 			((IUpdatable)actual.Get(0)).Update();
+            sinceSceneStart += 5.1f;
 			((IUpdatable)actual.Get(1)).Update();
 
 		}
@@ -99,7 +102,7 @@ namespace Snake.Framework.UnitTests.Animations
 		[Test]
 		public void ScaleTo_OwnerPoint_Pipeline()
 		{
-            var actual = owner.ScaleTo(new Point(1, 2), 3, Easing.Linear);
+            var actual = owner.ScaleTo(new Point(1, 2), 5, Easing.Linear);
 
 			Assert.AreSame(owner, actual.Owner);
 			Assert.AreEqual(1, actual.Length);
@@ -107,7 +110,7 @@ namespace Snake.Framework.UnitTests.Animations
 			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
 			Assert.AreEqual(typeof(PointAnimation<Transform>), actual.Get(0).GetType());
 
-            actual.ScaleTo(new Point(1, 2), 3, Easing.Linear);
+            actual.ScaleTo(new Point(1, 2), 5, Easing.Linear);
 			Assert.AreEqual(2, actual.Length);
 			Assert.AreEqual(typeof(PointAnimation<Transform>), actual.Get(1).GetType());
 
@@ -116,6 +119,7 @@ namespace Snake.Framework.UnitTests.Animations
 
 			sinceSceneStart = 5.1f;
 			((IUpdatable)actual.Get(0)).Update();
+            sinceSceneStart += 5.1f;
 			((IUpdatable)actual.Get(1)).Update();
 		}
     }

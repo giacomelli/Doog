@@ -65,6 +65,7 @@ namespace Snake.Framework.UnitTests.Animations
 			Assert.AreEqual(PipelineKind.Loop, actual.Kind);
             sinceSceneStart = 5.1f;
             ((IUpdatable)actual.Get(0)).Update();
+            sinceSceneStart += 5.1f;
             ((IUpdatable)actual.Get(1)).Update();
 		}
 
@@ -91,9 +92,9 @@ namespace Snake.Framework.UnitTests.Animations
 			Assert.AreEqual(PipelineKind.Loop, actual.Kind);
 			sinceSceneStart = 5.1f;
 			((IUpdatable)actual.Get(0)).Update();
-            sinceSceneStart = 5.1f;
+            sinceSceneStart += 5.1f;
 			((IUpdatable)actual.Get(1)).Update();
-			sinceSceneStart = 5.1f;
+			sinceSceneStart += 5.1f;
 			((IUpdatable)actual.Get(2)).Update();
 		}
 
@@ -120,9 +121,9 @@ namespace Snake.Framework.UnitTests.Animations
 			Assert.AreEqual(PipelineKind.Loop, actual.Kind);
 			sinceSceneStart = 5.1f;
 			((IUpdatable)actual.Get(0)).Update();
-			sinceSceneStart = 5.1f;
+			sinceSceneStart += 5.1f;
 			((IUpdatable)actual.Get(1)).Update();
-			sinceSceneStart = 5.1f;
+			sinceSceneStart += 5.1f;
 			((IUpdatable)actual.Get(2)).Update();
 		}
     }
