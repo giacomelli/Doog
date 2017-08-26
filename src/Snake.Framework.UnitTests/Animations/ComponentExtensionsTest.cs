@@ -17,6 +17,7 @@ namespace Snake.Framework.UnitTests.Animations
         [SetUp]
         public void InitializeTest()
         {
+            sinceSceneStart = 0;
 			ctx = MockRepository.GenerateMock<IWorldContext>();
 			ctx.Expect(t => t.LogSystem).Return(MockRepository.GenerateMock<ILogSystem>());
             var time = MockRepository.GenerateMock<ITime>();
