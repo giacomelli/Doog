@@ -60,7 +60,7 @@ namespace Snake.Framework.UnitTests.Animations
 			actual.PingPong();
 			Assert.AreEqual(PipelineKind.PingPong, actual.Kind);
 
-            ((IUpdatable)actual.GetLast()).Update();
+           ((IUpdatable)actual.Get(0)).Update();
 		}
 
 		[Test]
@@ -100,7 +100,7 @@ namespace Snake.Framework.UnitTests.Animations
 			actual.PingPong();
 			Assert.AreEqual(PipelineKind.PingPong, actual.Kind);
 
-            ((IUpdatable)actual.GetLast()).Update();
+            ((IUpdatable)actual.Get(0)).Update();
 		}
     }
 }

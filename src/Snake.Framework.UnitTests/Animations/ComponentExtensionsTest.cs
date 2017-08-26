@@ -1,6 +1,7 @@
 ﻿﻿using NUnit.Framework;
 using Rhino.Mocks;
 using Snake.Framework.Animations;
+using Snake.Framework.Behaviors;
 using Snake.Framework.Geometry;
 using Snake.Framework.Logging;
 
@@ -39,6 +40,7 @@ namespace Snake.Framework.UnitTests.Animations
 
             actual.PingPong();
             Assert.AreEqual(PipelineKind.PingPong, actual.Kind);
+            ((IUpdatable)actual.Get(0)).Update();
         }
 
 		[Test]
@@ -58,6 +60,7 @@ namespace Snake.Framework.UnitTests.Animations
 
 			actual.Loop();
 			Assert.AreEqual(PipelineKind.Loop, actual.Kind);
+            ((IUpdatable)actual.Get(0)).Update();
 		}
 
 		[Test]
@@ -71,12 +74,13 @@ namespace Snake.Framework.UnitTests.Animations
 			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
 			Assert.AreEqual(typeof(FloatAnimation<Transform>), actual.Get(0).GetType());
 
-			actual.Enable(5, Easing.InBack);
+			actual.Enable();
 			Assert.AreEqual(2, actual.Length);
 			Assert.AreEqual(typeof(FloatAnimation<Transform>), actual.Get(1).GetType());
 
 			actual.Loop();
 			Assert.AreEqual(PipelineKind.Loop, actual.Kind);
+            ((IUpdatable)actual.Get(0)).Update();
 		}
 
 		[Test]
@@ -90,12 +94,13 @@ namespace Snake.Framework.UnitTests.Animations
 			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
 			Assert.AreEqual(typeof(FloatAnimation<Transform>), actual.Get(0).GetType());
 
-			actual.Disable(5, Easing.InBack);
+			actual.Disable();
 			Assert.AreEqual(2, actual.Length);
 			Assert.AreEqual(typeof(FloatAnimation<Transform>), actual.Get(1).GetType());
 
 			actual.Loop();
 			Assert.AreEqual(PipelineKind.Loop, actual.Kind);
+            ((IUpdatable)actual.Get(0)).Update();
 		}
     }
 }
