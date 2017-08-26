@@ -14,7 +14,7 @@ namespace Snake.Game
     {
         private Rectangle bounds;
         private Food food;
-        private IAnimationPipelineController animContr;
+        private IAnimationPipelineController animContr = AnimationPipelineController.Empty;
 
         private FoodSpawner(IWorldContext context)
             :base(context)
@@ -34,10 +34,8 @@ namespace Snake.Game
 
                 food.Enabled = true;
 
-                if (animContr != null) {
-                    animContr.Destroy();
-                    food.Transform.Scale = Point.One;
-                }
+                animContr.Destroy();
+                food.Transform.Scale = Point.One;
 
                 animContr = food.Transform
                     .ScaleTo(2, 2, 0.2f, Easing.InBack)

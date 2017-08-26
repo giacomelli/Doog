@@ -101,6 +101,7 @@
     <Compile Include="Animations\DestroyedAnimationPipeline.cs" />
     <Compile Include="Animations\AnimationPipelineExtensions.cs" />
     <Compile Include="Animations\PointAnimation.cs" />
+    <Compile Include="Animations\NullAnimationPipelineController.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
