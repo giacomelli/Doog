@@ -20,9 +20,10 @@ namespace Snake.Runners.MonoGameDesktop
         Graphics.SpriteBuffer m_spriteBuffer;
         Framework.Geometry.Rectangle m_bounds;
         SpriteFont m_defaultFont;
-        float m_unitX;
-        float m_unitY;
-        float m_fontSize;
+        Vector2 m_fontSize;
+        Vector2 m_fontSizeHalf;
+        Vector2 m_fontScale;
+        Vector2 m_fontDrawScale;
         Framework.Geometry.Rectangle ICanvas.Bounds
         {
             get
@@ -46,7 +47,11 @@ namespace Snake.Runners.MonoGameDesktop
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            Window.Position = new Microsoft.Xna.Framework.Point(0, 0);
+            Window.Title = "Doog - Snake";
+            m_graphics.PreferredBackBufferWidth = GraphicsDevice.Adapter.CurrentDisplayMode.Width;
+            m_graphics.PreferredBackBufferHeight = GraphicsDevice.Adapter.CurrentDisplayMode.Height;
+            m_graphics.ApplyChanges();
             base.Initialize();
         }
 
@@ -59,16 +64,18 @@ namespace Snake.Runners.MonoGameDesktop
             // Create a new SpriteBatch, which can be used to draw textures.
             m_spriteBatch = new SpriteBatch(GraphicsDevice);         
             m_defaultFont = Content.Load<SpriteFont>("DefaultMonoFont");
-            m_fontSize = 12.0f;
-            m_unitX = Window.ClientBounds.Width / m_fontSize;
-            m_unitY = Window.ClientBounds.Height / m_fontSize;
+            var realFontSize = m_defaultFont.MeasureString("@");
+            m_fontScale = new Vector2(1.0f, realFontSize.X / realFontSize.Y);
+            m_fontDrawScale = m_fontScale * 1f; 
+            m_fontSize = new Vector2(realFontSize.X, realFontSize.Y) * m_fontScale;
+            m_fontSizeHalf = m_fontSize * 0.5f;
             m_bounds = new Framework.Geometry.Rectangle(
                 0.0f,
                 0.0f,
-                m_unitX,
-               m_unitY);
+                (int)(Window.ClientBounds.Width / m_fontSize.X),
+                (int)(Window.ClientBounds.Height / m_fontSize.Y));
 
-            m_spriteBuffer = new Graphics.SpriteBuffer(10000);
+            m_spriteBuffer = new Graphics.SpriteBuffer((int)(m_bounds.Width * m_bounds.Height));
             m_snakeGame = new SnakeGame();
             m_snakeGame.Initialize(
                 this,
@@ -93,6 +100,11 @@ namespace Snake.Runners.MonoGameDesktop
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Escape))
+            {
+                Exit();
+            }
+
             m_snakeGame.Update(DateTime.Now);            
             base.Update(gameTime);
         }
@@ -112,8 +124,13 @@ namespace Snake.Runners.MonoGameDesktop
                 m_spriteBatch.DrawString(
                     m_defaultFont,
                     sprite.Content.ToString(),
-                    new Vector2(sprite.X, sprite.Y),
-                    Color.LightGreen);
+                    (new Vector2(sprite.X, sprite.Y) * m_fontSize),
+                    Color.LightGreen,
+                    0.0f,
+                    Vector2.Zero,
+                    m_fontDrawScale,
+                    SpriteEffects.None,
+                    1.0f);
             }
 
             m_spriteBuffer.Clear();
@@ -133,8 +150,7 @@ namespace Snake.Runners.MonoGameDesktop
         {
             if (m_bounds.Contains(x, y))
             {
-                // m_spriteBuffer.Add((float)Math.Round(x * m_unit), (float)Math.Round(y * m_unit), sprite);
-                m_spriteBuffer.Add(x * m_fontSize, y * m_fontSize, sprite);
+                m_spriteBuffer.Add(x, y, sprite);
             }
         }
 

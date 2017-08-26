@@ -106,7 +106,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.manifest" />
-    <None Include="Content\Fonts\DejaVu Sans Mono Nerd Font Complete Mono.ttf" />
+    <None Include="Content\Fonts\protracker.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Snake.Framework\Snake.Framework.csproj">
