@@ -119,6 +119,7 @@ namespace Snake.Framework.UnitTests.Animations
 
 			sinceSceneStart = 5.1f;
 			((IUpdatable)actual.Get(0)).Update();
+
             sinceSceneStart += 5.1f;
 			((IUpdatable)actual.Get(1)).Update();
 		}
