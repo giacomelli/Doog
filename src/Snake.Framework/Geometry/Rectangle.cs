@@ -83,12 +83,8 @@ namespace Snake.Framework.Geometry
 
         public bool Intersect(Rectangle other)
         {
-            if (left >= other.right || other.left >= right)
-            {
-                return false;
-            }
-
-            if (top >= other.bottom || other.top >= bottom)
+            if (left >= other.right || other.left >= right
+             || top >= other.bottom || other.top >= bottom)
             {
                 return false;
             }

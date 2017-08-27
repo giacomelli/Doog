@@ -9,14 +9,14 @@ namespace Snake.Game
 {
     public class Wall : ComponentBase, IDrawable, ICollidable
     {
-        private bool shouldInvertSprite = true;
+        private char sprite = '#';
 
         private Wall(float x, float y, IWorldContext context)
             : base(context)
         {
             Transform = new Transform(x, y, context);
 
-            this.Toogle(true, 10f, Easing.Linear, (v) => shouldInvertSprite = v)
+            this.Toogle(true, 10f, Easing.Linear, (v) => sprite = v ? '#' : 'X')
                .Loop();
         }
 
@@ -29,7 +29,7 @@ namespace Snake.Game
 
         public void Draw(IDrawContext context)
         {
-            context.Canvas.Draw(Transform.BoundingBox, true, shouldInvertSprite ? '#' : 'X');
+            context.Canvas.Draw(Transform.BoundingBox, true, sprite);
         }
 
         public void OnCollision(Collision collision)
