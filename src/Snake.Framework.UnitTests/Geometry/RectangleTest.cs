@@ -173,5 +173,21 @@ namespace Snake.Framework.UnitTests.Geometry
 
 			Assert.IsTrue(a != b);
 		}
+
+		[Test]
+		public void MultiplyOperator_Float_WidthAndHeightMultiplied()
+		{
+            var actual = new Rectangle(5, 10, 55, 20) * 10f;
+
+            Assert.AreEqual(new Rectangle(5, 10, 550, 200), actual);
+		}
+
+		[Test]
+		public void SumOperator_Rectangle_Sum()
+		{
+			var actual = new Rectangle(5, 10, 55, 20) + new Rectangle(1, 2, 3, 4);
+
+			Assert.AreEqual(new Rectangle(6, 12, 58, 24), actual);
+		}
 	}
 }

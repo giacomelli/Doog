@@ -13,6 +13,11 @@ namespace Snake.Framework.UnitTests.Animations
             {
 				Assert.AreEqual(10, easing.Calculate(10, 110, 0));
 				Assert.AreEqual(110, easing.Calculate(10, 110, 1f));
+
+                for (var time = 0f; time <= 1f; time += 0.1f)
+                {
+                    easing.Calculate(time);
+                }
             }
         }
     }

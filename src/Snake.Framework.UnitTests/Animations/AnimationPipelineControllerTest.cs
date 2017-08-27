@@ -21,6 +21,7 @@ namespace Snake.Framework.UnitTests.Animations
 			AnimationPipelineController.Empty.Pause();
             AnimationPipelineController.Empty.Resume();
             AnimationPipelineController.Empty.Destroy();
+            Assert.AreEqual(AnimationState.NotPlayed, AnimationPipelineController.Empty.State);
 		}
 
         [Test]
