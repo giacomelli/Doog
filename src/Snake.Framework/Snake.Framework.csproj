@@ -77,14 +77,10 @@
     <Compile Include="Time.cs" />
     <Compile Include="ITime.cs" />
 
-    <Compile Include="Animations\IEasing.cs" />
-    <Compile Include="Animations\LinearEasing.cs" />
     <Compile Include="Animations\PositionAnimation.cs" />
     <Compile Include="Animations\ComponentExtensions.cs" />
     <Compile Include="Animations\FloatAnimation.cs" />
     <Compile Include="Geometry\PointExtensions.cs" />
-    <Compile Include="Animations\Easing.cs" />
-    <Compile Include="Animations\InBackEasing.cs" />
     <Compile Include="Animations\AnimationBase.cs" />
     <Compile Include="Animations\TransformExtensions.cs" />
     <Compile Include="FloatExtensions.cs" />
@@ -102,6 +98,21 @@
     <Compile Include="Animations\AnimationPipelineExtensions.cs" />
     <Compile Include="Animations\PointAnimation.cs" />
     <Compile Include="Animations\NullAnimationPipelineController.cs" />
+    <Compile Include="Animations\Easings\BackEasings.cs" />
+    <Compile Include="Animations\Easings\BounceEasings.cs" />
+    <Compile Include="Animations\Easings\QuadEasings.cs" />
+    <Compile Include="Animations\Easings\CubicEasings.cs" />
+    <Compile Include="Animations\Easings\LinearEasing.cs" />
+    <Compile Include="Animations\Easings\Easing.cs" />
+    <Compile Include="Animations\Easings\IEasing.cs" />
+    <Compile Include="Animations\Easings\EeasingExtensions.cs" />
+    <Compile Include="Animations\Easings\QuartEasings.cs" />
+    <Compile Include="Animations\Easings\QuintEasings.cs" />
+    <Compile Include="Animations\Easings\ElasticEasings.cs" />
+    <Compile Include="Animations\Easings\SinEasings.cs" />
+    <Compile Include="Animations\Easings\EasingConstants.cs" />
+    <Compile Include="Animations\Easings\ExpoEasings.cs" />
+    <Compile Include="Animations\Easings\CircEasings.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -111,6 +122,7 @@
     <Folder Include="Diagnostics\" />
     <Folder Include="Animations\" />
     <Folder Include="Logging\" />
+    <Folder Include="Animations\Easings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Texts\Map\Resources\Fonts\Default.txt" />

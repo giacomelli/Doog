@@ -32,6 +32,13 @@ namespace Snake.Framework.UnitTests.Geometry
 		}
 
 		[Test]
+		public void RightCenterPoint_NoArgs_Point()
+		{
+			var target = new Rectangle(10, 20, 30, 40);
+			Assert.AreEqual(new Point(29, 30), target.RightCenterPoint());
+		}
+
+		[Test]
 		public void RightBottomPoint_NoArgs_Point()
 		{
 			var target = new Rectangle(10, 20, 30, 40);
@@ -43,6 +50,13 @@ namespace Snake.Framework.UnitTests.Geometry
 		{
 			var target = new Rectangle(10, 20, 30, 40);
             Assert.AreEqual(new Point(10, 39), target.LeftBottomPoint());
+		}
+
+		[Test]
+		public void LeftCenterPoint_NoArgs_Point()
+		{
+			var target = new Rectangle(10, 20, 30, 40);
+			Assert.AreEqual(new Point(10, 30), target.LeftCenterPoint());
 		}
 
 		[Test]

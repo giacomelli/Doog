@@ -9,12 +9,14 @@ namespace Snake.Game.Scenes.Samples
     public class SampleComponent : ComponentBase, IDrawable
     {
         public SampleComponent(float x, float y, IWorldContext ctx)
-        :base(ctx)
+        : base(ctx)
         {
             Transform = new Transform(x, y, ctx);
+            Sprite = '#';
         }
 
         public Transform Transform { get; set; }
+        public char Sprite { get; set; }
 
         public override bool Enabled
         {
@@ -31,7 +33,7 @@ namespace Snake.Game.Scenes.Samples
 
         public void Draw(IDrawContext context)
         {
-            context.Canvas.Draw(Transform.Position.X, Transform.Position.Y, '#');
+            context.Canvas.Draw(Transform.BoundingBox, true, Sprite);
         }
     }
 }

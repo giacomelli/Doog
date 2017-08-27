@@ -148,5 +148,19 @@ namespace Snake.Framework.Geometry
 		{
 			return !(a == b);
 		}
+
+        public static Rectangle operator *(Rectangle a, float multiplier)
+        {
+            return new Rectangle(a.left, a.top, a.right * multiplier, a.bottom * multiplier);
+        }
+
+		public static Rectangle operator +(Rectangle a, Rectangle b)
+		{
+			return new Rectangle(
+                a.left + b.left, 
+                a.top + b.top, 
+                a.right + b.right, 
+                a.bottom + b.bottom);
+		}
     }
 }

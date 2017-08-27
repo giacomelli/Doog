@@ -49,6 +49,10 @@ namespace Snake.Game.Scenes
 					case ConsoleKey.D4:
 						Context.OpenScene<Sample4Scene>();
 						break;
+
+					case ConsoleKey.D5:
+						Context.OpenScene<Sample5Scene>();
+						break;
                 }
             }
         }

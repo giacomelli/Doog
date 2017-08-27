@@ -26,17 +26,25 @@ public static class RectangleExtensions
         return new Point(rect.Right - 1, rect.Top);
     }
 
+	public static Point RightCenterPoint(this Rectangle rect)
+	{
+		return new Point(rect.Right - 1, rect.Top + rect.Height / 2);
+	}
+
     public static Point RightBottomPoint(this Rectangle rect)
     {
         return new Point(rect.Right - 1, rect.Bottom -1);
-
     }
 
     public static Point LeftBottomPoint(this Rectangle rect)
     {
         return new Point(rect.Left, rect.Bottom -1);
-
     }
+
+	public static Point LeftCenterPoint(this Rectangle rect)
+	{
+		return new Point(rect.Left, rect.Top + rect.Height / 2);
+	}
 
     public static bool Contains(this Rectangle rect, Point point)
     {

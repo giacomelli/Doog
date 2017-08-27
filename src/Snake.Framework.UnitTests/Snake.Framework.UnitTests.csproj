@@ -71,7 +71,6 @@
     <Compile Include="ComponentExtensionsTest.cs" />
     <Compile Include="SceneBaseTest.cs" />
     <Compile Include="TimeTest.cs" />
-    <Compile Include="Animations\LinearEasingTest.cs" />
     <Compile Include="Geometry\PointExtensionsTest.cs" />
     <Compile Include="ComponentBaseTest.cs" />
     <Compile Include="Animations\AnimationPipelineTest.cs" />
@@ -87,8 +86,8 @@
     <Compile Include="Animations\TransformExtensionsTest.cs" />
     <Compile Include="Animations\AnimationPipelineExtensionsTest.cs" />
     <Compile Include="Animations\PointAnimationTest.cs" />
-    <Compile Include="Animations\InBackEasingTest.cs" />
     <Compile Include="Animations\AnimationBaseTest.cs" />
+    <Compile Include="Animations\Easings\EasingTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -112,6 +111,7 @@
     <Folder Include="Diagnostics\" />
     <Folder Include="Animations\" />
     <Folder Include="Logging\" />
+    <Folder Include="Animations\Easings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Avatar.txt">
