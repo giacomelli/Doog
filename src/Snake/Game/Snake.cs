@@ -53,8 +53,6 @@ namespace Snake.Game
 
             if (newPosition != hpos)
             {
-                Log.Debug("Position changed {0} : {1}", hpos, newPosition);
-
                 tail.CopyPosition(head);
                 tail.Transform.Position = newPosition;
                 head.Next = tail;
