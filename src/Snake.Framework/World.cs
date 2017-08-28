@@ -164,11 +164,15 @@ namespace Snake.Framework
 			updatablesCount = updatables.Count;
 			drawablesCount = drawables.Count;
 
+            IUpdatable current;
+
 			for (int i = 0; i < updatablesCount; i++)
 			{
-				if (updatables[i].Enabled)
+                current = updatables[i];
+
+				if (current.Enabled)
 				{
-					updatables[i].Update();
+					current.Update();
 				}
 			}
 
@@ -178,12 +182,15 @@ namespace Snake.Framework
 		public void Draw()
 		{
 			CurrentScene.Draw(drawContext);
+            IDrawable current;
 
 			for (int i = 0; i < drawablesCount; i++)
 			{
-				if (drawables[i].Enabled)
+                current = drawables[i];
+
+				if (current.Enabled)
 				{
-					drawables[i].Draw(drawContext);
+					current.Draw(drawContext);
 				}
 			}
 

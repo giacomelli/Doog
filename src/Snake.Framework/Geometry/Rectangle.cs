@@ -9,6 +9,8 @@ namespace Snake.Framework.Geometry
     [DebuggerDisplay("{Left}, {Top}, {Right}, {Bottom}")]
     public struct Rectangle
     {
+        public static readonly Rectangle Zero = new Rectangle(0, 0, 0, 0);
+
         private readonly float left;
         private readonly float top;
         private readonly float right;
@@ -81,17 +83,8 @@ namespace Snake.Framework.Geometry
 
         public bool Intersect(Rectangle other)
         {
-            if (this == other)
-            {
-                return true;
-            }
-
-            if (left >= other.right || other.left >= right)
-            {
-                return false;
-            }
-
-            if (top >= other.bottom || other.top >= bottom)
+            if (left >= other.right || other.left >= right
+             || top >= other.bottom || other.top >= bottom)
             {
                 return false;
             }

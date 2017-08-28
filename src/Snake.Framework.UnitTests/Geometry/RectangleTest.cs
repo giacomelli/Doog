@@ -57,6 +57,10 @@ namespace Snake.Framework.UnitTests.Geometry
 
 			target = new Rectangle(1, 22, 2, 23);
 			Assert.IsFalse(target.Intersect(new Rectangle(1, 10, 2, 11)));
+
+            // Width and Height zero
+			target = new Rectangle(1, 1, 1, 1);
+			Assert.IsFalse(target.Intersect(new Rectangle(1, 1, 1, 1)));
         }
 
 		[Test]
@@ -66,8 +70,8 @@ namespace Snake.Framework.UnitTests.Geometry
 			Assert.IsTrue(target.Intersect(new Rectangle(3, 8, 6, 11)));
 			Assert.IsTrue(target.Intersect(new Rectangle(6, 11, 7, 12)));
 
-			target = new Rectangle(1, 1, 1, 1);
-			Assert.IsTrue(target.Intersect(new Rectangle(1, 1, 1, 1)));
+			target = new Rectangle(1, 1, 10, 10);
+			Assert.IsTrue(target.Intersect(new Rectangle(1, 1, 10, 10)));
 		}
 
 		[Test]

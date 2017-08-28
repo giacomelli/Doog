@@ -7,6 +7,8 @@ namespace Snake.Game
 {
     public class Snake : ComponentBase, IUpdatable
     {
+        public EventHandler Died;
+
         private SnakeTile head;
         private SnakeTile tail;
         private int movingDirectionX;
@@ -53,8 +55,6 @@ namespace Snake.Game
 
             if (newPosition != hpos)
             {
-                Log.Debug("Position changed {0} : {1}", hpos, newPosition);
-
                 tail.CopyPosition(head);
                 tail.Transform.Position = newPosition;
                 head.Next = tail;
@@ -96,9 +96,9 @@ namespace Snake.Game
                 x,
                 y,
                 Context,
-                () => { EatFood(); },
-                () => { Dead = true; },
-                () => { Dead = true; });
+                EatFood,
+                OnDied,
+                OnDied);
 
             return tile;
         }
@@ -120,6 +120,15 @@ namespace Snake.Game
             Log.Debug("{0} foods eaten. New speed {1}", FoodsEatenCount, Speed);
         }
 
+        void OnDied()
+        {
+            Dead = true;
+
+            if(Died != null) 
+            {
+                Died(this, EventArgs.Empty);    
+            }
+        }
 
         private void ChangeMovingDirection(int x, int y)
         {

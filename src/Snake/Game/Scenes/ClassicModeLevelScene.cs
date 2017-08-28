@@ -5,12 +5,11 @@ using Snake.Framework.Graphics;
 
 namespace Snake.Game.Scenes
 {
-	public class ClassicModeLevelScene : SceneBase
-	{
-		private const int MaxSnakes = 1;
-		private Snake[] snakes;
-		private bool gameOver;
-      
+    public class ClassicModeLevelScene : SceneBase
+    {
+        private const int MaxSnakes = 1;
+        private Snake[] snakes;
+
         public ClassicModeLevelScene(IWorldContext context)
             : base(context)
         {
@@ -29,52 +28,32 @@ namespace Snake.Game.Scenes
             // Create the snakes.
             snakes = new Snake[MaxSnakes];
 
-			for (int i = 0; i < MaxSnakes; i++)
-			{
-				var snake = new Snake(Context);
-				snake.Initialize(1, 10 + i, 6);
-				snakes[i] = snake;
-			}
+            for (int i = 0; i < MaxSnakes; i++)
+            {
+                var snake = new Snake(Context);
+                snake.Initialize(1, 10 + i, 6);
+                snake.Died += delegate
+                {
+                    ChangeToGameOver();
+                };
+                snakes[i] = snake;
+            }
 
-      		// Create the food spawner.
-			FoodSpawner.Create(Context);
-
-            gameOver = false;
+            // Create the food spawner.
+            FoodSpawner.Create(Context);
         }
 
-        public override void Update()
+        public void ChangeToGameOver()
         {
-            CheckGameOver();
-
-			if (gameOver)
-			{
-                Context.Components.DisableAll();
-				Context.OpenScene<GameOverScene>();
-			}
-		}
+            Context.Components.DisableAll();
+            Context.OpenScene<GameOverScene>();
+        }
 
         public override void Draw(IDrawContext context)
         {
-			Context.TextSystem
-						.DrawCenterX(1, "Doog's Snake")
-						.DrawCenterX(7, "Score: " + snakes[0].FoodsEatenCount, "Default");
-        }
-
-        private void CheckGameOver()
-        {
-            if (!gameOver)
-            {
-                for (int i = 0; i < MaxSnakes; i++)
-                {
-                    var snake = snakes[i];
-
-                    if (snake.Dead)
-                    {
-                        gameOver = true;
-                        break;
-                    }
-                }
-            }
+            Context.TextSystem
+                        .DrawCenterX(1, "Doog's Snake")
+                        .DrawCenterX(7, "Score: " + snakes[0].FoodsEatenCount, "Default");
         }
     }
 }
