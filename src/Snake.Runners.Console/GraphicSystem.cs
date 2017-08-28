@@ -11,9 +11,13 @@ namespace Snake.Runners.Console
         private char[,] m_sprites;
         private char[,] m_lastFrame;
 
+        public GraphicSystem()
+        {
+			Bounds = new Rectangle(0, 0, underlying.WindowWidth - 1, underlying.WindowHeight - 1);
+		}
+
         public void Initialize()
         {
-            Bounds = new IntRectangle(0, 0, underlying.WindowWidth - 1, underlying.WindowHeight - 1);
             m_sprites = new char[underlying.WindowWidth, underlying.WindowHeight];
             Fill(m_sprites, EmptySprite);
             m_lastFrame = new char[underlying.WindowWidth, underlying.WindowHeight];
@@ -22,21 +26,24 @@ namespace Snake.Runners.Console
             underlying.Clear();
         }
 
-        public IntRectangle Bounds { get; private set; }
+        public Rectangle Bounds { get; private set; }
 
-        public void Draw(int x, int y, char sprite)
+        public void Draw(float x, float y, char sprite)
         {
             if (Bounds.Contains(x, y))
             {
-                m_sprites[x, y] = sprite;
+                m_sprites[(int)x, (int)y] = sprite;
             }
         }
 
         public void Render()
         {
-            for (int x = Bounds.Left; x < Bounds.Right; x++)
+            var left = (int)Bounds.Left;
+            var top  = (int)Bounds.Top;
+
+            for (int x = left; x < Bounds.Right; x++)
             {
-                for (int y = Bounds.Top; y < Bounds.Bottom; y++)
+                for (int y = top; y < Bounds.Bottom; y++)
                 {
                     var sprite = m_sprites[x, y];
                     var lastFrameSprite = m_lastFrame[x, y];

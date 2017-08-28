@@ -8,7 +8,7 @@ namespace Snake.Framework.Texts
 	public interface IFont
 	{
 		string Name { get; }
-		IntPoint Size { get; }
-		IntPoint GetTextSize(string text);
+		Point Size { get; }
+		Point GetTextSize(string text);
 	}
 }

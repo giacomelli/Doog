@@ -15,6 +15,12 @@ namespace Snake.Framework
 			return components.Where(c => c is TComponent).Cast<TComponent>();
 		}
 
+		public static TComponent GetOne<TComponent>(this IEnumerable<IComponent> components)
+			where TComponent : IComponent
+		{
+            return (TComponent) components.FirstOrDefault(c => c is TComponent);
+		}
+
 		public static IEnumerable<IComponent> GetWithTag(this IEnumerable<IComponent> components, string tag)
 		{
 			return components.Where(c => c.Tag.Equals(tag, StringComparison.OrdinalIgnoreCase));

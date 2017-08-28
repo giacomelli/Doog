@@ -10,15 +10,16 @@ namespace Snake.Framework.Texts.Map
 	/// </summary>
 	public class MapTextSystem : ITextSystem
 	{
-		private IGraphicSystem graphicSystem;
 		private Dictionary<string, MapFont> fonts = new Dictionary<string, MapFont>();
 		private string defaultFontName;
 
-		public MapTextSystem(IGraphicSystem graphicSystem, string defaultFontName)
+		public MapTextSystem(IWorldContext context, string defaultFontName)
 		{
-			this.graphicSystem = graphicSystem;
+            this.Context = context;
 			this.defaultFontName = defaultFontName;
 		}
+
+        public IWorldContext Context { get; private set; }
 
 		public void Initialize()
 		{
@@ -33,13 +34,15 @@ namespace Snake.Framework.Texts.Map
 			}
 		}
 
-		public void Draw(int x, int y, string text, string fontName = null)
+		public ITextSystem Draw(float x, float y, string text, string fontName = null)
 		{
 			((MapFont)GetFont(fontName)).Process(
 				x,
 				y,
 				text,
-				(cx, cy, c) => graphicSystem.Draw(cx, cy, c));
+				(cx, cy, c) => Context.GraphicSystem.Draw(cx, cy, c));
+
+            return this;
 		}
 
 		public IFont GetFont(string fontName = null)

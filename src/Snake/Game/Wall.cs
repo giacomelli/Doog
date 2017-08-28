@@ -1,32 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Snake.Framework;
-using Snake.Framework.Behaviors;
+using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 using Snake.Framework.Physics;
 
 namespace Snake.Game
 {
-	public class Wall : ComponentBase, IDrawable, ICollidable
-	{
-		public Wall(int x, int y, IWorldContext context)
-            : base (context)
-		{
-			Transform = new TransformComponent(x, y, context);
-		}
+    public class Wall : ComponentBase, IDrawable, ICollidable
+    {
+        private bool shouldInvertSprite = true;
 
-		public TransformComponent Transform { get; private set; }
+        private Wall(float x, float y, IWorldContext context)
+            : base(context)
+        {
+            Transform = new Transform(x, y, context);
 
-		public void Draw(IDrawContext context)
-		{
-			context.Canvas.Draw(Transform, '#');
-		}
+            this.Toogle(true, 10f, Easing.Linear, (v) => shouldInvertSprite = v)
+               .Loop();
+        }
 
-		public void OnCollision(Collision collision)
-		{
-		}
-	}
+        public static Wall Create(float x, float y, IWorldContext context)
+        {
+            return new Wall(x, y, context);
+        }
+
+        public Transform Transform { get; private set; }
+
+        public void Draw(IDrawContext context)
+        {
+            context.Canvas.Draw(Transform.BoundingBox, true, shouldInvertSprite ? '#' : 'X');
+        }
+
+        public void OnCollision(Collision collision)
+        {
+        }
+    }
 }

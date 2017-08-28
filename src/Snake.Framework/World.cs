@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Snake.Framework.Behaviors;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
+using Snake.Framework.Logging;
 using Snake.Framework.Physics;
 using Snake.Framework.Texts;
 
@@ -21,10 +22,17 @@ namespace Snake.Framework
 		private int drawablesCount;
 		private IList<IComponent> componentsToRemove;
 		private IScene pendingSceneToOpen;
+        private Time time;
 
-		public World(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
+		public virtual void Initialize(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
 		{
-			CurrentScene = new NullScene(this);
+			Components = new List<IComponent>();
+			componentsToRemove = new List<IComponent>();
+			updatables = new List<IUpdatable>();
+			drawables = new List<IDrawable>();
+
+            time = new Time();
+			pendingSceneToOpen = new NullScene(this);
 
 			graphicSystem.Initialize();
 			drawContext = new DrawContext(graphicSystem);
@@ -36,15 +44,20 @@ namespace Snake.Framework
 			textSystem.Initialize();
 			TextSystem = textSystem;
 
-			Components = new List<IComponent>();
-			componentsToRemove = new List<IComponent>();
-			updatables = new List<IUpdatable>();
-			drawables = new List<IDrawable>();
+            LogSystem = new NullLogSystem();
 		}
 
 		public IScene CurrentScene { get; private set; }
 
-		public IntRectangle Bounds { get; private set; }
+		public Rectangle Bounds { get; private set; }
+
+        public ITime Time
+        {
+            get
+            {
+                return time;
+            }
+        }
 
 		public IGraphicSystem GraphicSystem { get; private set; }
 
@@ -52,11 +65,13 @@ namespace Snake.Framework
 
 		public ITextSystem TextSystem { get; private set; }
 
+        public ILogSystem LogSystem { get; set; }
+
 		public IList<IComponent> Components { get; private set; }
 
 		public void AddComponent(IComponent component)
 		{
-			Components.Add(component);
+           	Components.Add(component);
 
 			var u = component as IUpdatable;
 
@@ -92,10 +107,21 @@ namespace Snake.Framework
 			pendingSceneToOpen = scene;
 		}
 
-		private void OpenSceneIfPending()
+		private void OpenSceneIfPending(DateTime now)
 		{
 			if (pendingSceneToOpen != null)
 			{
+                LogSystem.Debug("WORLD: opening scene {0}", pendingSceneToOpen.GetType().Name);
+
+				// Time.
+				if (time.SinceGameStart <= float.Epsilon)
+				{
+					time.MarkAsGameStarted(now);
+				}
+
+				time.MarkAsSceneStarted(now);
+                time.Update(now);
+
 				// Call new scene initialization, in this moment the scene decide which components will be kept
 				// on world and wich objects will be removed.
 				pendingSceneToOpen.Initialize();
@@ -121,12 +147,18 @@ namespace Snake.Framework
 				CurrentScene = pendingSceneToOpen;
 
 				pendingSceneToOpen = null;
+
+                LogSystem.Debug("WORLD: scene opened");
 			}
+            else 
+            {
+                time.Update(now);
+            }
 		}
 
-		public void Update()
+		public void Update(DateTime now)
 		{
-			OpenSceneIfPending();
+			OpenSceneIfPending(now);
 			CurrentScene.Update();
 
 			updatablesCount = updatables.Count;

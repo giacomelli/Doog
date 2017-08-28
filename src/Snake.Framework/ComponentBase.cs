@@ -1,16 +1,85 @@
-﻿namespace Snake.Framework
+﻿using System;
+using System.Collections.Generic;
+using Snake.Framework.Logging;
+
+namespace Snake.Framework
 {
     public abstract class ComponentBase : IComponent
     {
-        protected ComponentBase(IWorldContext context)
+        private IList<IComponent> children;
+        private bool enabled;
+
+        protected ComponentBase(IWorldContext context, bool addToContext)
         {
             Context = context;
-            Enabled = true;
+            enabled = true;
 			Tag = GetType().Name;
+            children = new List<IComponent>();
+
+            if (addToContext)
+            {
+                context.AddComponent(this);
+            }
         }
 
-        public bool Enabled { get; set; }
+		protected ComponentBase(IWorldContext context)
+            : this(context, true)
+		{
+		}
+
+        public virtual bool Enabled
+        {
+            get 
+            {
+                return enabled;
+            }
+
+            set 
+            {
+                if(value != enabled)
+                {
+                    enabled = value;
+
+                    if (value)
+                    {
+                        OnEnabled();
+                    }
+                    else 
+                    {
+                        OnDisabled();    
+                    }
+                }    
+            }
+        }
 		public string Tag { get; protected set; }
         public IWorldContext Context { get; private set; }
+
+        protected ILogSystem Log 
+        {
+            get
+            {
+                return Context.LogSystem;    
+            }
+        }
+
+        public void AddChild(IComponent component)
+        {
+            children.Add(component);
+        }
+
+        public IEnumerable<IComponent> GetChildren()
+        {
+            return children;
+        }
+
+        protected virtual void OnEnabled()
+        {
+            Log.Debug("{0} enabled.", this);
+        }
+
+        protected virtual void OnDisabled()
+        {
+            Log.Debug("{0} disabled.", this);
+        }
     }
 }

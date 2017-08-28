@@ -2,6 +2,7 @@ using System;
 using Snake.Framework;
 using Snake.Framework.Diagnostics;
 using Snake.Framework.Graphics;
+using Snake.Framework.Logging;
 using Snake.Framework.Physics;
 using Snake.Framework.Texts;
 using Snake.Game.Scenes;
@@ -12,19 +13,16 @@ namespace Snake.Game
 	{
 		private bool disposed = false; // To detect redundant calls
 
-		public SnakeGame(IGraphicSystem graphicSystem, ITextSystem textSystem)
-			: base(graphicSystem, new PhysicSystem(), textSystem)
+		public override void Initialize(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
 		{
-		}
+            base.Initialize(graphicSystem, physicSystem, textSystem);
 
-		public void Initialize()
-		{
 			if (Debug.Enabled)
 			{
-				AddComponent(new WorldStatsConsole(2, 2, this));
+				WorldStatsConsole.Create(2, 2, this);
 			}
 
-			OpenScene(new ClassicModeLevelScene(this));
+			this.OpenScene<ClassicModeLevelScene>();
 		}
 
 		protected virtual void Dispose(bool disposing)

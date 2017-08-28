@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Snake.Framework;
-using Snake.Framework.Behaviors;
+﻿using Snake.Framework;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 using Snake.Framework.Physics;
@@ -15,19 +10,34 @@ namespace Snake.Game
 		public Food(IWorldContext context)
             : base(context)
 		{
-			Transform = new TransformComponent(context);
+			Transform = new Transform(context);
 		}
 
-		public TransformComponent Transform { get; private set; }
+		public Transform Transform { get; private set; }
 
 		public void Draw(IDrawContext context)
 		{
-			context.Canvas.Draw(Transform, '$');
+			context.Canvas.Draw(Transform.BoundingBox, true, '$');
 		}
 
 		public void OnCollision(Collision collision)
 		{
-			Enabled = false;
+            if (collision.Other.Tag != "Food")
+            {
+                Enabled = false;
+            }
 		}
+
+        protected override void OnEnabled()
+        {
+            base.OnEnabled();
+            Transform.Enabled = true;
+        }
+
+        protected override void OnDisabled()
+        {
+            base.OnDisabled();
+            Transform.Enabled = false;
+        }
 	}
 }

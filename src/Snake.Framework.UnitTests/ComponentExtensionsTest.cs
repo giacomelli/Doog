@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 using Snake.Framework.Behaviors;
+using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 
 namespace Snake.Framework.UnitTests
@@ -95,6 +96,14 @@ namespace Snake.Framework.UnitTests
 			c1.VerifyAllExpectations();
 			c2.VerifyAllExpectations();
 			c3.VerifyAllExpectations();
+		}
+
+		[Test]
+		public void GetOne_Type_FirtsOne()
+		{
+            Assert.AreSame(c2, target.GetOne<IDrawable>());
+            Assert.AreSame(c1, target.GetOne<IUpdatable>());
+            Assert.IsNull(target.GetOne<Transform>());
 		}
     }
 }

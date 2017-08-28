@@ -1,15 +1,14 @@
-﻿using System;
-using Snake.Framework.Geometry;
-
-namespace Snake.Framework.Texts
+﻿namespace Snake.Framework.Texts
 {
 	/// <summary>
 	/// Defines an interface for a text system.
 	/// </summary>
 	public interface ITextSystem
 	{
+        IWorldContext Context { get; }
+
 		void Initialize();
-		void Draw(int x, int y, string text, string fontName = null);
+		ITextSystem Draw(float x, float y, string text, string fontName = null);
 		IFont GetFont(string fontName = null);
 	}
 }

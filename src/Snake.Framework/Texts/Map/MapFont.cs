@@ -15,7 +15,7 @@ namespace Snake.Framework.Texts.Map
 	public class MapFont : IFont
 	{
 		private Dictionary<char, List<string>> charsData = new Dictionary<char, List<string>>();
-		private Dictionary<string, IntPoint> textsSizeCache = new Dictionary<string, IntPoint>();
+		private Dictionary<string, Point> textsSizeCache = new Dictionary<string, Point>();
 
 
 		private MapFont()
@@ -23,13 +23,13 @@ namespace Snake.Framework.Texts.Map
 		}
 
 		public string Name { get; private set; }
-		public IntPoint Size { get; private set; }
+		public Point Size { get; private set; }
 
-		public IntPoint GetTextSize(string text)
+		public Point GetTextSize(string text)
 		{
 			if (!textsSizeCache.ContainsKey(text))
 			{
-				var x = 0;
+                var x = 0f;
 
 				Process(
 					0,
@@ -37,7 +37,7 @@ namespace Snake.Framework.Texts.Map
 					text,
 					(cx, cy, c) => { x = cx; });
 
-				textsSizeCache.Add(text, new IntPoint(x, Size.Y));
+				textsSizeCache.Add(text, new Point(x, Size.Y));
 			}
 
 			return textsSizeCache[text];
@@ -56,20 +56,20 @@ namespace Snake.Framework.Texts.Map
 			// Width:
 			// Height:
 			font.Name = ReadMetadata(content, 0);
-			font.Size = new IntPoint(
+			font.Size = new Point(
 				Convert.ToInt32(ReadMetadata(content, 2)),
 				Convert.ToInt32(ReadMetadata(content, 3)));
 
 			var currentCharReadLines = 0;
 
 			// Space.
-			font.charsData.Add(' ', new List<string> { string.Empty.PadRight(font.Size.X, ' ') });
+			font.charsData.Add(' ', new List<string> { string.Empty.PadRight((int)font.Size.X, ' ') });
 
 			for (int i = 4; i < content.Length; i++)
 			{
 				var line = content[i].TrimEnd();
 
-				if (currentCharReadLines == font.Size.Y)
+				if (font.Size.Y.EqualsTo(currentCharReadLines))
 				{
 					font.charsData.Add(currentChar, currentCharData);
 					currentChar++;
@@ -84,7 +84,7 @@ namespace Snake.Framework.Texts.Map
 			return font;
 		}
 
-		public void Process(int x, int y, string text, Action<int, int, char> processChar)
+		public void Process(float x, float y, string text, Action<float, float, char> processChar)
 		{
 			foreach (char c in text.ToUpperInvariant())
 			{
@@ -92,7 +92,7 @@ namespace Snake.Framework.Texts.Map
 			}
 		}
 
-		private int Draw(int x, int y, char c, Action<int, int, char> processChar)
+		private int Draw(float x, float y, char c, Action<float, float, char> processChar)
 		{
 			var longestLine = 0;
 

@@ -1,3 +1,5 @@
+using System;
+
 namespace Snake.Framework
 {
     /// <summary>
@@ -5,20 +7,28 @@ namespace Snake.Framework
     /// </summary>
 	public static class WorldContextExtensions
 	{
-		public static void RemoveComponentsWithoutTag(this IWorldContext worldContext, string tag)
+        public static void RemoveComponentsWithoutTag(this IWorldContext context, string tag)
 		{
-			foreach (var c in worldContext.Components.GetWithoutTag(tag))
+			foreach (var c in context.Components.GetWithoutTag(tag))
 			{
-				worldContext.RemoveComponent(c);
+				context.RemoveComponent(c);
 			}
 		}
 
-		public static void RemoveAllComponents(this IWorldContext worldContext)
+        public static void RemoveAllComponents(this IWorldContext context)
 		{
-			foreach (var c in worldContext.Components)
+			foreach (var c in context.Components)
 			{
-				worldContext.RemoveComponent(c);
+				context.RemoveComponent(c);
 			}
 		}
+
+        public static void OpenScene<TScene>(this IWorldContext context)
+            where TScene : IScene
+        {
+            var scene = Activator.CreateInstance(typeof(TScene), context) as IScene;
+
+            context.OpenScene(scene);
+        }
 	}
 }
