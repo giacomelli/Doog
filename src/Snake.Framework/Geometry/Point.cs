@@ -22,6 +22,12 @@ namespace Snake.Framework.Geometry
             this.y = y;
         }
 
+		public Point(float xy)
+		{
+			this.x = xy;
+			this.y = xy;
+		}
+
         public float X
         {
             get
