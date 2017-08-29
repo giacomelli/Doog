@@ -2,13 +2,13 @@
 
 namespace Snake.Framework.Animations
 {
-    public class DelayAnimation<TComponent> : AnimationBase<TComponent, float>
+    public class DoAnimation<TComponent> : AnimationBase<TComponent, float>
         where TComponent : IComponent
     {
         private Action callback;
 
-        public DelayAnimation(TComponent owner, float duration, Action callback = null)
-            : base(owner, duration)
+        public DoAnimation(TComponent owner,  Action callback = null)
+            : base(owner, 0)
         {
             this.callback = callback;
         }
