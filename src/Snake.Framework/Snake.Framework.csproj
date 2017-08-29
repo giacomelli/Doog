@@ -118,7 +118,6 @@
     <Compile Include="Geometry\CircleComponent.cs" />
     <Compile Include="Geometry\RectangleComponent.cs" />
     <Compile Include="Geometry\ICircle.cs" />
-    <Compile Include="Animations\DoAnimation.cs" />
     <Compile Include="Animations\DoExtensions.cs" />
   </ItemGroup>
   <ItemGroup />
