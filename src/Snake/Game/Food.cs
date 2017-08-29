@@ -5,22 +5,15 @@ using Snake.Framework.Physics;
 
 namespace Snake.Game
 {
-	public class Food : ComponentBase, IDrawable, ICollidable
+	public class Food : RectangleComponent, IDrawable, ICollidable
 	{
 		public Food(IWorldContext context)
-            : base(context)
+            : base(0, 0, context)
 		{
-			Transform = new Transform(context);
+            Sprite = 'o';
 		}
 
-		public Transform Transform { get; private set; }
-
-		public void Draw(IDrawContext context)
-		{
-			context.Canvas.Draw(Transform.BoundingBox, true, '$');
-		}
-
-		public void OnCollision(Collision collision)
+  		public void OnCollision(Collision collision)
 		{
             if (collision.Other.Tag != "Food")
             {

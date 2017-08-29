@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using Snake.Framework;
 using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
@@ -22,6 +22,7 @@ namespace Snake.Game.Scenes.Samples
         public override void Initialize()
         {
             Context.RemoveAllComponents();
+            var bounds = Context.Bounds;
 
             var moveToFood1 = new Food(Context);
             moveToFood1.Transform.Position = moveToSampleArea.LeftTopPoint();
@@ -29,9 +30,7 @@ namespace Snake.Game.Scenes.Samples
                        .MoveTo(moveToSampleArea.RightBottomPoint(), 2, Easing.InBack)
                        .Delay(1)
                        .MoveTo(moveToSampleArea.RightTopPoint(), 2, Easing.Linear)
-                       //.Loop();
                        .PingPong();
-            //.Once();
 
             var moveToFood2 = new Food(Context);
             moveToFood2.Transform.Position = moveToSampleArea.RightBottomPoint();
@@ -48,16 +47,16 @@ namespace Snake.Game.Scenes.Samples
                 .Loop();
 
             controller1 = blinkFood
-                .To(0, 100, 19, Easing.Linear, (v) => numberSample1 = v)
+                .To(0, 100, 19, Easing.Linear, v => numberSample1 = v)
                 .Loop();
 
-		
+
             controller2 = blinkFood
-                    .To(0, 10, 10, Easing.Linear, (v) => numberSample2 = v)
+                    .To(0, 10, 10, Easing.Linear, v => numberSample2 = v)
                     .Delay(5)
-                    .To(10, 30, 10, Easing.Linear, (v) => numberSample2 = v)
+                    .To(10, 30, 10, Easing.Linear, v => numberSample2 = v)
                     .Delay(5)
-                    .To(30, 100, 10, Easing.Linear, (v) => numberSample2 = v)
+                    .To(30, 100, 10, Easing.Linear, v => numberSample2 = v)
                     .Delay(5)
                     .PingPong();
 
@@ -65,40 +64,52 @@ namespace Snake.Game.Scenes.Samples
             // Once blink
             for (var i = 0; i < 100; i++)
             {
-				var b = new Food(Context);
-				b.Transform.Position = new Point(31 + i, 11);
+                var b = new Food(Context);
+                b.Transform.Position = new Point(31 + i, 11);
                 b
-				    .Delay(i * 0.05f)
-					.Enable(1f, Easing.Linear)
+                    .Delay(i * 0.05f)
+                    .Enable(1f, Easing.Linear)
                     .Enable(0.5f, Easing.Linear)
-					.Enable(0.5f, Easing.Linear)
-                   	.Once();
+                    .Enable(0.5f, Easing.Linear)
+                       .Once();
             }
 
             // Ping-pong move
             var length = 100;
             var speed = 0.1f;
-            var maxTime = (length -1) * speed;
+            var maxTime = (length - 1) * speed;
 
-			for (var i = 0; i < length; i++)
-			{
-				var b = new Food(Context);
-              	b.Transform.Position = new Point(31 + i, 13);
+            for (var i = 0; i < length; i++)
+            {
+                var b = new Food(Context);
+                b.Transform.Position = new Point(31 + i, 13);
                 b
                     .Disable(i * speed, Easing.Linear).OnlyForward()
                     .Delay(maxTime - (i * speed)).OnlyForward()
-                   
-                    .Delay(maxTime - ((length -1 - i) * speed)).OnlyBackward()
-                    .Enable(((length - 1) - i) * speed, Easing.Linear).OnlyBackward()
-						
-                    .PingPong();
-			}
 
-            // ScaleTo
-            var wall = Wall.Create(140, 1, Context);
-            wall.Transform
-                .ScaleTo(new Point(20, 10), 1, Easing.Linear)
-                .MoveTo(new Point(140, 60), 1, Easing.InBack)
+                    .Delay(maxTime - ((length - 1 - i) * speed)).OnlyBackward()
+                    .Enable(((length - 1) - i) * speed, Easing.Linear).OnlyBackward()
+
+                    .PingPong();
+            }
+
+            // ScaleTo, MoveTo and PingPong
+            new RectangleComponent(140, 1, Context).Transform
+                .ScaleTo(new Point(20, 10), 1, Easing.InExpo)
+                .MoveTo(new Point(140, bounds.Bottom - 10), 2, Easing.InBounce)
+                .PingPong();
+
+            // Circle
+            var center = Context.Bounds.GetCenter();
+            var circle = new CircleComponent(new Point(20, 40), 1, Context)
+            {
+                Filled = false
+            };
+
+            circle.Transform
+                .Do(() => circle.Filled = false).OnlyForward()
+                .ScaleTo(30, 3, Easing.InOutQuint)
+                .Do(() => circle.Filled = true).OnlyBackward()
                 .PingPong();
         }
 
@@ -126,17 +137,17 @@ namespace Snake.Game.Scenes.Samples
                         controller2.Destroy();
                         break;
 
-					case ConsoleKey.D7:
-						AnimationPipelineController.PauseAll();
-						break;
-					
-                    case ConsoleKey.D8:
-						AnimationPipelineController.ResumeAll();
-						break;
+                    case ConsoleKey.D7:
+                        AnimationPipelineController.PauseAll();
+                        break;
 
-					case ConsoleKey.D9:
+                    case ConsoleKey.D8:
+                        AnimationPipelineController.ResumeAll();
+                        break;
+
+                    case ConsoleKey.D9:
                         AnimationPipelineController.DestroyAll();
-						break;
+                        break;
                 }
             }
         }
@@ -155,12 +166,13 @@ namespace Snake.Game.Scenes.Samples
 
         public override void Draw(IDrawContext context)
         {
-            context.Canvas.Draw(moveToSampleArea);
-			
-            Context.TextSystem
-				.DrawCenter(0, -10, numberSample1.ToString("N0"))
-				.DrawCenter(0, 0, numberSample2.ToString("N0"));
+            context.Canvas
+                   .Draw(moveToSampleArea);
 
-		}
+            Context.TextSystem
+                .DrawCenter(0, -10, numberSample1.ToString("N0"))
+                .DrawCenter(0, 0, numberSample2.ToString("N0"));
+
+        }
     }
 }
