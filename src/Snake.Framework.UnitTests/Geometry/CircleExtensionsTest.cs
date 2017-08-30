@@ -8,6 +8,20 @@ namespace Snake.Framework.UnitTests.Geometry
     public class CircleExtensionsTest
     {
         [Test]
+        public void Iterate_RadiusStepNonPositive_Exception()
+        {
+            var ex = Assert.Catch(delegate { new Circle(1, 2, 0).Iterate((x, y) => { }, 0); });
+            StringAssert.Contains("radiusStep should be a non-zero positive value.", ex.Message);
+        }
+
+		[Test]
+		public void Iterate_DegreesStepSizeNonPositive_Exception()
+		{
+			var ex = Assert.Catch(delegate { new Circle(1, 2, 0).Iterate((x, y) => { }, 1, 0); });
+			StringAssert.Contains("degreesStepSize should be a non-zero positive value.", ex.Message);
+		}
+
+        [Test]
         public void Iterate_RadiusStepAndDegreeStepSize_StepsCall()
         {
             var count = 0;

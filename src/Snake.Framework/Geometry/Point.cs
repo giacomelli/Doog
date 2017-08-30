@@ -104,10 +104,5 @@ namespace Snake.Framework.Geometry
 		{
 			return new Point(a.x - b.x, a.y - b.y);
 		}
-
-		public static Point operator *(Point a, Point b)
-		{
-			return new Point(a.x * b.x, a.y * b.y);
-		}
 	}
 }

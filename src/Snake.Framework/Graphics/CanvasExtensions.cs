@@ -10,7 +10,7 @@ namespace Snake.Framework.Graphics
     {
         public static ICanvas Draw(this ICanvas canvas, Transform transform, char sprite)
         {
-            canvas.Draw(transform.Position.X + transform.Pivot.X, transform.Position.Y + transform.Position.X, sprite);
+            canvas.Draw(transform.Position.X, transform.Position.Y, sprite);
          
             return canvas;
         }

@@ -62,21 +62,30 @@ namespace Snake.Framework.Animations
 			});
 		}
 
-        public static IAnimationPipeline<TOwner> Enable<TOwner>(this TOwner owner, float duration, IEasing easing = null)
+        public static IAnimationPipeline<TOwner> Enable<TOwner>(this TOwner owner, float duration)
 		    where TOwner : IComponent
         {
-            return owner.Toogle(false, duration, easing, v =>
+            return owner.Delay(duration, () =>
             {
-                owner.Enabled = v;
+                owner.Enabled = true;
             });
 		}
 
-        public static IAnimationPipeline<TOwner> Enable<TOwner>(this IAnimationPipeline<TOwner> pipeline, float duration, IEasing easing = null)
+		public static IAnimationPipeline<TOwner> Enable<TOwner>(this TOwner owner)
+		   where TOwner : IComponent
+		{
+			return owner.Do(() =>
+			{
+				owner.Enabled = true;
+			});
+		}
+
+        public static IAnimationPipeline<TOwner> Enable<TOwner>(this IAnimationPipeline<TOwner> pipeline, float duration)
 			where TOwner : IComponent
 		{
-            return pipeline.Toogle(false, duration, easing, v =>
+            return pipeline.Delay(duration, () =>
             {
-                pipeline.Owner.Enabled = v;
+                pipeline.Owner.Enabled = true;
             });
 		}
 
@@ -89,21 +98,30 @@ namespace Snake.Framework.Animations
             });
 		}
 
-        public static IAnimationPipeline<TOwner> Disable<TOwner>(this TOwner owner, float duration, IEasing easing = null)
+        public static IAnimationPipeline<TOwner> Disable<TOwner>(this TOwner owner, float duration)
 			where TOwner : IComponent
 		{
-            return owner.Toogle(true, duration, easing, v =>
+            return owner.Delay(duration, () =>
             {
-                owner.Enabled = v;
+                owner.Enabled = false;
             });
 		}
 
-        public static IAnimationPipeline<TOwner> Disable<TOwner>(this IAnimationPipeline<TOwner> pipeline, float duration, IEasing easing = null)
+		public static IAnimationPipeline<TOwner> Disable<TOwner>(this TOwner owner)
+			where TOwner : IComponent
+		{
+			return owner.Do(() =>
+			{
+				owner.Enabled = false;
+			});
+		}
+
+        public static IAnimationPipeline<TOwner> Disable<TOwner>(this IAnimationPipeline<TOwner> pipeline, float duration)
             where TOwner : IComponent
         {
-            return pipeline.Toogle(true, duration, easing, v =>
+            return pipeline.Delay(duration, () =>
             {
-				pipeline.Owner.Enabled = v;
+                pipeline.Owner.Enabled = false;
             });
 		}
 

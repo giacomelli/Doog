@@ -16,7 +16,7 @@ public static class CircleExtensions
 
 		if (degreesStepSize <= 0)
 		{
-			throw new ArgumentOutOfRangeException("degreesStepSize", "radiusStep should be a non-zero positive value.");
+			throw new ArgumentOutOfRangeException("degreesStepSize", "degreesStepSize should be a non-zero positive value.");
 		}
 
         var center = circle.GetCenter();

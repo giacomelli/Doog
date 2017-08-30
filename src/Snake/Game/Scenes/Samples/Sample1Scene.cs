@@ -43,7 +43,7 @@ namespace Snake.Game.Scenes.Samples
             var blinkFood = new Food(Context);
             blinkFood.Transform.Position = new Point(30, 11);
             blinkFood
-                .Enable(1f, Easing.Linear)
+                .Enable(1f)
                 .Loop();
 
             controller1 = blinkFood
@@ -68,9 +68,9 @@ namespace Snake.Game.Scenes.Samples
                 b.Transform.Position = new Point(31 + i, 11);
                 b
                     .Delay(i * 0.05f)
-                    .Enable(1f, Easing.Linear)
-                    .Enable(0.5f, Easing.Linear)
-                    .Enable(0.5f, Easing.Linear)
+                    .Enable(1f)
+                    .Enable(0.5f)
+                    .Enable(0.5f)
                        .Once();
             }
 
@@ -84,11 +84,11 @@ namespace Snake.Game.Scenes.Samples
                 var b = new Food(Context);
                 b.Transform.Position = new Point(31 + i, 13);
                 b
-                    .Disable(i * speed, Easing.Linear).OnlyForward()
+                    .Disable(i * speed).OnlyForward()
                     .Delay(maxTime - (i * speed)).OnlyForward()
 
                     .Delay(maxTime - ((length - 1 - i) * speed)).OnlyBackward()
-                    .Enable(((length - 1) - i) * speed, Easing.Linear).OnlyBackward()
+                    .Enable(((length - 1) - i) * speed).OnlyBackward()
 
                     .PingPong();
             }

@@ -18,7 +18,7 @@ namespace Snake.Framework.Geometry
             : base(context)
         {
             Transform = new Transform(x, y, context);
-            Transform.Scale = new Point(radius);
+            Transform.Scale = new Point(radius * 2);
             Sprite = '#';
             Filled = true;
         }
