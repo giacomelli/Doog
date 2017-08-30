@@ -21,14 +21,14 @@ namespace Snake.Framework
             return (TComponent) components.FirstOrDefault(c => c is TComponent);
 		}
 
-		public static IEnumerable<IComponent> GetWithTag(this IEnumerable<IComponent> components, string tag)
+		public static IEnumerable<IComponent> GetWithTag(this IEnumerable<IComponent> components, params string[] tags)
 		{
-			return components.Where(c => c.Tag.Equals(tag, StringComparison.OrdinalIgnoreCase));
+			return components.Where(c => tags.Contains(c.Tag));
 		}
 
-		public static IEnumerable<IComponent> GetWithoutTag(this IEnumerable<IComponent> components, string tag)
+		public static IEnumerable<IComponent> GetWithoutTag(this IEnumerable<IComponent> components, params string[] tags)
 		{
-			return components.Where(c => !c.Tag.Equals(tag, StringComparison.OrdinalIgnoreCase));
+            return components.Where(c => !tags.Contains(c.Tag));
 		}
 
 		public static IEnumerable<IComponent> EnableAll(this IEnumerable<IComponent> components)

@@ -7,9 +7,11 @@ namespace Snake.Framework
     /// </summary>
 	public static class WorldContextExtensions
 	{
-        public static void RemoveComponentsWithoutTag(this IWorldContext context, string tag)
+        public static void RemoveComponentsWithoutTag(this IWorldContext context, params string[] tags)
 		{
-			foreach (var c in context.Components.GetWithoutTag(tag))
+            var toRemove = context.Components.GetWithoutTag(tags);
+
+			foreach (var c in toRemove)
 			{
 				context.RemoveComponent(c);
 			}

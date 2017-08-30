@@ -58,6 +58,7 @@
     <Compile Include="Game\Scenes\Samples\SampleComponent.cs" />
     <Compile Include="Game\Scenes\Samples\Sample4Scene.cs" />
     <Compile Include="Game\Scenes\Samples\Sample5Scene.cs" />
+    <Compile Include="Game\Score.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

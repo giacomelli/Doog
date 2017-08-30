@@ -5,8 +5,9 @@ using Snake.Framework.Geometry;
 
 namespace Snake.Game
 {
-    public class Snake : ComponentBase, IUpdatable
+    public sealed class Snake : ComponentBase, IUpdatable
     {
+        public EventHandler FoodEaten;
         public EventHandler Died;
 
         private SnakeTile head;
@@ -115,6 +116,12 @@ namespace Snake.Game
             tail.Next = temp;
 
             FoodsEatenCount++;
+
+            if (FoodEaten != null)
+            {
+                FoodEaten(this, EventArgs.Empty);
+            }
+
             Speed++;
 
             Log.Debug("{0} foods eaten. New speed {1}", FoodsEatenCount, Speed);

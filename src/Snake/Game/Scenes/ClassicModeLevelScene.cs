@@ -1,6 +1,7 @@
 ﻿using System;
 using Snake.Framework;
 using Snake.Framework.Animations;
+using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 
 namespace Snake.Game.Scenes
@@ -41,19 +42,23 @@ namespace Snake.Game.Scenes
 
             // Create the food spawner.
             FoodSpawner.Create(Context);
+
+            // Score.
+            // TODO: now it is prepared to only one snake.
+            // We must decide if only one Score will show all snakes scores (as list)
+            // or each Snake will have its own score instance.
+            Score.Create(7, snakes[0], Context);
+            
         }
 
         public void ChangeToGameOver()
         {
-            Context.Components.DisableAll();
             Context.OpenScene<GameOverScene>();
         }
 
         public override void Draw(IDrawContext context)
         {
-            Context.TextSystem
-                        .DrawCenterX(1, "Doog's Snake")
-                        .DrawCenterX(7, "Score: " + snakes[0].FoodsEatenCount, "Default");
+            Context.TextSystem.DrawCenterX(1, "Doog's Snake");
         }
     }
 }

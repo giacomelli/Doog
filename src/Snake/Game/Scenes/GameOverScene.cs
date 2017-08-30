@@ -8,20 +8,17 @@ namespace Snake.Game.Scenes
 {
     public class GameOverScene : SceneBase
     {
-        private int foodEatenCount;
-
         public GameOverScene(IWorldContext context)
             : base(context)
         {
-
         }
 
         public override void Initialize()
         {
-            var snakes = Context.Components.Get<Snake>();
-            foodEatenCount = snakes.First().FoodsEatenCount;
+            Context.RemoveComponentsWithoutTag("Wall", "Score");
 
-            Context.RemoveComponentsWithoutTag("Wall");
+            var score = Context.Components.GetOne<Score>();
+            score.Y = Context.Bounds.GetCenter().Y + 7;
         }
 
         public override void Update()
@@ -60,8 +57,7 @@ namespace Snake.Game.Scenes
         public override void Draw(IDrawContext context)
         {
             Context.TextSystem
-                   .DrawCenter("Game over")
-			       .DrawCenter(0, 7, "Score: {0}".With(foodEatenCount), "Default");
+                   .DrawCenter("Game over");
 
 		}
     }
