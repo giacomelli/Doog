@@ -83,11 +83,12 @@ namespace Snake.Game.Scenes.Samples
 
 			// Ball.
 			var left = bounds.LeftCenterPoint();
-            var right = bounds.RightCenterPoint() - new Point(20, 0); ;
+            var right = bounds.RightCenterPoint() - new Point(20, 0);
+            ball.Transform.CentralizePivot();
             ball.Transform.Position = left;
             ball.Transform.Scale = Point.One;
 
-            var duration = 2f;
+            var duration = 4f;
 
 			ball.Transform
 				.MoveTo(right, duration, easing)

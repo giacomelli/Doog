@@ -56,7 +56,6 @@ namespace Snake.Game
 
             if (newPosition != hpos)
             {
-                tail.CopyPosition(head);
                 tail.Transform.Position = newPosition;
                 head.Next = tail;
                 head = tail;

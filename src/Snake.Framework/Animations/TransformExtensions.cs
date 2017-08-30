@@ -50,6 +50,16 @@ public static class TransformExtensions
         return transform.ScaleTo(new Point(x, y), duration, easing);
     }
 
+	public static IAnimationPipeline<Transform> ScaleTo(this Transform transform, float scale, float duration, IEasing easing = null)
+	{
+		return transform.ScaleTo(new Point(scale), duration, easing);
+	}
+
+	public static IAnimationPipeline<Transform> ScaleTo(this IAnimationPipeline<Transform> pipeline, float scale, float duration, IEasing easing = null)
+	{
+		return pipeline.ScaleTo(new Point(scale), duration, easing);
+	}
+
     public static IAnimationPipeline<Transform> ScaleTo(this Transform transform, Point to, float duration, IEasing easing = null)
     {
         var animation = new PointAnimation<Transform>(transform, t => t.Scale, to, duration, (v) =>
