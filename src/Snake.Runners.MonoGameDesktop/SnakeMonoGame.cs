@@ -35,6 +35,7 @@ namespace Snake.Runners.MonoGameDesktop
         public SnakeMonoGame()
         {
             m_graphics = new GraphicsDeviceManager(this);
+            m_graphics.ToggleFullScreen();
             Content.RootDirectory = "Content";
         }
 
