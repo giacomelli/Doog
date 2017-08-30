@@ -92,6 +92,7 @@
     <Compile Include="Geometry\CircleComponentTest.cs" />
     <Compile Include="Geometry\RectangleComponentTest.cs" />
     <Compile Include="Geometry\CircleTest.cs" />
+    <Compile Include="Geometry\TransformExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
