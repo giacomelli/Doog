@@ -18,9 +18,10 @@ public static class CircleExtensions
 		{
 			throw new ArgumentOutOfRangeException("degreesStepSize", "radiusStep should be a non-zero positive value.");
 		}
-        
-		var h = circle.X;      // x coordinate of circle center
-		var k = circle.Y;      // y coordinate of circle center
+
+        var center = circle.GetCenter();
+		var h = center.X;      // x coordinate of circle center
+		var k = center.Y;      // y coordinate of circle center
 		var x = 0f;
 		var y = 0f;
 

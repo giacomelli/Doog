@@ -99,9 +99,8 @@ namespace Snake.Game.Scenes.Samples
                 .MoveTo(new Point(140, bounds.Bottom - 10), 2, Easing.InBounce)
                 .PingPong();
 
-            // Circle
-            var center = Context.Bounds.GetCenter();
-            var circle = new CircleComponent(new Point(20, 40), 1, Context)
+            // Circle and rectangle
+           var circle = new CircleComponent(new Point(12, 20), 1, Context)
             {
                 Filled = false
             };
@@ -111,6 +110,40 @@ namespace Snake.Game.Scenes.Samples
                 .ScaleTo(30, 3, Easing.InOutQuint)
                 .Do(() => circle.Filled = true).OnlyBackward()
                 .PingPong();
+            
+	    	var rect = new RectangleComponent(circle.Transform.Position, Context)
+			{
+				Filled = false
+			};
+
+			rect.Transform
+				.ScaleTo(30, 3, Easing.InOutQuint)
+                .Delay(3)
+				.PingPong();
+
+
+			// Circle and rectangle with pivot centralized.
+			var circleCentralized = new CircleComponent(bounds.GetCenter(), 1, Context)
+			{
+				Filled = false
+			};
+
+            circleCentralized.Transform.CentralizePivot()
+				.Do(() => circleCentralized.Filled = false).OnlyForward()
+				.ScaleTo(30, 3, Easing.InOutQuint)
+				.Do(() => circleCentralized.Filled = true).OnlyBackward()
+				.PingPong();
+
+
+			var rectCentralized = new RectangleComponent(circleCentralized.Transform.Position, Context)
+			{
+				Filled = false
+			};
+
+			rectCentralized.Transform.CentralizePivot()
+				.ScaleTo(30, 3, Easing.InOutQuint)
+				.Delay(3)
+				.PingPong();
         }
 
         public override void Update()

@@ -35,10 +35,10 @@ namespace Snake.Game
                 food.Enabled = true;
 
                 animContr.Destroy();
-                food.Transform.Scale = Point.One;
+                food.Transform.Scale = Food.DefaultScale;
 
                 animContr = food.Transform
-                    .ScaleTo(2, 2, 0.2f, Easing.InBack)
+                    .ScaleTo(Food.DefaultScale.X * 2f, 0.2f, Easing.InBack)
                     .PingPong(1);
             }
         }

@@ -83,7 +83,7 @@ namespace Snake.Framework.Animations
 		public static IAnimationPipeline<TComponent> Enable<TComponent>(this IAnimationPipeline<TComponent> pipeline)
 			where TComponent : IComponent
 		{
-            return pipeline.Toogle(false, 0.001f, Easing.Linear, v =>
+            return pipeline.Do(() =>
             {
 				pipeline.Owner.Enabled = true;
             });
@@ -110,7 +110,7 @@ namespace Snake.Framework.Animations
         public static IAnimationPipeline<TOwner> Disable<TOwner>(this IAnimationPipeline<TOwner> pipeline)
 			where TOwner : IComponent
 		{
-            return pipeline.Toogle(true, 0.001f, Easing.Linear, v =>
+            return pipeline.Do(() => 
             {
 				pipeline.Owner.Enabled = false;
             });

@@ -5,8 +5,10 @@
     /// </summary>
     public struct Circle : ICircle
     {
-		private readonly float x;
-		private readonly float y;
+        private readonly float left;
+        private readonly float top;
+        private readonly float right;
+        private readonly float bottom;
         private readonly float radius;
 
         public Circle(Point point, float radius)
@@ -14,26 +16,44 @@
         {
         }
 
-        public Circle(float x, float y, float radius)
+        public Circle(float left, float top, float radius)
         {
-            this.x = x;
-            this.y = y;
+            this.left = left;
+            this.top = top;
             this.radius = radius;
+            this.right = left + radius * 2;
+            this.bottom = top + radius * 2; 
         }
 
-		public float X
+		public float Left
 		{
 			get
 			{
-				return x;
+				return left;
 			}
 		}
 
-		public float Y
+		public float Top
 		{
 			get
 			{
-				return y;
+				return top;
+			}
+		}
+
+		public float Right
+		{
+			get
+			{
+				return right;
+			}
+		}
+
+		public float Bottom 
+		{
+			get
+			{
+				return bottom;
 			}
 		}
 
@@ -44,5 +64,12 @@
                 return radius;
             }
         }
+
+		public Point GetCenter()
+		{
+			return new Point(
+				left + (right - left) / 2,
+				top + (bottom - top) / 2);
+		}
     }
 }

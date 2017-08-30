@@ -7,11 +7,14 @@ namespace Snake.Game
 {
 	public class Food : RectangleComponent, IDrawable, ICollidable
 	{
+        public static readonly Point DefaultScale = Point.One;
+
 		public Food(IWorldContext context)
             : base(0, 0, context)
 		{
             Sprite = 'o';
-		}
+            Transform.Scale = DefaultScale;
+     	}
 
   		public void OnCollision(Collision collision)
 		{

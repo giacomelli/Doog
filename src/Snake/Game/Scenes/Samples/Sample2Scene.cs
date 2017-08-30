@@ -25,6 +25,7 @@ namespace Snake.Game.Scenes.Samples
             var wall = Wall.Create(center.X, center.Y, Context);
 
             wall.Transform
+                .CentralizePivot()
                 .ScaleTo(scale, 1, Easing.Linear)
                 .MoveTo(new Point(1, 1), 1, Easing.Linear)
 				.MoveTo(rightBottom, 1, Easing.Linear)

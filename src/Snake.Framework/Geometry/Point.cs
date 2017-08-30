@@ -11,7 +11,9 @@ namespace Snake.Framework.Geometry
     public struct Point
     {
         public static readonly Point Zero = new Point(0, 0);
+        public static readonly Point HalfOne = new Point(0.5f, 0.5f);
         public static readonly Point One = new Point(1, 1);
+        public static readonly Point Two = new Point(2, 2);
 
         private readonly float x;
         private readonly float y;
@@ -101,6 +103,11 @@ namespace Snake.Framework.Geometry
 		public static Point operator -(Point a, Point b)
 		{
 			return new Point(a.x - b.x, a.y - b.y);
+		}
+
+		public static Point operator *(Point a, Point b)
+		{
+			return new Point(a.x * b.x, a.y * b.y);
 		}
 	}
 }
