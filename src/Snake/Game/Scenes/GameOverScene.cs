@@ -18,7 +18,7 @@ namespace Snake.Game.Scenes
             Context.RemoveComponentsWithoutTag("Wall", "Score");
 
             var score = Context.Components.GetOne<Score>();
-            score.Y = Context.Bounds.GetCenter().Y + 7;
+            score.Transform.SetY(Context.Bounds.GetCenter().Y + 7);
         }
 
         public override void Update()

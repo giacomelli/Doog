@@ -47,7 +47,7 @@ namespace Snake.Game.Scenes
             // TODO: now it is prepared to only one snake.
             // We must decide if only one Score will show all snakes scores (as list)
             // or each Snake will have its own score instance.
-            Score.Create(7, snakes[0], Context);
+            Score.Create(new Point(Context.Bounds.GetCenter().X, 8), snakes[0], Context);
             
         }
 

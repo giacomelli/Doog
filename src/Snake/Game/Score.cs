@@ -5,12 +5,12 @@ using Snake.Framework.Graphics;
 
 namespace Snake.Game
 {
-    public class Score : ComponentBase, IDrawable
+    public class Score : RectangleComponent, IDrawable
     {
         private int points;
 
-        private Score(Snake snake, IWorldContext ctx)
-            : base(ctx)
+        private Score(Point position, Snake snake, IWorldContext ctx)
+            : base(position, ctx)
         {
             snake.FoodEaten += delegate
             {
@@ -21,30 +21,35 @@ namespace Snake.Game
 
                 effect
                     .Transform
-                    .MoveTo(ctx.Bounds.GetCenter().X, Y + 1, .8f, Easing.OutCubic)
+                    .MoveTo(Transform.Position, .8f, Easing.OutCubic)
                     .Do(() =>
                     {
                         ctx.RemoveComponent(effect);
                         points += 100;
+
+                        this.Transform
+                            .ScaleTo(30, 3, .3f, Easing.InOutBounce)
+                            .PingPong(1);
                     })
                     .Once();
             };
+
+            Filled = true;
+            Sprite = '.';
+            Transform.Scale = new Point(16, 3);
+            Transform.CentralizePivot();
         }
 
-        public float Y { get; set; }
- 
-        public static Score Create(float y, Snake snake, IWorldContext ctx)
+        public static Score Create(Point position, Snake snake, IWorldContext ctx)
         {
-            return new Score(snake, ctx)
-            {
-                Y = y
-            };
+            return new Score(position, snake, ctx);
         }
 
-        public void Draw(IDrawContext context)
+        public override void Draw(IDrawContext context)
         {
+            base.Draw(context);
             Context.TextSystem
-                   .DrawCenterX(Y, "Score: {0:000000}".With(points), "Default");
+                   .Draw(Transform.Position.X - 7, Transform.Position.Y - Transform.Pivot.Y, "Score: {0:0000000}".With(points), "Default");
         }
     }
 }

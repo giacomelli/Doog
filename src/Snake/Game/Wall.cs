@@ -1,5 +1,4 @@
-﻿using System;
-using Snake.Framework;
+﻿using Snake.Framework;
 using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
@@ -14,6 +13,8 @@ namespace Snake.Game
         {
             this.Toogle(true, 10f, Easing.Linear, v => Sprite = v ? '#' : 'X')
                .Loop();
+
+
         }
 
         public static Wall Create(float x, float y, IWorldContext context)
