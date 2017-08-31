@@ -13,12 +13,13 @@ namespace Snake.Framework.Geometry
 	{
 		private Point position;
         private Point scale;
+        private Point pivot;
 		
 		public Transform(IWorldContext context)
             : base(context)
 		{
 			Scale = Point.One;
-            Pivot = Point.Zero;
+            pivot = Point.Zero;
 		}
 
 		public Transform(float x, float y, IWorldContext context)
@@ -41,19 +42,31 @@ namespace Snake.Framework.Geometry
 			}
 		}
 
-        /// <summary>
-        /// Gets or sets the pivot. Default is 0, 0 (equals to left, top point)
-        /// </summary>
-        /// <remarks>
-        /// Pivot its a % (0..1) of width and height:
-        /// 0, 0 = left, top
-        /// 0, 1 = left, bottom
-        /// 1, 0 = right, top
-        /// 1, 1 = right, bottom
-        /// 0.5, 0.5 = center
-        /// </remarks>
-        /// <value>The pivot.</value>
-        public Point Pivot { get; set; }
+		/// <summary>
+		/// Gets or sets the pivot. Default is 0, 0 (equals to left, top point)
+		/// </summary>
+		/// <remarks>
+		/// Pivot its a % (0..1) of width and height:
+		/// 0, 0 = left, top
+		/// 0, 1 = left, bottom
+		/// 1, 0 = right, top
+		/// 1, 1 = right, bottom
+		/// 0.5, 0.5 = center
+		/// </remarks>
+		/// <value>The pivot.</value>
+		public Point Pivot
+		{
+			get
+			{
+				return pivot;
+			}
+
+			set
+			{
+				pivot = value;
+				Rebuild();
+			}
+		}
 
 		public Point Scale
 		{
