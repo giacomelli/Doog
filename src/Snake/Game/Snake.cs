@@ -10,15 +10,10 @@ namespace Snake.Game
         public EventHandler FoodEaten;
         public EventHandler Died;
 
-        private SnakeTile head;
         private SnakeTile tail;
         private int movingDirectionX;
         private int movingDirectionY;
         private Rectangle bounds;
-
-        public bool Dead { get; set; }
-        public int FoodsEatenCount { get; private set; }
-        public float Speed { get; set; }
 
         public Snake(IWorldContext context)
             : base(context)
@@ -27,7 +22,13 @@ namespace Snake.Game
             Speed = 10f;
         }
 
-        public void Initialize(int x, int y, int length)
+		public bool Dead { get; set; }
+		public int FoodsEatenCount { get; private set; }
+		public float Speed { get; set; }
+		public SnakeTile Head { get; private set; }
+
+
+		public void Initialize(int x, int y, int length)
         {
             movingDirectionX = 1;
             movingDirectionY = 0;
@@ -47,7 +48,7 @@ namespace Snake.Game
 
         private void Move()
         {
-            var hpos = head.Transform.Position.Round();
+            var hpos = Head.Transform.Position.Round();
             var newPosition = Point.Lerp(
                 hpos,
                 new Point(hpos.X + movingDirectionX, hpos.Y + movingDirectionY),
@@ -57,10 +58,10 @@ namespace Snake.Game
             if (newPosition != hpos)
             {
                 tail.Transform.Position = newPosition;
-                head.Next = tail;
-                head = tail;
+                Head.Next = tail;
+                Head = tail;
                 tail = tail.Next;
-                head.Next = null;
+                Head.Next = null;
 
                 lastPositionChangeTime = Context.Time.SinceSceneStart;
             }
@@ -78,14 +79,14 @@ namespace Snake.Game
 
             tail = CreateTile(x++, y);
             tail.Next = CreateTile(x++, y);
-            head = CreateTile(x++, y);
-            tail.Next.Next = head;
+            Head = CreateTile(x++, y);
+            tail.Next.Next = Head;
             length -= 3;
 
             for (int i = 0; i < length; i++, x++)
             {
-                head.Next = CreateTile(x, y);
-                head = head.Next;
+                Head.Next = CreateTile(x, y);
+                Head = Head.Next;
             }
         }
 

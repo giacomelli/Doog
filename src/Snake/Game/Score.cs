@@ -1,4 +1,5 @@
 ﻿using Snake.Framework;
+using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 
@@ -13,22 +14,25 @@ namespace Snake.Game
         {
             snake.FoodEaten += delegate
             {
-                points++;
+                var effect = new RectangleComponent(snake.Head.Transform.Position, ctx)
+                {
+                    Sprite = '+'
+                };
+
+                effect
+                    .Transform
+                    .MoveTo(ctx.Bounds.GetCenter().X, Y + 1, .8f, Easing.OutCubic)
+                    .Do(() =>
+                    {
+                        ctx.RemoveComponent(effect);
+                        points += 100;
+                    })
+                    .Once();
             };
         }
 
         public float Y { get; set; }
-        public override bool Enabled
-        {
-            get
-            {
-                return base.Enabled;
-            }
-            set
-            {
-                base.Enabled = value;
-            }
-        }
+ 
         public static Score Create(float y, Snake snake, IWorldContext ctx)
         {
             return new Score(snake, ctx)
@@ -40,7 +44,7 @@ namespace Snake.Game
         public void Draw(IDrawContext context)
         {
             Context.TextSystem
-                   .DrawCenterX(Y, "Score: {0}".With(points), "Default");
+                   .DrawCenterX(Y, "Score: {0:000000}".With(points), "Default");
         }
     }
 }
