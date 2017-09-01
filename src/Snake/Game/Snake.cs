@@ -5,31 +5,34 @@ using Snake.Framework.Geometry;
 
 namespace Snake.Game
 {
-    public class Snake : ComponentBase, IUpdatable
+    public sealed class Snake : ComponentBase, IUpdatable
     {
+        private const float MaxSpeed = 30;
+        public EventHandler FoodEaten;
         public EventHandler Died;
 
-        private SnakeTile head;
         private SnakeTile tail;
         private int movingDirectionX;
         private int movingDirectionY;
         private Rectangle bounds;
-
-        public bool Dead { get; set; }
-        public int FoodsEatenCount { get; private set; }
-        public float Speed { get; set; }
+        private float speed;
 
         public Snake(IWorldContext context)
             : base(context)
         {
             bounds = context.Bounds;
-            Speed = 10f;
         }
 
-        public void Initialize(int x, int y, int length)
+		public bool Dead { get; set; }
+		public int FoodsEatenCount { get; private set; }
+		public SnakeTile Head { get; private set; }
+
+
+		public void Initialize(float x, float y, int length)
         {
             movingDirectionX = 1;
             movingDirectionY = 0;
+            speed = length;
             Deploy(x, y, length);
         }
 
@@ -46,20 +49,22 @@ namespace Snake.Game
 
         private void Move()
         {
-            var hpos = head.Transform.Position.Round();
+            var hpos = Head.Transform.Position.Round();
             var newPosition = Point.Lerp(
                 hpos,
                 new Point(hpos.X + movingDirectionX, hpos.Y + movingDirectionY),
-                (Context.Time.SinceSceneStart - lastPositionChangeTime) * Speed)
+                (Context.Time.SinceSceneStart - lastPositionChangeTime) * speed)
                 .Round();
 
             if (newPosition != hpos)
             {
+                Head.Sprite = SnakeTile.BodySprite;
                 tail.Transform.Position = newPosition;
-                head.Next = tail;
-                head = tail;
+                Head.Next = tail;
+                Head = tail;
                 tail = tail.Next;
-                head.Next = null;
+                Head.Next = null;
+                Head.Sprite = SnakeTile.HeadSprite;
 
                 lastPositionChangeTime = Context.Time.SinceSceneStart;
             }
@@ -77,14 +82,14 @@ namespace Snake.Game
 
             tail = CreateTile(x++, y);
             tail.Next = CreateTile(x++, y);
-            head = CreateTile(x++, y);
-            tail.Next.Next = head;
+            Head = CreateTile(x++, y);
+            tail.Next.Next = Head;
             length -= 3;
 
             for (int i = 0; i < length; i++, x++)
             {
-                head.Next = CreateTile(x, y);
-                head = head.Next;
+                Head.Next = CreateTile(x, y);
+                Head = Head.Next;
             }
         }
 
@@ -114,9 +119,18 @@ namespace Snake.Game
             tail.Next = temp;
 
             FoodsEatenCount++;
-            Speed++;
 
-            Log.Debug("{0} foods eaten. New speed {1}", FoodsEatenCount, Speed);
+            if (FoodEaten != null)
+            {
+                FoodEaten(this, EventArgs.Empty);
+            }
+
+            if (speed < MaxSpeed)
+            {
+                speed++;
+            }
+
+            Log.Debug("{0} foods eaten. New speed {1}", FoodsEatenCount, speed);
         }
 
         void OnDied()

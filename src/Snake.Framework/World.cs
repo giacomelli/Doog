@@ -23,8 +23,13 @@ namespace Snake.Framework
 		private IList<IComponent> componentsToRemove;
 		private IScene pendingSceneToOpen;
         private Time time;
+        private Action exitAction;
 
-		public virtual void Initialize(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
+		public virtual void Initialize(
+            IGraphicSystem graphicSystem, 
+            IPhysicSystem physicSystem, 
+            ITextSystem textSystem,
+            Action exitAction)
 		{
 			Components = new List<IComponent>();
 			componentsToRemove = new List<IComponent>();
@@ -38,18 +43,20 @@ namespace Snake.Framework
 			drawContext = new DrawContext(graphicSystem);
 			GraphicSystem = graphicSystem;
 
-			Bounds = graphicSystem.Bounds;
+			Bounds =  Bounds == Rectangle.Zero ? graphicSystem.Bounds : Bounds;
 			PhysicSystem = physicSystem;
 
 			textSystem.Initialize();
 			TextSystem = textSystem;
 
             LogSystem = new NullLogSystem();
+
+            this.exitAction = exitAction;
 		}
 
 		public IScene CurrentScene { get; private set; }
 
-		public Rectangle Bounds { get; private set; }
+		public Rectangle Bounds { get; protected set; }
 
         public ITime Time
         {
@@ -181,8 +188,7 @@ namespace Snake.Framework
 
 		public void Draw()
 		{
-			CurrentScene.Draw(drawContext);
-            IDrawable current;
+		    IDrawable current;
 
 			for (int i = 0; i < drawablesCount; i++)
 			{
@@ -194,7 +200,14 @@ namespace Snake.Framework
 				}
 			}
 
+			CurrentScene.Draw(drawContext);
+
 			GraphicSystem.Render();
 		}
+
+        public void Exit()
+        {
+            this.exitAction();
+        }
 	}
 }

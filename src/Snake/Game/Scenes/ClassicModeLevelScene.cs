@@ -1,6 +1,7 @@
 ﻿using System;
 using Snake.Framework;
 using Snake.Framework.Animations;
+using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 
 namespace Snake.Game.Scenes
@@ -20,10 +21,11 @@ namespace Snake.Game.Scenes
         {
             Context.RemoveAllComponents();
             var bounds = Context.GraphicSystem.Bounds;
+            var center = bounds.GetCenter();
 
             // Create the walls.
             var wallSpawner = new WallSpawner(Context);
-            wallSpawner.Spawn();
+            var walls = wallSpawner.Spawn();
 
             // Create the snakes.
             snakes = new Snake[MaxSnakes];
@@ -31,7 +33,7 @@ namespace Snake.Game.Scenes
             for (int i = 0; i < MaxSnakes; i++)
             {
                 var snake = new Snake(Context);
-                snake.Initialize(1, 10 + i, 6);
+                snake.Initialize(center.X, center.Y + i, 5);
                 snake.Died += delegate
                 {
                     ChangeToGameOver();
@@ -41,19 +43,22 @@ namespace Snake.Game.Scenes
 
             // Create the food spawner.
             FoodSpawner.Create(Context);
+
+            // Score.
+            // TODO: now it is prepared to only one snake.
+            // We must decide if only one Score will show all snakes scores (as list)
+            // or each Snake will have its own score instance.
+            Score.Create(new Point(Context.Bounds.Right, Context.Bounds.Top), snakes[0], Context);
         }
 
         public void ChangeToGameOver()
         {
-            Context.Components.DisableAll();
             Context.OpenScene<GameOverScene>();
         }
 
         public override void Draw(IDrawContext context)
         {
-            Context.TextSystem
-                        .DrawCenterX(1, "Doog's Snake")
-                        .DrawCenterX(7, "Score: " + snakes[0].FoodsEatenCount, "Default");
+            Context.TextSystem.Draw(Context.Bounds.Left, 3, "Doog's Snake");
         }
     }
 }

@@ -29,5 +29,7 @@ namespace Snake.Framework
 		void RemoveComponent(IComponent component);
 
 		void OpenScene(IScene scene);
-	}
+
+        void Exit();
+    }
 }

@@ -1,6 +1,7 @@
 using System;
 using Snake.Framework;
 using Snake.Framework.Diagnostics;
+using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 using Snake.Framework.Logging;
 using Snake.Framework.Physics;
@@ -13,13 +14,19 @@ namespace Snake.Game
 	{
 		private bool disposed = false; // To detect redundant calls
 
-		public override void Initialize(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
+		public override void Initialize(
+            IGraphicSystem graphicSystem, 
+            IPhysicSystem physicSystem, 
+            ITextSystem textSystem,
+            Action exitAction)
 		{
-            base.Initialize(graphicSystem, physicSystem, textSystem);
+			Bounds = graphicSystem.Bounds + new Rectangle(5, 10, -5, 0);
 
+            base.Initialize(graphicSystem, physicSystem, textSystem, exitAction);
+         
 			if (Debug.Enabled)
 			{
-				WorldStatsConsole.Create(2, 2, this);
+				WorldStatsConsole.Create(Bounds.Left + 2, Bounds.Top + 2, this);
 			}
 
 			this.OpenScene<ClassicModeLevelScene>();

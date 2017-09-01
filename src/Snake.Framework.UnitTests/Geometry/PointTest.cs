@@ -52,6 +52,24 @@ namespace Snake.Framework.UnitTests.Geometry
 			Assert.AreEqual(new Point(-4, -3), a - b);
 		}
 
+		[Test]
+		public void PlusOperator_AFloat_PlusValues()
+		{
+			var a = new Point(-1, 1);
+            var b = 3f;
+
+			Assert.AreEqual(new Point(2, 4), a + b);
+		}
+
+		[Test]
+		public void MinusOperator_AFoat_MinusValues()
+		{
+			var a = new Point(-1, 1);
+            var b = 3f;
+
+			Assert.AreEqual(new Point(-4, -2), a - b);
+		}
+
         [Test]
         public void DiffOperator_Equals_False()
 		{

@@ -21,7 +21,8 @@ namespace Snake.Runners.Console
                 game.Initialize(
                     gs,
                     new PhysicSystem(),
-                    ts);
+                    ts,
+                    () => Environment.Exit(0));
 
                 if (args.Contains("file-log"))
                 {

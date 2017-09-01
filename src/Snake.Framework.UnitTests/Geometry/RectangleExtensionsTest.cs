@@ -6,14 +6,25 @@ namespace Snake.Framework.UnitTests.Geometry
 	[TestFixture]
 	public class RectangleExtensionsTest
 	{
+
 		[Test]
 		public void Contains_PointOutside_False()
 		{
-			var target = new Rectangle(0, 1, 10, 11);
+			var target = new Rectangle(5, 10, 15, 20);
+            Assert.IsFalse(target.Contains(5, 9));
+			Assert.IsFalse(target.Contains(4, 10));
+			Assert.IsFalse(target.Contains(15, 21));
+			Assert.IsFalse(target.Contains(16, 20));
+		}
 
-			for (int i = 0; i < 10; i++)
+		[Test]
+		public void Contains_PointInside_True()
+		{
+			var target = new Rectangle(5, 10, 15, 20);
+
+			for (int i = 0; i < 10000; i++)
 			{
-				target.Contains(target.RandomPoint());
+                Assert.IsTrue(target.Contains(target.RandomPoint()));
 			}
 		}
 
@@ -57,6 +68,20 @@ namespace Snake.Framework.UnitTests.Geometry
 		{
 			var target = new Rectangle(10, 20, 30, 40);
 			Assert.AreEqual(new Point(10, 30), target.LeftCenterPoint());
+		}
+
+		[Test]
+		public void BottomCenterPoint_NoArgs_Point()
+		{
+			var target = new Rectangle(10, 20, 30, 40);
+			Assert.AreEqual(new Point(20, 39), target.BottomCenterPoint());
+		}
+
+		[Test]
+		public void TopCenterPoint_NoArgs_Point()
+		{
+			var target = new Rectangle(10, 20, 30, 40);
+			Assert.AreEqual(new Point(20, 20), target.TopCenterPoint());
 		}
 
 		[Test]
