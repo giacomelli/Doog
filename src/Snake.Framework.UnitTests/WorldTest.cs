@@ -26,7 +26,7 @@ namespace Snake.Framework.UnitTests
             textSystem.Expect(t => t.Context).Return(MockRepository.GenerateMock<IWorldContext>());
             var logSystem = MockRepository.GenerateMock<ILogSystem>();
             target = new World();
-            target.Initialize(graphicSystem, physicSystem, textSystem);
+            target.Initialize(graphicSystem, physicSystem, textSystem, () => {});
 		}
 
 		[Test]

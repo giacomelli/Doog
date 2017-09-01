@@ -9,6 +9,8 @@ namespace Snake.Game.Scenes
 {
     public class GameOverScene : SceneBase
     {
+        private bool showPressStart;
+
         public GameOverScene(IWorldContext context)
             : base(context)
         {
@@ -30,6 +32,9 @@ namespace Snake.Game.Scenes
 				   .ScaleTo(10, 1f, Easing.InOutElastic)
 				   .PingPong();
             }
+
+            this.Toogle(false, 1f, Easing.Linear, v => showPressStart = v)
+                .Loop();
         }
 
         public override void Update()
@@ -41,6 +46,10 @@ namespace Snake.Game.Scenes
                     case ConsoleKey.Enter:
                         Context.OpenScene<ClassicModeLevelScene>();
                         break;
+
+					case ConsoleKey.Q:
+                        Context.Exit();
+						break;
 
                     case ConsoleKey.D1:
                         Context.OpenScene<Sample1Scene>();
@@ -75,6 +84,10 @@ namespace Snake.Game.Scenes
                    .Draw(Context.Bounds.Left, 3, "Doog's Snake")
                    .DrawCenter("Game over");
 
+            if (showPressStart)
+            {
+                Context.TextSystem.DrawCenter(0, 5, "Press ENTER to try again or Q to quit", "Default");
+            }
 		}
     }
 }

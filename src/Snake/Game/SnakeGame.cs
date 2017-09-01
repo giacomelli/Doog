@@ -14,11 +14,15 @@ namespace Snake.Game
 	{
 		private bool disposed = false; // To detect redundant calls
 
-		public override void Initialize(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
+		public override void Initialize(
+            IGraphicSystem graphicSystem, 
+            IPhysicSystem physicSystem, 
+            ITextSystem textSystem,
+            Action exitAction)
 		{
 			Bounds = graphicSystem.Bounds + new Rectangle(5, 10, -5, 0);
 
-			base.Initialize(graphicSystem, physicSystem, textSystem);
+            base.Initialize(graphicSystem, physicSystem, textSystem, exitAction);
          
 			if (Debug.Enabled)
 			{

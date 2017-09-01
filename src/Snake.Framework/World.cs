@@ -23,8 +23,13 @@ namespace Snake.Framework
 		private IList<IComponent> componentsToRemove;
 		private IScene pendingSceneToOpen;
         private Time time;
+        private Action exitAction;
 
-		public virtual void Initialize(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
+		public virtual void Initialize(
+            IGraphicSystem graphicSystem, 
+            IPhysicSystem physicSystem, 
+            ITextSystem textSystem,
+            Action exitAction)
 		{
 			Components = new List<IComponent>();
 			componentsToRemove = new List<IComponent>();
@@ -45,6 +50,8 @@ namespace Snake.Framework
 			TextSystem = textSystem;
 
             LogSystem = new NullLogSystem();
+
+            this.exitAction = exitAction;
 		}
 
 		public IScene CurrentScene { get; private set; }
@@ -197,5 +204,10 @@ namespace Snake.Framework
 
 			GraphicSystem.Render();
 		}
+
+        public void Exit()
+        {
+            this.exitAction();
+        }
 	}
 }
