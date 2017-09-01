@@ -33,7 +33,7 @@ namespace Snake.Game.Scenes
             for (int i = 0; i < MaxSnakes; i++)
             {
                 var snake = new Snake(Context);
-                snake.Initialize(center.X, center.Y + i, 6);
+                snake.Initialize(center.X, center.Y + i, 5);
                 snake.Died += delegate
                 {
                     ChangeToGameOver();

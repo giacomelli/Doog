@@ -7,6 +7,7 @@ namespace Snake.Game
 {
     public sealed class Snake : ComponentBase, IUpdatable
     {
+        private const float MaxSpeed = 30;
         public EventHandler FoodEaten;
         public EventHandler Died;
 
@@ -14,17 +15,16 @@ namespace Snake.Game
         private int movingDirectionX;
         private int movingDirectionY;
         private Rectangle bounds;
+        private float speed;
 
         public Snake(IWorldContext context)
             : base(context)
         {
             bounds = context.Bounds;
-            Speed = 10f;
         }
 
 		public bool Dead { get; set; }
 		public int FoodsEatenCount { get; private set; }
-		public float Speed { get; set; }
 		public SnakeTile Head { get; private set; }
 
 
@@ -32,6 +32,7 @@ namespace Snake.Game
         {
             movingDirectionX = 1;
             movingDirectionY = 0;
+            speed = length;
             Deploy(x, y, length);
         }
 
@@ -52,7 +53,7 @@ namespace Snake.Game
             var newPosition = Point.Lerp(
                 hpos,
                 new Point(hpos.X + movingDirectionX, hpos.Y + movingDirectionY),
-                (Context.Time.SinceSceneStart - lastPositionChangeTime) * Speed)
+                (Context.Time.SinceSceneStart - lastPositionChangeTime) * speed)
                 .Round();
 
             if (newPosition != hpos)
@@ -122,9 +123,12 @@ namespace Snake.Game
                 FoodEaten(this, EventArgs.Empty);
             }
 
-            Speed++;
+            if (speed < MaxSpeed)
+            {
+                speed++;
+            }
 
-            Log.Debug("{0} foods eaten. New speed {1}", FoodsEatenCount, Speed);
+            Log.Debug("{0} foods eaten. New speed {1}", FoodsEatenCount, speed);
         }
 
         void OnDied()
