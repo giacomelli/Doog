@@ -18,6 +18,7 @@ namespace Snake.Framework.Geometry
             : base(context)
 		{
 			Scale = Point.One;
+            Pivot = Point.Zero;
 		}
 
 		public Transform(float x, float y, IWorldContext context)
@@ -36,9 +37,23 @@ namespace Snake.Framework.Geometry
 			set
 			{
 				position = value;
-				RebuildBoundingBox();
+				Rebuild();
 			}
 		}
+
+        /// <summary>
+        /// Gets or sets the pivot. Default is 0, 0 (equals to left, top point)
+        /// </summary>
+        /// <remarks>
+        /// Pivot its a % (0..1) of width and height:
+        /// 0, 0 = left, top
+        /// 0, 1 = left, bottom
+        /// 1, 0 = right, top
+        /// 1, 1 = right, bottom
+        /// 0.5, 0.5 = center
+        /// </remarks>
+        /// <value>The pivot.</value>
+        public Point Pivot { get; set; }
 
 		public Point Scale
 		{
@@ -50,7 +65,7 @@ namespace Snake.Framework.Geometry
 			set
 			{
 				scale = value;
-				RebuildBoundingBox();
+				Rebuild();
 			}
 		}
 
@@ -77,9 +92,16 @@ namespace Snake.Framework.Geometry
 			return BoundingBox.Intersect(other.BoundingBox);
 		}
 
-		private void RebuildBoundingBox()
+        private void Rebuild()
 		{
-			BoundingBox = new Rectangle(position.X, position.Y, position.X + scale.X, position.Y + scale.Y);
-		}
+            var left = position.X - scale.X * Pivot.X;
+            var top = position.Y - scale.Y * Pivot.Y;
+
+			BoundingBox = new Rectangle(
+                left, 
+                top,
+                left + scale.X,
+                top + scale.Y);
+    	}
 	}
 }

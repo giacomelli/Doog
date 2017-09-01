@@ -113,6 +113,13 @@
     <Compile Include="Animations\Easings\EasingConstants.cs" />
     <Compile Include="Animations\Easings\ExpoEasings.cs" />
     <Compile Include="Animations\Easings\CircEasings.cs" />
+    <Compile Include="Geometry\Circle.cs" />
+    <Compile Include="Geometry\CircleExtensions.cs" />
+    <Compile Include="Geometry\CircleComponent.cs" />
+    <Compile Include="Geometry\RectangleComponent.cs" />
+    <Compile Include="Geometry\ICircle.cs" />
+    <Compile Include="Animations\DoExtensions.cs" />
+    <Compile Include="Geometry\TransformExtensions.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

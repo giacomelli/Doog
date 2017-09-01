@@ -89,7 +89,7 @@ namespace Snake.Framework.UnitTests.Animations
 
 			var owner = new Transform(ctx);
 			float currentValue = 0;
-			var target = new FloatAnimation<Transform>(owner, 1, 3, 5, v => currentValue = v);
+            var target = new FloatAnimation<Transform>(owner, 1, 3, 5, v => currentValue = v);
 
 			var hasStarted = false;
 			var hasEnded = false;

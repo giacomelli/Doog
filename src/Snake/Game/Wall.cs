@@ -7,29 +7,18 @@ using Snake.Framework.Physics;
 
 namespace Snake.Game
 {
-    public class Wall : ComponentBase, IDrawable, ICollidable
+    public class Wall : RectangleComponent, IDrawable, ICollidable
     {
-        private char sprite = '#';
-
         private Wall(float x, float y, IWorldContext context)
-            : base(context)
+            : base(x, y, context)
         {
-            Transform = new Transform(x, y, context);
-
-            this.Toogle(true, 10f, Easing.Linear, (v) => sprite = v ? '#' : 'X')
+            this.Toogle(true, 10f, Easing.Linear, v => Sprite = v ? '#' : 'X')
                .Loop();
         }
 
         public static Wall Create(float x, float y, IWorldContext context)
         {
             return new Wall(x, y, context);
-        }
-
-        public Transform Transform { get; private set; }
-
-        public void Draw(IDrawContext context)
-        {
-            context.Canvas.Draw(Transform.BoundingBox, true, sprite);
         }
 
         public void OnCollision(Collision collision)

@@ -2,7 +2,7 @@ using System;
 using Snake.Framework.Geometry;
 
 /// <summary>
-/// IntRectangle extension methods.
+/// Rectangle extension methods.
 /// </summary>
 public static class RectangleExtensions
 {

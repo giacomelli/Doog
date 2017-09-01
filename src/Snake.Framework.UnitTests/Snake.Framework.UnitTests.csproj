@@ -88,6 +88,11 @@
     <Compile Include="Animations\PointAnimationTest.cs" />
     <Compile Include="Animations\AnimationBaseTest.cs" />
     <Compile Include="Animations\Easings\EasingTest.cs" />
+    <Compile Include="Geometry\CircleExtensionsTest.cs" />
+    <Compile Include="Geometry\CircleComponentTest.cs" />
+    <Compile Include="Geometry\RectangleComponentTest.cs" />
+    <Compile Include="Geometry\CircleTest.cs" />
+    <Compile Include="Geometry\TransformExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

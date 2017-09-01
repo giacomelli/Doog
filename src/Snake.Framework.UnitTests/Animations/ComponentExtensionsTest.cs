@@ -71,23 +71,23 @@ namespace Snake.Framework.UnitTests.Animations
 		}
 
 		[Test]
-		public void Enable_Owner_Pipeline()
+		public void Enable_OwnerDelay_Pipeline()
 		{
-			var actual = owner.Enable(5, Easing.Linear);
+			var actual = owner.Enable(5);
 
 			Assert.AreSame(owner, actual.Owner);
 			Assert.AreEqual(1, actual.Length);
 			Assert.AreEqual(PipelineKind.Once, actual.Kind);
 			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
-			Assert.AreEqual(typeof(FloatAnimation<Transform>), actual.Get(0).GetType());
+			Assert.AreEqual(typeof(DelayAnimation<Transform>), actual.Get(0).GetType());
 
 			actual.Enable(5);
 			Assert.AreEqual(2, actual.Length);
-			Assert.AreEqual(typeof(FloatAnimation<Transform>), actual.Get(1).GetType());
+			Assert.AreEqual(typeof(DelayAnimation<Transform>), actual.Get(1).GetType());
 
 			actual.Enable();
 			Assert.AreEqual(3, actual.Length);
-			Assert.AreEqual(typeof(FloatAnimation<Transform>), actual.Get(2).GetType());
+			Assert.AreEqual(typeof(DelayAnimation<Transform>), actual.Get(2).GetType());
 
 			actual.Loop();
 			Assert.AreEqual(PipelineKind.Loop, actual.Kind);
@@ -102,23 +102,54 @@ namespace Snake.Framework.UnitTests.Animations
 		}
 
 		[Test]
-		public void Disabe_Owner_Pipeline()
+		public void Enable_OwnerNoDelay_Pipeline()
 		{
-			var actual = owner.Disable(5, Easing.Linear);
+			var actual = owner.Enable();
 
 			Assert.AreSame(owner, actual.Owner);
 			Assert.AreEqual(1, actual.Length);
 			Assert.AreEqual(PipelineKind.Once, actual.Kind);
 			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
-			Assert.AreEqual(typeof(FloatAnimation<Transform>), actual.Get(0).GetType());
+			Assert.AreEqual(typeof(DelayAnimation<Transform>), actual.Get(0).GetType());
+
+			actual.Enable(5);
+			Assert.AreEqual(2, actual.Length);
+			Assert.AreEqual(typeof(DelayAnimation<Transform>), actual.Get(1).GetType());
+
+			actual.Enable();
+			Assert.AreEqual(3, actual.Length);
+			Assert.AreEqual(typeof(DelayAnimation<Transform>), actual.Get(2).GetType());
+
+			actual.Loop();
+			Assert.AreEqual(PipelineKind.Loop, actual.Kind);
+			sinceSceneStart = 5.1f;
+			((IUpdatable)actual.Get(0)).Update();
+
+			sinceSceneStart += 5.1f;
+			((IUpdatable)actual.Get(1)).Update();
+
+			sinceSceneStart += 5f;
+			((IUpdatable)actual.Get(2)).Update();
+		}
+
+		[Test]
+		public void Disabe_OwnerDelay_Pipeline()
+		{
+			var actual = owner.Disable(5);
+
+			Assert.AreSame(owner, actual.Owner);
+			Assert.AreEqual(1, actual.Length);
+			Assert.AreEqual(PipelineKind.Once, actual.Kind);
+			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
+			Assert.AreEqual(typeof(DelayAnimation<Transform>), actual.Get(0).GetType());
 
 			actual.Disable(5);
 			Assert.AreEqual(2, actual.Length);
-			Assert.AreEqual(typeof(FloatAnimation<Transform>), actual.Get(1).GetType());
+			Assert.AreEqual(typeof(DelayAnimation<Transform>), actual.Get(1).GetType());
 
 			actual.Disable();
 			Assert.AreEqual(3, actual.Length);
-			Assert.AreEqual(typeof(FloatAnimation<Transform>), actual.Get(2).GetType());
+			Assert.AreEqual(typeof(DelayAnimation<Transform>), actual.Get(2).GetType());
 
 			actual.Loop();
 			Assert.AreEqual(PipelineKind.Loop, actual.Kind);
@@ -131,5 +162,37 @@ namespace Snake.Framework.UnitTests.Animations
             sinceSceneStart += 5.1f;
 			((IUpdatable)actual.Get(2)).Update();
 		}
+
+		[Test]
+		public void Disabe_OwnerNoDelay_Pipeline()
+		{
+			var actual = owner.Disable();
+
+			Assert.AreSame(owner, actual.Owner);
+			Assert.AreEqual(1, actual.Length);
+			Assert.AreEqual(PipelineKind.Once, actual.Kind);
+			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
+			Assert.AreEqual(typeof(DelayAnimation<Transform>), actual.Get(0).GetType());
+
+			actual.Disable(5);
+			Assert.AreEqual(2, actual.Length);
+			Assert.AreEqual(typeof(DelayAnimation<Transform>), actual.Get(1).GetType());
+
+			actual.Disable();
+			Assert.AreEqual(3, actual.Length);
+			Assert.AreEqual(typeof(DelayAnimation<Transform>), actual.Get(2).GetType());
+
+			actual.Loop();
+			Assert.AreEqual(PipelineKind.Loop, actual.Kind);
+			sinceSceneStart = 5.1f;
+			((IUpdatable)actual.Get(0)).Update();
+
+			sinceSceneStart += 5.1f;
+			((IUpdatable)actual.Get(1)).Update();
+
+			sinceSceneStart += 5.1f;
+			((IUpdatable)actual.Get(2)).Update();
+		}
     }
+
 }

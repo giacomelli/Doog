@@ -6,12 +6,12 @@ namespace Snake.Framework.Animations
     /// <summary>
     /// A float animation.
     /// </summary>
-    public class FloatAnimation<TComponent> : AnimationBase<TComponent, float>
-        where TComponent : IComponent
+    public class FloatAnimation<TOwner> : AnimationBase<TOwner, float>
+        where TOwner : IComponent
     {
         private Action<float> changeValue;
 
-        public FloatAnimation(TComponent owner, float from, float to, float duration, Action<float> changeValue)
+        public FloatAnimation(TOwner owner, float from, float to, float duration, Action<float> changeValue)
             : base(owner, duration)
         {
             From = from;

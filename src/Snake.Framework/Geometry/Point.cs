@@ -11,7 +11,9 @@ namespace Snake.Framework.Geometry
     public struct Point
     {
         public static readonly Point Zero = new Point(0, 0);
+        public static readonly Point HalfOne = new Point(0.5f, 0.5f);
         public static readonly Point One = new Point(1, 1);
+        public static readonly Point Two = new Point(2, 2);
 
         private readonly float x;
         private readonly float y;
@@ -21,6 +23,12 @@ namespace Snake.Framework.Geometry
             this.x = x;
             this.y = y;
         }
+
+		public Point(float xy)
+		{
+			this.x = xy;
+			this.y = xy;
+		}
 
         public float X
         {
