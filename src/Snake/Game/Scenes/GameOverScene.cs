@@ -17,13 +17,13 @@ namespace Snake.Game.Scenes
         public override void Initialize()
         {
             Context.RemoveComponentsWithoutTag("Wall", "Score");
-            var toPoint = Context.Bounds.BottomCenterPoint();
+            var toPoint = Context.Bounds.GetCenter();
             var walls = Context.Components.Get<Wall>().ToList();
 
             foreach(var wall in walls)
             {
                 wall.Transform
-                    .MoveTo(toPoint, 5f, Easing.InOutElastic)
+                    .MoveTo(toPoint, 10f, Easing.InOutElastic)
                     .PingPong();
 
 				wall.Transform
