@@ -29,7 +29,7 @@ namespace Snake.Game
                     .Once();
 
                 this
-                    .To(points, points + 10, 1f, Easing.OutQuint, v => points = (int)v)
+                    .To(points, points + 10, 1f, Easing.InOutQuint, v => points = (int)v)
                     .Once();
             };
 

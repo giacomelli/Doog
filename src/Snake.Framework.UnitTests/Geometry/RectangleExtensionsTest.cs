@@ -71,6 +71,20 @@ namespace Snake.Framework.UnitTests.Geometry
 		}
 
 		[Test]
+		public void BottomCenterPoint_NoArgs_Point()
+		{
+			var target = new Rectangle(10, 20, 30, 40);
+			Assert.AreEqual(new Point(20, 39), target.BottomCenterPoint());
+		}
+
+		[Test]
+		public void TopCenterPoint_NoArgs_Point()
+		{
+			var target = new Rectangle(10, 20, 30, 40);
+			Assert.AreEqual(new Point(20, 20), target.TopCenterPoint());
+		}
+
+		[Test]
 		public void IsXBorder_X_Border()
 		{
 			var target = new Rectangle(10, 20, 30, 40);
