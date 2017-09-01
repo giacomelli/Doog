@@ -21,35 +21,37 @@ namespace Snake.Game
 
                 effect
                     .Transform
-                    .MoveTo(Transform.Position, 1.2f, Easing.OutCubic)
+                    .MoveTo(Transform.Position, 1f, Easing.OutCubic)
                     .Do(() =>
                     {
                         ctx.RemoveComponent(effect);
-                        points += 100;
-
-                        this.Transform
-                            .ScaleTo(30, 3, .3f, Easing.InOutBounce)
-                            .PingPong(1);
                     })
+                    .Once();
+
+                this
+                    .To(points, points + 10, 1f, Easing.OutQuint, v => points = (int)v)
                     .Once();
             };
 
-            Filled = true;
-            Sprite = '.';
-            Transform.Scale = new Point(16, 3);
             Transform.CentralizePivot();
         }
 
         public static Score Create(Point position, Snake snake, IWorldContext ctx)
         {
+            var textSize = snake.Context.TextSystem.GetFont().GetTextSize("000000");
+            position -= textSize;
+            position -= new Point(1, 0);
+
             return new Score(position, snake, ctx);
         }
 
         public override void Draw(IDrawContext context)
         {
-            base.Draw(context);
             Context.TextSystem
-                   .Draw(Transform.Position.X - 7, Transform.Position.Y - Transform.Pivot.Y, "Score: {0:0000000}".With(points), "Default");
+                   .Draw(
+                       Transform.Position.X,
+                       Transform.Position.Y - Transform.Pivot.Y,
+                       "{0:000000}".With(points));
         }
     }
 }

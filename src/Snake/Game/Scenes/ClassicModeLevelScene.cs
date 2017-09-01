@@ -48,7 +48,7 @@ namespace Snake.Game.Scenes
             // TODO: now it is prepared to only one snake.
             // We must decide if only one Score will show all snakes scores (as list)
             // or each Snake will have its own score instance.
-            Score.Create(new Point(Context.Bounds.Left + 16, Context.Bounds.Top - 3), snakes[0], Context);
+            Score.Create(new Point(Context.Bounds.Right, Context.Bounds.Top), snakes[0], Context);
         }
 
         public void ChangeToGameOver()
@@ -58,7 +58,7 @@ namespace Snake.Game.Scenes
 
         public override void Draw(IDrawContext context)
         {
-            Context.TextSystem.DrawCenterX(3, "Doog's Snake");
+            Context.TextSystem.Draw(Context.Bounds.Left, 3, "Doog's Snake");
         }
     }
 }

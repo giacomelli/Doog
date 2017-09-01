@@ -181,8 +181,7 @@ namespace Snake.Framework
 
 		public void Draw()
 		{
-			CurrentScene.Draw(drawContext);
-            IDrawable current;
+		    IDrawable current;
 
 			for (int i = 0; i < drawablesCount; i++)
 			{
@@ -193,6 +192,8 @@ namespace Snake.Framework
 					current.Draw(drawContext);
 				}
 			}
+
+			CurrentScene.Draw(drawContext);
 
 			GraphicSystem.Render();
 		}

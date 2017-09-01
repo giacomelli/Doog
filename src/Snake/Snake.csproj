@@ -59,6 +59,7 @@
     <Compile Include="Game\Scenes\Samples\Sample4Scene.cs" />
     <Compile Include="Game\Scenes\Samples\Sample5Scene.cs" />
     <Compile Include="Game\Score.cs" />
+    <Compile Include="Game\Scenes\Samples\Sample6Scene.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -86,6 +87,30 @@
     </Content>
     <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Debug.txt">
       <Link>Resources\Fonts\Debug.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Avatar.txt">
+      <Link>Resources\Fonts\Avatar.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Big.txt">
+      <Link>Resources\Fonts\Big.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Blocks.txt">
+      <Link>Resources\Fonts\Blocks.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Doom.txt">
+      <Link>Resources\Fonts\Doom.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Graceful.txt">
+      <Link>Resources\Fonts\Graceful.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Modular.txt">
+      <Link>Resources\Fonts\Modular.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

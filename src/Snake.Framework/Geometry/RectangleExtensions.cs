@@ -45,6 +45,11 @@ public static class RectangleExtensions
 		return new Point(rect.Left, rect.Top + rect.Height / 2);
 	}
 
+	public static Point BottomCenterPoint(this Rectangle rect)
+	{
+		return new Point(rect.Left + rect.Width / 2f, rect.Bottom - 1);
+	}
+
     public static bool Contains(this Rectangle rect, Point point)
     {
         return rect.Contains(point.X, point.Y);

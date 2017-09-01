@@ -22,7 +22,7 @@ namespace Snake.Framework.UnitTests.Geometry
 		{
 			var target = new Rectangle(5, 10, 15, 20);
 
-			for (int i = 0; i < 100; i++)
+			for (int i = 0; i < 10000; i++)
 			{
                 Assert.IsTrue(target.Contains(target.RandomPoint()));
 			}

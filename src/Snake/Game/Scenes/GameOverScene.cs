@@ -3,6 +3,7 @@ using System;
 using Snake.Framework;
 using Snake.Framework.Graphics;
 using Snake.Game.Scenes.Samples;
+using Snake.Framework.Animations;
 
 namespace Snake.Game.Scenes
 {
@@ -16,9 +17,19 @@ namespace Snake.Game.Scenes
         public override void Initialize()
         {
             Context.RemoveComponentsWithoutTag("Wall", "Score");
+            var toPoint = Context.Bounds.BottomCenterPoint();
+            var walls = Context.Components.Get<Wall>().ToList();
 
-            var score = Context.Components.GetOne<Score>();
-            score.Transform.SetY(Context.Bounds.GetCenter().Y + 7);
+            foreach(var wall in walls)
+            {
+                wall.Transform
+                    .MoveTo(toPoint, 5f, Easing.InOutElastic)
+                    .PingPong();
+
+				wall.Transform
+				   .ScaleTo(10, 1f, Easing.InOutElastic)
+				   .PingPong();
+            }
         }
 
         public override void Update()
@@ -50,6 +61,10 @@ namespace Snake.Game.Scenes
 					case ConsoleKey.D5:
 						Context.OpenScene<Sample5Scene>();
 						break;
+
+					case ConsoleKey.D6:
+						Context.OpenScene<Sample6Scene>();
+						break;
                 }
             }
         }
@@ -57,6 +72,7 @@ namespace Snake.Game.Scenes
         public override void Draw(IDrawContext context)
         {
             Context.TextSystem
+                   .Draw(Context.Bounds.Left, 3, "Doog's Snake")
                    .DrawCenter("Game over");
 
 		}
