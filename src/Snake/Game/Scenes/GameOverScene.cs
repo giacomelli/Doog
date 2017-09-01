@@ -78,15 +78,15 @@ namespace Snake.Game.Scenes
             }
         }
 
-        public override void Draw(IDrawContext context)
+        public override void Draw(IDrawContext drawContext)
         {
-            Context.TextSystem
+            drawContext.TextSystem
                    .Draw(Context.Bounds.Left, 3, "Doog's Snake")
                    .DrawCenter("Game over");
 
             if (showPressStart)
             {
-                Context.TextSystem.DrawCenter(0, 5, "Press ENTER to try again or Q to quit", "Default");
+                drawContext.TextSystem.DrawCenter(0, 5, "Press ENTER to try again or Q to quit", "Default");
             }
 		}
     }

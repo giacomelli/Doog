@@ -197,12 +197,12 @@ namespace Snake.Game.Scenes.Samples
             }
         }
 
-        public override void Draw(IDrawContext context)
+        public override void Draw(IDrawContext drawContext)
         {
-            context.Canvas
+            drawContext.Canvas
                    .Draw(moveToSampleArea);
 
-            Context.TextSystem
+            drawContext.TextSystem
                 .DrawCenter(0, -10, numberSample1.ToString("N0"))
                 .DrawCenter(0, 0, numberSample2.ToString("N0"));
 

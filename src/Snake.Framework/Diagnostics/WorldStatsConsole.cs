@@ -36,7 +36,7 @@ namespace Snake.Framework.Diagnostics
 
             var x = position.X;
             var y = position.Y;
-            var ts = Context.TextSystem;
+            var ts = ctx.TextSystem;
 
             ts
                 .Draw(x, y, "FPS                        : {0:N0}".With(1f / Context.Time.SinceLastFrame), "Debug")

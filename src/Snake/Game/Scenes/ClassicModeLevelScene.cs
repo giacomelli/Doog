@@ -56,9 +56,10 @@ namespace Snake.Game.Scenes
             Context.OpenScene<GameOverScene>();
         }
 
-        public override void Draw(IDrawContext context)
+        public override void Draw(IDrawContext drawContext)
         {
-            Context.TextSystem.Draw(Context.Bounds.Left, 3, "Doog's Snake");
+            drawContext.TextSystem
+                       .Draw(Context.Bounds.Left, 3, "Doog's Snake");
         }
     }
 }

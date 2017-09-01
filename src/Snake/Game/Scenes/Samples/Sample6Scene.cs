@@ -20,11 +20,11 @@ namespace Snake.Game.Scenes.Samples
 			
         }
 
-        public override void Draw(IDrawContext context)
+        public override void Draw(IDrawContext drawContext)
         {
-            base.Draw(context);
+            base.Draw(drawContext);
 
-            Context.TextSystem
+            drawContext.TextSystem
                    .DrawCenterX(5, "Abc - 012", "Avatar")
                    .DrawCenterX(10, "Abc - 012", "Big")
                    .DrawCenterX(15, "Abc - 012", "Blocks")

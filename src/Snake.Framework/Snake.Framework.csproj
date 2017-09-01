@@ -120,6 +120,7 @@
     <Compile Include="Geometry\ICircle.cs" />
     <Compile Include="Animations\DoExtensions.cs" />
     <Compile Include="Geometry\TransformExtensions.cs" />
+    <Compile Include="Texts\IFontSystem.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

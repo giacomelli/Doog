@@ -37,9 +37,9 @@ namespace Snake.Framework.Geometry
         public char Sprite { get; set; }
         public bool Filled { get; set; }
 
-        public virtual void Draw(IDrawContext context)
+        public virtual void Draw(IDrawContext drawContext)
         {
-            context.Canvas.Draw(Transform.BoundingBox, Filled, Sprite);
+            drawContext.Canvas.Draw(Transform.BoundingBox, Filled, Sprite);
         }
     }
 }
