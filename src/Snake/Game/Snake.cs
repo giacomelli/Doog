@@ -58,11 +58,13 @@ namespace Snake.Game
 
             if (newPosition != hpos)
             {
+                Head.Sprite = SnakeTile.BodySprite;
                 tail.Transform.Position = newPosition;
                 Head.Next = tail;
                 Head = tail;
                 tail = tail.Next;
                 Head.Next = null;
+                Head.Sprite = SnakeTile.HeadSprite;
 
                 lastPositionChangeTime = Context.Time.SinceSceneStart;
             }
