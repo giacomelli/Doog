@@ -83,9 +83,9 @@ namespace Snake.Game.Scenes.Samples
 			}
         }
 
-        public override void Draw(IDrawContext context)
+        public override void Draw(IDrawContext drawContext)
         {
-            Context.TextSystem.Draw(0, 0, "Type X or Y to deploy the animations", "Default");
+            drawContext.TextSystem.Draw(0, 0, "Type X or Y to deploy the animations", "Default");
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Snake.Runners.Console
                 else if (args.Contains("console-log"))
                 {
                     game.LogSystem = new ConsoleLogSystem(
-                        new Rectangle(1, gs.Bounds.Bottom * 0.8f, gs.Bounds.Right - 1, gs.Bounds.Bottom - 1),
+                        new Rectangle(game.Bounds.Left, game.Bounds.Bottom * 0.8f, game.Bounds.Right - 1, game.Bounds.Bottom - 1),
                         game);
                 }
 

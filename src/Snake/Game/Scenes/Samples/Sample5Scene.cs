@@ -69,9 +69,9 @@ namespace Snake.Game.Scenes.Samples
             }
         }
 
-        public override void Draw(IDrawContext context)
+        public override void Draw(IDrawContext drawContext)
         {
-			Context.TextSystem
+			drawContext.TextSystem
                    .DrawCenterX(10, Easing.All[currentEasingIndex].GetType().Name.Replace("Easing", ""))
                    .Draw(1, 1, "Use down and up arrows to navigate between the {0} easings available".With(Easing.All.Length), "Default");
         }

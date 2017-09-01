@@ -36,7 +36,7 @@ namespace Snake.Runners.Console
 
             for (int i = 0; i < lines.Count; i++)
             {
-                Context.TextSystem.Draw(bounds.Left + 1, bounds.Top + 1 + i, lines[i], "Debug");
+                ctx.TextSystem.Draw(bounds.Left + 1, bounds.Top + 1 + i, lines[i], "Debug");
             }
         }
 

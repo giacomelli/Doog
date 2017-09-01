@@ -38,9 +38,9 @@ namespace Snake.Framework.Geometry
 
         float ICircle.Bottom { get { return Transform.BoundingBox.Bottom; } }
 
-        public virtual void Draw(IDrawContext context)
+        public virtual void Draw(IDrawContext drawContext)
         {
-            context.Canvas.Draw(this, Filled, Sprite);
+            drawContext.Canvas.Draw(this, Filled, Sprite);
         }
 
         Point ICircle.GetCenter()

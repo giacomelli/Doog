@@ -40,16 +40,17 @@ namespace Snake.Framework
 			pendingSceneToOpen = new NullScene(this);
 
 			graphicSystem.Initialize();
-			drawContext = new DrawContext(graphicSystem);
+			textSystem.Initialize();
+
+			drawContext = new DrawContext(graphicSystem, textSystem);
 			GraphicSystem = graphicSystem;
 
 			Bounds =  Bounds == Rectangle.Zero ? graphicSystem.Bounds : Bounds;
 			PhysicSystem = physicSystem;
 
-			textSystem.Initialize();
-			TextSystem = textSystem;
+	        LogSystem = new NullLogSystem();
 
-            LogSystem = new NullLogSystem();
+            FontSystem = textSystem;
 
             this.exitAction = exitAction;
 		}
@@ -70,9 +71,9 @@ namespace Snake.Framework
 
 		public IPhysicSystem PhysicSystem { get; private set; }
 
-		public ITextSystem TextSystem { get; private set; }
+	    public ILogSystem LogSystem { get; set; }
 
-        public ILogSystem LogSystem { get; set; }
+		public IFontSystem FontSystem { get; private set; }
 
 		public IList<IComponent> Components { get; private set; }
 

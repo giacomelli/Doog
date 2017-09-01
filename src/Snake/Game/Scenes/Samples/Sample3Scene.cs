@@ -49,9 +49,9 @@ namespace Snake.Game.Scenes.Samples
             }
         }
 
-        public override void Draw(IDrawContext context)
+        public override void Draw(IDrawContext drawContext)
         {
-            Context.TextSystem.DrawCenter("Open your mind", "Default");
+            drawContext.TextSystem.DrawCenter("Open your mind", "Default");
         }
 
     }

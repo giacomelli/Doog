@@ -38,16 +38,16 @@ namespace Snake.Game
 
         public static Score Create(Point position, Snake snake, IWorldContext ctx)
         {
-            var textSize = snake.Context.TextSystem.GetFont().GetTextSize("000000");
+            var textSize = snake.Context.FontSystem.GetFont().GetTextSize("000000");
             position -= textSize;
             position -= new Point(1, 0);
 
             return new Score(position, snake, ctx);
         }
 
-        public override void Draw(IDrawContext context)
+        public override void Draw(IDrawContext drawContext)
         {
-            Context.TextSystem
+            drawContext.TextSystem
                    .Draw(
                        Transform.Position.X,
                        Transform.Position.Y - Transform.Pivot.Y,
