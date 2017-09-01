@@ -1,6 +1,7 @@
 using System;
 using Snake.Framework;
 using Snake.Framework.Diagnostics;
+using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 using Snake.Framework.Logging;
 using Snake.Framework.Physics;
@@ -15,11 +16,13 @@ namespace Snake.Game
 
 		public override void Initialize(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem)
 		{
-            base.Initialize(graphicSystem, physicSystem, textSystem);
+			Bounds = graphicSystem.Bounds + new Rectangle(5, 10, -5, 0);
 
+			base.Initialize(graphicSystem, physicSystem, textSystem);
+         
 			if (Debug.Enabled)
 			{
-				WorldStatsConsole.Create(2, 2, this);
+				WorldStatsConsole.Create(Bounds.Left + 2, Bounds.Top + 2, this);
 			}
 
 			this.OpenScene<ClassicModeLevelScene>();

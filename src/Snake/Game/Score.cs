@@ -21,7 +21,7 @@ namespace Snake.Game
 
                 effect
                     .Transform
-                    .MoveTo(Transform.Position, .8f, Easing.OutCubic)
+                    .MoveTo(Transform.Position, 1.2f, Easing.OutCubic)
                     .Do(() =>
                     {
                         ctx.RemoveComponent(effect);

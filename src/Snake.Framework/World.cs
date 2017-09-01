@@ -38,7 +38,7 @@ namespace Snake.Framework
 			drawContext = new DrawContext(graphicSystem);
 			GraphicSystem = graphicSystem;
 
-			Bounds = graphicSystem.Bounds;
+			Bounds =  Bounds == Rectangle.Zero ? graphicSystem.Bounds : Bounds;
 			PhysicSystem = physicSystem;
 
 			textSystem.Initialize();
@@ -49,7 +49,7 @@ namespace Snake.Framework
 
 		public IScene CurrentScene { get; private set; }
 
-		public Rectangle Bounds { get; private set; }
+		public Rectangle Bounds { get; protected set; }
 
         public ITime Time
         {

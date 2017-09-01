@@ -28,7 +28,7 @@ namespace Snake.Game
 		public SnakeTile Head { get; private set; }
 
 
-		public void Initialize(int x, int y, int length)
+		public void Initialize(float x, float y, int length)
         {
             movingDirectionX = 1;
             movingDirectionY = 0;

@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Snake.Framework;
+using Snake.Framework.Geometry;
 
 namespace Snake.Game
 {
@@ -10,18 +12,20 @@ namespace Snake.Game
             
         }
 
-		public void Spawn()
+		public IEnumerable<Wall> Spawn()
 		{
-			var bounds = Context.Bounds;
+            var walls = new List<Wall>();
+            var bounds = Context.Bounds;
 
             bounds.Iterate((x, y) =>
             {
 				if (bounds.IsBorder(x, y))
 				{
-					Wall.Create(x, y, Context);
+                    walls.Add(Wall.Create(x, y, Context));
 				}
             });
-		
+
+            return walls;
 		}
 	}
 }

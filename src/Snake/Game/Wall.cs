@@ -14,7 +14,7 @@ namespace Snake.Game
             this.Toogle(true, 10f, Easing.Linear, v => Sprite = v ? '#' : 'X')
                .Loop();
 
-
+            Transform.CentralizePivot();
         }
 
         public static Wall Create(float x, float y, IWorldContext context)

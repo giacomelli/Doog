@@ -13,6 +13,18 @@ namespace Snake.Framework.Geometry
             
         }
 
+		public RectangleComponent(RectangleComponent other)
+			: this(other.Transform.Position.X, other.Transform.Position.Y, other.Context)
+		{
+            Transform.Scale = other.Transform.Scale;
+		}
+
+		public RectangleComponent(Rectangle other, IWorldContext context)
+			: this(other.Left, other.Top, context)
+		{
+            Transform.Scale = new Point(other.Width, other.Height);
+		}
+
         public RectangleComponent(float x, float y, IWorldContext context)
             : base(context)
         {

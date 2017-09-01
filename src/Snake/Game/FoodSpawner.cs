@@ -12,14 +12,12 @@ namespace Snake.Game
 {
     public class FoodSpawner : ComponentBase, IUpdatable
     {
-        private Rectangle bounds;
         private Food food;
         private IAnimationPipelineController animContr = AnimationPipelineController.Empty;
 
         private FoodSpawner(IWorldContext context)
             :base(context)
         {
-            this.bounds = Context.Bounds;
             food = new Food(Context) { Enabled = false };
         }
 
@@ -29,7 +27,7 @@ namespace Snake.Game
             {
 				do
 				{
-					food.Transform.Position = bounds.RandomPoint().Round();
+					food.Transform.Position = Context.Bounds.RandomPoint().Round();
 				} while (Context.PhysicSystem.AnyCollision(food));
 
                 food.Enabled = true;

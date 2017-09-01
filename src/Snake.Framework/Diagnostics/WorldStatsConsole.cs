@@ -13,13 +13,13 @@ namespace Snake.Framework.Diagnostics
     {
         private readonly Point position;
 
-        private WorldStatsConsole(int x, int y, IWorldContext context)
+        private WorldStatsConsole(float x, float y, IWorldContext context)
             : base(context)
         {
             this.position = new Point(x, y);
         }
 
-        public static WorldStatsConsole Create(int x, int y, IWorldContext context)
+        public static WorldStatsConsole Create(float x, float y, IWorldContext context)
         {
             return new WorldStatsConsole(x, y, context);
         }

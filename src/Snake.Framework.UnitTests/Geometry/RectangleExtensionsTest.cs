@@ -6,14 +6,25 @@ namespace Snake.Framework.UnitTests.Geometry
 	[TestFixture]
 	public class RectangleExtensionsTest
 	{
+
 		[Test]
 		public void Contains_PointOutside_False()
 		{
-			var target = new Rectangle(0, 1, 10, 11);
+			var target = new Rectangle(5, 10, 15, 20);
+            Assert.IsFalse(target.Contains(5, 9));
+			Assert.IsFalse(target.Contains(4, 10));
+			Assert.IsFalse(target.Contains(15, 21));
+			Assert.IsFalse(target.Contains(16, 20));
+		}
 
-			for (int i = 0; i < 10; i++)
+		[Test]
+		public void Contains_PointInside_True()
+		{
+			var target = new Rectangle(5, 10, 15, 20);
+
+			for (int i = 0; i < 100; i++)
 			{
-				target.Contains(target.RandomPoint());
+                Assert.IsTrue(target.Contains(target.RandomPoint()));
 			}
 		}
 

@@ -11,9 +11,8 @@ public static class RectangleExtensions
     public static Point RandomPoint(this Rectangle rect)
     {
         return new Point(
-               (float)rnd.NextDouble() * (rect.Right - rect.Left),
-            (float)rnd.NextDouble() * (rect.Bottom - rect.Top)
-            );
+            rect.Left + (float)rnd.NextDouble() * (rect.Right - rect.Left),
+            rect.Top + (float)rnd.NextDouble() * (rect.Bottom - rect.Top));
     }
 
     public static Point LeftTopPoint(this Rectangle rect)
