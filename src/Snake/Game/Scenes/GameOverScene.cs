@@ -24,12 +24,8 @@ namespace Snake.Game.Scenes
 
             foreach(var wall in walls)
             {
-                wall.Transform
-                    .MoveTo(toPoint, 10f, Easing.InOutElastic)
-                    .PingPong();
-
-				wall.Transform
-				   .ScaleTo(10, 1f, Easing.InOutElastic)
+     			wall.Transform
+				   .ScaleTo(3, 1f, Easing.InOutElastic)
 				   .PingPong();
             }
 

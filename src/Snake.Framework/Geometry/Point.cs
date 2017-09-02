@@ -10,10 +10,18 @@ namespace Snake.Framework.Geometry
 	[DebuggerDisplay("{X}, {Y}")]
     public struct Point
     {
-        public static readonly Point Zero = new Point(0, 0);
-        public static readonly Point HalfOne = new Point(0.5f, 0.5f);
-        public static readonly Point One = new Point(1, 1);
-        public static readonly Point Two = new Point(2, 2);
+        public static readonly Point Zero = new Point(0);
+        public static readonly Point HalfOne = new Point(0.5f);
+        public static readonly Point One = new Point(1);
+        public static readonly Point Two = new Point(2);
+        public static readonly Point Three = new Point(3);
+        public static readonly Point Four = new Point(4);
+        public static readonly Point Five = new Point(5);
+        public static readonly Point Six = new Point(6);
+        public static readonly Point Seven = new Point(7);
+        public static readonly Point Eight = new Point(8);
+        public static readonly Point Nine = new Point(9);
+        public static readonly Point Ten= new Point(10);
 
         private readonly float x;
         private readonly float y;

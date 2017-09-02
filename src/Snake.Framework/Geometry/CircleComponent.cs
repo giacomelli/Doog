@@ -6,7 +6,7 @@ namespace Snake.Framework.Geometry
     /// <summary>
     /// An circle component.
     /// </summary>
-    public class CircleComponent : ComponentBase, ICircle, IDrawable
+    public class CircleComponent : ComponentBase, ICircle, IDrawable, ITransformable
     {
         public CircleComponent(Point position, float radius, IWorldContext context)
          : this(position.X, position.Y, radius, context)

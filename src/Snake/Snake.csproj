@@ -60,6 +60,8 @@
     <Compile Include="Game\Scenes\Samples\Sample5Scene.cs" />
     <Compile Include="Game\Score.cs" />
     <Compile Include="Game\Scenes\Samples\Sample6Scene.cs" />
+    <Compile Include="Game\Portal.cs" />
+    <Compile Include="Game\PortalBridge.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

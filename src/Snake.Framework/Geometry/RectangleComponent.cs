@@ -5,7 +5,7 @@ namespace Snake.Framework.Geometry
     /// <summary>
     /// A rectangle component.
     /// </summary>
-    public class RectangleComponent : ComponentBase, IDrawable
+    public class RectangleComponent : ComponentBase, IDrawable, ITransformable
     {
 		public RectangleComponent(Point position, IWorldContext context)
             : this (position.X, position.Y, context)
