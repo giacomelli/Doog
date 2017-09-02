@@ -1,5 +1,4 @@
 ﻿using Snake.Framework;
-using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 using Snake.Framework.Physics;
@@ -11,10 +10,6 @@ namespace Snake.Game
         private Wall(float x, float y, IWorldContext context)
             : base(x, y, context)
         {
-            this.Toogle(true, 10f, Easing.Linear, v => Sprite = v ? '#' : 'X')
-               .Loop();
-
-            Transform.CentralizePivot();
         }
 
         public static Wall Create(float x, float y, IWorldContext context)

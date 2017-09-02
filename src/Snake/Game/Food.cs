@@ -18,7 +18,9 @@ namespace Snake.Game
 
   		public void OnCollision(Collision collision)
 		{
-            if (collision.Other.Tag != "Food")
+            var otherTag = collision.Other.Tag;
+
+            if (otherTag != "Food" &&  otherTag != "Snake")
             {
                 Enabled = false;
             }

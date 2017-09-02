@@ -2,12 +2,14 @@ using System;
 using Snake.Framework;
 using Snake.Framework.Behaviors;
 using Snake.Framework.Geometry;
+using Snake.Framework.Physics;
 
 namespace Snake.Game
 {
-    public sealed class Snake : ComponentBase, IUpdatable
+    public sealed class Snake : ComponentBase, IUpdatable, ITransformable, ICollidable
     {
-        private const float MaxSpeed = 30;
+        private const float MaxSpeed = 20;
+        private const float Acceleration = 0.25f;
         public EventHandler FoodEaten;
         public EventHandler Died;
 
@@ -23,11 +25,18 @@ namespace Snake.Game
             bounds = context.Bounds;
         }
 
+        public Transform Transform
+        {
+            get
+            {
+                return Head.Transform;
+            }
+        }
+
 		public bool Dead { get; set; }
 		public int FoodsEatenCount { get; private set; }
 		public SnakeTile Head { get; private set; }
-
-
+       
 		public void Initialize(float x, float y, int length)
         {
             movingDirectionX = 1;
@@ -43,6 +52,11 @@ namespace Snake.Game
             HandleUserInput();
 
             Move();
+
+            if (!Context.Bounds.Contains(Head.Transform.Position))
+            {
+                OnDied();
+            }
         }
 
         private float lastPositionChangeTime = 0;
@@ -127,7 +141,7 @@ namespace Snake.Game
 
             if (speed < MaxSpeed)
             {
-                speed++;
+                speed += Acceleration;
             }
 
             Log.Debug("{0} foods eaten. New speed {1}", FoodsEatenCount, speed);
@@ -188,6 +202,11 @@ namespace Snake.Game
                         break;
                 }
             }
+        }
+
+        public void OnCollision(Collision collision)
+        {
+            
         }
     }
 }
