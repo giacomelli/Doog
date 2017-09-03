@@ -95,6 +95,8 @@
     <Compile Include="Geometry\TransformExtensionsTest.cs" />
     <Compile Include="RandomExtensionsTest.cs" />
     <Compile Include="Animations\RectangleExtensionsTest.cs" />
+    <Compile Include="Geometry\LineComponentTest.cs" />
+    <Compile Include="Geometry\LineTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -29,9 +29,10 @@ namespace Snake.Framework.UnitTests.Animations
         }
 
 		[Test]
-		public void Iterate_RectangleComponent_Pipeline()
+		public void Iterate_RectangleComponentFilled_Pipeline()
 		{
             Point actualPoint = Point.Zero;
+            owner.Filled = true;
             var actual = owner.Iterate(5, Easing.Linear, (x,y) => actualPoint = new Point(x, y));
 
 			Assert.AreSame(owner, actual.Owner);
@@ -57,5 +58,152 @@ namespace Snake.Framework.UnitTests.Animations
 			((IUpdatable)actual.Get(1)).Update();
     	}
 
-    }
+		[Test]
+		public void Iterate_RectangleComponentNotFilled_Pipeline()
+		{
+			Point actualPoint = Point.Zero;
+            owner.Filled = false;
+			var actual = owner.Iterate(5, Easing.Linear, (x, y) => actualPoint = new Point(x, y));
+
+			Assert.AreSame(owner, actual.Owner);
+			Assert.AreEqual(1, actual.Length);
+			Assert.AreEqual(PipelineKind.Once, actual.Kind);
+			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
+			Assert.AreEqual(typeof(RectangleIterateAnimation<RectangleComponent>), actual.Get(0).GetType());
+
+			actual.Iterate(5, Easing.Linear, (x, y) => actualPoint = new Point(x, y));
+			Assert.AreEqual(2, actual.Length);
+			Assert.AreEqual(typeof(RectangleIterateAnimation<RectangleComponent>), actual.Get(1).GetType());
+
+			actual.PingPong();
+			Assert.AreEqual(PipelineKind.PingPong, actual.Kind);
+
+			sinceSceneStart = 2.5f;
+			((IUpdatable)actual.Get(0)).Update();
+
+			sinceSceneStart = 5.1f;
+			((IUpdatable)actual.Get(0)).Update();
+
+			sinceSceneStart += 5.1f;
+			((IUpdatable)actual.Get(1)).Update();
+		}
+
+		[Test]
+		public void Iterate_RectangleFilled_Pipeline()
+		{
+			Point actualPoint = Point.Zero;
+			var actual = owner.Iterate(owner.Transform.BoundingBox, true,  5, Easing.Linear, (x, y) => actualPoint = new Point(x, y));
+
+			Assert.AreSame(owner, actual.Owner);
+			Assert.AreEqual(1, actual.Length);
+			Assert.AreEqual(PipelineKind.Once, actual.Kind);
+			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
+			Assert.AreEqual(typeof(RectangleIterateAnimation<RectangleComponent>), actual.Get(0).GetType());
+
+			actual.Iterate(owner.Transform.BoundingBox, true, 5, Easing.Linear, (x, y) => actualPoint = new Point(x, y));
+			Assert.AreEqual(2, actual.Length);
+			Assert.AreEqual(typeof(RectangleIterateAnimation<RectangleComponent>), actual.Get(1).GetType());
+
+			actual.PingPong();
+			Assert.AreEqual(PipelineKind.PingPong, actual.Kind);
+
+			sinceSceneStart = 2.5f;
+			((IUpdatable)actual.Get(0)).Update();
+
+			sinceSceneStart = 5.1f;
+			((IUpdatable)actual.Get(0)).Update();
+
+			sinceSceneStart += 5.1f;
+			((IUpdatable)actual.Get(1)).Update();
+		}
+
+		[Test]
+		public void Iterate_RectangleNotFilled_Pipeline()
+		{
+			Point actualPoint = Point.Zero;
+			var actual = owner.Iterate(owner.Transform.BoundingBox, false, 5, Easing.Linear, (x, y) => actualPoint = new Point(x, y));
+
+			Assert.AreSame(owner, actual.Owner);
+			Assert.AreEqual(1, actual.Length);
+			Assert.AreEqual(PipelineKind.Once, actual.Kind);
+			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
+			Assert.AreEqual(typeof(RectangleIterateAnimation<RectangleComponent>), actual.Get(0).GetType());
+
+			actual.Iterate(owner.Transform.BoundingBox, false, 5, Easing.Linear, (x, y) => actualPoint = new Point(x, y));
+			Assert.AreEqual(2, actual.Length);
+			Assert.AreEqual(typeof(RectangleIterateAnimation<RectangleComponent>), actual.Get(1).GetType());
+
+			actual.PingPong();
+			Assert.AreEqual(PipelineKind.PingPong, actual.Kind);
+
+			sinceSceneStart = 2.5f;
+			((IUpdatable)actual.Get(0)).Update();
+
+			sinceSceneStart = 5.1f;
+			((IUpdatable)actual.Get(0)).Update();
+
+			sinceSceneStart += 5.1f;
+			((IUpdatable)actual.Get(1)).Update();
+		}
+
+        [Test]
+        public void Iterate_TransformableFilled_Pipeline()
+		{
+			Point actualPoint = Point.Zero;
+			owner.Filled = true;
+            var actual = ((ITransformable) owner).Iterate(true, 5, Easing.Linear, (x, y) => actualPoint = new Point(x, y));
+
+			Assert.AreSame(owner, actual.Owner);
+			Assert.AreEqual(1, actual.Length);
+			Assert.AreEqual(PipelineKind.Once, actual.Kind);
+			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
+			Assert.AreEqual(typeof(RectangleIterateAnimation<ITransformable>), actual.Get(0).GetType());
+
+			((IAnimationPipeline<ITransformable>)actual).Iterate(true, 5, Easing.Linear, (x, y) => actualPoint = new Point(x, y));
+			Assert.AreEqual(2, actual.Length);
+			Assert.AreEqual(typeof(RectangleIterateAnimation<ITransformable>), actual.Get(1).GetType());
+
+			actual.PingPong();
+			Assert.AreEqual(PipelineKind.PingPong, actual.Kind);
+
+			sinceSceneStart = 2.5f;
+			((IUpdatable)actual.Get(0)).Update();
+
+			sinceSceneStart = 5.1f;
+			((IUpdatable)actual.Get(0)).Update();
+
+			sinceSceneStart += 5.1f;
+			((IUpdatable)actual.Get(1)).Update();
+		}
+
+		[Test]
+		public void Iterate_TransformableNotFilled_Pipeline()
+		{
+			Point actualPoint = Point.Zero;
+			owner.Filled = true;
+			var actual = ((ITransformable)owner).Iterate(false, 5, Easing.Linear, (x, y) => actualPoint = new Point(x, y));
+
+			Assert.AreSame(owner, actual.Owner);
+			Assert.AreEqual(1, actual.Length);
+			Assert.AreEqual(PipelineKind.Once, actual.Kind);
+			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
+			Assert.AreEqual(typeof(RectangleIterateAnimation<ITransformable>), actual.Get(0).GetType());
+
+			((IAnimationPipeline<ITransformable>)actual).Iterate(false, 5, Easing.Linear, (x, y) => actualPoint = new Point(x, y));
+			Assert.AreEqual(2, actual.Length);
+			Assert.AreEqual(typeof(RectangleIterateAnimation<ITransformable>), actual.Get(1).GetType());
+
+			actual.PingPong();
+			Assert.AreEqual(PipelineKind.PingPong, actual.Kind);
+
+			sinceSceneStart = 2.5f;
+			((IUpdatable)actual.Get(0)).Update();
+
+			sinceSceneStart = 5.1f;
+			((IUpdatable)actual.Get(0)).Update();
+
+			sinceSceneStart += 5.1f;
+			((IUpdatable)actual.Get(1)).Update();
+		}
+	}
 }

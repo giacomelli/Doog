@@ -12,6 +12,7 @@ namespace Snake.Framework.Geometry
          : base(context)
         {
 			Transform = new Transform(pointA.X, pointA.Y, context);
+            PointB = pointB;
 			Sprite = '#';
         }
 

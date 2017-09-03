@@ -61,5 +61,19 @@ namespace Snake.Framework.Animations
 
 			return AnimationPipeline<ITransformable>.Create(animation);
 		}
+
+		public static IAnimationPipeline<ITransformable> Iterate(this IAnimationPipeline<ITransformable> pipeline, bool filled, float duration, IEasing easing, Action<float, float> callback)
+		{
+            var owner = pipeline.Owner;
+
+			var animation = new RectangleIterateAnimation<ITransformable>(owner, owner.Transform.BoundingBox, filled, duration, callback)
+			{
+				Easing = easing
+			};
+
+            pipeline.Add(animation);
+
+            return pipeline;
+		}
     }
 }
