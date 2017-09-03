@@ -1,18 +1,17 @@
 using System;
 using Snake.Framework.Geometry;
+using Snake.Framework;
 
 /// <summary>
 /// Rectangle extension methods.
 /// </summary>
 public static class RectangleExtensions
 {
-    private static readonly Random rnd = new Random(DateTime.UtcNow.Millisecond);
-
     public static Point RandomPoint(this Rectangle rect)
     {
         return new Point(
-            rect.Left + (float)rnd.NextDouble() * (rect.Width - 1),
-            rect.Top + (float)rnd.NextDouble() * (rect.Height - 1));
+            rect.Left + 1f.Rand() * (rect.Width - 1),
+            rect.Top + 1f.Rand() * (rect.Height - 1));
     }
 
     public static Point LeftTopPoint(this Rectangle rect)
