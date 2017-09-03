@@ -49,16 +49,13 @@ namespace Snake.Framework.UnitTests.Animations
 
 			sinceSceneStart = 2.5f;
 			((IUpdatable)actual.Get(0)).Update();
-			Assert.AreEqual(owner.Transform.Position + owner.Transform.Scale / 2f, actualPoint);
-
+	
 			sinceSceneStart = 5.1f;
 			((IUpdatable)actual.Get(0)).Update();
-			Assert.AreEqual(owner.Transform.Scale + owner.Transform.Position, actualPoint);
-
+	
             sinceSceneStart += 5.1f;
 			((IUpdatable)actual.Get(1)).Update();
-            Assert.AreEqual(owner.Transform.Position, actualPoint);
-		}
+    	}
 
     }
 }

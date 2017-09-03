@@ -82,13 +82,14 @@ namespace Snake.Framework.Animations
 
                 if (y >= r.Bottom - 1)
                 {
+                    y = r.Bottom - 1;
                     x = r.Right - 2;
 					dec = v;
 				}
             }
             else if (y >= r.Bottom - 1)
             {
-                x = r.Right - (v - dec);
+                x = r.Right - 1 - (v - dec);
 
                 if (x <= r.Left)
                 {
@@ -99,7 +100,7 @@ namespace Snake.Framework.Animations
             }
             else
             {
-                y = r.Bottom - v + dec;
+                y = r.Bottom - 1 - v + dec;
 
                 if (y < r.Top)
                 {
