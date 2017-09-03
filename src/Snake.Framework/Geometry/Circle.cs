@@ -1,4 +1,6 @@
-﻿namespace Snake.Framework.Geometry
+﻿using System;
+
+namespace Snake.Framework.Geometry
 {
     /// <summary>
     /// An immutable circle.
@@ -23,6 +25,15 @@
             this.radius = radius;
             this.right = left + radius * 2;
             this.bottom = top + radius * 2; 
+        }
+
+        public static Point GetPoint(Point position, float radius, float angleInDegrees)
+        {
+            // TODO: create a type Angle (with properties Radians and Degrees)
+            var angleInRadians = angleInDegrees * Math.PI / 180f;
+            return new Point(
+                position.X + radius * (float)Math.Cos(angleInRadians),
+                position.Y + radius * (float)Math.Sin(angleInRadians));
         }
 
 		public float Left
