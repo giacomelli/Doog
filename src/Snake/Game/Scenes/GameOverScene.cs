@@ -4,6 +4,7 @@ using Snake.Framework;
 using Snake.Framework.Graphics;
 using Snake.Game.Scenes.Samples;
 using Snake.Framework.Animations;
+using Snake.Framework.Geometry;
 
 namespace Snake.Game.Scenes
 {
@@ -18,17 +19,19 @@ namespace Snake.Game.Scenes
 
         public override void Initialize()
         {
-            Context.RemoveComponentsWithoutTag("Wall", "Score");
+            Context.RemoveComponentsWithoutTag("Score", "Wall");
             var toPoint = Context.Bounds.GetCenter();
-            var walls = Context.Components.Get<Wall>().ToList();
 
-            foreach(var wall in walls)
+            var hilightWall = new RectangleComponent(Point.Zero, Context)
             {
-     			wall.Transform
-				   .ScaleTo(3, 1f, Easing.InOutElastic)
-				   .PingPong();
-            }
+                Sprite = ' '
+            };
 
+            this.Iterate(Context.Bounds, false, 15, Easing.Linear, (x, y) => 
+            {
+                hilightWall.Transform.Position = new Point(x, y);        
+            }).Loop();
+        
             this.Toogle(false, 1f, Easing.Linear, v => showPressStart = v)
                 .Loop();
         }
@@ -69,6 +72,10 @@ namespace Snake.Game.Scenes
 
 					case ConsoleKey.D6:
 						Context.OpenScene<Sample6Scene>();
+						break;
+
+					case ConsoleKey.D7:
+						Context.OpenScene<Sample7Scene>();
 						break;
                 }
             }

@@ -8,7 +8,9 @@ namespace Snake.Game.Scenes.Samples
 {
     public class Sample2Scene : SceneBase
     {
-        public Sample2Scene(IWorldContext context)
+        Line[] lines;
+
+		public Sample2Scene(IWorldContext context)
             : base(context)
         {
         }
@@ -35,6 +37,19 @@ namespace Snake.Game.Scenes.Samples
                 .MoveTo(rightTop, 1, Easing.Linear)
                 .MoveTo(leftBottom, 1, Easing.Linear)
                 .PingPong();
+
+
+            lines = new Line[20];
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                lines[i] = new Line(new Point(i * 10, i % 2 == 0 ? 10 : 20), new Point((i + 1) * 10, i % 2 != 0 ? 10 : 20));
+            }
+        }
+
+        public override void Draw(IDrawContext drawContext)
+        {
+            drawContext.Canvas.Draw(lines);
         }
 
     }

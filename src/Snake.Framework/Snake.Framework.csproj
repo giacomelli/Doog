@@ -122,6 +122,13 @@
     <Compile Include="Geometry\TransformExtensions.cs" />
     <Compile Include="Texts\IFontSystem.cs" />
     <Compile Include="Geometry\ITransformable.cs" />
+    <Compile Include="Geometry\Line.cs" />
+    <Compile Include="Geometry\LineExtensions.cs" />
+    <Compile Include="Animations\RectangleExtensions.cs" />
+    <Compile Include="Animations\RectangleIterateAnimation.cs" />
+    <Compile Include="RandomExtensions.cs" />
+    <Compile Include="Geometry\LineComponent.cs" />
+    <Compile Include="Geometry\ILine.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
