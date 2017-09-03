@@ -70,7 +70,26 @@ namespace Snake.Framework.UnitTests.Geometry
 			Assert.AreEqual(new Point(-4, -2), a - b);
 		}
 
-        [Test]
+		[Test]
+		public void TimesOperator_AFoat_TimesValues()
+		{
+			var a = new Point(-1, 2);
+			var b = 3f;
+
+			Assert.AreEqual(new Point(-3, 6), a * b);
+		}
+
+		[Test]
+		public void DivisionOperator_AFoat_TimesValues()
+		{
+			var a = new Point(-3, 6);
+			var b = 3f;
+
+			Assert.AreEqual(new Point(-1, 2), a / b);
+		}
+
+
+		[Test]
         public void DiffOperator_Equals_False()
 		{
 			var a = new Point(1, 1);

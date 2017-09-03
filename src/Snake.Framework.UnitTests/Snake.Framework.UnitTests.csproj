@@ -90,13 +90,14 @@
     <Compile Include="Animations\Easings\EasingTest.cs" />
     <Compile Include="Geometry\CircleExtensionsTest.cs" />
     <Compile Include="Geometry\CircleComponentTest.cs" />
-    <Compile Include="Geometry\RectangleComponentTest.cs" />
+    <Compile Include="Geometry\LineComponentTest.cs" />
     <Compile Include="Geometry\CircleTest.cs" />
     <Compile Include="Geometry\TransformExtensionsTest.cs" />
     <Compile Include="RandomExtensionsTest.cs" />
     <Compile Include="Animations\RectangleExtensionsTest.cs" />
-    <Compile Include="Geometry\LineComponentTest.cs" />
+    <Compile Include="Geometry\RectangleComponentTest.cs" />
     <Compile Include="Geometry\LineTest.cs" />
+    <Compile Include="Geometry\LineExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

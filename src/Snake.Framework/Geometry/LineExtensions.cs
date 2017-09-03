@@ -9,13 +9,8 @@ public static class LineExtensions
 	// https://en.wikipedia.org/wiki/Line_drawing_algorithm
 	// https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
 	// https://stackoverflow.com/a/11683720/956886
-	public static void Iterate(this ILine line, Action<float, float> step, float stepSize = 1f)
+	public static void Iterate(this ILine line, Action<float, float> step)
     {
-        if (stepSize <= 0)
-        {
-            throw new ArgumentOutOfRangeException("stepSize", "stepSize should be a non-zero positive value.");
-        }
-
         var pointA = line.PointA;
         var pointB = line.PointB;
 
@@ -23,7 +18,6 @@ public static class LineExtensions
         var x2 = (int)Math.Round(line.PointB.X);
         var y = (int)Math.Round(line.PointA.Y);
         var y2 = (int)Math.Round(line.PointB.Y);
-
 
 		int w = x2 - x;
 		int h = y2 - y;
