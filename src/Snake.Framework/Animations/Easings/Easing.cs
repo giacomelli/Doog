@@ -64,6 +64,11 @@ namespace Snake.Framework.Animations
             };
         }
 
+        public static IEasing Random()
+        {
+            return All.Rand();
+        }
+
         /// <summary>
         /// Linear easing.
         /// </summary>
