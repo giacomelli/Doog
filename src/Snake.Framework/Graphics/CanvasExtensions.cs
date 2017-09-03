@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Snake.Framework.Geometry;
 
 namespace Snake.Framework.Graphics
@@ -14,6 +15,13 @@ namespace Snake.Framework.Graphics
          
             return canvas;
         }
+
+		public static ICanvas Draw(this ICanvas canvas, Point point, char sprite)
+		{
+			canvas.Draw(point.X, point.Y, sprite);
+
+			return canvas;
+		}
      
         public static ICanvas Draw(this ICanvas canvas, Rectangle rectangle, bool filled = false, char sprite = '.')
         {
@@ -43,5 +51,28 @@ namespace Snake.Framework.Graphics
 
             return canvas;
         }
+
+		public static ICanvas Draw(this ICanvas canvas, ILine line, char sprite = '.')
+		{
+			line.Iterate(
+				(x, y) =>
+				{
+					canvas.Draw(x, y, sprite);
+				});
+
+			return canvas;
+		}
+
+		public static ICanvas Draw<TLine>(this ICanvas canvas, IEnumerable<TLine> lines, char sprite = '.')
+            where TLine : ILine
+		{
+
+            foreach(var line in lines)
+            {
+                canvas.Draw(line, sprite);
+            }
+
+			return canvas;
+		}
     }
 }

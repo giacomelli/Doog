@@ -20,19 +20,13 @@ public static class CircleExtensions
 		}
 
         var center = circle.GetCenter();
-		var h = center.X;      // x coordinate of circle center
-		var k = center.Y;      // y coordinate of circle center
-		var x = 0f;
-		var y = 0f;
-
+	
 		for (var r = circle.Radius; r > 0; r -= radiusStep)
         { 
 	        for (var theta = 0f; theta < 360f; theta += degreesStepSize)
 	        {
-	            x = h + r * (float)Math.Cos(theta);
-	            y = k + r * (float)Math.Sin(theta);
-
-	            step(x, y);
+                var point = Circle.GetPoint(center, r, theta);
+	            step(point.X, point.Y);
 	        }
 		}
 

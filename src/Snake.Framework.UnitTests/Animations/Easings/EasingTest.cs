@@ -20,5 +20,13 @@ namespace Snake.Framework.UnitTests.Animations
                 }
             }
         }
+
+		[Test]
+		public void Random_All_Rand()
+		{
+            var actual = Easing.Random();
+
+            CollectionAssert.Contains(Easing.All, actual);
+		}
     }
 }

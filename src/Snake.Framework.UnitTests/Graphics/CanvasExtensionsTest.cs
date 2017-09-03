@@ -21,6 +21,17 @@ namespace Snake.Framework.UnitTests.Graphics
         }
 
 		[Test]
+		public void Draw_mPoint_Draw()
+		{
+			var target = MockRepository.GenerateMock<ICanvas>();
+            target.Expect(t => t.Draw(new Point(1, 2), '#'));
+
+			var context = MockRepository.GenerateMock<IWorldContext>();
+			target.Draw(new Point(1, 2), '#');
+			target.VerifyAllExpectations();
+		}
+
+		[Test]
 		public void Draw_RectangleNotFilled_Draw()
 		{
 			var target = MockRepository.GenerateMock<ICanvas>();
@@ -40,6 +51,31 @@ namespace Snake.Framework.UnitTests.Graphics
 
 			var rect = new Rectangle(1, 1, 10, 10);
 			target.Draw(rect, true, 'x');
+
+			target.VerifyAllExpectations();
+		}
+
+		[Test]
+		public void Draw_Line_Draw()
+		{
+			var target = MockRepository.GenerateMock<ICanvas>();
+			target.Expect(t => t.Draw(1, 2, '#')).IgnoreArguments().Repeat.Times(10);
+
+            var line = new Line(1, 1, 10, 10);
+			target.Draw(line, 'x');
+
+			target.VerifyAllExpectations();
+		}
+
+		[Test]
+		public void Draw_Lines_Draw()
+		{
+			var target = MockRepository.GenerateMock<ICanvas>();
+			target.Expect(t => t.Draw(1, 2, '#')).IgnoreArguments().Repeat.Times(25);
+
+			var line1 = new Line(1, 1, 10, 10);
+            var line2 = new Line(10, 10, 25, 25);
+            target.Draw(new ILine[] { line1, line2 }, 'x');
 
 			target.VerifyAllExpectations();
 		}

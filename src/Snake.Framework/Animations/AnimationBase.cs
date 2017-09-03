@@ -16,7 +16,6 @@ namespace Snake.Framework.Animations
 
         private float playStartedTime;
         private float pauseStartedTime;
-        private float duration;
         private IEasing easing;
 
         protected AnimationBase(TComponent owner, float duration)
@@ -24,7 +23,7 @@ namespace Snake.Framework.Animations
         {
             Owner = owner;
        
-            this.duration = duration;
+            this.Duration = duration;
             easing = Animations.Easing.Linear;
             owner.AddChild(this);
             State = AnimationState.NotPlayed;
@@ -48,7 +47,9 @@ namespace Snake.Framework.Animations
             }
         }
 
-        protected TValue From { get; set; }
+        protected float Duration { get; private set; }
+
+		protected TValue From { get; set; }
         protected TValue To { get; set; }
 
         public virtual void Play()
@@ -118,7 +119,7 @@ namespace Snake.Framework.Animations
                     return;
                 }
 
-                var time = elapsed / duration;
+                var time = elapsed / Duration;
 
                 if (time <= 1)
                 {
@@ -140,7 +141,7 @@ namespace Snake.Framework.Animations
                 Owner.GetType().Name, 
                 From, 
                 To, 
-                duration);
+                Duration);
         }
 
         protected override void OnEnabled()
