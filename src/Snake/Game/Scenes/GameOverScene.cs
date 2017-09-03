@@ -27,12 +27,12 @@ namespace Snake.Game.Scenes
                 Sprite = ' '
             };
 
-            this.Iterate(Context.Bounds, false, 15, Easing.Linear, (x, y) => 
+            this.Iterate(Context.Bounds,false, 15, Easing.Linear, (x, y) => 
             {
                 hilightWall.Transform.Position = new Point(x, y);        
             }).Loop();
-        
-            this.Toogle(false, 1f, Easing.Linear, v => showPressStart = v)
+
+			this.Toogle(false, 1f, Easing.Linear, v => showPressStart = v)
                 .Loop();
         }
 

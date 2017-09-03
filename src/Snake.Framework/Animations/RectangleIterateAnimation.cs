@@ -14,17 +14,22 @@ namespace Snake.Framework.Animations
         private Action<float> currentUpdateValue;
         private bool filled;
 
+		public RectangleIterateAnimation(TOwner owner, Rectangle rectangle, bool filled, float duration, Action<float, float> callback)
+            : this(owner, rectangle, rectangle.LeftTopPoint(), filled, duration, callback)
+        {
+            
+        }
 
-        public RectangleIterateAnimation(TOwner owner, Rectangle rectangle, bool filled, float duration, Action<float, float> callback)
+        public RectangleIterateAnimation(TOwner owner, Rectangle rectangle, Point fromPoint, bool filled, float duration, Action<float, float> callback)
             : base(owner, duration)
         {
             this.callback = callback;
             r = rectangle;
             this.filled = filled;
             From = 1f;
-            To = filled ? r.Width * r.Height + r.Width : r.Width * 2 + r.Height * 2 + 4;
-            x = r.Left;
-            y = r.Top;
+            To = filled ? r.Width * r.Height + r.Width : r.Width * 2 + r.Height * 2 - 2;
+            x = fromPoint.X;
+            y = fromPoint.Y;
             ChooseCurrentUpdateValue();
         }
 
@@ -100,7 +105,7 @@ namespace Snake.Framework.Animations
             }
             else
             {
-                y = r.Bottom - 1 - v + dec;
+                y = r.Bottom - 2 - v + dec;
 
                 if (y < r.Top)
                 {
@@ -121,6 +126,7 @@ namespace Snake.Framework.Animations
 
                 if (y >= r.Bottom - 1)
                 {
+                    y = r.Bottom - 1;
                     x = r.Left + 1;
                     dec = v;
                 }
@@ -138,7 +144,7 @@ namespace Snake.Framework.Animations
             }
             else if (x >= r.Right - 1)
             {
-                y = r.Bottom - (v - dec);
+                y = r.Bottom - 2 - (v - dec);
 
                 if (y <= r.Top)
                 {
@@ -149,7 +155,7 @@ namespace Snake.Framework.Animations
             }
             else 
             {
-                x = r.Right - (v - dec);
+                x = r.Right - 2 - (v - dec);
             }
 			
 			callback(x, y);

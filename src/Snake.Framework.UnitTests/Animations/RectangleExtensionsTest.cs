@@ -48,7 +48,7 @@ namespace Snake.Framework.UnitTests.Animations
 			actual.PingPong();
 			Assert.AreEqual(PipelineKind.PingPong, actual.Kind);
 
-			for (float time = 0f; time < 51f; time += 0.01f)
+			for (float time = 0f; time < 5.1f; time += 0.01f)
 			{
 				sinceSceneStart = time;
 				((IUpdatable)actual.Get(0)).Update();
@@ -93,28 +93,40 @@ namespace Snake.Framework.UnitTests.Animations
 			actual.PingPong();
 			Assert.AreEqual(PipelineKind.PingPong, actual.Kind);
 
-            for (float time = 0f; time < 51f; time += 0.01f)
+            for (float time = 0f; time <= 5.1f; time += 0.01f)
             {
                 sinceSceneStart = time;
                 ((IUpdatable)actual.Get(0)).Update();
             }
 
-			for (float time = 5.1f; time < 10.1f; time += 0.01f)
+			for (float time = 5.1f; time <= 10.1f; time += 0.01f)
 			{
 				sinceSceneStart = time;
 				((IUpdatable)actual.Get(1)).Update();
 			}
 
-          	for (float time = 10.1f; time < 15.1f; time += 0.01f)
-			{
-				sinceSceneStart = time;
-				((IUpdatable)actual.Get(1)).Update();
-			}
-
-			for (float time = 15.1f; time < 20.1f; time += 0.01f)
+          	for (float time = 10.1f; time <= 15.1f; time += 0.01f)
 			{
 				sinceSceneStart = time;
 				((IUpdatable)actual.Get(0)).Update();
+			}
+
+			for (float time = 15.1f; time <= 20.1f; time += 0.01f)
+			{
+				sinceSceneStart = time;
+				((IUpdatable)actual.Get(1)).Update();
+			}
+
+			for (float time = 20.1f; time <= 25.1f; time += 0.01f)
+			{
+				sinceSceneStart = time;
+				((IUpdatable)actual.Get(0)).Update();
+			}
+
+			for (float time = 25.1f; time <= 30.1f; time += 0.01f)
+			{
+				sinceSceneStart = time;
+				((IUpdatable)actual.Get(1)).Update();
 			}
 		}
 
