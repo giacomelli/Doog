@@ -29,7 +29,7 @@ namespace Snake.Framework.UnitTests.Animations
         }
 
 		[Test]
-		public void Iterate_RectangleComponentFilled_Pipeline()
+		public void Iterate_RectangleComponentFilledPingPong_Pipeline()
 		{
             Point actualPoint = Point.Zero;
             owner.Filled = true;
@@ -72,6 +72,51 @@ namespace Snake.Framework.UnitTests.Animations
 				((IUpdatable)actual.Get(0)).Update();
 			}
     	}
+
+		[Test]
+		public void Iterate_RectangleComponentFilledLoop_Pipeline()
+		{
+			Point actualPoint = Point.Zero;
+			owner.Filled = true;
+			var actual = owner.Iterate(5, Easing.Linear, (x, y) => actualPoint = new Point(x, y));
+
+			Assert.AreSame(owner, actual.Owner);
+			Assert.AreEqual(1, actual.Length);
+			Assert.AreEqual(PipelineKind.Once, actual.Kind);
+			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
+			Assert.AreEqual(typeof(RectangleIterateAnimation<RectangleComponent>), actual.Get(0).GetType());
+
+			actual.Iterate(5, Easing.Linear, (x, y) => actualPoint = new Point(x, y));
+			Assert.AreEqual(2, actual.Length);
+			Assert.AreEqual(typeof(RectangleIterateAnimation<RectangleComponent>), actual.Get(1).GetType());
+
+			actual.Loop();
+			Assert.AreEqual(PipelineKind.Loop, actual.Kind);
+
+			for (float time = 0f; time < 5.1f; time += 0.01f)
+			{
+				sinceSceneStart = time;
+				((IUpdatable)actual.Get(0)).Update();
+			}
+
+			for (float time = 5.1f; time < 10.1f; time += 0.01f)
+			{
+				sinceSceneStart = time;
+				((IUpdatable)actual.Get(1)).Update();
+			}
+
+			for (float time = 10.1f; time < 15.1f; time += 0.01f)
+			{
+				sinceSceneStart = time;
+				((IUpdatable)actual.Get(1)).Update();
+			}
+
+			for (float time = 15.1f; time < 20.1f; time += 0.01f)
+			{
+				sinceSceneStart = time;
+				((IUpdatable)actual.Get(0)).Update();
+			}
+		}
 
 		[Test]
 		public void Iterate_RectangleComponentNotFilled_Pipeline()
