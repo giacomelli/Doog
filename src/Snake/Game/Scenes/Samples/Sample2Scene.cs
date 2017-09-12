@@ -24,7 +24,8 @@ namespace Snake.Game.Scenes.Samples
             var rightBottom = Context.Bounds.RightBottomPoint() - scale;
             var rightTop = Context.Bounds.RightTopPoint() + new Point(scale.X * -1, 0);
             var leftBottom = Context.Bounds.LeftBottomPoint() + new Point(0, scale.Y * -1);
-            var wall = Wall.Create(center.X, center.Y, Context);
+            var wall = Wall.Create(center.X, center.Y, 1, 1, Context);
+            wall.Filled = true;
 
             wall.Transform
                 .CentralizePivot()

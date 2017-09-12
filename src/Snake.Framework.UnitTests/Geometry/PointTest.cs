@@ -139,11 +139,21 @@ namespace Snake.Framework.UnitTests.Geometry
             var hashes = new List<int>();
             var bounds = new Rectangle(10, 0, 20, 9);
 
-            bounds.Iterate((x, y) => {
+            bounds.Iterate(false, (x, y) => {
                 hashes.Add(new Point(x, y).GetHashCode()); 
             });
 
             CollectionAssert.AllItemsAreUnique(hashes);
+
+			hashes = new List<int>();
+			bounds = new Rectangle(10, 0, 20, 9);
+
+			bounds.Iterate(true, (x, y) =>
+			{
+				hashes.Add(new Point(x, y).GetHashCode());
+			});
+
+			CollectionAssert.AllItemsAreUnique(hashes);
 		}
 
 

@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 using Snake.Framework.Geometry;
 
 namespace Snake.Framework.UnitTests.Geometry
@@ -113,5 +114,140 @@ namespace Snake.Framework.UnitTests.Geometry
 			Assert.IsTrue(target.IsBorder(10, 20));
 			Assert.IsTrue(target.IsBorder(29, 39));
 		}
-	}
+
+        [Test]
+        public void Iterate_FilledFalse_OnlyBorders()
+        {
+            var actualPoints = new List<Point>();
+            var target = new Rectangle(10, 20, 15, 25);
+            target.Iterate(false, (x, y) =>
+            {
+                actualPoints.Add(new Point(x, y));
+            });
+
+            var expectedPoints = new Point[]
+            {
+                // Top line
+                new Point(10, 20), new Point(11, 20), new Point(12, 20), new Point(13, 20), new Point(14, 20),
+
+                // Right line
+                new Point(14, 21), new Point(14, 22), new Point(14, 23), 
+
+                // bottom line
+                new Point(14, 24), new Point(13, 24), new Point(12, 24), new Point(11, 24), new Point(10, 24),
+
+                 // Right line
+                new Point(10, 23), new Point(10, 22), new Point(10, 21)
+            };
+
+            CollectionAssert.AreEqual(expectedPoints, actualPoints.ToArray());
+        }
+
+        [Test]
+        public void Iterate_FilledTrue_EveryPoint()
+        {
+            var actualPoints = new List<Point>();
+            var target = new Rectangle(10, 20, 15, 25);
+            target.Iterate(true, (x, y) =>
+            {
+                actualPoints.Add(new Point(x, y));
+            });
+
+            var expectedPoints = new Point[]
+            {
+                // First row
+                new Point(10, 20), new Point(10, 21), new Point(10, 22), new Point(10, 23), new Point(10, 24),
+
+                // Second row
+                new Point(11, 20), new Point(11, 21), new Point(11, 22), new Point(11, 23), new Point(11, 24),
+
+                // Third row
+                new Point(12, 20), new Point(12, 21), new Point(12, 22), new Point(12, 23), new Point(12, 24),
+
+                // Fourth row
+                new Point(13, 20), new Point(13, 21), new Point(13, 22), new Point(13, 23), new Point(13, 24),
+
+                // Fifth row
+                new Point(14, 20), new Point(14, 21), new Point(14, 22), new Point(14, 23), new Point(14, 24)
+            };
+
+            CollectionAssert.AreEqual(expectedPoints, actualPoints.ToArray());
+        }
+
+        [Test]
+        public void Iterate_FilledFalseYOne_OnlyTopLine()
+        {
+            var actualPoints = new List<Point>();
+            var target = new Rectangle(1, 1, 4, 2);
+            target.Iterate(false, (x, y) =>
+            {
+                actualPoints.Add(new Point(x, y));
+            });
+
+            var expectedPoints = new Point[]
+            {
+                // Top line
+                new Point(1, 1), new Point(2, 1), new Point(3, 1)
+            };
+
+            CollectionAssert.AreEqual(expectedPoints, actualPoints.ToArray());
+        }
+
+        [Test]
+        public void Iterate_FilledTrueYOne_OnlyTopLine()
+        {
+            var actualPoints = new List<Point>();
+            var target = new Rectangle(1, 1, 4, 2);
+            target.Iterate(true, (x, y) =>
+            {
+                actualPoints.Add(new Point(x, y));
+            });
+
+            var expectedPoints = new Point[]
+            {
+                // Top line
+                new Point(1, 1), new Point(2, 1), new Point(3, 1)
+            };
+
+            CollectionAssert.AreEqual(expectedPoints, actualPoints.ToArray());
+        }
+
+        [Test]
+        public void Iterate_FilledFalseXOne_OnlyLeftLine()
+        {
+            var actualPoints = new List<Point>();
+            var target = new Rectangle(1, 1, 2, 4);
+            target.Iterate(false, (x, y) =>
+            {
+                actualPoints.Add(new Point(x, y));
+            });
+
+            var expectedPoints = new Point[]
+            {
+                // Left line
+                new Point(1, 1), new Point(1, 2), new Point(1, 3)
+            };
+
+            CollectionAssert.AreEqual(expectedPoints, actualPoints.ToArray());
+        }
+
+        [Test]
+        public void Iterate_FilledTrueXOne_OnlyLeftLine()
+        {
+            var actualPoints = new List<Point>();
+            var target = new Rectangle(1, 1, 2, 4);
+            target.Iterate(true, (x, y) =>
+            {
+                actualPoints.Add(new Point(x, y));
+            });
+
+            var expectedPoints = new Point[]
+            {
+                // Left line
+                new Point(1, 1), new Point(1, 2), new Point(1, 3)
+            };
+
+            CollectionAssert.AreEqual(expectedPoints, actualPoints.ToArray());
+        }
+    }
 }

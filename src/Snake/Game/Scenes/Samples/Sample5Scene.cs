@@ -22,7 +22,7 @@ namespace Snake.Game.Scenes.Samples
         public override void Initialize()
         {
             Context.RemoveAllComponents();
-			ball = new SampleComponent(0, 0, Context);
+            ball = new SampleComponent(0, 0, Context) { Filled = false };
 
             bounds = Context.Bounds + new Rectangle(10, 10, -5, -5);
             bar = new SampleComponent[(int)bounds.Width];
@@ -87,6 +87,7 @@ namespace Snake.Game.Scenes.Samples
             ball.Transform.CentralizePivot();
             ball.Transform.Position = left;
             ball.Transform.Scale = Point.One;
+            ball.Transform.Rotation = 0f;
 
             var duration = 4f;
 
@@ -97,6 +98,10 @@ namespace Snake.Game.Scenes.Samples
 			ball.Transform
 				.ScaleTo(20, 10, duration, easing)
 				.PingPong();
+
+			ball.Transform
+			    .RotateTo(360, duration, easing)
+			    .PingPong();
             
      		for (int i = 0; i < bar.Length; i++)
 			{

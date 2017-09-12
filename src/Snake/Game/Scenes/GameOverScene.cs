@@ -34,6 +34,12 @@ namespace Snake.Game.Scenes
 
 			this.Toogle(false, 1f, Easing.Linear, v => showPressStart = v)
                 .Loop();
+
+            //var rotationRect = new RectangleComponent(toPoint, 20, Context);
+            //rotationRect.Transform.CentralizePivot();
+            //rotationRect.Transform
+                        //.RotateTo(360, 5, Easing.InOutSin)
+                        //.PingPong();
         }
 
         public override void Update()
@@ -76,6 +82,10 @@ namespace Snake.Game.Scenes
 
 					case ConsoleKey.D7:
 						Context.OpenScene<Sample7Scene>();
+						break;
+
+					case ConsoleKey.D8:
+						Context.OpenScene<Sample8Scene>();
 						break;
                 }
             }

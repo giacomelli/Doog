@@ -7,6 +7,7 @@ using Snake.Framework.Logging;
 using Snake.Framework.Physics;
 using Snake.Framework.Texts;
 using Snake.Game.Scenes;
+using Snake.Game.Scenes.Samples;
 
 namespace Snake.Game
 {
@@ -30,6 +31,8 @@ namespace Snake.Game
 			}
 
 			this.OpenScene<ClassicModeLevelScene>();
+
+            //this.OpenScene<Sample8Scene>();
 		}
 
 		protected virtual void Dispose(bool disposing)

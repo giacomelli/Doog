@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using Rhino.Mocks;
 using Snake.Framework.Geometry;
 
@@ -66,5 +67,53 @@ namespace Snake.Framework.UnitTests.Geometry
 			Assert.AreEqual(new Point(0, 1), target.Position);
 			Assert.AreNotSame(oldPosition, target.Position);
 		}
-	}
+
+        [Test]
+        public void Scale_DiffValues_Scaled()
+        {
+            var target = new Transform(5, 10, MockRepository.GenerateMock<IWorldContext>());
+            Assert.AreEqual(Point.One, target.Scale);
+            Assert.AreEqual(new Rectangle(5, 10, 6, 11), target.BoundingBox);
+
+            target.Scale = Point.One;
+            Assert.AreEqual(new Rectangle(5, 10, 6, 11), target.BoundingBox);
+
+            target.Scale = Point.Two;
+            Assert.AreEqual(new Rectangle(5, 10, 7, 12), target.BoundingBox);
+
+            target.Scale = Point.Three;
+            Assert.AreEqual(new Rectangle(5, 10, 8, 13), target.BoundingBox);
+
+            target.Scale = Point.One;
+            Assert.AreEqual(new Rectangle(5, 10, 6, 11), target.BoundingBox);
+        }
+
+        [Test]
+        public void Rotate_360_KeepScaleAndBoxSize()
+        {
+            var target = new Transform(5, 10,  MockRepository.GenerateMock<IWorldContext>());
+            target.Scale = Point.Ten;           
+            var expectedBoundingBox = new Rectangle(5, 10, 15, 20);
+            Assert.AreEqual(expectedBoundingBox, target.BoundingBox);
+            Assert.AreEqual(Point.Ten, target.Scale);
+
+            for (int angle = 0; angle <= 360; angle++)
+            {
+                target.Rotation = angle;
+             
+                Assert.AreEqual(Point.Ten, target.Scale);
+                Assert.AreEqual(target.Scale.X, Math.Round(target.BoundingBox.Width, 2));
+                Assert.AreEqual(target.Scale.Y, Math.Round(target.BoundingBox.Height, 2));
+            }
+
+            for (int angle = 360; angle >= 0; angle--)
+            {
+                target.Rotation = angle;
+
+                Assert.AreEqual(Point.Ten, target.Scale);
+                Assert.AreEqual(target.Scale.X, Math.Round(target.BoundingBox.Width, 2));
+                Assert.AreEqual(target.Scale.Y, Math.Round(target.BoundingBox.Height, 2));
+            }
+        }
+    }
 }

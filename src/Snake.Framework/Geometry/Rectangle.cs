@@ -22,7 +22,32 @@ namespace Snake.Framework.Geometry
             this.top = top;
             this.right = right;
             this.bottom = bottom;
+
+			this.leftTop = new Point(left, top);
+			this.rightTop = new Point(right, top);
+			this.rightBottom = new Point(right, bottom);
+			this.leftBottom = new Point(left, bottom);
         }
+
+
+        public Point leftTop;
+        public Point rightTop; 
+        public Point rightBottom;
+        public Point leftBottom;
+
+        public Rectangle(Point leftTop, Point rightTop, Point rightBottom, Point leftBottom)
+        {
+            this.leftTop = leftTop;
+            this.rightTop = rightTop;
+            this.rightBottom = rightBottom;
+            this.leftBottom = leftBottom;
+
+            this.left = leftTop.X;
+            this.top = leftTop.Y;
+			this.right = rightTop.X;
+			this.bottom = rightBottom.Y;
+		}
+
 
         public float Left
         {
@@ -60,7 +85,7 @@ namespace Snake.Framework.Geometry
         {
             get
             {
-                return right - left;
+                return leftTop.DistanceFrom(rightTop);
             }
         }
 
@@ -68,7 +93,7 @@ namespace Snake.Framework.Geometry
         {
             get
             {
-                return bottom - top;
+                 return leftTop.DistanceFrom(leftBottom);
             }
         }
 
@@ -127,7 +152,12 @@ namespace Snake.Framework.Geometry
             }
 		}
 
-		public static bool operator ==(Rectangle a, Rectangle b)
+        public override string ToString()
+        {
+            return "{0}, {1}, {2}, {3}".With(left, top, right, bottom);
+        }
+
+        public static bool operator ==(Rectangle a, Rectangle b)
 		{
             return a.left.EqualsTo(b.left)
                     && a.top.EqualsTo(b.top)
@@ -153,6 +183,15 @@ namespace Snake.Framework.Geometry
                 a.top + b.top, 
                 a.right + b.right, 
                 a.bottom + b.bottom);
+		}
+
+		public static Rectangle operator +(Rectangle a, Point b)
+		{
+			return new Rectangle(
+				a.left + b.X,
+				a.top + b.Y,
+				a.right + b.X,
+				a.bottom + b.Y);
 		}
     }
 }

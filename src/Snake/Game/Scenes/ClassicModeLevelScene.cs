@@ -25,7 +25,7 @@ namespace Snake.Game.Scenes
 
             // Create the walls.
             var wallSpawner = new WallSpawner(Context);
-            var walls = wallSpawner.Spawn();
+            wallSpawner.Spawn();
 
             // Create the snakes.
             snakes = new Snake[MaxSnakes];

@@ -9,6 +9,7 @@ namespace Snake.Game
     public class Portal : RectangleComponent, ICollidable
     {
         public static readonly Point DefaultScale = new Point(3, 1);
+        private const float TeleportTime = 5f;
         private bool recharging;
         private RectangleComponent teleportEffect;
         private char originalSprite;
@@ -18,11 +19,12 @@ namespace Snake.Game
             : base(position, ctx)
         {
             Transform.Scale = DefaultScale;
-            teleportEffect = new RectangleComponent(Transform.Position, ctx)
+            teleportEffect = new RectangleComponent(Transform.Position, 3, ctx)
             {
                 Sprite = '.',
                 Enabled = false
             };
+            teleportEffect.Transform.CentralizePivotX();
         }
 
         public Action<Snake> SomethingEnteredCallback { get; set; }
@@ -36,10 +38,15 @@ namespace Snake.Game
             Sprite = '.';
         
             teleportEffect.Transform.Position = something.Transform.Position;
-            teleportEffect.Enabled = true; 
+            teleportEffect.Enabled = true;
             teleportEffect
                 .Transform
-                .MoveTo(Transform.Position, .5f, Easing.OutSin)
+                .RotateTo(360, TeleportTime, Easing.OutSin)
+                .Once();
+            
+            teleportEffect
+                .Transform
+                .MoveTo(Transform.Position, TeleportTime, Easing.OutSin)
                 .Do(() =>
                 {
                     teleportEffect.Enabled = false;
@@ -48,7 +55,7 @@ namespace Snake.Game
 				})
                 .Once();
 
-            this.Delay(5, () =>
+            this.Delay(TeleportTime * 10, () =>
             {
                 recharging = false;
                 Sprite = originalSprite;
