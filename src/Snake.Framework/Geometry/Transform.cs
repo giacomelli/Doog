@@ -131,13 +131,13 @@ namespace Snake.Framework.Geometry
             var sin = (float)Math.Sin(rotation * Math.PI / 180f);
 
             var r = originalBoundingBox;
-            var center = r.leftTop + scale * pivot;
+            var center = r.LeftTop + scale * pivot;
        
             BoundingBox = new Rectangle(
-                CalculateCorner(position, r.leftTop, center, cos, sin),
-                CalculateCorner(position, r.rightTop, center, cos, sin),
-                CalculateCorner(position, r.rightBottom, center, cos, sin),
-                CalculateCorner(position, r.leftBottom, center, cos, sin)
+                CalculateCorner(position, r.LeftTop, center, cos, sin),
+                CalculateCorner(position, r.RightTop, center, cos, sin),
+                CalculateCorner(position, r.RightBottom, center, cos, sin),
+                CalculateCorner(position, r.LeftBottom, center, cos, sin)
             );
         }
 

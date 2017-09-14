@@ -10,41 +10,39 @@ namespace Snake.Framework.Geometry
     public struct Rectangle
     {
         public static readonly Rectangle Zero = new Rectangle(0, 0, 0, 0);
-        private readonly float width;
-        private readonly float height;
-
+     
         public Rectangle(float left, float top, float width, float height)
         {
-            this.leftTop = new Point(left, top);
-            this.rightTop = new Point(left + width, top);
-            this.rightBottom = new Point(left + width, top + height);
-            this.leftBottom = new Point(left, top + height);
-            this.width = width;
-            this.height = height;
+            this.LeftTop = new Point(left, top);
+            this.RightTop = new Point(left + width, top);
+            this.RightBottom = new Point(left + width, top + height);
+            this.LeftBottom = new Point(left, top + height);
+            this.Width = width;
+            this.Height = height;
         }
 
-
-        public Point leftTop;
-        public Point rightTop;
-        public Point rightBottom;
-        public Point leftBottom;
-
-        public Rectangle(Point leftTop, Point rightTop, Point rightBottom, Point leftBottom)
+        internal Rectangle(Point leftTop, Point rightTop, Point rightBottom, Point leftBottom)
         {
-            this.leftTop = leftTop;
-            this.rightTop = rightTop;
-            this.rightBottom = rightBottom;
-            this.leftBottom = leftBottom;
-            this.width = leftTop.DistanceFrom(rightTop);
-            this.height = leftTop.DistanceFrom(leftBottom);
+            this.LeftTop = leftTop;
+            this.RightTop = rightTop;
+            this.RightBottom = rightBottom;
+            this.LeftBottom = leftBottom;
+            this.Width = leftTop.DistanceFrom(rightTop);
+            this.Height = leftTop.DistanceFrom(leftBottom);
         }
 
+        public Point LeftTop { get; private set; }
+        public Point RightTop { get; private set; }
+        public Point RightBottom { get; private set; }
+        public Point LeftBottom { get; private set; }
 
-        public float Left
+
+
+		public float Left
         {
             get
             {
-                return leftTop.X;
+                return LeftTop.X;
             }
         }
 
@@ -52,7 +50,7 @@ namespace Snake.Framework.Geometry
         {
             get
             {
-                return leftTop.Y;
+                return LeftTop.Y;
             }
         }
 
@@ -60,7 +58,7 @@ namespace Snake.Framework.Geometry
         {
             get
             {
-                return rightTop.X;
+                return RightTop.X;
             }
         }
 
@@ -68,37 +66,20 @@ namespace Snake.Framework.Geometry
         {
             get
             {
-                return rightBottom.Y;
+                return RightBottom.Y;
             }
         }
 
-        public float Width
-        {
-            get
-            {
-                return width;
-            }
-        }
-
-        public float Height
-        {
-            get
-            {
-                return height;
-            }
-        }
-
+        public float Width { get; private set; }
+     
+        public float Height { get; private set; }
+      
         public bool Contains(Point point)
         {
             return !(point.X < Left ||
                     point.X > Right ||
                     point.Y < Top ||
                     point.Y > Bottom);
-        }
-
-        private Point vector(Point a, Point b)
-        {
-            return new Point(b.X - a.X, b.Y - a.Y);    
         }
 
 		public bool Intersect(Rectangle other)

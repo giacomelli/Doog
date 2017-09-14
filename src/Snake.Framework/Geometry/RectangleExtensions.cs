@@ -85,21 +85,21 @@ public static class RectangleExtensions
         else if (rect.Height <= 0)
         {
             // Only top line.
-            new Line(rect.leftTop, rect.rightTop)
+            new Line(rect.LeftTop, rect.RightTop)
                 .Iterate(step);
         }
         else if (rect.Width <= 0)
         {
             // Only left line.
-            new Line(rect.leftTop, rect.leftBottom)
+            new Line(rect.LeftTop, rect.LeftBottom)
                 .Iterate(step);
         }
         else
         {
             if (filled)
             {
-                var topLine = new Line(rect.leftTop, rect.rightTop);
-                var bottomLine = new Line(rect.leftBottom, rect.rightBottom);
+                var topLine = new Line(rect.LeftTop, rect.RightTop);
+                var bottomLine = new Line(rect.LeftBottom, rect.RightBottom);
           
                 // TODO: look for a better way to do this.
                 topLine.Iterate((x1, y1) =>
@@ -113,10 +113,10 @@ public static class RectangleExtensions
             }
             else
             {
-                var topLine = new Line(rect.leftTop, rect.rightTop);
-                var rightLine = new Line(rect.rightTop, rect.rightBottom);
-                var bottomLine = new Line(rect.rightBottom, rect.leftBottom);
-                var leftLine = new Line(rect.leftBottom, rect.leftTop);
+                var topLine = new Line(rect.LeftTop, rect.RightTop);
+                var rightLine = new Line(rect.RightTop, rect.RightBottom);
+                var bottomLine = new Line(rect.RightBottom, rect.LeftBottom);
+                var leftLine = new Line(rect.LeftBottom, rect.LeftTop);
                 topLine.Iterate(step);
                 rightLine.Iterate(step);
                 bottomLine.Iterate(step);
