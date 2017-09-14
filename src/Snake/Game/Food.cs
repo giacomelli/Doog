@@ -7,7 +7,7 @@ namespace Snake.Game
 {
 	public class Food : RectangleComponent, IDrawable, ICollidable
 	{
-        public static readonly Point DefaultScale = Point.One;
+        public static readonly Point DefaultScale = Point.Zero;
 
 		public Food(IWorldContext context)
             : base(0, 0, context)

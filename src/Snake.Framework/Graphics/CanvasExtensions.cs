@@ -28,7 +28,7 @@ namespace Snake.Framework.Graphics
             rectangle.Iterate(filled,
             (x, y) =>
             {
-                canvas.Draw(x, y, (char)x);
+                canvas.Draw(x, y, sprite);
             });
 
             return canvas;

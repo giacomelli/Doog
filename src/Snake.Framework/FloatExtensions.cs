@@ -15,4 +15,14 @@ public static class FloatExtensions
     {
         return Math.Abs(current - other) < float.Epsilon;
     }
+
+	/// <summary>
+	/// Ruound the specified float.
+	/// </summary>
+	/// <returns>The rounded float.</returns>
+	/// <param name="value">Value.</param>
+	public static float Round(this float value)
+	{
+        return (int)Math.Round(value, 0);
+	}
 }

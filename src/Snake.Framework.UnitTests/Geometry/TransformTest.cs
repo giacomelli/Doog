@@ -72,20 +72,20 @@ namespace Snake.Framework.UnitTests.Geometry
         public void Scale_DiffValues_Scaled()
         {
             var target = new Transform(5, 10, MockRepository.GenerateMock<IWorldContext>());
-            Assert.AreEqual(Point.One, target.Scale);
-            Assert.AreEqual(new Rectangle(5, 10, 6, 11), target.BoundingBox);
+            Assert.AreEqual(Point.Zero, target.Scale);
+            Assert.AreEqual(new Rectangle(5, 10, 0, 0), target.BoundingBox);
 
             target.Scale = Point.One;
-            Assert.AreEqual(new Rectangle(5, 10, 6, 11), target.BoundingBox);
+            Assert.AreEqual(new Rectangle(5, 10, 1, 1), target.BoundingBox);
 
             target.Scale = Point.Two;
-            Assert.AreEqual(new Rectangle(5, 10, 7, 12), target.BoundingBox);
+            Assert.AreEqual(new Rectangle(5, 10, 2, 2), target.BoundingBox);
 
             target.Scale = Point.Three;
-            Assert.AreEqual(new Rectangle(5, 10, 8, 13), target.BoundingBox);
+            Assert.AreEqual(new Rectangle(5, 10, 3, 3), target.BoundingBox);
 
             target.Scale = Point.One;
-            Assert.AreEqual(new Rectangle(5, 10, 6, 11), target.BoundingBox);
+            Assert.AreEqual(new Rectangle(5, 10, 1, 1), target.BoundingBox);
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace Snake.Framework.UnitTests.Geometry
         {
             var target = new Transform(5, 10,  MockRepository.GenerateMock<IWorldContext>());
             target.Scale = Point.Ten;           
-            var expectedBoundingBox = new Rectangle(5, 10, 15, 20);
+            var expectedBoundingBox = new Rectangle(5, 10, 10, 10);
             Assert.AreEqual(expectedBoundingBox, target.BoundingBox);
             Assert.AreEqual(Point.Ten, target.Scale);
 

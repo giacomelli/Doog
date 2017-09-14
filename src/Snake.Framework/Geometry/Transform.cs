@@ -19,20 +19,16 @@ namespace Snake.Framework.Geometry
         private Rectangle originalBoundingBox;
 
         public Transform(IWorldContext context)
-            : base(context)
+            : this(0, 0, context)
         {
-            scale = Point.One;
-            pivot = Point.Zero;
-            originalBoundingBox = new Rectangle(0, 0, 1, 1);
-            Rebuild();
         }
 
         public Transform(float x, float y, IWorldContext context)
             : base(context)
         {
-            scale = Point.One;
+            scale = Point.Zero;
             pivot = Point.Zero;
-            originalBoundingBox = new Rectangle(x, y, x + 1, y + 1);
+            originalBoundingBox = new Rectangle(x, y, 0, 0);
             Position = new Point(x, y);
         }
 
@@ -86,7 +82,7 @@ namespace Snake.Framework.Geometry
             set
             {
                 scale = value;
-                originalBoundingBox = new Rectangle(originalBoundingBox.Left, originalBoundingBox.Top, originalBoundingBox.Left + value.X, originalBoundingBox.Top + value.Y);
+                originalBoundingBox = new Rectangle(originalBoundingBox.Left, originalBoundingBox.Top, value.X, value.Y);
                 Rebuild();
             }
         }

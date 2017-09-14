@@ -10,28 +10,22 @@ namespace Snake.Framework.Geometry
     public struct Rectangle
     {
         public static readonly Rectangle Zero = new Rectangle(0, 0, 0, 0);
+        private readonly float width;
+        private readonly float height;
 
-        private readonly float left;
-        private readonly float top;
-        private readonly float right;
-        private readonly float bottom;
-
-        public Rectangle(float left, float top, float right, float bottom)
+        public Rectangle(float left, float top, float width, float height)
         {
-            this.left = left;
-            this.top = top;
-            this.right = right;
-            this.bottom = bottom;
-
-			this.leftTop = new Point(left, top);
-			this.rightTop = new Point(right, top);
-			this.rightBottom = new Point(right, bottom);
-			this.leftBottom = new Point(left, bottom);
+            this.leftTop = new Point(left, top);
+            this.rightTop = new Point(left + width, top);
+            this.rightBottom = new Point(left + width, top + height);
+            this.leftBottom = new Point(left, top + height);
+            this.width = width;
+            this.height = height;
         }
 
 
         public Point leftTop;
-        public Point rightTop; 
+        public Point rightTop;
         public Point rightBottom;
         public Point leftBottom;
 
@@ -41,19 +35,16 @@ namespace Snake.Framework.Geometry
             this.rightTop = rightTop;
             this.rightBottom = rightBottom;
             this.leftBottom = leftBottom;
-
-            this.left = leftTop.X;
-            this.top = leftTop.Y;
-			this.right = rightTop.X;
-			this.bottom = rightBottom.Y;
-		}
+            this.width = leftTop.DistanceFrom(rightTop);
+            this.height = leftTop.DistanceFrom(leftBottom);
+        }
 
 
         public float Left
         {
             get
             {
-                return left;
+                return leftTop.X;
             }
         }
 
@@ -61,7 +52,7 @@ namespace Snake.Framework.Geometry
         {
             get
             {
-                return top;
+                return leftTop.Y;
             }
         }
 
@@ -69,7 +60,7 @@ namespace Snake.Framework.Geometry
         {
             get
             {
-                return right;
+                return rightTop.X;
             }
         }
 
@@ -77,7 +68,7 @@ namespace Snake.Framework.Geometry
         {
             get
             {
-                return bottom;
+                return rightBottom.Y;
             }
         }
 
@@ -85,7 +76,7 @@ namespace Snake.Framework.Geometry
         {
             get
             {
-                return leftTop.DistanceFrom(rightTop);
+                return width;
             }
         }
 
@@ -93,105 +84,96 @@ namespace Snake.Framework.Geometry
         {
             get
             {
-                 return leftTop.DistanceFrom(leftBottom);
+                return height;
             }
         }
 
-        public bool Contains(float x, float y)
+        public bool Contains(Point point)
         {
-            return !(x < left ||
-                    x > right ||
-                    y < top ||
-                    y > bottom);
+            return !(point.X < Left ||
+                    point.X > Right ||
+                    point.Y < Top ||
+                    point.Y > Bottom);
         }
 
-        public bool Intersect(Rectangle other)
+        private Point vector(Point a, Point b)
         {
-            if (left >= other.right || other.left >= right
-             || top >= other.bottom || other.top >= bottom)
+            return new Point(b.X - a.X, b.Y - a.Y);    
+        }
+
+		public bool Intersect(Rectangle other)
+        {
+            if (Left > other.Right || other.Left > Right
+             || Top > other.Bottom || other.Top > Bottom)
             {
                 return false;
             }
 
-			return true;
+            return true;
         }
 
         public Point GetCenter()
         {
             return new Point(
-                left + (right - left) / 2,
-                top + (bottom - top) / 2);
+                Left + (Right - Left) / 2,
+                Top + (Bottom - Top) / 2);
         }
 
-        public Rectangle Scale(float scale)
+        public override bool Equals(object obj)
         {
-            return new Rectangle(left, top, right * scale, bottom * scale);
+            if (!(obj is Rectangle))
+            {
+                return false;
+            }
+
+            return ((Rectangle)obj) == this;
         }
 
-		public override bool Equals(object obj)
-		{
-			if (!(obj is Rectangle))
-			{
-				return false;
-			}
-
-			return ((Rectangle)obj) == this;
-		}
-
-		public override int GetHashCode()
-		{
+        public override int GetHashCode()
+        {
             unchecked
             {
                 int hash = 17;
-                hash = hash * 23 + left.GetHashCode();
-                hash = hash * 23 + top.GetHashCode();
-                hash = hash * 23 + right.GetHashCode();
-                hash = hash * 23 + bottom.GetHashCode();
+                hash = hash * 23 + Left.GetHashCode();
+                hash = hash * 23 + Top.GetHashCode();
+                hash = hash * 23 + Right.GetHashCode();
+                hash = hash * 23 + Bottom.GetHashCode();
 
                 return hash;
             }
-		}
+        }
 
         public override string ToString()
         {
-            return "{0}, {1}, {2}, {3}".With(left, top, right, bottom);
+            return "{0}, {1}, {2}, {3}".With(Left, Top, Right, Bottom);
         }
 
         public static bool operator ==(Rectangle a, Rectangle b)
-		{
-            return a.left.EqualsTo(b.left)
-                    && a.top.EqualsTo(b.top)
-                    && a.right.EqualsTo(b.Right)
-                    && a.bottom.EqualsTo(b.bottom);
-                 
-		}
+        {
+            return a.Left.EqualsTo(b.Left)
+                    && a.Top.EqualsTo(b.Top)
+                    && a.Right.EqualsTo(b.Right)
+                    && a.Bottom.EqualsTo(b.Bottom);
 
-		public static bool operator !=(Rectangle a, Rectangle b)
-		{
-			return !(a == b);
-		}
+        }
+
+        public static bool operator !=(Rectangle a, Rectangle b)
+        {
+            return !(a == b);
+        }
 
         public static Rectangle operator *(Rectangle a, float multiplier)
         {
-            return new Rectangle(a.left, a.top, a.right * multiplier, a.bottom * multiplier);
+            return new Rectangle(a.Left, a.Top, a.Width * multiplier, a.Height * multiplier);
         }
 
-		public static Rectangle operator +(Rectangle a, Rectangle b)
-		{
-			return new Rectangle(
-                a.left + b.left, 
-                a.top + b.top, 
-                a.right + b.right, 
-                a.bottom + b.bottom);
-		}
-
-		public static Rectangle operator +(Rectangle a, Point b)
-		{
-			return new Rectangle(
-				a.left + b.X,
-				a.top + b.Y,
-				a.right + b.X,
-				a.bottom + b.Y);
-		}
+        public static Rectangle operator +(Rectangle a, Point b)
+        {
+            return new Rectangle(
+                a.Left + b.X,
+                a.Top + b.Y,
+                a.Width + b.X,
+                a.Height + b.Y);
+        }
     }
 }

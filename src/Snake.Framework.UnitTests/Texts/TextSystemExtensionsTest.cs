@@ -18,7 +18,7 @@ namespace Snake.Framework.UnitTests
 			font.Expect(f => f.GetTextSize("Test")).Return(new Point(4, 1));
 			ts.Expect(t => t.GetFont("Default")).Return(font);
 			ts.Expect(t => t.Draw(13, 149.5f, "Test", "Default")).Return(ts);
-			ts.DrawCenter("Test", new Rectangle(10, 100, 20, 200), "Default");
+			ts.DrawCenter("Test", new Rectangle(10, 100, 10, 100), "Default");
 
 			ts.VerifyAllExpectations();
 		}
@@ -43,7 +43,7 @@ namespace Snake.Framework.UnitTests
 			font.Expect(f => f.GetTextSize("Test")).Return(new Point(4, 1));
 			ts.Expect(t => t.GetFont("Default")).Return(font);
 			ts.Expect(t => t.Draw(23, 169.5f, "Test", "Default")).Return(ts);
-			ts.DrawCenter(10, 20, "Test", new Rectangle(10, 100, 20, 200), "Default");
+			ts.DrawCenter(10, 20, "Test", new Rectangle(10, 100, 10, 100), "Default");
 
 			ts.VerifyAllExpectations();
 		}
@@ -52,7 +52,7 @@ namespace Snake.Framework.UnitTests
         public void DrawCenter_OffsetAndTextNoBoundsSpecified_OffsetCentralizedByContextBounds()
 		{
             var wc = MockRepository.GenerateMock<IWorldContext>();
-            wc.Expect(c => c.Bounds).Return(new Rectangle(10, 100, 20, 200));
+            wc.Expect(c => c.Bounds).Return(new Rectangle(10, 100, 10, 100));
 
 			var ts = MockRepository.GenerateMock<ITextSystem>();
 
@@ -75,7 +75,7 @@ namespace Snake.Framework.UnitTests
 			font.Expect(f => f.GetTextSize("Test")).Return(new Point(4, 1));
 			ts.Expect(t => t.GetFont("Default")).Return(font);
 			ts.Expect(t => t.Draw(13, 10, "Test", "Default")).Return(ts);
-			ts.DrawCenterX(10, "Test", new Rectangle(10, 100, 20, 200), "Default");
+			ts.DrawCenterX(10, "Test", new Rectangle(10, 100, 10, 100), "Default");
 
 			ts.VerifyAllExpectations();
 		}
@@ -84,7 +84,7 @@ namespace Snake.Framework.UnitTests
         public void DrawCenterX_YTextNoBoundsSpecified_XCentralizedByContextBounds()
 		{
 			var wc = MockRepository.GenerateMock<IWorldContext>();
-			wc.Expect(c => c.Bounds).Return(new Rectangle(10, 100, 20, 200));
+			wc.Expect(c => c.Bounds).Return(new Rectangle(10, 100, 10, 100));
 
 			var ts = MockRepository.GenerateMock<ITextSystem>();
 
@@ -107,7 +107,7 @@ namespace Snake.Framework.UnitTests
 			font.Expect(f => f.GetTextSize("Test")).Return(new Point(4, 1));
 			ts.Expect(t => t.GetFont("Default")).Return(font);
 			ts.Expect(t => t.Draw(10, 149.5f, "Test", "Default")).Return(ts);
-			ts.DrawCenterY(10, "Test", new Rectangle(10, 100, 20, 200), "Default");
+			ts.DrawCenterY(10, "Test", new Rectangle(10, 100, 10, 100), "Default");
 
 			ts.VerifyAllExpectations();
 		}
@@ -116,7 +116,7 @@ namespace Snake.Framework.UnitTests
         public void DrawCenterY_XTextNoBoundsSpecified_YCentralizedByContextBounds()
 		{
 			var wc = MockRepository.GenerateMock<IWorldContext>();
-			wc.Expect(c => c.Bounds).Return(new Rectangle(10, 100, 20, 200));
+			wc.Expect(c => c.Bounds).Return(new Rectangle(10, 100, 10, 100));
 
 			var ts = MockRepository.GenerateMock<ITextSystem>();
 

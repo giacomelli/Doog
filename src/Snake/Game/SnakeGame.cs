@@ -21,7 +21,8 @@ namespace Snake.Game
             ITextSystem textSystem,
             Action exitAction)
 		{
-			Bounds = graphicSystem.Bounds + new Rectangle(5, 10, -5, 0);
+            var b = graphicSystem.Bounds;
+            Bounds = new Rectangle(b.Left + 5, b.Top + 10, b.Width - 10, b.Height -10);
 
             base.Initialize(graphicSystem, physicSystem, textSystem, exitAction);
          

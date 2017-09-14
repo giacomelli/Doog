@@ -59,13 +59,13 @@ namespace Snake.Game.Scenes
 
             PortalBridge.Create(
                 bounds.TopCenterPoint() + new Point(offsetFromRightX, offsetY),
-                bounds.LeftBottomPoint() + new Point(offsetFromLeftX, -offsetY),
+                bounds.LeftBottomPoint() + new Point(offsetFromLeftX, -offsetY - 1),
                 '1',
                 Context);
 
             PortalBridge.Create(
 				bounds.TopCenterPoint() + new Point(offsetFromLeftX, offsetY),
-				bounds.RightBottomPoint() + new Point(offsetFromRightX, -offsetY),
+				bounds.RightBottomPoint() + new Point(offsetFromRightX, -offsetY - 1),
                 '2',
 				Context);
 

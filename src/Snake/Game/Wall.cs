@@ -14,7 +14,7 @@ namespace Snake.Game
 
         public static Wall Create(float x, float y, float scaleX, float scaleY, IWorldContext context)
         {
-            var wall = new Wall(x, y, context);
+            var wall = new Wall((int)x, (int)y, context);
             wall.Transform.Scale = new Point(scaleX, scaleY);
 
             return wall;

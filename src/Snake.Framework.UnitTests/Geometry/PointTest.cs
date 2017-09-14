@@ -137,25 +137,17 @@ namespace Snake.Framework.UnitTests.Geometry
 		public void GetHashCode_DiffPoints_DiffHashCode()
 		{
             var hashes = new List<int>();
-            var bounds = new Rectangle(10, 0, 20, 9);
 
-            bounds.Iterate(false, (x, y) => {
-                hashes.Add(new Point(x, y).GetHashCode()); 
-            });
+            for (int x = 0; x < 10; x++)
+            {
+				for (int y = 11; y < 21; y++)
+				{
+                    hashes.Add(new Point(x, y).GetHashCode());
+				}   
+            }
 
             CollectionAssert.AllItemsAreUnique(hashes);
-
-			hashes = new List<int>();
-			bounds = new Rectangle(10, 0, 20, 9);
-
-			bounds.Iterate(true, (x, y) =>
-			{
-				hashes.Add(new Point(x, y).GetHashCode());
-			});
-
-			CollectionAssert.AllItemsAreUnique(hashes);
 		}
-
 
         [Test]
         public void ToString_NoArgs_XAndy()

@@ -24,7 +24,8 @@ namespace Snake.Game.Scenes.Samples
             Context.RemoveAllComponents();
             ball = new SampleComponent(0, 0, Context) { Filled = false };
 
-            bounds = Context.Bounds + new Rectangle(10, 10, -5, -5);
+            var b = Context.Bounds;
+            bounds = new Rectangle(b.Left + 10, b.Top + 10, b.Width - 10, b.Height - 15);
             bar = new SampleComponent[(int)bounds.Width];
 
             for (int i = 0; i < bar.Length; i++)

@@ -32,7 +32,7 @@ namespace Snake.Framework.Geometry
 		}
 
         public RectangleComponent(float x, float y, float scale, IWorldContext context)
-          : this(new Rectangle(x, y, x + scale, y + scale), context)
+          : this(new Rectangle(x, y, scale, scale), context)
         {
         }
 

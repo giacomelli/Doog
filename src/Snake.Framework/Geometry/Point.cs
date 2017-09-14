@@ -93,6 +93,11 @@ namespace Snake.Framework.Geometry
                 Easing.Linear.Calculate(from.y, to.y, time));
         }
 
+        public static float Dot(Point a, Point b)
+        {
+			return a.x * b.x + a.y * b.y;
+	    }
+
         public static bool operator == (Point a, Point b)
         {
             return a.x.EqualsTo(b.x) && a.y.EqualsTo(b.y);

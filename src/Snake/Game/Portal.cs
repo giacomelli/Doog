@@ -8,17 +8,18 @@ namespace Snake.Game
 {
     public class Portal : RectangleComponent, ICollidable
     {
-        public static readonly Point DefaultScale = new Point(3, 1);
-        private const float TeleportTime = 5f;
+        public static readonly Point DefaultScale = new Point(2, 0);
+        private const float TeleportTime = .5f;
         private bool recharging;
         private RectangleComponent teleportEffect;
         private char originalSprite;
 
 
         public Portal(Point position, IWorldContext ctx)
-            : base(position, ctx)
+            : base(new Point((int)position.X, (int)position.Y), ctx)
         {
             Transform.Scale = DefaultScale;
+
             teleportEffect = new RectangleComponent(Transform.Position, 3, ctx)
             {
                 Sprite = '.',

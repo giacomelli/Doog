@@ -24,15 +24,15 @@ namespace Snake.Game
             var height = bounds.Height;
 
             // Borders
-            walls.Add(Wall.Create(left, top, width, 1, Context));
-			walls.Add(Wall.Create(right, top, 1, height, Context));
-			walls.Add(Wall.Create(left, bottom , width, 1, Context));
-			walls.Add(Wall.Create(left, top, 1, height, Context));
+            walls.Add(Wall.Create(left, top, width, 0, Context));
+			walls.Add(Wall.Create(right, top, 0, height, Context));
+			walls.Add(Wall.Create(left, bottom , width, 0, Context));
+			walls.Add(Wall.Create(left, top, 0, height, Context));
 
 			// Center
             var center = bounds.GetCenter();
-			walls.Add(Wall.Create(center.X, top, 1, height, Context));
-            walls.Add(Wall.Create(left, center.Y, width, 1, Context));
+			walls.Add(Wall.Create(center.X, top, 0, height, Context));
+            walls.Add(Wall.Create(left, center.Y, width, 0, Context));
 
             return walls;
 		}

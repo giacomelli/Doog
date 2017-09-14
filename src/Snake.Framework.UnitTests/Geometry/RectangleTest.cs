@@ -10,7 +10,7 @@ namespace Snake.Framework.UnitTests.Geometry
         [Test]
         public void Contains_PointOutside_False()
         {
-            var target = new Rectangle(0, 1, 10, 11);
+            var target = new Rectangle(0, 1, 10, 10);
 
             Assert.IsFalse(target.Contains(-1, 1));
             Assert.IsFalse(target.Contains(0, 0));
@@ -40,38 +40,43 @@ namespace Snake.Framework.UnitTests.Geometry
         [Test]
         public void Intersect_NonInterserction_False()
         {
-            var target = new Rectangle(5, 10, 15, 20);
-            Assert.IsFalse(target.Intersect(new Rectangle(3, 8, 4, 9)));
-            Assert.IsFalse(target.Intersect(new Rectangle(1, 21, 10, 23)));
+            var target = new Rectangle(5, 10, 10, 10);
+            Assert.IsFalse(target.Intersect(new Rectangle(3, 8, 1, 1)));
+            Assert.IsFalse(target.Intersect(new Rectangle(1, 21, 9, 2)));
 
             target = new Rectangle(0, 0, 1, 1);
-            Assert.IsFalse(target.Intersect(new Rectangle(1, 1, 1, 1)));
-            Assert.IsFalse(target.Intersect(new Rectangle(0, 0, 0, 0)));
+            Assert.IsFalse(target.Intersect(new Rectangle(2, 2, 0, 0)));
+            Assert.IsFalse(target.Intersect(new Rectangle(-1, -1, 0, 0)));
 
-            target = new Rectangle(0, 0, 1, 1);
-            Assert.IsFalse(target.Intersect(new Rectangle(1, 1, 1, 1)));
-            Assert.IsFalse(target.Intersect(new Rectangle(0, 0, 0, 0)));
-
-            target = new Rectangle(1, 1, 2, 2);
-            Assert.IsFalse(target.Intersect(new Rectangle(0, 0, 1, 1)));
-
-			target = new Rectangle(1, 22, 2, 23);
-			Assert.IsFalse(target.Intersect(new Rectangle(1, 10, 2, 11)));
+            target = new Rectangle(1, 22, 1, 1);
+			Assert.IsFalse(target.Intersect(new Rectangle(1, 10, 1, 1)));
 
             // Width and Height zero
-			target = new Rectangle(1, 1, 1, 1);
-			Assert.IsFalse(target.Intersect(new Rectangle(1, 1, 1, 1)));
+			target = new Rectangle(1, 1, 0, 0);
+			Assert.IsFalse(target.Intersect(new Rectangle(2, 2, 0, 0)));
         }
 
 		[Test]
 		public void Intersect_Intersection_True()
 		{
-			var target = new Rectangle(5, 10, 15, 20);
-			Assert.IsTrue(target.Intersect(new Rectangle(3, 8, 6, 11)));
-			Assert.IsTrue(target.Intersect(new Rectangle(6, 11, 7, 12)));
+			var target = new Rectangle(5, 10, 10, 10);
+			Assert.IsTrue(target.Intersect(new Rectangle(3, 8, 3, 3)));
+			Assert.IsTrue(target.Intersect(new Rectangle(6, 11, 1, 1)));
 
-			target = new Rectangle(1, 1, 10, 10);
-			Assert.IsTrue(target.Intersect(new Rectangle(1, 1, 10, 10)));
+			target = new Rectangle(1, 1, 9, 9);
+			Assert.IsTrue(target.Intersect(new Rectangle(1, 1, 9, 9)));
+
+			// Width and Height zero
+			target = new Rectangle(1, 1, 0, 0);
+			Assert.IsTrue(target.Intersect(new Rectangle(1, 1, 0, 0)));
+
+            // Width zero.
+            target = new Rectangle(1, 5, 0, 0);
+            Assert.IsTrue(target.Intersect(new Rectangle(1, 1, 0, 10)));
+
+			// Height zero.
+			target = new Rectangle(5, 1, 0, 0);
+			Assert.IsTrue(target.Intersect(new Rectangle(1, 1, 10, 0)));
 		}
 
 		[Test]
@@ -82,40 +87,23 @@ namespace Snake.Framework.UnitTests.Geometry
 			Assert.AreEqual(7.5f, actual.X);
 			Assert.AreEqual(10, actual.Y);
 
-			target = new Rectangle(5, 10, 15, 20);
+			target = new Rectangle(5, 10, 10, 10);
 			actual = target.GetCenter();
 			Assert.AreEqual(10, actual.X);
 			Assert.AreEqual(15, actual.Y);
 		}
 
 		[Test]
-		public void Scale_Scale_NewRectangleScaled()
-		{
-			var target = new Rectangle(5, 10, 15, 20);
-			var actual = target.Scale(2);
-			Assert.AreEqual(5, actual.Left);
-			Assert.AreEqual(10, actual.Top);
-			Assert.AreEqual(30, actual.Right);
-			Assert.AreEqual(40, actual.Bottom);
-
-			actual = target.Scale(0.5f);
-			Assert.AreEqual(5, actual.Left);
-			Assert.AreEqual(10, actual.Top);
-			Assert.AreEqual(7.5, actual.Right);
-			Assert.AreEqual(10, actual.Bottom);
-		}
-
-		[Test]
 		public void Width_LetfRight_Diff()
 		{
-			var target = new Rectangle(5, 10, 55, 20);
+			var target = new Rectangle(5, 10, 50, 10);
             Assert.AreEqual(50, target.Width);
 		}
 
 		[Test]
 		public void Height_TopBottom_Diff()
 		{
-			var target = new Rectangle(5, 10, 55, 20);
+			var target = new Rectangle(5, 10, 50, 10);
 			Assert.AreEqual(10, target.Height);
 		}
 
@@ -184,14 +172,6 @@ namespace Snake.Framework.UnitTests.Geometry
             var actual = new Rectangle(5, 10, 55, 20) * 10f;
 
             Assert.AreEqual(new Rectangle(5, 10, 550, 200), actual);
-		}
-
-		[Test]
-		public void SumOperator_Rectangle_Sum()
-		{
-			var actual = new Rectangle(5, 10, 55, 20) + new Rectangle(1, 2, 3, 4);
-
-			Assert.AreEqual(new Rectangle(6, 12, 58, 24), actual);
 		}
 	}
 }
