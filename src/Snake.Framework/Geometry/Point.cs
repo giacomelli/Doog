@@ -54,9 +54,9 @@ namespace Snake.Framework.Geometry
             }
         }
 
-        public double DistanceFrom(Point other)
+        public float DistanceFrom(Point other)
         {
-            return Math.Sqrt(Math.Pow(other.x - x, 2) + Math.Pow(other.y - y, 2));
+            return (float)Math.Sqrt(Math.Pow(other.x - x, 2) + Math.Pow(other.y - y, 2));
         }
 
         public override bool Equals(object obj)
@@ -93,6 +93,11 @@ namespace Snake.Framework.Geometry
                 Easing.Linear.Calculate(from.y, to.y, time));
         }
 
+        public static float Dot(Point a, Point b)
+        {
+			return a.x * b.x + a.y * b.y;
+	    }
+
         public static bool operator == (Point a, Point b)
         {
             return a.x.EqualsTo(b.x) && a.y.EqualsTo(b.y);
@@ -111,6 +116,11 @@ namespace Snake.Framework.Geometry
 		public static Point operator -(Point a, Point b)
 		{
 			return new Point(a.x - b.x, a.y - b.y);
+		}
+
+		public static Point operator *(Point a, Point b)
+		{
+			return new Point(a.x * b.x, a.y * b.y);
 		}
 
 		public static Point operator +(Point a, float b)

@@ -25,16 +25,11 @@ namespace Snake.Framework.Graphics
      
         public static ICanvas Draw(this ICanvas canvas, Rectangle rectangle, bool filled = false, char sprite = '.')
         {
-            rectangle.Iterate(
-                (x, y) =>
-                {
-                    if (!filled && !rectangle.IsXBorder(x) && !rectangle.IsYBorder(y))
-                    {
-                        return;
-                    }
-
-                    canvas.Draw(x, y, sprite);
-                });
+            rectangle.Iterate(filled,
+            (x, y) =>
+            {
+                canvas.Draw(x, y, sprite);
+            });
 
             return canvas;
         }

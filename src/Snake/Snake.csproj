@@ -63,6 +63,7 @@
     <Compile Include="Game\Portal.cs" />
     <Compile Include="Game\PortalBridge.cs" />
     <Compile Include="Game\Scenes\Samples\Sample7Scene.cs" />
+    <Compile Include="Game\Scenes\Samples\Sample8Scene.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

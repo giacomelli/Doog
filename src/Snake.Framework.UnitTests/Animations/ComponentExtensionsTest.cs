@@ -133,7 +133,7 @@ namespace Snake.Framework.UnitTests.Animations
 		}
 
 		[Test]
-		public void Disabe_OwnerDelay_Pipeline()
+		public void Disable_OwnerDelay_Pipeline()
 		{
 			var actual = owner.Disable(5);
 
@@ -164,7 +164,7 @@ namespace Snake.Framework.UnitTests.Animations
 		}
 
 		[Test]
-		public void Disabe_OwnerNoDelay_Pipeline()
+		public void Disable_OwnerNoDelay_Pipeline()
 		{
 			var actual = owner.Disable();
 

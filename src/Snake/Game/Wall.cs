@@ -12,9 +12,12 @@ namespace Snake.Game
         {
         }
 
-        public static Wall Create(float x, float y, IWorldContext context)
+        public static Wall Create(float x, float y, float scaleX, float scaleY, IWorldContext context)
         {
-            return new Wall(x, y, context);
+            var wall = new Wall((int)x, (int)y, context);
+            wall.Transform.Scale = new Point(scaleX, scaleY);
+
+            return wall;
         }
 
         public void OnCollision(Collision collision)

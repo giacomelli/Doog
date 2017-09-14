@@ -22,7 +22,7 @@ namespace Snake.Framework
             Now = now;
             var ticks = now.Ticks;
 
-            if (gameStartedTicks.HasValue)
+            if (ticks != lastFrameTicks && gameStartedTicks.HasValue)
             {
                 SinceGameStart = (float)(ticks - gameStartedTicks.Value) / TimeSpan.TicksPerSecond;
 

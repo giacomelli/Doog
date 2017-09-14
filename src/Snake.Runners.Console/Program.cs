@@ -40,7 +40,7 @@ namespace Snake.Runners.Console
                 // TODO: this should be moved to game loop inside the World class.
                 // There are samples how to implement it on chapter GAME LOOP.
                 // The game loop bellow is the "Fixed update time step, variable rendering.
-                var secondsPerFrame = 1f / 30f;
+                var secondsPerFrame = 1f / 120;
                 var previous = DateTime.Now;
                 var lag = 0.0;
 
@@ -57,7 +57,7 @@ namespace Snake.Runners.Console
 
                     while(lag >= secondsPerFrame)
                     {
-                        game.Update(DateTime.Now);
+                        game.Update(current);
                         lag -= secondsPerFrame;
                     }
 

@@ -16,30 +16,23 @@ namespace Snake.Game
 		{
             var walls = new List<Wall>();
             var bounds = Context.Bounds;
+            var left = bounds.Left;
+            var top = bounds.Top;
+            var right = bounds.Right;
+            var bottom = bounds.Bottom - 1;
+            var width = bounds.Width;
+            var height = bounds.Height;
 
-            bounds.Iterate((x, y) =>
-            {
-				if (bounds.IsBorder(x, y))
-				{
-                    walls.Add(Wall.Create(x, y, Context));
-				}
-            });
+            // Borders
+            walls.Add(Wall.Create(left, top, width, 0, Context));
+			walls.Add(Wall.Create(right, top, 0, height, Context));
+			walls.Add(Wall.Create(left, bottom , width, 0, Context));
+			walls.Add(Wall.Create(left, top, 0, height, Context));
 
+			// Center
             var center = bounds.GetCenter();
-            var x2 = center.X;
-            float y2;
-
-            for (y2 = bounds.Top + 1; y2 < bounds.Bottom; y2++)
-            {
-                walls.Add(Wall.Create(x2, y2, Context));
-            }
-
-            y2 = center.Y;
-
-			for (x2 = bounds.Left + 1; x2 < bounds.Right; x2++)
-			{
-				walls.Add(Wall.Create(x2, y2, Context));
-			}
+			walls.Add(Wall.Create(center.X, top, 0, height, Context));
+            walls.Add(Wall.Create(left, center.Y, width, 0, Context));
 
             return walls;
 		}

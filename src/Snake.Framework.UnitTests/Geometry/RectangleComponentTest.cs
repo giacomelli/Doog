@@ -42,6 +42,32 @@ namespace Snake.Framework.UnitTests.Geometry
 			Assert.AreEqual(ctx, target.Context);
 		}
 
+		[Test]
+		public void Constructor_PointAndScale_Properties()
+		{
+			var ctx = MockRepository.GenerateMock<IWorldContext>();
+		
+			var target = new RectangleComponent(new Point(1, 2), 3, ctx);
+
+			Assert.AreEqual(new Point(1, 2), target.Transform.Position);
+			Assert.AreEqual(3, target.Transform.Scale.X);
+			Assert.AreEqual(3, target.Transform.Scale.Y);
+			Assert.AreEqual(ctx, target.Context);
+		}
+
+		[Test]
+		public void Constructor_XYAndScale_Properties()
+		{
+			var ctx = MockRepository.GenerateMock<IWorldContext>();
+
+			var target = new RectangleComponent(1, 2, 3, ctx);
+
+			Assert.AreEqual(new Point(1, 2), target.Transform.Position);
+			Assert.AreEqual(3, target.Transform.Scale.X);
+			Assert.AreEqual(3, target.Transform.Scale.Y);
+			Assert.AreEqual(ctx, target.Context);
+		}
+
         [Test]
         public void Draw_Context_CircleDrawn()
         {

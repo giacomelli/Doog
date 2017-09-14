@@ -94,7 +94,7 @@ namespace Snake.Game.Scenes.Samples
             }
 
             // ScaleTo, MoveTo and PingPong
-            new RectangleComponent(140, 1, Context).Transform
+            new RectangleComponent(140, 1, Context){ Filled = true }.Transform
                 .ScaleTo(new Point(20, 10), 1, Easing.InExpo)
                 .MoveTo(new Point(140, bounds.Bottom - 10), 2, Easing.InBounce)
                 .PingPong();

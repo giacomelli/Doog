@@ -13,6 +13,12 @@ namespace Snake.Framework.Geometry
             
         }
 
+		public RectangleComponent(Point position, float scale, IWorldContext context)
+			: this(position.X, position.Y, scale, context)
+		{
+
+		}
+
 		public RectangleComponent(RectangleComponent other)
 			: this(other.Transform.Position.X, other.Transform.Position.Y, other.Context)
 		{
@@ -25,12 +31,17 @@ namespace Snake.Framework.Geometry
             Transform.Scale = new Point(other.Width, other.Height);
 		}
 
+        public RectangleComponent(float x, float y, float scale, IWorldContext context)
+          : this(new Rectangle(x, y, scale, scale), context)
+        {
+        }
+
         public RectangleComponent(float x, float y, IWorldContext context)
             : base(context)
         {
             Transform = new Transform(x, y, context);
             Sprite = '#';
-            Filled = true;
+            Filled = false;
         }
 
         public Transform Transform { get; private set; }

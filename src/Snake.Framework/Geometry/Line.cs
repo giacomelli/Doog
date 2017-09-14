@@ -1,8 +1,11 @@
-﻿namespace Snake.Framework.Geometry
+﻿using System.Diagnostics;
+
+namespace Snake.Framework.Geometry
 {
     /// <summary>
     /// An immutable line.
     /// </summary>
+    [DebuggerDisplay("{PointA} => {PointB}")]
     public struct Line : ILine
     {
         private readonly Point pointA;
