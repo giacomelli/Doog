@@ -126,7 +126,7 @@ namespace Snake.Framework.Geometry
 
         public override string ToString()
         {
-            return "{0}, {1}, {2}, {3}".With(Left, Top, Right, Bottom);
+            return "{0}, {1} | {2}, {3}".With(Left, Top, Width, Height);
         }
 
         public static bool operator ==(Rectangle a, Rectangle b)

@@ -89,7 +89,7 @@ namespace Snake.Framework.UnitTests.Geometry
         }
 
         [Test]
-        public void Rotate_360_KeepScaleAndBoxSize()
+        public void Rotation_360_KeepScaleAndBoxSize()
         {
             var target = new Transform(5, 10,  MockRepository.GenerateMock<IWorldContext>());
             target.Scale = Point.Ten;           
@@ -104,6 +104,7 @@ namespace Snake.Framework.UnitTests.Geometry
                 Assert.AreEqual(Point.Ten, target.Scale);
                 Assert.AreEqual(target.Scale.X, Math.Round(target.BoundingBox.Width, 2));
                 Assert.AreEqual(target.Scale.Y, Math.Round(target.BoundingBox.Height, 2));
+                Assert.AreEqual(target.Rotation, angle);
             }
 
             for (int angle = 360; angle >= 0; angle--)
@@ -113,6 +114,7 @@ namespace Snake.Framework.UnitTests.Geometry
                 Assert.AreEqual(Point.Ten, target.Scale);
                 Assert.AreEqual(target.Scale.X, Math.Round(target.BoundingBox.Width, 2));
                 Assert.AreEqual(target.Scale.Y, Math.Round(target.BoundingBox.Height, 2));
+                Assert.AreEqual(target.Rotation, angle);
             }
         }
     }

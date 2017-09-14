@@ -34,6 +34,12 @@ namespace Snake.Framework.UnitTests.Geometry
 			Assert.AreEqual(new Point(-3, -4), Point.Lerp(from, to, 1f));
 		}
 
+        [Test]
+        public void Dot_Points_Dot()
+        {
+            Assert.AreEqual(11, Point.Dot(new Point(1, 2), new Point (3, 4)));
+        }
+
 		[Test]
 		public void PlusOperator_AB_PlusValues()
 		{

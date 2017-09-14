@@ -149,5 +149,30 @@ namespace Snake.Framework.UnitTests.Animations
 			sinceSceneStart += 5.1f;
 			((IUpdatable)actual.Get(1)).Update();
 		}
+
+		[Test]
+		public void RotateTo_OwnerRotation_Pipeline()
+		{
+			var actual = owner.RotateTo(2, 5, Easing.Linear);
+
+			Assert.AreSame(owner, actual.Owner);
+			Assert.AreEqual(1, actual.Length);
+			Assert.AreEqual(PipelineKind.Once, actual.Kind);
+			Assert.AreEqual(PipelineDirection.Forward, actual.Direction);
+			Assert.AreEqual(typeof(FloatAnimation<Transform>), actual.Get(0).GetType());
+
+			actual.RotateTo(3, 5, Easing.Linear);
+			Assert.AreEqual(2, actual.Length);
+			Assert.AreEqual(typeof(FloatAnimation<Transform>), actual.Get(1).GetType());
+
+			actual.PingPong();
+			Assert.AreEqual(PipelineKind.PingPong, actual.Kind);
+
+			sinceSceneStart = 5.1f;
+			((IUpdatable)actual.Get(0)).Update();
+
+			sinceSceneStart += 5.1f;
+			((IUpdatable)actual.Get(1)).Update();
+		}
     }
 }

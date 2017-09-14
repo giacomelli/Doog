@@ -173,5 +173,21 @@ namespace Snake.Framework.UnitTests.Geometry
 
             Assert.AreEqual(new Rectangle(5, 10, 550, 200), actual);
 		}
+
+		[Test]
+		public void SumOperator_Point_LeftTopAndSize()
+		{
+			var actual = new Rectangle(1, 2, 3, 4) + new Point(10, 20);
+
+			Assert.AreEqual(new Rectangle(11, 22, 13, 24), actual);
+		}
+
+		[Test]
+		public void ToString_NoArgs_LeftTopAndSize()
+		{
+			var actual = new Rectangle(1, 2, 3, 4) ;
+
+            Assert.AreEqual("1, 2 | 3, 4", actual.ToString());
+		}
 	}
 }
