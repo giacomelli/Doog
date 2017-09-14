@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Snake.Framework.Geometry;
 
 namespace Snake.Framework.Physics
 {
@@ -66,25 +67,32 @@ namespace Snake.Framework.Physics
 
 		private void FindCollisions(Func<ICollidable, ICollidable, bool> found)
 		{
-			for (int i = 0; i < collidables.Count; i++)
+            var count = collidables.Count;
+            ICollidable collidable1;
+            ICollidable collidable2;
+            Rectangle collidable1BoundingBox;
+
+		    for (int i = 0; i < count; i++)
 			{
-				var collidable1 = collidables[i];
+				collidable1 = collidables[i];
 
 				if (!collidable1.Enabled)
 				{
 					continue;
 				}
 
-				for (int j = i + 1; j < collidables.Count; j++)
+                collidable1BoundingBox = collidable1.Transform.BoundingBox;
+
+				for (int j = i + 1; j < count; j++)
 				{
-					var collidable2 = collidables[j];
+					collidable2 = collidables[j];
 
 					if (!collidable2.Enabled)
 					{
 						continue;
 					}
 
-					if (collidable1.Transform.Intersect(collidable2.Transform))
+					if (collidable1BoundingBox.Intersect(collidable2.Transform.BoundingBox))
 					{
 						if (!found(collidable1, collidable2))
 						{

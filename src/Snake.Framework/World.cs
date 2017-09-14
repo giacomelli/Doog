@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Snake.Framework.Animations;
 using Snake.Framework.Behaviors;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
@@ -26,8 +24,14 @@ namespace Snake.Framework
 		private IList<IComponent> componentsToRemove;
 		private IScene pendingSceneToOpen;
         private Time time;
+        private Action exitAction;
 
-		public virtual void Initialize(IGraphicSystem graphicSystem, IPhysicSystem physicSystem, ITextSystem textSystem, IInputSystem inputSystem)
+		public virtual void Initialize(
+            IGraphicSystem graphicSystem, 
+            IPhysicSystem physicSystem, 
+            ITextSystem textSystem,
+            IInputSystem inputSystem,
+            Action exitAction)
 		{
 			Components = new List<IComponent>();
 			componentsToRemove = new List<IComponent>();
@@ -38,23 +42,26 @@ namespace Snake.Framework
 			pendingSceneToOpen = new NullScene(this);
 
 			graphicSystem.Initialize();
-			drawContext = new DrawContext(graphicSystem);
+			textSystem.Initialize();
+
+			drawContext = new DrawContext(graphicSystem, textSystem);
 			GraphicSystem = graphicSystem;
-            
-			Bounds = graphicSystem.Bounds;
+
+			Bounds = Bounds == Rectangle.Zero ? graphicSystem.Bounds : Bounds;
 			PhysicSystem = physicSystem;
 
-			textSystem.Initialize();
-			TextSystem = textSystem;
-
-            LogSystem = new NullLogSystem();
+	        LogSystem = new NullLogSystem();
+           
+            FontSystem = textSystem;
 
             InputSystem = inputSystem;
+
+            this.exitAction = exitAction;
 		}
 
 		public IScene CurrentScene { get; private set; }
 
-		public Rectangle Bounds { get; private set; }
+		public Rectangle Bounds { get; protected set; }
 
         public ITime Time
         {
@@ -70,9 +77,9 @@ namespace Snake.Framework
 
 		public IPhysicSystem PhysicSystem { get; private set; }
 
-		public ITextSystem TextSystem { get; private set; }
+	    public ILogSystem LogSystem { get; set; }
 
-        public ILogSystem LogSystem { get; set; }
+		public IFontSystem FontSystem { get; private set; }
 
 		public IList<IComponent> Components { get; private set; }
 
@@ -171,11 +178,15 @@ namespace Snake.Framework
 			updatablesCount = updatables.Count;
 			drawablesCount = drawables.Count;
 
+            IUpdatable current;
+
 			for (int i = 0; i < updatablesCount; i++)
 			{
-				if (updatables[i].Enabled)
+                current = updatables[i];
+
+				if (current.Enabled)
 				{
-					updatables[i].Update();
+					current.Update();
 				}
 			}
 
@@ -185,17 +196,26 @@ namespace Snake.Framework
 
 		public void Draw()
 		{
-			CurrentScene.Draw(drawContext);
+		    IDrawable current;
 
 			for (int i = 0; i < drawablesCount; i++)
 			{
-				if (drawables[i].Enabled)
+                current = drawables[i];
+
+				if (current.Enabled)
 				{
-					drawables[i].Draw(drawContext);
+					current.Draw(drawContext);
 				}
 			}
 
+			CurrentScene.Draw(drawContext);
+
 			GraphicSystem.Render();
 		}
+
+        public void Exit()
+        {
+            this.exitAction();
+        }
 	}
 }

@@ -3,6 +3,7 @@ using System;
 using Snake.Framework.Diagnostics;
 using Rhino.Mocks;
 using Snake.Framework.Texts;
+using Snake.Framework.Graphics;
 
 namespace Snake.Framework.UnitTests.Diagnostics
 {
@@ -10,7 +11,7 @@ namespace Snake.Framework.UnitTests.Diagnostics
     public class WorldStatsConsoleTest
     {
         [Test]
-        public void Update_World_TextsDrawn()
+        public void Draw_Context_TextsDrawn()
         {
 			var ctx = MockRepository.GenerateMock<IWorldContext>();
 			ctx.Expect(c => c.Components).Return(new IComponent[]
@@ -18,11 +19,20 @@ namespace Snake.Framework.UnitTests.Diagnostics
 				MockRepository.GenerateMock<IComponent>(),
 				MockRepository.GenerateMock<IComponent>()
 			});
-			ctx.Expect(c => c.TextSystem).Return(MockRepository.GenerateMock<ITextSystem>());
+
+            var ts = MockRepository.GenerateMock<ITextSystem>();
+            var drawCtx = MockRepository.GenerateMock<IDrawContext>();
+            ts.Expect(x => x.Draw(0, 0, null)).IgnoreArguments().Return(ts);
+			drawCtx.Expect(c => c.TextSystem).Return(ts);
+
+            var time = new Time();
+            time.MarkAsGameStarted(DateTime.Now);
+            time.MarkAsSceneStarted(DateTime.Now);
+            ctx.Expect(c => c.Time).Return(time);
 
 			var target = WorldStatsConsole.Create(10, 20, ctx);
            
-            target.Update();
+            target.Draw(drawCtx);
             Assert.IsTrue(target.CanSurvive(null, null));
         }
     }

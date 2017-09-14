@@ -6,41 +6,31 @@ namespace Snake.Framework.Animations
     /// <summary>
     /// A position animation.
     /// </summary>
-    public class PositionAnimation : AnimationBase<Transform>
+    public class PositionAnimation : AnimationBase<Transform, Point>
     {
-        private Point from;
-        private Point to;
-
-        public PositionAnimation(Transform owner, string name, Point to, float duration)
-            : base(owner, name, duration)
+        public PositionAnimation(Transform owner, Point to, float duration)
+            : base(owner, duration)
         {
-            this.to = to;
+            To = to;
         }
 
         public override void Play()
         {
-            this.from = Owner.Position;
+            From = Owner.Position;
             base.Play();
         }
 
         protected override void UpdateValue(float time)
         {
-            Owner.Position = new Point(
-                Easing.Calculate(from.X, to.X, time),
-                Easing.Calculate(from.Y, to.Y, time));
-        }
+			Owner.Position = new Point(
+			     Easing.Calculate(From.X, To.X, time),
+			     Easing.Calculate(From.Y, To.Y, time));
+		}
 
         public override void Reset()
         {
-            Owner.Position = from;
+            Owner.Position = From;
             base.Reset();
-        }
-
-        public override void Reverse()
-        {
-            var temp = from;
-            from = to;
-            to = temp;
         }
     }
 }

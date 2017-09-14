@@ -5,24 +5,37 @@ using Snake.Framework.Physics;
 
 namespace Snake.Game
 {
-	public class Food : ComponentBase, IDrawable, ICollidable
+	public class Food : RectangleComponent, IDrawable, ICollidable
 	{
+        public static readonly Point DefaultScale = Point.Zero;
+
 		public Food(IWorldContext context)
-            : base(context)
+            : base(0, 0, context)
 		{
-			Transform = new Transform(context);
+            Sprite = 'o';
+            Transform.Scale = DefaultScale;
+     	}
+
+  		public void OnCollision(Collision collision)
+		{
+            var otherTag = collision.Other.Tag;
+
+            if (otherTag != "Food" &&  otherTag != "Snake")
+            {
+                Enabled = false;
+            }
 		}
 
-		public Transform Transform { get; private set; }
+        protected override void OnEnabled()
+        {
+            base.OnEnabled();
+            Transform.Enabled = true;
+        }
 
-		public void Draw(IDrawContext context)
-		{
-			context.Canvas.Draw(Transform, '$');
-		}
-
-		public void OnCollision(Collision collision)
-		{
-			Enabled = false;
-		}
+        protected override void OnDisabled()
+        {
+            base.OnDisabled();
+            Transform.Enabled = false;
+        }
 	}
 }

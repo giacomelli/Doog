@@ -1,39 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Snake.Framework.Geometry;
 
 namespace Snake.Framework.Animations
 {
-    public enum PipelineKind
-    {
-        Once = 0,
-        Loop,
-        PingPong
-    }
-
-    public class AnimationPipeline<TOwner>
+    internal class AnimationPipeline<TOwner> : IAnimationPipeline<TOwner>
         where TOwner : IComponent
     {
         private List<IAnimation<TOwner>> animations;
         private int currentAnimationIndex;
-        private PipelineKind kind = PipelineKind.Once;
-        private int runTimes;
+        private IAnimation currentAnimation;
+        private IAnimationPipelineController controller;
+        private int currentTimes;
+        private int maxTimes;
+        private int timesDivider;
 
-        private AnimationPipeline()
+        protected AnimationPipeline()
         {
             animations = new List<IAnimation<TOwner>>();
+            Kind = PipelineKind.Once;
+            Direction = PipelineDirection.Forward;
         }
 
-        public TOwner Owner { get; private set; }
+        public TOwner Owner { get; protected set; }
+        public PipelineKind Kind { get; private set; }
+        public PipelineDirection Direction { get; private set; }
+       
+        public int Length 
+        {
+            get 
+            {
+                return animations.Count;
+            }
+        }
+
+        public virtual AnimationState State
+        {
+            get
+            {
+                return currentAnimation == null ? AnimationState.Stopped : currentAnimation.State;
+            }
+        }
 
         public static AnimationPipeline<TOwner> Create(IAnimation<TOwner> firstAnimation)
         {
             var pipeline = new AnimationPipeline<TOwner>();
             pipeline.Add(firstAnimation);
-			pipeline.Owner = firstAnimation.Owner;
+            pipeline.Owner = firstAnimation.Owner;
+            pipeline.currentAnimation = firstAnimation;
 
-			return pipeline;
+            return pipeline;
         }
 
         public void Add(IAnimation<TOwner> animation)
@@ -41,56 +56,137 @@ namespace Snake.Framework.Animations
             animations.Add(animation);
         }
 
-        public void Join(AnimationPipeline<TOwner> other)
+        public IAnimation<TOwner> Get(int index)
         {
-            foreach (var a in other.animations)
-            {
-                Add(a);
-            }
+            return animations[index];
         }
 
-        private void Run()
+        protected virtual void Run()
         {
-            runTimes++;
+            currentTimes++;
             currentAnimationIndex = 0;
             PlayCurrent();
         }
 
-        public void Once()
+        public IAnimationPipelineController Once()
         {
-            kind = PipelineKind.Once;
-            Run();
+            return Run(PipelineKind.Once);
+        }
+
+        public IAnimationPipelineController Loop(int maxTimes = 0)
+        {
+            this.maxTimes = maxTimes;
+            timesDivider = 1;
+            return Run(PipelineKind.Loop);
+        }
+
+        public IAnimationPipelineController PingPong(int maxTimes = 0)
+        {
+            this.maxTimes = maxTimes;
+            timesDivider = 2;
+            return Run(PipelineKind.PingPong);
+        }
+
+        public virtual void Pause()
+        {
+            if (currentAnimation != null)
+            {
+                currentAnimation.Pause();
+            }
+        }
+
+        public virtual void Resume()
+        {
+            if (currentAnimation != null)
+            {
+                currentAnimation.Resume();
+            }
+        }
+
+        public virtual void Destroy()
+        {
+            if (animations.Count > 0)
+            {
+                currentAnimation.Pause();
+                currentAnimation = null;
+            
+                foreach (var a in animations)
+                {
+                    var component = a as IComponent;
+
+                    if (component != null)
+                    {
+                        component.Enabled = false;
+                        a.Owner.Context.RemoveComponent(component);
+                    }
+                }
+
+                animations.Clear();
+
+                if (controller != null)
+                {
+                    controller.Destroy();
+                }
+            }
         }
 
         private void PlayCurrent()
         {
-            var current = animations[currentAnimationIndex];
-            current.Ended -= CurrentAnimationEnded;
-            current.Ended += CurrentAnimationEnded;
-
-            Log("Playing animation {0}", current.Name);
-
-            if (runTimes > 1)
+            currentAnimation = animations[currentAnimationIndex];
+           
+            // Looking for an animation that can be played in pipeline current direction.
+            while(!CanPlay(currentAnimation))
             {
-                switch (kind)
+                currentAnimationIndex++;
+
+                if(currentAnimationIndex >= animations.Count)
+                {
+                    // There is no more animations.
+                    CurrentAnimationEnded(currentAnimation, EventArgs.Empty);
+                    return;
+                }
+                else 
+                {
+                    currentAnimation = animations[currentAnimationIndex];
+                }
+            }
+
+            currentAnimation.Ended -= CurrentAnimationEnded;
+            currentAnimation.Ended += CurrentAnimationEnded;
+
+            Log("Playing animation {0}", currentAnimation);
+
+            if (currentTimes > 1)
+            {
+                switch (Kind)
                 {
                     case PipelineKind.Loop:
-                        current.Reset();
+                        currentAnimation.Reset();
                         break;
 
                     case PipelineKind.PingPong:
-                        current.Reverse();
+                        currentAnimation.Reverse();
                         break;
                 }
             }
 
-            current.Play();
+            currentAnimation.Play();
         }
 
-        void CurrentAnimationEnded(object sender, EventArgs e)
+        private bool CanPlay(IAnimation animation)
+        {
+            var animationDirection = animation.Direction;
+
+            return animationDirection == AnimationDirection.Any
+                || (animationDirection == AnimationDirection.Forward && Direction == PipelineDirection.Forward)
+                || (animationDirection == AnimationDirection.Backward && Direction == PipelineDirection.Backward);
+
+        }
+
+        private void CurrentAnimationEnded(object sender, EventArgs e)
         {
             var animation = (IAnimation)sender;
-            Log("Animation {0} ended.", animation.Name);
+            Log("Animation {0} ended.", animation);
 
             animation.Ended -= CurrentAnimationEnded;
 
@@ -101,36 +197,53 @@ namespace Snake.Framework.Animations
             }
             else
             {
-                switch (kind)
+                // Loop or PingPong with maxTimes.
+                if (maxTimes > 0 && currentTimes / timesDivider == maxTimes)
                 {
-                    case PipelineKind.Loop:
-                        Log("loop");
-                        Run();
-                        break;
+                    Destroy();
+                }
+                else
+                {
+                    switch (Kind)
+                    {
+                        case PipelineKind.Loop:
+                            Log("loop");
+                            Run();
+                            break;
 
-                    case PipelineKind.PingPong:
-                        Log("ping-pong");
-                        animations.Reverse();
-                        Run();
-                        break;
+                        case PipelineKind.PingPong:
+                            Log("ping-pong");
+                            animations.Reverse();
+                            Direction = Direction == PipelineDirection.Forward
+                                                   ? PipelineDirection.Backward
+                                                   : PipelineDirection.Forward;
 
-                    default:
-                        Log("ended");
-                        break;
+                            Run();
+                            break;
+
+                        case PipelineKind.Once:
+                            Destroy();
+                            Log("ended");
+                            break;
+                    }
                 }
             }
         }
 
-        public void PingPong()
+        private IAnimationPipelineController Run(PipelineKind kind)
         {
-            kind = PipelineKind.PingPong;
-            Run();
-        }
+            if (controller == null)
+            {
+                controller = new AnimationPipelineController<TOwner>(this);
+                this.Kind = kind;
+                Run();
 
-        public void Loop()
-        {
-            kind = PipelineKind.Loop;
-            Run();
+                return controller;
+            }
+            else
+            {
+                throw new InvalidOperationException("You can call Once/Loop/PingPong just once by pipeline.");
+            }
         }
 
         private void Log(string message, params object[] args)

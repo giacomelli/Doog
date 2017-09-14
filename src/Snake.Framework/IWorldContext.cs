@@ -16,11 +16,11 @@ namespace Snake.Framework
 
         IPhysicSystem PhysicSystem { get; }
 
-        ITextSystem TextSystem { get; }
-
         ILogSystem LogSystem { get; }
 
-        Rectangle Bounds { get; }
+        IFontSystem FontSystem { get; }
+
+		Rectangle Bounds { get; }
 
         ITime Time { get; }
 
@@ -31,5 +31,7 @@ namespace Snake.Framework
 		void RemoveComponent(IComponent component);
 
 		void OpenScene(IScene scene);
-	}
+
+        void Exit();
+    }
 }

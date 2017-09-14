@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 using Snake.Framework.Behaviors;
+using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 
 namespace Snake.Framework.UnitTests
@@ -52,6 +53,12 @@ namespace Snake.Framework.UnitTests
             var actual2 = target.GetWithTag("Tag2");
 			Assert.AreEqual(1, actual2.Count());
 			Assert.AreSame(c2, actual2.First());
+
+			var actual3 = target.GetWithTag("Tag2", "Tag1");
+			Assert.AreEqual(3, actual3.Count());
+			Assert.AreSame(c1, actual3.First());
+            Assert.AreSame(c2, actual3.Skip(1).First());
+            Assert.AreSame(c3, actual3.Last());
 		}
 
 		[Test]
@@ -69,6 +76,13 @@ namespace Snake.Framework.UnitTests
 			var actual2 = target.GetWithoutTag("Tag1");
 			Assert.AreEqual(1, actual2.Count());
 			Assert.AreSame(c2, actual2.First());
+
+			var actual3 = target.GetWithoutTag("Tag1", "Tag3");
+			Assert.AreEqual(1, actual3.Count());
+			Assert.AreSame(c2, actual3.First());
+
+			var actual4 = target.GetWithoutTag("Tag1", "Tag2");
+			Assert.AreEqual(0, actual4.Count());
 		}
 
 		[Test]
@@ -95,6 +109,14 @@ namespace Snake.Framework.UnitTests
 			c1.VerifyAllExpectations();
 			c2.VerifyAllExpectations();
 			c3.VerifyAllExpectations();
+		}
+
+		[Test]
+		public void GetOne_Type_FirtsOne()
+		{
+            Assert.AreSame(c2, target.GetOne<IDrawable>());
+            Assert.AreSame(c1, target.GetOne<IUpdatable>());
+            Assert.IsNull(target.GetOne<Transform>());
 		}
     }
 }

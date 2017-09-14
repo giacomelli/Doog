@@ -15,12 +15,14 @@ namespace Snake.Framework
         public float SinceGameStart { get; private set; }
         public float SinceSceneStart { get; private set; }
         public float SinceLastFrame { get; private set; }
+        public DateTime Now { get; private set; }
 
         public void Update(DateTime now)
         {
+            Now = now;
             var ticks = now.Ticks;
 
-            if (gameStartedTicks.HasValue)
+            if (ticks != lastFrameTicks && gameStartedTicks.HasValue)
             {
                 SinceGameStart = (float)(ticks - gameStartedTicks.Value) / TimeSpan.TicksPerSecond;
 

@@ -1,68 +1,128 @@
 using System;
+using Snake.Framework.Geometry;
+using Snake.Framework;
 
-namespace Snake.Framework.Geometry
+/// <summary>
+/// Rectangle extension methods.
+/// </summary>
+public static class RectangleExtensions
 {
-	/// <summary>
-	/// IntRectangle extension methods.
-	/// </summary>
-	public static class RectangleExtensions
-	{
-		private static readonly Random rnd = new Random(DateTime.UtcNow.Millisecond);
+    public static Point RandomPoint(this Rectangle rect)
+    {
+        return new Point(
+            rect.Left + 1f.Rand() * rect.Width,
+            rect.Top + 1f.Rand() * rect.Height);
+    }
 
-		public static Point RandomPoint(this Rectangle rect)
-		{
-			return new Point(
-                   (float) rnd.NextDouble() * (rect.Right - rect.Left),
-                (float) rnd.NextDouble() * (rect.Bottom - rect.Top)
-				);
-		}
+    public static Point LeftTopPoint(this Rectangle rect)
+    {
+        return new Point(rect.Left, rect.Top);
+    }
 
-        public static Point LeftTopPoint(this Rectangle rect)
+    public static Point RightTopPoint(this Rectangle rect)
+    {
+        return new Point(rect.Right, rect.Top);
+    }
+
+    public static Point RightCenterPoint(this Rectangle rect)
+    {
+        return new Point(rect.Right, rect.Top + rect.Height / 2);
+    }
+
+    public static Point RightBottomPoint(this Rectangle rect)
+    {
+        return new Point(rect.Right, rect.Bottom);
+    }
+
+    public static Point LeftBottomPoint(this Rectangle rect)
+    {
+        return new Point(rect.Left, rect.Bottom);
+    }
+
+    public static Point LeftCenterPoint(this Rectangle rect)
+    {
+        return new Point(rect.Left, rect.Top + rect.Height / 2);
+    }
+
+    public static Point BottomCenterPoint(this Rectangle rect)
+    {
+        return new Point(rect.Left + rect.Width / 2f, rect.Bottom);
+    }
+
+    public static Point TopCenterPoint(this Rectangle rect)
+    {
+        return new Point(rect.Left + rect.Width / 2f, rect.Top);
+    }
+
+    public static bool Contains(this Rectangle rect, float x, float y)
+    {
+        return rect.Contains(new Point(x, y));
+    }
+
+    public static bool IsXBorder(this Rectangle rect, float x)
+    {
+        return x.EqualsTo(rect.Left) || (x >= rect.Right && x <= rect.Right);
+    }
+
+    public static bool IsYBorder(this Rectangle rect, float y)
+    {
+        return y.EqualsTo(rect.Top) || (y >= rect.Bottom && y <= rect.Bottom);
+    }
+
+    public static bool IsBorder(this Rectangle rect, float x, float y)
+    {
+        return rect.IsXBorder(x) || rect.IsYBorder(y);
+    }
+
+    // https://stackoverflow.com/a/23561713/956886
+    public static void Iterate(this Rectangle rect, bool filled, Action<float, float> step)
+    {
+        if (rect.Width <= 0 && rect.Height <= 0)
         {
-            return new Point(rect.Left, rect.Top);
+            // Only one point.
+            step(rect.Left, rect.Top);
         }
-
-		public static Point RightTopPoint(this Rectangle rect)
-		{
-			return new Point(rect.Right, rect.Top);
-		}
-
-		public static Point RightBottomPoint(this Rectangle rect)
+        else if (rect.Height <= 0)
         {
-            return new Point(rect.Right, rect.Bottom);
-
+            // Only top line.
+            new Line(rect.LeftTop, rect.RightTop)
+                .Iterate(step);
         }
-
-        public static Point LeftBottomPoint(this Rectangle rect)
-		{
-			return new Point(rect.Left, rect.Bottom);
-
-		}
-	
-        public static bool Contains(this Rectangle rect, Point point)
-		{
-			return rect.Contains(point.X, point.Y);
-		}
-
-        public static bool IsXBorder(this Rectangle rect, float x)
+        else if (rect.Width <= 0)
         {
-            return x.EqualsTo(rect.Left) || x.EqualsTo(rect.Right - 1);    
+            // Only left line.
+            new Line(rect.LeftTop, rect.LeftBottom)
+                .Iterate(step);
         }
-
-		public static bool IsYBorder(this Rectangle rect, float y)
-		{
-			return y.EqualsTo(rect.Top) || y.EqualsTo(rect.Bottom - 1);
-		}
-
-        public static void Iterate(this Rectangle rect, Action<float, float> step, float stepSize = 1f)
+        else
         {
-            for (var x = rect.Left; x < rect.Right; x += stepSize)
+            if (filled)
             {
-				for (var y = rect.Top; y < rect.Bottom; y += stepSize)
-				{
-                    step(x, y);
-				}
+                var topLine = new Line(rect.LeftTop, rect.RightTop);
+                var bottomLine = new Line(rect.LeftBottom, rect.RightBottom);
+          
+                // TODO: look for a better way to do this.
+                topLine.Iterate((x1, y1) =>
+                {
+                    bottomLine.Iterate((x2, y2) =>
+                    {
+                        var verticalLine = new Line(x1, y1, x2, y2);
+                        verticalLine.Iterate(step);
+                    });
+                });
+            }
+            else
+            {
+                var topLine = new Line(rect.LeftTop, rect.RightTop);
+                var rightLine = new Line(rect.RightTop, rect.RightBottom);
+                var bottomLine = new Line(rect.RightBottom, rect.LeftBottom);
+                var leftLine = new Line(rect.LeftBottom, rect.LeftTop);
+                topLine.Iterate(step);
+                rightLine.Iterate(step);
+                bottomLine.Iterate(step);
+                leftLine.Iterate(step);
             }
         }
-	}
+    }
 }
+

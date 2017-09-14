@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using Snake.Framework.Geometry;
-using Snake.Framework.Logging;
 using Snake.Framework.Physics;
 using Snake.Framework.Texts.Map;
 using Snake.Game;
@@ -15,9 +14,6 @@ namespace Snake.Runners.Console
     {
         private static void Main(string[] args)
         {
-            var fps = 60f;
-            var sleepTime = (int)Math.Round(1000f / fps);
-
             using (var game = new SnakeGame())
             {
                 var gs = new GraphicSystem();
@@ -27,27 +23,48 @@ namespace Snake.Runners.Console
                     gs,
                     new PhysicSystem(),
                     ts,
-                    inputSystem);
+		    inputSystem,
+                    () => Environment.Exit(0));
 
                 if (args.Contains("file-log"))
                 {
-                    game.LogSystem = new FileLogSystem(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt"));
+                    game.LogSystem = new FileLogSystem(
+                        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt"),
+                        game);
                 }
-				else if (args.Contains("console-log"))
-				{
-					game.LogSystem = new ConsoleLogSystem(
-					    new Rectangle(1, gs.Bounds.Bottom * 0.8f, gs.Bounds.Right -1, gs.Bounds.Bottom -1), 
-				    	game);
-				}
+                else if (args.Contains("console-log"))
+                {
+                    var b = game.Bounds;
+                    game.LogSystem = new ConsoleLogSystem(
+                        new Rectangle(b.Left + 1, b.Bottom * 0.8f, b.Width - 1, (b.Height * 0.2f)),
+                        game);
+                }
+
+                // TODO: this should be moved to game loop inside the World class.
+                // There are samples how to implement it on chapter GAME LOOP.
+                // The game loop bellow is the "Fixed update time step, variable rendering.
+                var secondsPerFrame = 1f / 120;
+                var previous = DateTime.Now;
+                var lag = 0.0;
+
+                game.Update(previous);
 
                 for (;;)
                 {
-                    game.Update(DateTime.Now);
-                    game.Draw();
+                    var current = DateTime.Now;
+                    var elapsed = current - previous;
+                    previous = current;
+                    lag += elapsed.TotalSeconds;
 
-                    // TODO: this should be moved to game loop inside the World class.
-                    // There are samples how to implement it on chapter GAME LOOP.
-                    Thread.Sleep(sleepTime);
+                    // game.ProcessInput();
+
+                    while(lag >= secondsPerFrame)
+                    {
+                        game.Update(current);
+                        lag -= secondsPerFrame;
+                    }
+
+                    game.Draw();
                 }
             }
         }

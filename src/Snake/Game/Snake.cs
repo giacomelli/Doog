@@ -3,34 +3,48 @@ using Snake.Framework;
 using Snake.Framework.Behaviors;
 using Snake.Framework.Geometry;
 using Snake.Framework.Behaviors.Commands;
+using Snake.Framework.Physics;
 
 namespace Snake.Game
 {
-    public class Snake : ComponentBase, IUpdatable
+    public sealed class Snake : ComponentBase, IUpdatable, ITransformable, ICollidable
     {
+        private const float MaxSpeed = 20;
+        private const float Acceleration = 0.25f;
+        public EventHandler FoodEaten;
+        public EventHandler Died;
+
         private readonly ICommandReader m_commandReader;
-        private SnakeTile head;
         private SnakeTile tail;
         private int movingDirectionX;
         private int movingDirectionY;
         private Rectangle bounds;
-
-        public bool Dead { get; set; }
-        public int FoodsEatenCount { get; private set; }
-        public float Speed { get; set; }
+        private float speed;
 
         public Snake(IWorldContext context, ICommandReader commandReader)
             : base(context)
         {
             bounds = context.Bounds;
-            Speed = 10f;
             m_commandReader = commandReader;
         }
 
-        public void Initialize(int x, int y, int length)
+        public Transform Transform
+        {
+            get
+            {
+                return Head.Transform;
+            }
+        }
+
+		public bool Dead { get; set; }
+		public int FoodsEatenCount { get; private set; }
+		public SnakeTile Head { get; private set; }
+       
+		public void Initialize(float x, float y, int length)
         {
             movingDirectionX = 1;
             movingDirectionY = 0;
+            speed = length;
             Deploy(x, y, length);
         }
 
@@ -42,29 +56,33 @@ namespace Snake.Game
             }
             
             Move();
+
+            if (!Context.Bounds.Contains(Head.Transform.Position))
+            {
+                OnDied();
+            }
         }
 
         private float lastPositionChangeTime = 0;
 
         private void Move()
         {
-            var hpos = head.Transform.Position.Round();
+            var hpos = Head.Transform.Position.Round();
             var newPosition = Point.Lerp(
                 hpos,
                 new Point(hpos.X + movingDirectionX, hpos.Y + movingDirectionY),
-                (Context.Time.SinceSceneStart - lastPositionChangeTime) * Speed)
+                (Context.Time.SinceSceneStart - lastPositionChangeTime) * speed)
                 .Round();
 
             if (newPosition != hpos)
             {
-                Log.Debug("Position changed {0} : {1}", hpos, newPosition);
-
-                tail.CopyPosition(head);
+                Head.Sprite = SnakeTile.BodySprite;
                 tail.Transform.Position = newPosition;
-                head.Next = tail;
-                head = tail;
+                Head.Next = tail;
+                Head = tail;
                 tail = tail.Next;
-                head.Next = null;
+                Head.Next = null;
+                Head.Sprite = SnakeTile.HeadSprite;
 
                 lastPositionChangeTime = Context.Time.SinceSceneStart;
             }
@@ -82,14 +100,14 @@ namespace Snake.Game
 
             tail = CreateTile(x++, y);
             tail.Next = CreateTile(x++, y);
-            head = CreateTile(x++, y);
-            tail.Next.Next = head;
+            Head = CreateTile(x++, y);
+            tail.Next.Next = Head;
             length -= 3;
 
             for (int i = 0; i < length; i++, x++)
             {
-                head.Next = CreateTile(x, y);
-                head = head.Next;
+                Head.Next = CreateTile(x, y);
+                Head = Head.Next;
             }
         }
 
@@ -100,9 +118,9 @@ namespace Snake.Game
                 x,
                 y,
                 Context,
-                () => { EatFood(); },
-                () => { Dead = true; },
-                () => { Dead = true; });
+                EatFood,
+                OnDied,
+                OnDied);
 
             return tile;
         }
@@ -119,11 +137,29 @@ namespace Snake.Game
             tail.Next = temp;
 
             FoodsEatenCount++;
-            Speed++;
 
-            Log.Debug("{0} foods eaten. New speed {1}", FoodsEatenCount, Speed);
+            if (FoodEaten != null)
+            {
+                FoodEaten(this, EventArgs.Empty);
+            }
+
+            if (speed < MaxSpeed)
+            {
+                speed += Acceleration;
+            }
+
+            Log.Debug("{0} foods eaten. New speed {1}", FoodsEatenCount, speed);
         }
 
+        void OnDied()
+        {
+            Dead = true;
+
+            if(Died != null) 
+            {
+                Died(this, EventArgs.Empty);    
+            }
+        }
 
         private void ChangeMovingDirection(int x, int y)
         {
@@ -162,5 +198,10 @@ namespace Snake.Game
                 ChangeMovingDirection(0, 1);
             }
         }
+
+		public void OnCollision(Collision collision)
+		{
+
+		}
     }
 }

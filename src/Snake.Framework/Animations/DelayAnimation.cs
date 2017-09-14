@@ -1,19 +1,30 @@
-﻿namespace Snake.Framework.Animations
+﻿using System;
+
+namespace Snake.Framework.Animations
 {
-    public class DelayAnimation<TComponent> : AnimationBase<TComponent>
+    public class DelayAnimation<TComponent> : AnimationBase<TComponent, float>
         where TComponent : IComponent
     {
-        public DelayAnimation(TComponent owner, string name, float duration)
-            : base(owner, name, duration)
-        {
-        }
+        private Action callback;
 
-        public override void Reverse()
+        public DelayAnimation(TComponent owner, float duration, Action callback = null)
+            : base(owner, duration)
         {
+            this.callback = callback;
         }
 
         protected override void UpdateValue(float time)
         {
+        }
+
+        protected override void OnEnded(EventArgs args)
+        {
+            base.OnEnded(args);
+
+            if (callback != null)
+            {
+                callback();
+            }
         }
     }
 }

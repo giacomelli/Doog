@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace Snake.Framework.Logging
+﻿namespace Snake.Framework.Logging
 {
+    /// <summary>
+    /// An implementation of ILogSystem using null pattern.
+    /// </summary>
     public class NullLogSystem : ILogSystem
     {
         public void Debug(string message, params object[] args)

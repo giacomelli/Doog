@@ -4,6 +4,13 @@ namespace Snake.Framework.Logging
 {
     public abstract class LogSystemBase : ILogSystem, ISceneSurvivable
     {
+        private IWorldContext context;
+
+        protected LogSystemBase(IWorldContext context)
+        {
+            this.context = context;    
+        }
+
 		public virtual void Debug(string message, params object[] args)
 		{
 			Write("DEBUG", message, args);
@@ -24,17 +31,16 @@ namespace Snake.Framework.Logging
 			Write("WARN", message, args);
 		}
 
-		public virtual bool CanSurvive(IScene fromScene, IScene toScene)
+		bool ISceneSurvivable.CanSurvive(IScene fromScene, IScene toScene)
 		{
 			return true;
 		}
 
         protected virtual void Write(string level, string message, params object[] args)
         {
-            Write("{0} ({1:HH:mm:ss}): {2}".With(level, DateTime.Now, message.With(args)));   
+            Write("{0} ({1:HH:mm:ss}): {2}".With(level, context.Time.Now, message.With(args)));   
         }
 
         protected abstract void Write(string fullMessage);
-
     }
 }

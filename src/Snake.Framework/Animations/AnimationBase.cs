@@ -8,35 +8,32 @@ namespace Snake.Framework.Animations
     /// Represents an animation.
     /// </summary>
     [DebuggerDisplay("{Name}: {State}")]
-    public abstract class AnimationBase<TComponent> : ComponentBase, IAnimation<TComponent>, IUpdatable
+    public abstract class AnimationBase<TComponent, TValue> : ComponentBase, IAnimation<TComponent>, IUpdatable
         where TComponent : IComponent
     {
         public event EventHandler Started;
         public event EventHandler Ended;
 
         private float playStartedTime;
-        private float duration;
+        private float pauseStartedTime;
         private IEasing easing;
 
-        protected AnimationBase(TComponent owner, string name, float duration)
+        protected AnimationBase(TComponent owner, float duration)
             : base(owner.Context)
         {
-            Id = new AnimationId(owner, name);
             Owner = owner;
-            Name = name;
-
-            this.duration = duration;
+       
+            this.Duration = duration;
             easing = Animations.Easing.Linear;
             owner.AddChild(this);
             State = AnimationState.NotPlayed;
+            Direction = AnimationDirection.Any;
         }
 
-        public AnimationId Id { get; private set; }
-        public string Name { get; private set; }
-
         public TComponent Owner { get; private set; }
-
         public AnimationState State { get; private set; }
+        public AnimationDirection Direction { get; set; }
+
         public IEasing Easing
         {
             get
@@ -50,48 +47,66 @@ namespace Snake.Framework.Animations
             }
         }
 
-        protected int PlayCount { get; private set; }
+        protected float Duration { get; private set; }
+
+		protected TValue From { get; set; }
+        protected TValue To { get; set; }
 
         public virtual void Play()
         {
-            Log.Debug("{0}: play", Name);
+            if (State == AnimationState.NotPlayed || State == AnimationState.Stopped)
+            {
+                Log.Debug("{0}: play", this);
 
-            PlayCount++;
-            playStartedTime = Context.Time.SinceSceneStart;
-            State = AnimationState.Playing;
+                playStartedTime = Context.Time.SinceSceneStart;
+                State = AnimationState.Playing;
 
-            OnStarted(EventArgs.Empty);
+                OnStarted(EventArgs.Empty);
+            }
         }
 
         public void Pause()
         {
-            Log.Debug("{0}: pause", Name);
-            State = AnimationState.Paused;
+            if (State == AnimationState.Playing)
+            {
+                Log.Debug("{0}: pause", this);
+                pauseStartedTime = Context.Time.SinceSceneStart;
+                State = AnimationState.Paused;
+            }
         }
 
         public void Resume()
         {
-            Log.Debug("{0}: resume", Name);
-            State = AnimationState.Playing;
+            if (State == AnimationState.Paused)
+            {
+                Log.Debug("{0}: resume", this);
+                playStartedTime = Context.Time.SinceSceneStart - (pauseStartedTime - playStartedTime);
+                State = AnimationState.Playing;
+            }
         }
 
         public void Stop()
         {
             if (State != AnimationState.NotPlayed)
             {
-                Log.Debug("{0}: stop", Name);
+                Log.Debug("{0}: stop", this);
                 State = AnimationState.Stopped;
             }
         }
 
         public virtual void Reset()
         {
-            Log.Debug("{0}: reset", Name);
+            Log.Debug("{0}: reset", this);
             playStartedTime = 0;
             State = AnimationState.NotPlayed;
         }
 
-        public abstract void Reverse();
+        public virtual void Reverse()
+        {
+			var temp = From;
+			From = To;
+			To = temp;
+        }
       
         public void Update()
         {
@@ -104,7 +119,7 @@ namespace Snake.Framework.Animations
                     return;
                 }
 
-                var time = elapsed / duration;
+                var time = elapsed / Duration;
 
                 if (time <= 1)
                 {
@@ -112,10 +127,21 @@ namespace Snake.Framework.Animations
                 }
                 else
                 {
+                    UpdateValue(1);
                     Stop();
                     OnEnded(EventArgs.Empty);
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            return "{0}<{1}>({2}..{3} in {4}s)".With(
+                GetType().Name.TrimEnd('`', '1'), 
+                Owner.GetType().Name, 
+                From, 
+                To, 
+                Duration);
         }
 
         protected override void OnEnabled()
@@ -142,8 +168,6 @@ namespace Snake.Framework.Animations
             {
                 Ended(this, args);
             }
-
-
         }
 
         protected abstract void UpdateValue(float time);

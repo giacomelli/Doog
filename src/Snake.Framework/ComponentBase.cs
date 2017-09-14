@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Snake.Framework.Logging;
 
 namespace Snake.Framework
 {
+    [DebuggerDisplay("{Tag}")]
     public abstract class ComponentBase : IComponent
     {
         private IList<IComponent> children;
@@ -27,7 +29,7 @@ namespace Snake.Framework
 		{
 		}
 
-        public bool Enabled
+        public virtual bool Enabled
         {
             get 
             {
@@ -51,7 +53,7 @@ namespace Snake.Framework
                 }    
             }
         }
-		public string Tag { get; protected set; }
+		public string Tag { get; set; }
         public IWorldContext Context { get; private set; }
 
         protected ILogSystem Log 
@@ -74,11 +76,12 @@ namespace Snake.Framework
 
         protected virtual void OnEnabled()
         {
-           
+            Log.Debug("{0} enabled.", this);
         }
 
         protected virtual void OnDisabled()
         {
+            Log.Debug("{0} disabled.", this);
         }
     }
 }

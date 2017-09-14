@@ -71,8 +71,33 @@
     <Compile Include="ComponentExtensionsTest.cs" />
     <Compile Include="SceneBaseTest.cs" />
     <Compile Include="TimeTest.cs" />
-    <Compile Include="Animations\LinearEaseTest.cs" />
     <Compile Include="Geometry\PointExtensionsTest.cs" />
+    <Compile Include="ComponentBaseTest.cs" />
+    <Compile Include="Animations\AnimationPipelineTest.cs" />
+    <Compile Include="Animations\AnimationPipelineControllerTest.cs" />
+    <Compile Include="Animations\DestroyedAnimationPipelineTest.cs" />
+    <Compile Include="Logging\NullLogSystemTest.cs" />
+    <Compile Include="Animations\PositionAnimationTest.cs" />
+    <Compile Include="Animations\FloatAnimationTest.cs" />
+    <Compile Include="Logging\LogSystemBaseTest.cs" />
+    <Compile Include="Logging\StubLogSystem.cs" />
+    <Compile Include="Animations\ComponentExtensionsTest.cs" />
+    <Compile Include="Animations\DelayExtensionsTest.cs" />
+    <Compile Include="Animations\TransformExtensionsTest.cs" />
+    <Compile Include="Animations\AnimationPipelineExtensionsTest.cs" />
+    <Compile Include="Animations\PointAnimationTest.cs" />
+    <Compile Include="Animations\AnimationBaseTest.cs" />
+    <Compile Include="Animations\Easings\EasingTest.cs" />
+    <Compile Include="Geometry\CircleExtensionsTest.cs" />
+    <Compile Include="Geometry\CircleComponentTest.cs" />
+    <Compile Include="Geometry\LineComponentTest.cs" />
+    <Compile Include="Geometry\CircleTest.cs" />
+    <Compile Include="Geometry\TransformExtensionsTest.cs" />
+    <Compile Include="RandomExtensionsTest.cs" />
+    <Compile Include="Animations\RectangleExtensionsTest.cs" />
+    <Compile Include="Geometry\RectangleComponentTest.cs" />
+    <Compile Include="Geometry\LineTest.cs" />
+    <Compile Include="Geometry\LineExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -95,6 +120,8 @@
     <Folder Include="Texts\Map\" />
     <Folder Include="Diagnostics\" />
     <Folder Include="Animations\" />
+    <Folder Include="Logging\" />
+    <Folder Include="Animations\Easings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Avatar.txt">
