@@ -4,7 +4,7 @@ namespace Snake.Game.Commands
 {
     public class MoveDownCommand : CommandBase<Snake>
     {
-        public override void Execute(Snake target)
+        protected override void Execute(Snake target)
         {
             target.MoveDown();
         }
