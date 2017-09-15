@@ -98,6 +98,7 @@
     <Compile Include="Geometry\RectangleComponentTest.cs" />
     <Compile Include="Geometry\LineTest.cs" />
     <Compile Include="Geometry\LineExtensionsTest.cs" />
+    <Compile Include="Behaviors\Commands\CommandBaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -122,6 +123,8 @@
     <Folder Include="Animations\" />
     <Folder Include="Logging\" />
     <Folder Include="Animations\Easings\" />
+    <Folder Include="Behaviors\" />
+    <Folder Include="Behaviors\Commands\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Avatar.txt">
