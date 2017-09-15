@@ -1,4 +1,5 @@
-﻿using Snake.Framework;
+﻿﻿using System;
+using Snake.Framework;
 using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;

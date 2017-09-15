@@ -5,7 +5,10 @@ environment:
   clone_folder: c:\snake
   COVERALLS_REPO_TOKEN:
     secure: IuPjLlnWW2ybi9qyQ3p6+y1loYFlP7NEJjVjM6czrHU4gruHvpjoiMq39E9rQG2F
-    
+
+install:
+- cmd: choco install monogame
+
 before_build:
 - cmd: nuget restore .\src\Snake.sln
 

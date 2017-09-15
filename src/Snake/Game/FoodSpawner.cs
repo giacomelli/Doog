@@ -16,7 +16,7 @@ namespace Snake.Game
         private IAnimationPipelineController[] animControllers;
 
         private FoodSpawner(IWorldContext context)
-            :base(context)
+            : base(context)
         {
             animControllers = new IAnimationPipelineController[foods.Length];
 
