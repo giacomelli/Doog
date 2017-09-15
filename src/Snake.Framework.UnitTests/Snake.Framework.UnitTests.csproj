@@ -99,6 +99,7 @@
     <Compile Include="Geometry\LineTest.cs" />
     <Compile Include="Geometry\LineExtensionsTest.cs" />
     <Compile Include="Behaviors\Commands\CommandBaseTest.cs" />
+    <Compile Include="Input\InputSystemExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -125,6 +126,7 @@
     <Folder Include="Animations\Easings\" />
     <Folder Include="Behaviors\" />
     <Folder Include="Behaviors\Commands\" />
+    <Folder Include="Input\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Avatar.txt">

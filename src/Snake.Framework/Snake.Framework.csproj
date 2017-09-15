@@ -134,6 +134,7 @@
     <Compile Include="RandomExtensions.cs" />
     <Compile Include="Geometry\LineComponent.cs" />
     <Compile Include="Geometry\ILine.cs" />
+    <Compile Include="Input\InputSystemExtensions.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

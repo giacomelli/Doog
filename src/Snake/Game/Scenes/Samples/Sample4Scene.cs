@@ -3,6 +3,7 @@ using Snake.Framework;
 using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
+using Snake.Framework.Input;
 
 namespace Snake.Game.Scenes.Samples
 {
@@ -22,21 +23,9 @@ namespace Snake.Game.Scenes.Samples
 
         public override void Update()
         {
-            if(Console.KeyAvailable)
-            {
-                var key = Console.ReadKey(true).Key;
-
-                switch(key)
-                {
-                    case ConsoleKey.X:
-                        DeployX();
-                        break;
-
-					case ConsoleKey.Y:
-						DeployY();
-						break;
-                }
-            }
+            Context.InputSystem
+                   .IsKeyDown(Keys.X, DeployX)
+                   .IsKeyDown(Keys.Y, DeployY);   
         }
 
         private void DeployY()

@@ -1,4 +1,5 @@
 using System;
+using Snake.Framework.Input;
 
 namespace Snake.Framework
 {
@@ -32,5 +33,30 @@ namespace Snake.Framework
 
             context.OpenScene(scene);
         }
+
+		public static void OpenScene(this IWorldContext context, string name)
+		{
+            var sceneType =  Type.GetType(name) ?? context.GetType().Assembly.GetType(name);
+
+            if (sceneType == null)
+            {
+                throw new ArgumentException("Could not find a scene with name '{0}'".With(name));
+            }
+
+			var scene = Activator.CreateInstance(sceneType, context) as IScene;
+
+			context.OpenScene(scene);
+		}
+
+		public static IWorldContext OpenScene<TScene>(this IWorldContext context, Keys ifKeyIsDown)
+		 where TScene : IScene
+		{
+			if (context.InputSystem.IsKeyDown(ifKeyIsDown))
+			{
+				context.OpenScene<TScene>();
+			}
+
+			return context;
+		}
 	}
 }
