@@ -43,7 +43,6 @@
     <Compile Include="Behaviors\Commands\ICommand.cs" />
     <Compile Include="Behaviors\Commands\ICommandReader.cs" />
     <Compile Include="Behaviors\IUpdatable.cs" />
-    <Compile Include="Collections\CircularQueue.cs" />
     <Compile Include="ComponentBase.cs" />
     <Compile Include="Geometry\Point.cs" />
     <Compile Include="Geometry\RectangleExtensions.cs" />
