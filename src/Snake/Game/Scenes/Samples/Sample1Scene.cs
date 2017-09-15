@@ -1,8 +1,8 @@
-﻿using System;
-using Snake.Framework;
+﻿using Snake.Framework;
 using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
+using Snake.Framework.Input;
 
 namespace Snake.Game.Scenes.Samples
 {
@@ -94,13 +94,13 @@ namespace Snake.Game.Scenes.Samples
             }
 
             // ScaleTo, MoveTo and PingPong
-            new RectangleComponent(140, 1, Context){ Filled = true }.Transform
+            new RectangleComponent(140, 1, Context) { Filled = true }.Transform
                 .ScaleTo(new Point(20, 10), 1, Easing.InExpo)
                 .MoveTo(new Point(140, bounds.Bottom - 10), 2, Easing.InBounce)
                 .PingPong();
 
             // Circle and rectangle
-           var circle = new CircleComponent(new Point(12, 20), 1, Context)
+            var circle = new CircleComponent(new Point(12, 20), 1, Context)
             {
                 Filled = false
             };
@@ -110,79 +110,60 @@ namespace Snake.Game.Scenes.Samples
                 .ScaleTo(30, 3, Easing.InOutQuint)
                 .Do(() => circle.Filled = true).OnlyBackward()
                 .PingPong();
-            
-	    	var rect = new RectangleComponent(circle.Transform.Position, Context)
-			{
-				Filled = false
-			};
 
-			rect.Transform
-				.ScaleTo(30, 3, Easing.InOutQuint)
+            var rect = new RectangleComponent(circle.Transform.Position, Context)
+            {
+                Filled = false
+            };
+
+            rect.Transform
+                .ScaleTo(30, 3, Easing.InOutQuint)
                 .Delay(3)
-				.PingPong();
+                .PingPong();
 
 
-			// Circle and rectangle with pivot centralized.
-			var circleCentralized = new CircleComponent(bounds.GetCenter(), 1, Context)
-			{
-				Filled = false
-			};
+            // Circle and rectangle with pivot centralized.
+            var circleCentralized = new CircleComponent(bounds.GetCenter(), 1, Context)
+            {
+                Filled = false
+            };
 
             circleCentralized.Transform.CentralizePivot()
-				.Do(() => circleCentralized.Filled = false).OnlyForward()
-				.ScaleTo(30, 3, Easing.InOutQuint)
-				.Do(() => circleCentralized.Filled = true).OnlyBackward()
-				.PingPong();
+                .Do(() => circleCentralized.Filled = false).OnlyForward()
+                .ScaleTo(30, 3, Easing.InOutQuint)
+                .Do(() => circleCentralized.Filled = true).OnlyBackward()
+                .PingPong();
 
 
-			var rectCentralized = new RectangleComponent(circleCentralized.Transform.Position, Context)
-			{
-				Filled = false
-			};
+            var rectCentralized = new RectangleComponent(circleCentralized.Transform.Position, Context)
+            {
+                Filled = false
+            };
 
-			rectCentralized.Transform.CentralizePivot()
-				.ScaleTo(30, 3, Easing.InOutQuint)
-				.Delay(3)
-				.PingPong();
+            rectCentralized.Transform.CentralizePivot()
+                .ScaleTo(30, 3, Easing.InOutQuint)
+                .Delay(3)
+                .PingPong();
         }
 
         public override void Update()
         {
-            if (Console.KeyAvailable)
-            {
-                switch (Console.ReadKey(true).Key)
-                {
-                    case ConsoleKey.D1:
-                        ToogleAnimation(controller1);
-                        break;
-
-                    case ConsoleKey.D2:
-                        ToogleAnimation(controller2);
-                        break;
-
-                    case ConsoleKey.D3:
-                        ToogleAnimation(controller1);
-                        ToogleAnimation(controller2);
-                        break;
-
-                    case ConsoleKey.D0:
-                        controller1.Destroy();
-                        controller2.Destroy();
-                        break;
-
-                    case ConsoleKey.D7:
-                        AnimationPipelineController.PauseAll();
-                        break;
-
-                    case ConsoleKey.D8:
-                        AnimationPipelineController.ResumeAll();
-                        break;
-
-                    case ConsoleKey.D9:
-                        AnimationPipelineController.DestroyAll();
-                        break;
-                }
-            }
+            Context.InputSystem
+                   .IsKeyDown(Keys.D1, () => ToogleAnimation(controller1))
+                   .IsKeyDown(Keys.D2, () => ToogleAnimation(controller2))
+                   .IsKeyDown(Keys.D3, () =>
+                   {
+                       ToogleAnimation(controller1);
+                       ToogleAnimation(controller2);
+                   })
+                   .IsKeyDown(Keys.D0, () =>
+                   {
+                       controller1.Destroy();
+                       controller2.Destroy();
+                   })
+                   .IsKeyDown(Keys.D7, () => AnimationPipelineController.PauseAll())
+                   .IsKeyDown(Keys.D8, () => AnimationPipelineController.ResumeAll())
+                   .IsKeyDown(Keys.D9, () => AnimationPipelineController.DestroyAll());
         }
 
         private void ToogleAnimation(IAnimationPipelineController controller)

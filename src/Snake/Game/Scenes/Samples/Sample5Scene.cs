@@ -3,6 +3,7 @@ using Snake.Framework;
 using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
+using Snake.Framework.Input;
 
 namespace Snake.Game.Scenes.Samples
 {
@@ -16,7 +17,7 @@ namespace Snake.Game.Scenes.Samples
         public Sample5Scene(IWorldContext context)
             : base(context)
         {
-            
+
         }
 
         public override void Initialize()
@@ -39,40 +40,33 @@ namespace Snake.Game.Scenes.Samples
 
         public override void Update()
         {
-            if(Console.KeyAvailable)
-            {
-                var key = Console.ReadKey(true).Key;
+            Context.InputSystem
+                   .IsKeyDown(Keys.UpArrow, () =>
+                   {
+                       currentEasingIndex--;
 
-                switch(key)
-                {
-                    case ConsoleKey.UpArrow:
-                        currentEasingIndex--;
+                       if (currentEasingIndex < 0)
+                       {
+                           currentEasingIndex = 0;
+                       }
 
-                        if(currentEasingIndex < 0) 
-                        {
-                            currentEasingIndex = 0;
-                        }
+                       StartAnimation();
+                   })
+                   .IsKeyDown(Keys.DownArrow, () =>
+                   {
+					   currentEasingIndex++;
 
-                        StartAnimation();
-                        break;
-
-					case ConsoleKey.DownArrow:
-                        currentEasingIndex++;
-
-                        if(currentEasingIndex >= Easing.All.Length)
-                        {
-                            currentEasingIndex = Easing.All.Length - 1;
-                        }
-                        StartAnimation();
-
-						break;
-                }
-            }
+					   if (currentEasingIndex >= Easing.All.Length)
+					   {
+						   currentEasingIndex = Easing.All.Length - 1;
+					   }
+					   StartAnimation();
+                   });
         }
 
         public override void Draw(IDrawContext drawContext)
         {
-			drawContext.TextSystem
+            drawContext.TextSystem
                    .DrawCenterX(10, Easing.All[currentEasingIndex].GetType().Name.Replace("Easing", ""))
                    .Draw(1, 1, "Use down and up arrows to navigate between the {0} easings available".With(Easing.All.Length), "Default");
         }
@@ -82,8 +76,8 @@ namespace Snake.Game.Scenes.Samples
             AnimationPipelineController.DestroyAll();
             var easing = Easing.All[currentEasingIndex];
 
-			// Ball.
-			var left = bounds.LeftCenterPoint();
+            // Ball.
+            var left = bounds.LeftCenterPoint();
             var right = bounds.RightCenterPoint() - new Point(20, 0);
             ball.Transform.CentralizePivot();
             ball.Transform.Position = left;
@@ -92,28 +86,28 @@ namespace Snake.Game.Scenes.Samples
 
             var duration = 4f;
 
-			ball.Transform
-				.MoveTo(right, duration, easing)
-				.PingPong();
+            ball.Transform
+                .MoveTo(right, duration, easing)
+                .PingPong();
 
-			ball.Transform
-				.ScaleTo(20, 10, duration, easing)
-				.PingPong();
+            ball.Transform
+                .ScaleTo(20, 10, duration, easing)
+                .PingPong();
 
-			ball.Transform
-			    .RotateTo(360, duration, easing)
-			    .PingPong();
-            
-     		for (int i = 0; i < bar.Length; i++)
-			{
+            ball.Transform
+                .RotateTo(360, duration, easing)
+                .PingPong();
+
+            for (int i = 0; i < bar.Length; i++)
+            {
                 var time = (float)i / (float)bar.Length;
                 var y = easing.Calculate(time);
 
                 bar[i].Transform.Position = new Point(i + bounds.Left, bounds.Bottom);
                 bar[i].Transform
-                      .MoveTo(new Point(i + bounds.Left, bounds.Top +  (1f - y) * (bounds.Height)), duration, easing)
+                      .MoveTo(new Point(i + bounds.Left, bounds.Top + (1f - y) * (bounds.Height)), duration, easing)
                       .Once();
-			}
+            }
         }
     }
 }

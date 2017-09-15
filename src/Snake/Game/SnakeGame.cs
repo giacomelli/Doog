@@ -7,6 +7,7 @@ using Snake.Framework.Logging;
 using Snake.Framework.Physics;
 using Snake.Framework.Texts;
 using Snake.Game.Scenes;
+using Snake.Framework.Input;
 using Snake.Game.Scenes.Samples;
 
 namespace Snake.Game
@@ -19,12 +20,13 @@ namespace Snake.Game
             IGraphicSystem graphicSystem, 
             IPhysicSystem physicSystem, 
             ITextSystem textSystem,
+            IInputSystem inputSystem,
             Action exitAction)
 		{
             var b = graphicSystem.Bounds;
             Bounds = new Rectangle(b.Left + 5, b.Top + 10, b.Width - 10, b.Height -10);
 
-            base.Initialize(graphicSystem, physicSystem, textSystem, exitAction);
+            base.Initialize(graphicSystem, physicSystem, textSystem, inputSystem, exitAction);
          
 			if (Debug.Enabled)
 			{
@@ -32,8 +34,6 @@ namespace Snake.Game
 			}
 
 			this.OpenScene<ClassicModeLevelScene>();
-
-            //this.OpenScene<Sample8Scene>();
 		}
 
 		protected virtual void Dispose(bool disposing)

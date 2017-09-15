@@ -3,6 +3,7 @@ using System;
 using Rhino.Mocks;
 using Snake.Framework.Behaviors;
 using System.Collections.Generic;
+using Snake.Framework.Input;
 
 namespace Snake.Framework.UnitTests
 {
@@ -98,6 +99,41 @@ namespace Snake.Framework.UnitTests
 			ctx.OpenScene<NullScene>();
 
             ctx.VerifyAllExpectations();
+		}
+
+		[Test]
+		public void OpenScene_SceneNameAndSceneDoesNotExists_Exception()
+		{
+			var ctx = MockRepository.GenerateMock<IWorldContext>();
+            var ex = Assert.Catch<ArgumentException>(delegate
+            {
+                ctx.OpenScene("InvalidScene");
+            });
+
+            Assert.AreEqual("Could not find a scene with name 'InvalidScene'", ex.Message);
+		}
+
+		[Test]
+		public void OpenScene_SceneNameAndSceneExists_SceneOpened()
+		{
+			var ctx = MockRepository.GenerateMock<IWorldContext>();
+			ctx.Expect(c => c.OpenScene(Arg<NullScene>.Is.TypeOf));
+			ctx.OpenScene("Snake.Framework.NullScene");
+
+			ctx.VerifyAllExpectations();
+		}
+
+		[Test]
+		public void OpenScene_SceneTypeAndKey_SceneOpenedByKey()
+		{
+			var ctx = MockRepository.GenerateMock<IWorldContext>();
+            var input = MockRepository.GenerateMock<IInputSystem>();
+            ctx.Expect(c => c.InputSystem).Return(input);
+			ctx.Expect(c => c.OpenScene(Arg<NullScene>.Is.TypeOf));
+			ctx.OpenScene<NullScene>(Keys.D1);
+            input.Expect(i => i.IsKeyDown(Keys.D1)).Return(true);
+            ctx.OpenScene<NullScene>(Keys.D1);
+			ctx.VerifyAllExpectations();
 		}
     }
 }

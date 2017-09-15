@@ -6,6 +6,7 @@ using Snake.Framework.Graphics;
 using Snake.Framework.Logging;
 using Snake.Framework.Physics;
 using Snake.Framework.Texts;
+using Snake.Framework.Input;
 
 namespace Snake.Framework.UnitTests
 {
@@ -24,11 +25,12 @@ namespace Snake.Framework.UnitTests
 			graphicSystem = MockRepository.GenerateMock<IGraphicSystem>();
 			physicSystem = MockRepository.GenerateMock<IPhysicSystem>();
 			var textSystem = MockRepository.GenerateMock<ITextSystem>();
+            var inputSystem = MockRepository.GenerateMock<IInputSystem>();
 			textSystem.Expect(t => t.GetFont(null)).IgnoreArguments().Return(MockRepository.GenerateMock<IFont>());
             textSystem.Expect(t => t.Context).Return(MockRepository.GenerateMock<IWorldContext>());
             var logSystem = MockRepository.GenerateMock<ILogSystem>();
             target = new World();
-            target.Initialize(graphicSystem, physicSystem, textSystem, () => exited = true);
+            target.Initialize(graphicSystem, physicSystem, textSystem, inputSystem, () => exited = true);
 		}
 
 		[Test]

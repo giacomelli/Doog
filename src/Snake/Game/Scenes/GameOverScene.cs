@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using System;
-using Snake.Framework;
+﻿using Snake.Framework;
 using Snake.Framework.Graphics;
 using Snake.Game.Scenes.Samples;
 using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
+using Snake.Framework.Input;
 
 namespace Snake.Game.Scenes
 {
@@ -27,68 +26,32 @@ namespace Snake.Game.Scenes
                 Sprite = ' '
             };
 
-            this.Iterate(Context.Bounds,false, 15, Easing.Linear, (x, y) => 
-            {
-                hilightWall.Transform.Position = new Point(x, y);        
-            }).Loop();
+            this.Iterate(Context.Bounds, false, 15, Easing.Linear, (x, y) =>
+             {
+                 hilightWall.Transform.Position = new Point(x, y);
+             }).Loop();
 
-			this.Toogle(false, 1f, Easing.Linear, v => showPressStart = v)
+            this.Toogle(false, 1f, Easing.Linear, v => showPressStart = v)
                 .Loop();
-
-            //var rotationRect = new RectangleComponent(toPoint, 20, Context);
-            //rotationRect.Transform.CentralizePivot();
-            //rotationRect.Transform
-                        //.RotateTo(360, 5, Easing.InOutSin)
-                        //.PingPong();
         }
 
         public override void Update()
         {
-            if (Console.KeyAvailable)
+            if (Context.InputSystem.IsKeyDown(Keys.Q))
             {
-                switch (Console.ReadKey(true).Key)
-                {
-                    case ConsoleKey.Enter:
-                        Context.OpenScene<ClassicModeLevelScene>();
-                        break;
-
-					case ConsoleKey.Q:
-                        Context.Exit();
-						break;
-
-                    case ConsoleKey.D1:
-                        Context.OpenScene<Sample1Scene>();
-                        break;
-
-					case ConsoleKey.D2:
-						Context.OpenScene<Sample2Scene>();
-						break;
-
-					case ConsoleKey.D3:
-						Context.OpenScene<Sample3Scene>();
-						break;
-
-					case ConsoleKey.D4:
-						Context.OpenScene<Sample4Scene>();
-						break;
-
-					case ConsoleKey.D5:
-						Context.OpenScene<Sample5Scene>();
-						break;
-
-					case ConsoleKey.D6:
-						Context.OpenScene<Sample6Scene>();
-						break;
-
-					case ConsoleKey.D7:
-						Context.OpenScene<Sample7Scene>();
-						break;
-
-					case ConsoleKey.D8:
-						Context.OpenScene<Sample8Scene>();
-						break;
-                }
+                Context.Exit();
             }
+
+            Context
+                .OpenScene<ClassicModeLevelScene>(Keys.Enter)
+                .OpenScene<Sample1Scene>(Keys.D1)
+                .OpenScene<Sample2Scene>(Keys.D2)
+                .OpenScene<Sample3Scene>(Keys.D3)
+                .OpenScene<Sample4Scene>(Keys.D4)
+                .OpenScene<Sample5Scene>(Keys.D5)
+                .OpenScene<Sample6Scene>(Keys.D6)
+                .OpenScene<Sample7Scene>(Keys.D7)
+                .OpenScene<Sample8Scene>(Keys.D8);
         }
 
         public override void Draw(IDrawContext drawContext)
@@ -101,6 +64,6 @@ namespace Snake.Game.Scenes
             {
                 drawContext.TextSystem.DrawCenter(0, 5, "Press ENTER to try again or Q to quit", "Default");
             }
-		}
+        }
     }
 }

@@ -3,6 +3,7 @@ using Snake.Framework;
 using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
+using Snake.Game.Commands;
 
 namespace Snake.Game.Scenes
 {
@@ -32,7 +33,7 @@ namespace Snake.Game.Scenes
 
             for (int i = 0; i < MaxSnakes; i++)
             {
-                var snake = new Snake(Context);
+                var snake = new Snake(Context, new KeyboardCommandReader(Context.InputSystem, new KeyBinding()));
                 snake.Initialize(center.X, center.Y + i, 5);
                 snake.Died += delegate
                 {

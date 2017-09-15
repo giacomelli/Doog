@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\Commands\CommandBase.cs" />
+    <Compile Include="Behaviors\Commands\ICommand.cs" />
+    <Compile Include="Behaviors\Commands\ICommandReader.cs" />
     <Compile Include="Behaviors\IUpdatable.cs" />
     <Compile Include="ComponentBase.cs" />
     <Compile Include="Geometry\Point.cs" />
@@ -52,6 +55,8 @@
     <Compile Include="Graphics\IGraphicSystem.cs" />
     <Compile Include="Graphics\IDrawable.cs" />
     <Compile Include="IComponent.cs" />
+    <Compile Include="Input\IInputSystem.cs" />
+    <Compile Include="Input\Keys.cs" />
     <Compile Include="IWorldContext.cs" />
     <Compile Include="IWorld.cs" />
     <Compile Include="Physics\Collision.cs" />
@@ -129,6 +134,7 @@
     <Compile Include="RandomExtensions.cs" />
     <Compile Include="Geometry\LineComponent.cs" />
     <Compile Include="Geometry\ILine.cs" />
+    <Compile Include="Input\InputSystemExtensions.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -3,12 +3,15 @@ using Snake.Framework;
 using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
+using Snake.Framework.Input;
 
 namespace Snake.Game.Scenes.Samples
 {
     public class Sample8Scene : SceneBase
     {
         RectangleComponent interactiveRectangle;
+        IAnimationPipelineController animCtrl;
+
         public Sample8Scene(IWorldContext context)
             : base(context)
         {
@@ -26,16 +29,11 @@ namespace Snake.Game.Scenes.Samples
             interactiveRectangle.Filled = true;
             interactiveRectangle.Transform.CentralizePivot();
 
-            interactiveRectangle.Transform
-                //.Delay(10)
+            animCtrl = interactiveRectangle.Transform
                 .MoveTo(bounds.RightCenterPoint() - new Point(10, 0), 5f, Easing.InBounce)
                 .MoveTo(bounds.LeftCenterPoint() + new Point(10, 0), 5f, Easing.InBounce)
                 .PingPong();
-
-            //interactiveRectangle.Transform
-            //.ScaleTo(40, 20, 5, Easing.InBounce)
-            //.PingPong();
-
+        
             interactiveRectangle.Transform
                 //.Delay(5)
                 .RotateTo(360, 5, Easing.InBounce)
@@ -73,20 +71,11 @@ namespace Snake.Game.Scenes.Samples
 
         public override void Update()
         {
-            if (Console.KeyAvailable)
-            {
-                switch (Console.ReadKey(true).Key)
-                {
-                    case ConsoleKey.LeftArrow:
-                        interactiveRectangle.Transform.Rotation -= 180f * Context.Time.SinceLastFrame;
-                        break;
-
-                    case ConsoleKey.RightArrow:
-                        interactiveRectangle.Transform.Rotation += 180f * Context.Time.SinceLastFrame;
-                        break;
-
-                }
-            }
+            Context.InputSystem
+                   .IsKeyDown(Keys.P, AnimationPipelineController.PauseAll)
+                   .IsKeyDown(Keys.R, AnimationPipelineController.ResumeAll)
+                   .IsKeyDown(Keys.LeftArrow, () => interactiveRectangle.Transform.Rotation -= 180f * Context.Time.SinceLastFrame)
+                   .IsKeyDown(Keys.RightArrow, () => interactiveRectangle.Transform.Rotation += 180f * Context.Time.SinceLastFrame);
         }
 
         public override void Draw(IDrawContext drawContext)
