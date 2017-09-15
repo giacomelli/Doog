@@ -7,6 +7,6 @@
             Execute((TTarget)target);
         }
 
-        public abstract void Execute(TTarget target);
+        protected abstract void Execute(TTarget target);
     }
 }

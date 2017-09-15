@@ -3,6 +3,7 @@ using Snake.Framework;
 using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
+using Snake.Framework.Input;
 
 namespace Snake.Game.Scenes.Samples
 {
@@ -22,14 +23,9 @@ namespace Snake.Game.Scenes.Samples
 
         public override void Update()
         {
-            if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.X))
-            {
-                DeployX();
-            }
-            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.Y))
-            {
-                DeployY();
-            }
+            Context.InputSystem
+                   .IsKeyDown(Keys.X, DeployX)
+                   .IsKeyDown(Keys.Y, DeployY);   
         }
 
         private void DeployY()
@@ -76,9 +72,9 @@ namespace Snake.Game.Scenes.Samples
             }
         }
 
-        public override void Draw(IDrawContext context)
+        public override void Draw(IDrawContext drawContext)
         {
-            Context.TextSystem.Draw(0, 0, "Type X or Y to deploy the animations", "Default");
+            drawContext.TextSystem.Draw(0, 0, "Type X or Y to deploy the animations", "Default");
         }
     }
 }

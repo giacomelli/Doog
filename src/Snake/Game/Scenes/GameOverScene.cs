@@ -1,59 +1,69 @@
-﻿using System.Linq;
-using System;
-using Snake.Framework;
+﻿using Snake.Framework;
 using Snake.Framework.Graphics;
 using Snake.Game.Scenes.Samples;
+using Snake.Framework.Animations;
+using Snake.Framework.Geometry;
+using Snake.Framework.Input;
 
 namespace Snake.Game.Scenes
 {
     public class GameOverScene : SceneBase
     {
-        private int foodEatenCount;
+        private bool showPressStart;
 
         public GameOverScene(IWorldContext context)
             : base(context)
         {
-
         }
 
         public override void Initialize()
         {
-            var snakes = Context.Components.Get<Snake>();
-            foodEatenCount = snakes.First().FoodsEatenCount;
+            Context.RemoveComponentsWithoutTag("Score", "Wall");
+            var toPoint = Context.Bounds.GetCenter();
 
-            Context.RemoveComponentsWithoutTag("Wall");
+            var hilightWall = new RectangleComponent(Point.Zero, Context)
+            {
+                Sprite = ' '
+            };
+
+            this.Iterate(Context.Bounds, false, 15, Easing.Linear, (x, y) =>
+             {
+                 hilightWall.Transform.Position = new Point(x, y);
+             }).Loop();
+
+            this.Toogle(false, 1f, Easing.Linear, v => showPressStart = v)
+                .Loop();
         }
 
         public override void Update()
         {
-            if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.Enter))
+            if (Context.InputSystem.IsKeyDown(Keys.Q))
             {
-                Context.OpenScene<ClassicModeLevelScene>();
+                Context.Exit();
             }
-            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D1))
-            {
-                Context.OpenScene<Sample1Scene>();
-            }
-            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D2))
-            {
-                Context.OpenScene<Sample2Scene>();
-            }
-            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D3))
-            {
-                Context.OpenScene<Sample3Scene>();
-            }
-            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D4))
-            {
-                Context.OpenScene<Sample4Scene>();
-            }
+
+            Context
+                .OpenScene<ClassicModeLevelScene>(Keys.Enter)
+                .OpenScene<Sample1Scene>(Keys.D1)
+                .OpenScene<Sample2Scene>(Keys.D2)
+                .OpenScene<Sample3Scene>(Keys.D3)
+                .OpenScene<Sample4Scene>(Keys.D4)
+                .OpenScene<Sample5Scene>(Keys.D5)
+                .OpenScene<Sample6Scene>(Keys.D6)
+                .OpenScene<Sample7Scene>(Keys.D7)
+                .OpenScene<Sample8Scene>(Keys.D8);
         }
 
-        public override void Draw(IDrawContext context)
+        public override void Draw(IDrawContext drawContext)
         {
-            Context.TextSystem
-                   .DrawCenter("Game over")
-			       .DrawCenter(0, 7, "Score: {0}".With(foodEatenCount), "Default");
+            drawContext.TextSystem
+                   .Draw(Context.Bounds.Left, 3, "Doog's Snake")
+                   .DrawCenter("Game over");
 
-		}
+            if (showPressStart)
+            {
+                drawContext.TextSystem.DrawCenter(0, 5, "Press ENTER to try again or Q to quit", "Default");
+            }
+        }
     }
 }

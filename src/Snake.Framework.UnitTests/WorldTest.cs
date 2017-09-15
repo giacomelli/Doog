@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 using Snake.Framework.Behaviors;
-using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 using Snake.Framework.Logging;
 using Snake.Framework.Physics;
@@ -17,10 +16,12 @@ namespace Snake.Framework.UnitTests
 		private IGraphicSystem graphicSystem;
 		private IPhysicSystem physicSystem;
 		private World target;
+        private bool exited;
 
 		[SetUp]
 		public void InitializeTest()
 		{
+            exited = false;
 			graphicSystem = MockRepository.GenerateMock<IGraphicSystem>();
 			physicSystem = MockRepository.GenerateMock<IPhysicSystem>();
 			var textSystem = MockRepository.GenerateMock<ITextSystem>();
@@ -29,7 +30,7 @@ namespace Snake.Framework.UnitTests
             textSystem.Expect(t => t.Context).Return(MockRepository.GenerateMock<IWorldContext>());
             var logSystem = MockRepository.GenerateMock<ILogSystem>();
             target = new World();
-            target.Initialize(graphicSystem, physicSystem, textSystem, inputSystem);
+            target.Initialize(graphicSystem, physicSystem, textSystem, inputSystem, () => exited = true);
 		}
 
 		[Test]
@@ -237,5 +238,13 @@ namespace Snake.Framework.UnitTests
 			oldComponent2.VerifyAllExpectations();
 			oldComponent3.VerifyAllExpectations();
 		}
+
+        [Test]
+        public void Exit_Called_Exit()
+        {
+            Assert.IsFalse(exited);
+            target.Exit();
+            Assert.IsTrue(exited);
+        }
 	}
 }

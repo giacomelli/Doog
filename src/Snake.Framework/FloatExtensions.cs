@@ -13,6 +13,6 @@ public static class FloatExtensions
     /// <param name="other">The other float,</param>
     public static bool EqualsTo(this float current, float other)
     {
-        return Math.Abs(current - other) <= float.Epsilon;
+        return Math.Abs(current - other) < float.Epsilon;
     }
 }

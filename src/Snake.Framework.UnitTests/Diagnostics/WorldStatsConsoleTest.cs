@@ -3,6 +3,7 @@ using System;
 using Snake.Framework.Diagnostics;
 using Rhino.Mocks;
 using Snake.Framework.Texts;
+using Snake.Framework.Graphics;
 
 namespace Snake.Framework.UnitTests.Diagnostics
 {
@@ -20,8 +21,9 @@ namespace Snake.Framework.UnitTests.Diagnostics
 			});
 
             var ts = MockRepository.GenerateMock<ITextSystem>();
+            var drawCtx = MockRepository.GenerateMock<IDrawContext>();
             ts.Expect(x => x.Draw(0, 0, null)).IgnoreArguments().Return(ts);
-			ctx.Expect(c => c.TextSystem).Return(ts);
+			drawCtx.Expect(c => c.TextSystem).Return(ts);
 
             var time = new Time();
             time.MarkAsGameStarted(DateTime.Now);
@@ -30,7 +32,7 @@ namespace Snake.Framework.UnitTests.Diagnostics
 
 			var target = WorldStatsConsole.Create(10, 20, ctx);
            
-            target.Draw(null);
+            target.Draw(drawCtx);
             Assert.IsTrue(target.CanSurvive(null, null));
         }
     }

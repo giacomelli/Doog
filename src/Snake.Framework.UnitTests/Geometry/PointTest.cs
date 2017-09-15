@@ -34,6 +34,12 @@ namespace Snake.Framework.UnitTests.Geometry
 			Assert.AreEqual(new Point(-3, -4), Point.Lerp(from, to, 1f));
 		}
 
+        [Test]
+        public void Dot_Points_Dot()
+        {
+            Assert.AreEqual(11, Point.Dot(new Point(1, 2), new Point (3, 4)));
+        }
+
 		[Test]
 		public void PlusOperator_AB_PlusValues()
 		{
@@ -52,7 +58,44 @@ namespace Snake.Framework.UnitTests.Geometry
 			Assert.AreEqual(new Point(-4, -3), a - b);
 		}
 
-        [Test]
+		[Test]
+		public void PlusOperator_AFloat_PlusValues()
+		{
+			var a = new Point(-1, 1);
+            var b = 3f;
+
+			Assert.AreEqual(new Point(2, 4), a + b);
+		}
+
+		[Test]
+		public void MinusOperator_AFoat_MinusValues()
+		{
+			var a = new Point(-1, 1);
+            var b = 3f;
+
+			Assert.AreEqual(new Point(-4, -2), a - b);
+		}
+
+		[Test]
+		public void TimesOperator_AFoat_TimesValues()
+		{
+			var a = new Point(-1, 2);
+			var b = 3f;
+
+			Assert.AreEqual(new Point(-3, 6), a * b);
+		}
+
+		[Test]
+		public void DivisionOperator_AFoat_TimesValues()
+		{
+			var a = new Point(-3, 6);
+			var b = 3f;
+
+			Assert.AreEqual(new Point(-1, 2), a / b);
+		}
+
+
+		[Test]
         public void DiffOperator_Equals_False()
 		{
 			var a = new Point(1, 1);
@@ -100,15 +143,17 @@ namespace Snake.Framework.UnitTests.Geometry
 		public void GetHashCode_DiffPoints_DiffHashCode()
 		{
             var hashes = new List<int>();
-            var bounds = new Rectangle(10, 0, 20, 9);
 
-            bounds.Iterate((x, y) => {
-                hashes.Add(new Point(x, y).GetHashCode()); 
-            });
+            for (int x = 0; x < 10; x++)
+            {
+				for (int y = 11; y < 21; y++)
+				{
+                    hashes.Add(new Point(x, y).GetHashCode());
+				}   
+            }
 
             CollectionAssert.AllItemsAreUnique(hashes);
 		}
-
 
         [Test]
         public void ToString_NoArgs_XAndy()

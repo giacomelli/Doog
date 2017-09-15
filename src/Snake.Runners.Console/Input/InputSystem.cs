@@ -1,4 +1,4 @@
-﻿using Snake.Framework.Collections;
+﻿using System.Collections.Generic;
 using Snake.Framework.Input;
 using Underlying = System.Console;
 
@@ -6,12 +6,12 @@ namespace Snake.Runners.Console.Input
 {
     public class InputSystem : IInputSystem
     {
-        private const int MAX_BUFFER = 10;
-        private readonly CircularQueue<Keys> m_buffer;
+        private const int MaxBuffer = 10;
+        private readonly Queue<Keys> m_buffer;
 
         public InputSystem()
         {
-            m_buffer = new CircularQueue<Keys>(MAX_BUFFER);
+            m_buffer = new Queue<Keys>(MaxBuffer);
         }
 
         public bool IsKeyDown(Keys key)
@@ -37,7 +37,8 @@ namespace Snake.Runners.Console.Input
             if (Underlying.KeyAvailable)
             {
                 var consoleKey = Underlying.ReadKey(true);
-                m_buffer.Add((Keys)consoleKey.Key);
+                m_buffer.Enqueue((Keys)consoleKey.Key);
+
                 if ((int)consoleKey.Key == (int)key)
                 {
                     return true;

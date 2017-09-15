@@ -1,6 +1,7 @@
 ﻿﻿using NUnit.Framework;
 using Rhino.Mocks;
 using Snake.Framework.Animations;
+using Snake.Framework.Behaviors;
 using Snake.Framework.Geometry;
 using Snake.Framework.Logging;
 
@@ -39,6 +40,8 @@ namespace Snake.Framework.UnitTests.Animations
 
 			actual.PingPong();
 			Assert.AreEqual(PipelineKind.PingPong, actual.Kind);
+
+            ((IUpdatable)actual.Get(0)).Update();
 		}
     }
 }

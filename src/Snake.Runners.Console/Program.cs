@@ -23,7 +23,8 @@ namespace Snake.Runners.Console
                     gs,
                     new PhysicSystem(),
                     ts,
-                    inputSystem);
+		    inputSystem,
+                    () => Environment.Exit(0));
 
                 if (args.Contains("file-log"))
                 {
@@ -33,15 +34,16 @@ namespace Snake.Runners.Console
                 }
                 else if (args.Contains("console-log"))
                 {
+                    var b = game.Bounds;
                     game.LogSystem = new ConsoleLogSystem(
-                        new Rectangle(1, gs.Bounds.Bottom * 0.8f, gs.Bounds.Right - 1, gs.Bounds.Bottom - 1),
+                        new Rectangle(b.Left + 1, b.Bottom * 0.8f, b.Width - 1, (b.Height * 0.2f)),
                         game);
                 }
 
                 // TODO: this should be moved to game loop inside the World class.
                 // There are samples how to implement it on chapter GAME LOOP.
                 // The game loop bellow is the "Fixed update time step, variable rendering.
-                var secondsPerFrame = 1f / 30f;
+                var secondsPerFrame = 1f / 120;
                 var previous = DateTime.Now;
                 var lag = 0.0;
 
@@ -58,7 +60,7 @@ namespace Snake.Runners.Console
 
                     while(lag >= secondsPerFrame)
                     {
-                        game.Update(DateTime.Now);
+                        game.Update(current);
                         lag -= secondsPerFrame;
                     }
 

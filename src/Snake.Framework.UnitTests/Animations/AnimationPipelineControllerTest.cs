@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
 using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
 using Rhino.Mocks;
@@ -14,6 +13,15 @@ namespace Snake.Framework.UnitTests.Animations
         public void TearDown()
         {
 			AnimationPipelineController.Clear();
+		}
+
+		[Test]
+		public void Empty_Null_Pattern()
+		{
+			AnimationPipelineController.Empty.Pause();
+            AnimationPipelineController.Empty.Resume();
+            AnimationPipelineController.Empty.Destroy();
+            Assert.AreEqual(AnimationState.NotPlayed, AnimationPipelineController.Empty.State);
 		}
 
         [Test]
@@ -100,7 +108,7 @@ namespace Snake.Framework.UnitTests.Animations
 		{
             var ctx = MockRepository.GenerateMock<IWorldContext>();
             ctx.Expect(t => t.LogSystem).Return(MockRepository.GenerateMock<ILogSystem>());
-            var animation = new FloatAnimation<Transform>(new Transform(ctx), 0, 1, 1, (x) => { });
+            var animation = new FloatAnimation<Transform>(new Transform(ctx), 0, 1, 1, v => { });
          
 			var pipeline = AnimationPipeline<Transform>.Create(animation);
 

@@ -23,23 +23,35 @@ namespace Snake.Game.Scenes.Samples
 
             for (int i = 0; i < rectsCount; i++)
             {
-                bounds.Iterate((x, y) =>
+                new RectangleComponent(center, Context)
                 {
-                    if (bounds.IsBorder(x, y))
-                    {
-                        new SampleComponent(center.X, center.Y, Context)
-                            .Transform
-                            .Delay(i * 2)
-                            .MoveTo(x, y, 5f, Easing.Linear)
-                            .Loop();
-                    }
-                });
+                    Filled = false
+                }
+                    .Transform
+                    .CentralizePivot()
+                    .Delay(i * 2)
+                    .Enable()
+                    .ScaleTo(bounds.Width, bounds.Height, 5f, Easing.InBounce)
+                    .Disable()
+                    .Loop();
+
+                new CircleComponent(center, 0.1f, Context)
+                {
+                    Filled = false
+                }
+                   .Transform
+                   .CentralizePivot()
+                   .Delay(i * 2)
+                   .Enable()
+                   .ScaleTo(bounds.Width, bounds.Height, 5f, Easing.InBounce)
+                    .Disable()
+                   .Loop();
             }
         }
 
-        public override void Draw(IDrawContext context)
+        public override void Draw(IDrawContext drawContext)
         {
-            Context.TextSystem.DrawCenter("Open your mind", "Default");
+            drawContext.TextSystem.DrawCenter("Open your mind", "Default");
         }
 
     }

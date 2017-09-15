@@ -12,37 +12,45 @@ namespace Snake.Game
 {
     public class FoodSpawner : ComponentBase, IUpdatable
     {
-        private Rectangle bounds;
-        private Food food;
-        private IAnimationPipelineController animContr;
+        private Food[] foods = new Food[3];
+        private IAnimationPipelineController[] animControllers;
 
         private FoodSpawner(IWorldContext context)
             : base(context)
         {
-            this.bounds = Context.Bounds;
-            food = new Food(Context) { Enabled = false };
+            animControllers = new IAnimationPipelineController[foods.Length];
+
+            for (int i = 0; i < foods.Length; i++)
+            {
+                foods[i] = new Food(Context) { Enabled = false };
+                animControllers[i] = AnimationPipelineController.Empty;
+            }
         }
 
         public void Update()
         {
-            if (!food.Enabled)
-            {
-                do
-                {
-                    food.Transform.Position = bounds.RandomPoint().Round();
-                } while (Context.PhysicSystem.AnyCollision(food));
+			for (int i = 0; i < foods.Length; i++)
+			{
+                var food = foods[i];
 
-                food.Enabled = true;
-
-                if (animContr != null)
+                if (!food.Enabled)
                 {
+					food.Transform.Scale = Food.DefaultScale;
+
+					do
+                    {
+                        food.Transform.Position = Context.Bounds.RandomPoint().Round();
+                    } while (Context.PhysicSystem.AnyCollision(food));
+
+                    food.Enabled = true;
+
+                    var animContr = animControllers[i];
                     animContr.Destroy();
-                    food.Transform.Scale = Point.One;
+                  
+                    animContr = food.Transform
+                        .ScaleTo(Food.DefaultScale.X * 2f, 0.2f, Easing.InBack)
+                        .PingPong(1);
                 }
-
-                animContr = food.Transform
-                    .ScaleTo(2, 2, 0.2f, Easing.InBack)
-                    .PingPong(1);
             }
         }
 

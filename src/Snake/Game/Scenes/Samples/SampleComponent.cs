@@ -6,15 +6,12 @@ using Snake.Framework.Graphics;
 
 namespace Snake.Game.Scenes.Samples
 {
-    public class SampleComponent : ComponentBase, IDrawable
+    public class SampleComponent : RectangleComponent, IDrawable
     {
         public SampleComponent(float x, float y, IWorldContext ctx)
-        :base(ctx)
+        : base(new Point(x, y), ctx)
         {
-            Transform = new Transform(x, y, ctx);
         }
-
-        public Transform Transform { get; set; }
 
         public override bool Enabled
         {
@@ -27,11 +24,6 @@ namespace Snake.Game.Scenes.Samples
                 base.Enabled = value;
                 Transform.Enabled = value;
             }
-        }
-
-        public void Draw(IDrawContext context)
-        {
-            context.Canvas.Draw(Transform.Position.X, Transform.Position.Y, '#');
         }
     }
 }

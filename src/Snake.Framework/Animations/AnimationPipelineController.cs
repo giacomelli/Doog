@@ -5,6 +5,7 @@ namespace Snake.Framework.Animations
 {
     public static class AnimationPipelineController
     {
+        public static readonly IAnimationPipelineController Empty = new NullAnimationPipelineController();
      	private static List<IAnimationPipelineController> controllers = new List<IAnimationPipelineController>();
 
 		public static void PauseAll()

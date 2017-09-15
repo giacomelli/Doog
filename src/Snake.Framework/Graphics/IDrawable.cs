@@ -2,6 +2,6 @@
 {
     public interface IDrawable : IComponent
     {
-        void Draw(IDrawContext context);
+        void Draw(IDrawContext drawContext);
     }
 }

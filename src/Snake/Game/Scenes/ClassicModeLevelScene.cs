@@ -1,17 +1,15 @@
-﻿using System;
-using Snake.Framework;
-using Snake.Framework.Animations;
+﻿using Snake.Framework;
+using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
 using Snake.Game.Commands;
 
 namespace Snake.Game.Scenes
 {
-	public class ClassicModeLevelScene : SceneBase
-	{
-		private const int MaxSnakes = 1;
-		private Snake[] snakes;
-		private bool gameOver;
-      
+    public class ClassicModeLevelScene : SceneBase
+    {
+        private const int MaxSnakes = 1;
+        private Snake[] snakes;
+
         public ClassicModeLevelScene(IWorldContext context)
             : base(context)
         {
@@ -22,6 +20,7 @@ namespace Snake.Game.Scenes
         {
             Context.RemoveAllComponents();
             var bounds = Context.GraphicSystem.Bounds;
+            var center = bounds.GetCenter();
 
             // Create the walls.
             var wallSpawner = new WallSpawner(Context);
@@ -30,52 +29,67 @@ namespace Snake.Game.Scenes
             // Create the snakes.
             snakes = new Snake[MaxSnakes];
 
-			for (int i = 0; i < MaxSnakes; i++)
-			{
-				var snake = new Snake(Context, new KeyboardCommandReader(Context.InputSystem, KeyBinding.Default));
-				snake.Initialize(1, 10 + i, 6);
-				snakes[i] = snake;
-			}
-
-      		// Create the food spawner.
-			FoodSpawner.Create(Context);
-
-            gameOver = false;
-        }
-
-        public override void Update()
-        {
-            CheckGameOver();
-
-			if (gameOver)
-			{
-                Context.Components.DisableAll();
-				Context.OpenScene<GameOverScene>();
-			}
-		}
-
-        public override void Draw(IDrawContext context)
-        {
-			Context.TextSystem
-						.DrawCenterX(1, "Doog's Snake")
-						.DrawCenterX(7, "Score: " + snakes[0].FoodsEatenCount, "Default");
-        }
-
-        private void CheckGameOver()
-        {
-            if (!gameOver)
+            for (int i = 0; i < MaxSnakes; i++)
             {
-                for (int i = 0; i < MaxSnakes; i++)
+                var snake = new Snake(Context, new KeyboardCommandReader(Context.InputSystem, new KeyBinding()));
+                snake.Initialize(center.X, center.Y + i, 5);
+                snake.Died += delegate
                 {
-                    var snake = snakes[i];
-
-                    if (snake.Dead)
-                    {
-                        gameOver = true;
-                        break;
-                    }
-                }
+                    ChangeToGameOver();
+                };
+                snakes[i] = snake;
             }
+
+            // Create the food spawner.
+            FoodSpawner.Create(Context);
+
+            bounds = Context.Bounds;
+
+            // Score.
+            // TODO: now it is prepared to only one snake.
+            // We must decide if only one Score will show all snakes scores (as list)
+            // or each Snake will have its own score instance.
+            Score.Create(new Point(bounds.Right, bounds.Top), snakes[0], Context);
+
+            // Portals.
+            var offsetFromLeftX = 2;
+            var offsetFromRightX = -4;
+            var offsetY = 2;
+
+            PortalBridge.Create(
+                bounds.TopCenterPoint() + new Point(offsetFromRightX, offsetY),
+                bounds.LeftBottomPoint() + new Point(offsetFromLeftX, -offsetY - 1),
+                '1',
+                Context);
+
+            PortalBridge.Create(
+				bounds.TopCenterPoint() + new Point(offsetFromLeftX, offsetY),
+				bounds.RightBottomPoint() + new Point(offsetFromRightX, -offsetY - 1),
+                '2',
+				Context);
+
+            PortalBridge.Create(
+                bounds.LeftCenterPoint() + new Point(offsetFromLeftX, offsetY),
+                bounds.RightCenterPoint() + new Point(offsetFromRightX, -offsetY),
+                '3',
+                Context);
+
+            PortalBridge.Create(
+                bounds.LeftCenterPoint() + new Point(offsetFromLeftX, -offsetY),
+                bounds.RightCenterPoint() + new Point(offsetFromRightX, offsetY),
+                '4',
+                Context);
+        }
+
+        public void ChangeToGameOver()
+        {
+            Context.OpenScene<GameOverScene>();
+        }
+
+        public override void Draw(IDrawContext drawContext)
+        {
+            drawContext.TextSystem
+                       .Draw(Context.Bounds.Left, 3, "Doog's Snake");
         }
     }
 }

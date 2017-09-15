@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using System.Diagnostics;
 
 namespace Snake.Framework.Physics
 {
+    [DebuggerDisplay("{Target.Tag} <= {Other.Tag}")]
 	public class Collision
 	{
 		public Collision(ICollidable target, ICollidable other)

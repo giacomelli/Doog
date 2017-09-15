@@ -36,7 +36,7 @@ namespace Snake.Runners.Console
 
             for (int i = 0; i < lines.Count; i++)
             {
-                Context.TextSystem.Draw(bounds.Left + 1, bounds.Top + 1 + i, lines[i], "Debug");
+                ctx.TextSystem.Draw(bounds.Left + 1, bounds.Top + 2 + i, lines[i], "Debug");
             }
         }
 
@@ -44,7 +44,7 @@ namespace Snake.Runners.Console
         {
             lines.Add(fullMessage);
 
-            if (lines.Count > bounds.Height - 2)
+            if (lines.Count > bounds.Height - 1)
             {
                 lines.RemoveAt(0);
             }

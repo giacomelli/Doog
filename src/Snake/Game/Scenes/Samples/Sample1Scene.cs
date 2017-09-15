@@ -1,8 +1,9 @@
-﻿using System;
+﻿﻿using System;
 using Snake.Framework;
 using Snake.Framework.Animations;
 using Snake.Framework.Geometry;
 using Snake.Framework.Graphics;
+using Snake.Framework.Input;
 
 namespace Snake.Game.Scenes.Samples
 {
@@ -22,6 +23,7 @@ namespace Snake.Game.Scenes.Samples
         public override void Initialize()
         {
             Context.RemoveAllComponents();
+            var bounds = Context.Bounds;
 
             var moveToFood1 = new Food(Context);
             moveToFood1.Transform.Position = moveToSampleArea.LeftTopPoint();
@@ -29,9 +31,7 @@ namespace Snake.Game.Scenes.Samples
                        .MoveTo(moveToSampleArea.RightBottomPoint(), 2, Easing.InBack)
                        .Delay(1)
                        .MoveTo(moveToSampleArea.RightTopPoint(), 2, Easing.Linear)
-                       //.Loop();
                        .PingPong();
-            //.Once();
 
             var moveToFood2 = new Food(Context);
             moveToFood2.Transform.Position = moveToSampleArea.RightBottomPoint();
@@ -44,20 +44,20 @@ namespace Snake.Game.Scenes.Samples
             var blinkFood = new Food(Context);
             blinkFood.Transform.Position = new Point(30, 11);
             blinkFood
-                .Enable(1f, Easing.Linear)
+                .Enable(1f)
                 .Loop();
 
             controller1 = blinkFood
-                .To(0, 100, 19, Easing.Linear, (v) => numberSample1 = v)
+                .To(0, 100, 19, Easing.Linear, v => numberSample1 = v)
                 .Loop();
 
 
             controller2 = blinkFood
-                    .To(0, 10, 10, Easing.Linear, (v) => numberSample2 = v)
+                    .To(0, 10, 10, Easing.Linear, v => numberSample2 = v)
                     .Delay(5)
-                    .To(10, 30, 10, Easing.Linear, (v) => numberSample2 = v)
+                    .To(10, 30, 10, Easing.Linear, v => numberSample2 = v)
                     .Delay(5)
-                    .To(30, 100, 10, Easing.Linear, (v) => numberSample2 = v)
+                    .To(30, 100, 10, Easing.Linear, v => numberSample2 = v)
                     .Delay(5)
                     .PingPong();
 
@@ -69,9 +69,9 @@ namespace Snake.Game.Scenes.Samples
                 b.Transform.Position = new Point(31 + i, 11);
                 b
                     .Delay(i * 0.05f)
-                    .Enable(1f, Easing.Linear)
-                    .Enable(0.5f, Easing.Linear)
-                    .Enable(0.5f, Easing.Linear)
+                    .Enable(1f)
+                    .Enable(0.5f)
+                    .Enable(0.5f)
                        .Once();
             }
 
@@ -85,55 +85,86 @@ namespace Snake.Game.Scenes.Samples
                 var b = new Food(Context);
                 b.Transform.Position = new Point(31 + i, 13);
                 b
-                    .Disable(i * speed, Easing.Linear).OnlyForward()
+                    .Disable(i * speed).OnlyForward()
                     .Delay(maxTime - (i * speed)).OnlyForward()
 
                     .Delay(maxTime - ((length - 1 - i) * speed)).OnlyBackward()
-                    .Enable(((length - 1) - i) * speed, Easing.Linear).OnlyBackward()
+                    .Enable(((length - 1) - i) * speed).OnlyBackward()
 
                     .PingPong();
             }
 
-            // ScaleTo
-            var wall = Wall.Create(140, 1, Context);
-            wall.Transform
-                .ScaleTo(new Point(20, 10), 1, Easing.Linear)
-                .MoveTo(new Point(140, 60), 1, Easing.InBack)
+            // ScaleTo, MoveTo and PingPong
+            new RectangleComponent(140, 1, Context) { Filled = true }.Transform
+                .ScaleTo(new Point(20, 10), 1, Easing.InExpo)
+                .MoveTo(new Point(140, bounds.Bottom - 10), 2, Easing.InBounce)
+                .PingPong();
+
+            // Circle and rectangle
+            var circle = new CircleComponent(new Point(12, 20), 1, Context)
+            {
+                Filled = false
+            };
+
+            circle.Transform
+                .Do(() => circle.Filled = false).OnlyForward()
+                .ScaleTo(30, 3, Easing.InOutQuint)
+                .Do(() => circle.Filled = true).OnlyBackward()
+                .PingPong();
+
+            var rect = new RectangleComponent(circle.Transform.Position, Context)
+            {
+                Filled = false
+            };
+
+            rect.Transform
+                .ScaleTo(30, 3, Easing.InOutQuint)
+                .Delay(3)
+                .PingPong();
+
+
+            // Circle and rectangle with pivot centralized.
+            var circleCentralized = new CircleComponent(bounds.GetCenter(), 1, Context)
+            {
+                Filled = false
+            };
+
+            circleCentralized.Transform.CentralizePivot()
+                .Do(() => circleCentralized.Filled = false).OnlyForward()
+                .ScaleTo(30, 3, Easing.InOutQuint)
+                .Do(() => circleCentralized.Filled = true).OnlyBackward()
+                .PingPong();
+
+
+            var rectCentralized = new RectangleComponent(circleCentralized.Transform.Position, Context)
+            {
+                Filled = false
+            };
+
+            rectCentralized.Transform.CentralizePivot()
+                .ScaleTo(30, 3, Easing.InOutQuint)
+                .Delay(3)
                 .PingPong();
         }
 
         public override void Update()
         {
-            if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D1))
-            {
-                ToogleAnimation(controller1);
-            }
-            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D2))
-            {
-                ToogleAnimation(controller2);
-            }
-            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D3))
-            {
-                ToogleAnimation(controller1);
-                ToogleAnimation(controller2);
-            }
-            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D0))
-            {
-                controller1.Destroy();
-                controller2.Destroy();
-            }
-            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D7))
-            {
-                AnimationPipelineController.PauseAll();
-            }
-            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D8))
-            {
-                AnimationPipelineController.ResumeAll();
-            }
-            else if (Context.InputSystem.IsKeyDown(Framework.Input.Keys.D9))
-            {
-                AnimationPipelineController.DestroyAll();
-            }
+            Context.InputSystem
+                   .IsKeyDown(Keys.D1, () => ToogleAnimation(controller1))
+                   .IsKeyDown(Keys.D2, () => ToogleAnimation(controller2))
+                   .IsKeyDown(Keys.D3, () =>
+                   {
+                       ToogleAnimation(controller1);
+                       ToogleAnimation(controller2);
+                   })
+                   .IsKeyDown(Keys.D0, () =>
+                   {
+                       controller1.Destroy();
+                       controller2.Destroy();
+                   })
+                   .IsKeyDown(Keys.D7, () => AnimationPipelineController.PauseAll())
+                   .IsKeyDown(Keys.D8, () => AnimationPipelineController.ResumeAll())
+                   .IsKeyDown(Keys.D9, () => AnimationPipelineController.DestroyAll());
         }
 
         private void ToogleAnimation(IAnimationPipelineController controller)
@@ -148,11 +179,12 @@ namespace Snake.Game.Scenes.Samples
             }
         }
 
-        public override void Draw(IDrawContext context)
+        public override void Draw(IDrawContext drawContext)
         {
-            context.Canvas.Draw(moveToSampleArea);
+            drawContext.Canvas
+                   .Draw(moveToSampleArea);
 
-            Context.TextSystem
+            drawContext.TextSystem
                 .DrawCenter(0, -10, numberSample1.ToString("N0"))
                 .DrawCenter(0, 0, numberSample2.ToString("N0"));
 

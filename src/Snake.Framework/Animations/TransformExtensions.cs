@@ -50,6 +50,16 @@ public static class TransformExtensions
         return transform.ScaleTo(new Point(x, y), duration, easing);
     }
 
+    public static IAnimationPipeline<Transform> ScaleTo(this Transform transform, float scale, float duration, IEasing easing = null)
+    {
+        return transform.ScaleTo(new Point(scale), duration, easing);
+    }
+
+    public static IAnimationPipeline<Transform> ScaleTo(this IAnimationPipeline<Transform> pipeline, float scale, float duration, IEasing easing = null)
+    {
+        return pipeline.ScaleTo(new Point(scale), duration, easing);
+    }
+
     public static IAnimationPipeline<Transform> ScaleTo(this Transform transform, Point to, float duration, IEasing easing = null)
     {
         var animation = new PointAnimation<Transform>(transform, t => t.Scale, to, duration, (v) =>
@@ -80,6 +90,34 @@ public static class TransformExtensions
 
         return pipeline;
     }
+
+    public static IAnimationPipeline<Transform> RotateTo(this Transform owner, float rotation, float duration, IEasing easing = null)
+    {
+        var animation = new FloatAnimation<Transform>(owner, owner.Rotation, rotation, duration, (v) =>
+	     {
+	         owner.Rotation = v;
+	     });
+
+        animation.Easing = easing;
+
+        return AnimationPipeline<Transform>.Create(animation);
+    }
+
+	public static IAnimationPipeline<Transform> RotateTo(this IAnimationPipeline<Transform> pipeline, float rotation, float duration, IEasing easing = null)
+	{
+        var owner = pipeline.Owner;
+
+		var animation = new FloatAnimation<Transform>(owner, owner.Rotation, rotation, duration, (v) =>
+		 {
+			 owner.Rotation = v;
+		 });
+
+		animation.Easing = easing;
+
+		pipeline.Add(animation);
+
+        return pipeline;
+	}
 
     private static IAnimation<Transform> CreateMoveToAnimation(Transform transform, float x, float y, float duration, IEasing easing = null)
     {

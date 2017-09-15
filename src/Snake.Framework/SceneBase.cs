@@ -17,7 +17,7 @@ namespace Snake.Framework
         {
         }
 
-        public virtual void Draw(IDrawContext context)
+        public virtual void Draw(IDrawContext drawContext)
         {
         }
 

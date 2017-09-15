@@ -12,14 +12,14 @@ namespace Snake.Framework.Diagnostics
     public class WorldStatsConsole : ComponentBase, IDrawable, ISceneSurvivable
     {
         private readonly Point position;
-
-        private WorldStatsConsole(int x, int y, IWorldContext context)
+   
+        private WorldStatsConsole(float x, float y, IWorldContext context)
             : base(context)
         {
             this.position = new Point(x, y);
         }
 
-        public static WorldStatsConsole Create(int x, int y, IWorldContext context)
+        public static WorldStatsConsole Create(float x, float y, IWorldContext context)
         {
             return new WorldStatsConsole(x, y, context);
         }
@@ -36,10 +36,11 @@ namespace Snake.Framework.Diagnostics
 
             var x = position.X;
             var y = position.Y;
-            var ts = Context.TextSystem;
+            var ts = ctx.TextSystem;
 
             ts
-                .Draw(x, y, "FPS                        : {0:N0}".With(1f / Context.Time.SinceLastFrame), "Debug")
+                .Draw(x, y,   "FPS                        : {0:N0}".With(1f / Context.Time.SinceLastFrame), "Debug")
+                .Draw(x, ++y, "Since scene start          : {0:N0}".With(Context.Time.SinceSceneStart), "Debug")
                 .Draw(x, ++y, "Components                 : {0}".With(components.Count), "Debug")
                 .Draw(x, ++y, "Enabled components         : {0}".With(enabledComponentsCount), "Debug")
                 .Draw(x, ++y, "Disabled components        : {0}".With(disabledComponentsCount), "Debug")

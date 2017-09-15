@@ -14,6 +14,11 @@ namespace Snake.Runners.MonoGameDesktop
     /// </summary>
     public class SnakeMonoGame : Microsoft.Xna.Framework.Game, IGraphicSystem, IInputSystem
     {
+        void HandleAction()
+        {
+
+        }
+
         GraphicsDeviceManager m_graphics;
         SpriteBatch m_spriteBatch;
         SnakeGame m_snakeGame;
@@ -82,7 +87,8 @@ namespace Snake.Runners.MonoGameDesktop
                 this,
                 new Framework.Physics.PhysicSystem(),
                 new Framework.Texts.Map.MapTextSystem(m_snakeGame, "Slant"),
-                this);
+                this,
+                Exit);
         }
 
         /// <summary>
