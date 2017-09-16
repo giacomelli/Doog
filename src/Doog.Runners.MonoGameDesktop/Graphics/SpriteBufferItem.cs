@@ -1,4 +1,4 @@
-﻿namespace Snake.Runners.MonoGameDesktop.Graphics
+﻿namespace Doog.Runners.MonoGameDesktop.Graphics
 {
     public class SpriteBufferItem
     {

@@ -2,32 +2,25 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Doog.Framework;
-using Snake;
 
-namespace Snake.Runners.MonoGameDesktop
+namespace Doog.Runners.MonoGameDesktop
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class SnakeMonoGame : Microsoft.Xna.Framework.Game, IGraphicSystem, IInputSystem
+    public class Runner : Microsoft.Xna.Framework.Game, Doog.Framework.IGraphicSystem, Doog.Framework.IInputSystem
     {
-        void HandleAction()
-        {
-
-        }
-
         GraphicsDeviceManager m_graphics;
         SpriteBatch m_spriteBatch;
-        SnakeGame m_snakeGame;
-        Graphics.SpriteBuffer m_spriteBuffer;
+        Doog.Framework.World m_world;
+        Doog.Runners.MonoGameDesktop.Graphics.SpriteBuffer m_spriteBuffer;
         Doog.Framework.Rectangle m_bounds;
         SpriteFont m_defaultFont;
         Vector2 m_fontSize;
         Vector2 m_fontSizeHalf;
         Vector2 m_fontScale;
         Vector2 m_fontDrawScale;
-        Doog.Framework.Rectangle ICanvas.Bounds
+        Doog.Framework.Rectangle Doog.Framework.ICanvas.Bounds
         {
             get
             {
@@ -35,11 +28,12 @@ namespace Snake.Runners.MonoGameDesktop
             }
         }
 
-        public SnakeMonoGame()
+        public Runner(Doog.Framework.World world)
         {
             m_graphics = new GraphicsDeviceManager(this);
             //m_graphics.ToggleFullScreen();
             Content.RootDirectory = "Content";
+            m_world = world;
         }
 
         /// <summary>
@@ -80,11 +74,10 @@ namespace Snake.Runners.MonoGameDesktop
                 (int)(Window.ClientBounds.Height / m_fontSize.Y));
 
             m_spriteBuffer = new Graphics.SpriteBuffer((int)(m_bounds.Width * m_bounds.Height));
-            m_snakeGame = new SnakeGame();
-            m_snakeGame.Initialize(
+            m_world.Initialize(
                 this,
                 new Doog.Framework.PhysicSystem(),
-                new Doog.Framework.MapTextSystem(m_snakeGame, "Slant"),
+                new Doog.Framework.MapTextSystem(m_world, "Slant"),
                 this,
                 Exit);
         }
@@ -110,7 +103,7 @@ namespace Snake.Runners.MonoGameDesktop
                 Exit();
             }
 
-            m_snakeGame.Update(DateTime.Now);            
+            m_world.Update(DateTime.Now);            
             base.Update(gameTime);
         }
 
@@ -120,7 +113,7 @@ namespace Snake.Runners.MonoGameDesktop
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            m_snakeGame.Draw();
+            m_world.Draw();
             GraphicsDevice.Clear(Color.Black);
             m_spriteBatch.Begin();
             for (int i = 0; i < m_spriteBuffer.Length; i++)
@@ -143,15 +136,15 @@ namespace Snake.Runners.MonoGameDesktop
             base.Draw(gameTime);
         }
 
-        void IGraphicSystem.Initialize()
+        void Doog.Framework.IGraphicSystem.Initialize()
         {
         }
 
-        void IGraphicSystem.Render()
+        void Doog.Framework.IGraphicSystem.Render()
         {
         }
 
-        void ICanvas.Draw(float x, float y, char sprite)
+        void Doog.Framework.ICanvas.Draw(float x, float y, char sprite)
         {
             if (m_bounds.Contains(x, y))
             {
@@ -159,12 +152,12 @@ namespace Snake.Runners.MonoGameDesktop
             }
         }
 
-        bool IInputSystem.IsKeyDown(Doog.Framework.Keys key)
+        bool Doog.Framework.IInputSystem.IsKeyDown(Doog.Framework.Keys key)
         {
             return Keyboard.GetState().IsKeyDown((Microsoft.Xna.Framework.Input.Keys)key);
         }
 
-        void IInputSystem.Update()
+        void Doog.Framework.IInputSystem.Update()
         {
         }
     }

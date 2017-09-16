@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Snake.Runners.MonoGameDesktop
+namespace Doog.Runners.MonoGameDesktop
 {
     /// <summary>
     /// The main class.
@@ -11,9 +11,9 @@ namespace Snake.Runners.MonoGameDesktop
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
-            using (var game = new SnakeMonoGame())
+            using (var game = new Runner(GameActivator.CreateInstance(args)))
                 game.Run();
         }
     }

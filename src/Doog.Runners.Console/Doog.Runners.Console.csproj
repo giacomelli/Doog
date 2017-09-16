@@ -42,10 +42,15 @@
       <Project>{9035ade3-aacf-40f4-bec4-9a8263793b63}</Project>
       <Name>Doog.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Doog.Runners\Doog.Runners.csproj">
+      <Project>{585FCC9B-ED48-41E0-BD67-D4EBD0AABCA4}</Project>
+      <Name>Doog.Runners</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logging\" />
     <Folder Include="Graphics\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\msbuilds\CopyToBuild.targets" />
 </Project>

@@ -38,15 +38,34 @@ Nowadays we have just a Snake game implementation that show how to use Doog.Fram
 
 2. Open a console/terminal and type:
 
-**To run the Snake game:**
+### Using the console runner
+
+*Snake game*:
+
 ```shell
 mono Doog.Runners.Console.exe Snake.dll
 ```
 
-**To run the framework samples**:
+*Doog.Framework samples:*
+
 ```shell
 mono Doog.Runners.Console.exe Doog.Framework.Samples.dll
 ```
+
+## Using the MonoGame runner
+
+*Snake game*:
+
+```shell
+mono Doog.Runners.MonoGameDesktop.exe Snake.dll
+```
+
+*Doog.Framework samples:*
+
+```shell
+mono Doog.Runners.MonoGameDesktop.exe Doog.Framework.Samples.dll
+```
+
 
 *Note: the "mono" is only need in a non Windows SO*
 
