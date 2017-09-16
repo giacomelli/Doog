@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using Snake.Framework.Behaviors.Commands;
-using Snake.Framework.Input;
+using Doog.Framework.Behaviors.Commands;
+using Doog.Framework.Input;
 
 namespace Snake.Game.Commands
 {

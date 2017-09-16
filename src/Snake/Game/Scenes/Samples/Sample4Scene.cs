@@ -1,9 +1,9 @@
-﻿using System;
-using Snake.Framework;
-using Snake.Framework.Animations;
-using Snake.Framework.Geometry;
-using Snake.Framework.Graphics;
-using Snake.Framework.Input;
+using System;
+using Doog.Framework;
+using Doog.Framework.Animations;
+using Doog.Framework.Geometry;
+using Doog.Framework.Graphics;
+using Doog.Framework.Input;
 
 namespace Snake.Game.Scenes.Samples
 {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Snake.Framework;
-using Snake.Framework.Geometry;
+using Doog.Framework;
+using Doog.Framework.Geometry;
 
 namespace Snake.Game
 {

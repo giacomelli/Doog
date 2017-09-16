@@ -1,7 +1,7 @@
-﻿using Snake.Framework;
-using Snake.Framework.Animations;
-using Snake.Framework.Geometry;
-using Snake.Framework.Graphics;
+using Doog.Framework;
+using Doog.Framework.Animations;
+using Doog.Framework.Geometry;
+using Doog.Framework.Graphics;
 
 namespace Snake.Game
 {

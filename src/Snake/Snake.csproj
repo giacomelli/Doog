@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -76,9 +76,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Snake.Framework\Snake.Framework.csproj">
+    <ProjectReference Include="..\Doog.Framework\Doog.Framework.csproj">
       <Project>{9035ade3-aacf-40f4-bec4-9a8263793b63}</Project>
-      <Name>Snake.Framework</Name>
+      <Name>Doog.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -88,39 +88,39 @@
     <Folder Include="Game\Scenes\Samples\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Default.txt">
+    <Content Include="..\Doog.Framework\Texts\Map\Resources\Fonts\Default.txt">
       <Link>Resources\Fonts\Default.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Slant.txt">
+    <Content Include="..\Doog.Framework\Texts\Map\Resources\Fonts\Slant.txt">
       <Link>Resources\Fonts\Slant.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Debug.txt">
+    <Content Include="..\Doog.Framework\Texts\Map\Resources\Fonts\Debug.txt">
       <Link>Resources\Fonts\Debug.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Avatar.txt">
+    <Content Include="..\Doog.Framework\Texts\Map\Resources\Fonts\Avatar.txt">
       <Link>Resources\Fonts\Avatar.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Big.txt">
+    <Content Include="..\Doog.Framework\Texts\Map\Resources\Fonts\Big.txt">
       <Link>Resources\Fonts\Big.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Blocks.txt">
+    <Content Include="..\Doog.Framework\Texts\Map\Resources\Fonts\Blocks.txt">
       <Link>Resources\Fonts\Blocks.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Doom.txt">
+    <Content Include="..\Doog.Framework\Texts\Map\Resources\Fonts\Doom.txt">
       <Link>Resources\Fonts\Doom.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Graceful.txt">
+    <Content Include="..\Doog.Framework\Texts\Map\Resources\Fonts\Graceful.txt">
       <Link>Resources\Fonts\Graceful.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Snake.Framework\Texts\Map\Resources\Fonts\Modular.txt">
+    <Content Include="..\Doog.Framework\Texts\Map\Resources\Fonts\Modular.txt">
       <Link>Resources\Fonts\Modular.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
