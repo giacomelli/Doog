@@ -1,12 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Doog.Framework;
-using Doog.Framework.Animations;
-using Doog.Framework.Behaviors;
-using Doog.Framework.Geometry;
-using Doog.Framework.Graphics;
+﻿using Doog.Framework;
 
 namespace Snake.Game
 {

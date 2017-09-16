@@ -1,4 +1,4 @@
-namespace Doog.Framework.Input
+﻿namespace Doog.Framework
 {
     public enum Keys
     {

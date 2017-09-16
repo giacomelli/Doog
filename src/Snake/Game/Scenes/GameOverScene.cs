@@ -1,9 +1,5 @@
-using Doog.Framework;
-using Doog.Framework.Graphics;
+﻿using Doog.Framework;
 using Snake.Game.Scenes.Samples;
-using Doog.Framework.Animations;
-using Doog.Framework.Geometry;
-using Doog.Framework.Input;
 
 namespace Snake.Game.Scenes
 {

@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 using System.Text;
-using Doog.Framework.Logging;
+using Doog.Framework;
 
 namespace Doog.Framework.UnitTests.Logging
 {

@@ -1,9 +1,6 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Doog.Framework;
-using Doog.Framework.Geometry;
-using Doog.Framework.Graphics;
-using Doog.Framework.Logging;
 
 namespace Snake.Runners.Console
 {

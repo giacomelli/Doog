@@ -1,6 +1,6 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace Doog.Framework.Physics
+namespace Doog.Framework
 {
     [DebuggerDisplay("{Target.Tag} <= {Other.Tag}")]
 	public class Collision

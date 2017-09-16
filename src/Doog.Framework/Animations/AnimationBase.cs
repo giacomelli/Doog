@@ -1,8 +1,8 @@
-using System;
+﻿﻿using System;
 using System.Diagnostics;
-using Doog.Framework.Behaviors;
+using Doog.Framework;
 
-namespace Doog.Framework.Animations
+namespace Doog.Framework
 {
     /// <summary>
     /// Represents an animation.
@@ -24,7 +24,7 @@ namespace Doog.Framework.Animations
             Owner = owner;
        
             this.Duration = duration;
-            easing = Animations.Easing.Linear;
+            easing = Doog.Framework.Easing.Linear;
             owner.AddChild(this);
             State = AnimationState.NotPlayed;
             Direction = AnimationDirection.Any;
@@ -43,7 +43,7 @@ namespace Doog.Framework.Animations
 
             set
             {
-                easing = value ?? Animations.Easing.Linear;
+                easing = value ?? Doog.Framework.Easing.Linear;
             }
         }
 

@@ -1,5 +1,4 @@
-using Doog.Framework.Animations;
-using Doog.Framework.Geometry;
+﻿using Doog.Framework;
 
 /// <summary>
 /// Transform extension methods.

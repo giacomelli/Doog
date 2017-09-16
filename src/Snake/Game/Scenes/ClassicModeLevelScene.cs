@@ -1,6 +1,4 @@
-using Doog.Framework;
-using Doog.Framework.Geometry;
-using Doog.Framework.Graphics;
+﻿using Doog.Framework;
 using Snake.Game.Commands;
 
 namespace Snake.Game.Scenes

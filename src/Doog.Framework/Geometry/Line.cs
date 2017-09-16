@@ -1,6 +1,6 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace Doog.Framework.Geometry
+namespace Doog.Framework
 {
     /// <summary>
     /// An immutable line.

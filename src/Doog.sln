@@ -50,6 +50,8 @@ Global
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
 		$0.VersionControlPolicy = $1
+		$0.DotNetNamingPolicy = $2
+		$0.StandardHeader = $3
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9035ADE3-AACF-40F4-BEC4-9A8263793B63} = {4CD0194E-FE30-4243-B0AB-0276464EEC01}

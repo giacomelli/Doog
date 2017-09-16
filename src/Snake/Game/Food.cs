@@ -1,11 +1,8 @@
-using Doog.Framework;
-using Doog.Framework.Geometry;
-using Doog.Framework.Graphics;
-using Doog.Framework.Physics;
+﻿using Doog.Framework;
 
 namespace Snake.Game
 {
-	public class Food : RectangleComponent, IDrawable, ICollidable
+    public class Food : RectangleComponent, IDrawable, ICollidable
 	{
         public static readonly Point DefaultScale = Point.Zero;
 

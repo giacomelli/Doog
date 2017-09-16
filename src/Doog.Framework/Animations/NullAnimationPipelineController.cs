@@ -1,4 +1,4 @@
-namespace Doog.Framework.Animations
+﻿namespace Doog.Framework
 {
     public class NullAnimationPipelineController : IAnimationPipelineController
     {

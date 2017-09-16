@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-
-namespace Doog.Framework.Animations
+﻿namespace Doog.Framework
 {
     /// <summary>
     /// Availables easings.

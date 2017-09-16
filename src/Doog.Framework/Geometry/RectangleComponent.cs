@@ -1,6 +1,6 @@
-using Doog.Framework.Graphics;
+﻿using Doog.Framework;
 
-namespace Doog.Framework.Geometry
+namespace Doog.Framework
 {
     /// <summary>
     /// A rectangle component.

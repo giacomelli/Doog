@@ -1,7 +1,4 @@
-using Doog.Framework.Behaviors;
-using Doog.Framework.Graphics;
-
-namespace Doog.Framework
+﻿namespace Doog.Framework
 {
     /// <summary>
     /// Define an interface for scenes.

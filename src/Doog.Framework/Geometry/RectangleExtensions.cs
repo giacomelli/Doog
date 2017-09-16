@@ -1,5 +1,4 @@
-using System;
-using Doog.Framework.Geometry;
+﻿using System;
 using Doog.Framework;
 
 /// <summary>

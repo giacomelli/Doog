@@ -1,12 +1,10 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
-using Doog.Framework.Texts.Map;
 using Rhino.Mocks;
-using Doog.Framework.Graphics;
 
 namespace Doog.Framework.UnitTests
 {
-	[TestFixture]
+    [TestFixture]
 	public class MapTextSystemTest
 	{
 		[Test]

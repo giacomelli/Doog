@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Doog.Framework.Geometry;
+using Doog.Framework;
 
-namespace Doog.Framework.Graphics
+namespace Doog.Framework
 {
     /// <summary>
     /// ICanvas extension methods.

@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Doog.Framework.Geometry;
+using Doog.Framework;
 
-namespace Doog.Framework.Physics
+namespace Doog.Framework
 {
     public interface ICollidable : IComponent
     {

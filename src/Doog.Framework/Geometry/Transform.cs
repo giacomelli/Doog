@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 
-namespace Doog.Framework.Geometry
+namespace Doog.Framework
 {
     /// <summary>
     /// Component used to manipulate the position and size.

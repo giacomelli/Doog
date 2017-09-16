@@ -1,6 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Doog.Framework.Behaviors.Commands
+namespace Doog.Framework
 {
     public interface ICommandReader
     {

@@ -1,5 +1,5 @@
-using System;
-namespace Doog.Framework.Input
+﻿using System;
+namespace Doog.Framework
 {
     public static class InputSystemExtensions
     {

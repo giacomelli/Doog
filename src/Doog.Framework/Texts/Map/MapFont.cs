@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Doog.Framework.Geometry;
+using Doog.Framework;
 
-namespace Doog.Framework.Texts.Map
+namespace Doog.Framework
 {
 	/// <summary>
 	/// An IFont implementation that use a map (file) to build the texts.

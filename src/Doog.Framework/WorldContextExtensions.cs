@@ -1,5 +1,5 @@
-using System;
-using Doog.Framework.Input;
+﻿using System;
+using Doog.Framework;
 
 namespace Doog.Framework
 {

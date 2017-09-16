@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 using System.Diagnostics;
-using Doog.Framework.Animations;
+using Doog.Framework;
 
-namespace Doog.Framework.Geometry
+namespace Doog.Framework
 {
     /// <summary>
     /// An immutable 2D point.

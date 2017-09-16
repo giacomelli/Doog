@@ -1,4 +1,4 @@
-using Doog.Framework.Input;
+﻿using Doog.Framework;
 
 namespace Snake.Game.Commands
 {

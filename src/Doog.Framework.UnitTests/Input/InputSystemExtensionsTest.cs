@@ -1,7 +1,7 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using Rhino.Mocks;
-using Doog.Framework.Input;
+using Doog.Framework;
 
 namespace Doog.Framework.UnitTests.Input
 {

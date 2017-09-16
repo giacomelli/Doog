@@ -1,6 +1,6 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Rhino.Mocks;
-using Doog.Framework.Behaviors.Commands;
+using Doog.Framework;
 
 namespace Doog.Framework.UnitTests.Behaviors.Commands
 {

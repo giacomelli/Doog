@@ -1,4 +1,4 @@
-namespace Doog.Framework.Animations
+﻿namespace Doog.Framework
 {
 	/// <summary>
 	/// An InQuart easing: accelerating from zero velocity.

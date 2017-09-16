@@ -1,18 +1,10 @@
-using System;
+﻿using System;
 using Doog.Framework;
-using Doog.Framework.Diagnostics;
-using Doog.Framework.Geometry;
-using Doog.Framework.Graphics;
-using Doog.Framework.Logging;
-using Doog.Framework.Physics;
-using Doog.Framework.Texts;
 using Snake.Game.Scenes;
-using Doog.Framework.Input;
-using Snake.Game.Scenes.Samples;
 
 namespace Snake.Game
 {
-	public class SnakeGame : World, IDisposable
+    public class SnakeGame : World, IDisposable
 	{
 		private bool disposed = false; // To detect redundant calls
 

@@ -1,7 +1,7 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using Rhino.Mocks;
-using Doog.Framework.Logging;
+using Doog.Framework;
 using System.Linq;
 
 namespace Doog.Framework.UnitTests

@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace Doog.Framework.Logging
+namespace Doog.Framework
 {
     public interface ILogSystem
     {

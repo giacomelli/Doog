@@ -1,4 +1,4 @@
-namespace Doog.Framework.Graphics
+﻿namespace Doog.Framework
 {
     public interface IDrawable : IComponent
     {

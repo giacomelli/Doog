@@ -1,4 +1,4 @@
-namespace Doog.Framework.Animations
+﻿namespace Doog.Framework
 {
     internal class DestroyedAnimationPipeline<TOwner> : AnimationPipeline<TOwner>
         where TOwner : IComponent

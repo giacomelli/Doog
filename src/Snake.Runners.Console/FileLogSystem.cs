@@ -1,7 +1,6 @@
-using System;
+﻿using System;
 using System.IO;
 using Doog.Framework;
-using Doog.Framework.Logging;
 
 namespace Snake.Runners.Console
 {

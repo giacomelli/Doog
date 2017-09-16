@@ -1,6 +1,6 @@
-using Doog.Framework.Texts;
+﻿using Doog.Framework;
 
-namespace Doog.Framework.Graphics
+namespace Doog.Framework
 {
     public class DrawContext : IDrawContext
     {

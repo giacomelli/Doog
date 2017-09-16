@@ -1,8 +1,4 @@
-using System;
-using Doog.Framework;
-using Doog.Framework.Animations;
-using Doog.Framework.Geometry;
-using Doog.Framework.Graphics;
+﻿using Doog.Framework;
 
 namespace Snake.Game.Scenes.Samples
 {

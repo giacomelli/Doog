@@ -1,6 +1,6 @@
-using Doog.Framework.Geometry;
+﻿using Doog.Framework;
 
-namespace Doog.Framework.Texts
+namespace Doog.Framework
 {
 	/// <summary>
 	/// Defines an interface for a font.

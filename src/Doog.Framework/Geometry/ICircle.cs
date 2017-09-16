@@ -1,5 +1,5 @@
-using System;
-namespace Doog.Framework.Geometry
+﻿using System;
+namespace Doog.Framework
 {
     public interface ICircle
     {

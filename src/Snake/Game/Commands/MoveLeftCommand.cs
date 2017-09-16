@@ -1,4 +1,4 @@
-using Doog.Framework.Behaviors.Commands;
+﻿using Doog.Framework;
 
 namespace Snake.Game.Commands
 {
