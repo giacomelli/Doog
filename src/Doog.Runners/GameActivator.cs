@@ -30,15 +30,18 @@ namespace Doog.Runners
 
         public static void Config(World game, string[] args)
         {
-			//if (args.Contains("file-log"))
-			//{
-			//	game.LogSystem = new FileLogSystem(
-			//		Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt"),
-			//		game);
-			//}
-			//else 
+			if (Debug.Enabled)
+			{
+				WorldStatsConsole.Create(game.Bounds.Left + 2, game.Bounds.Top + 2, game);
+			}
 
-                if (args.Contains("ingame-log"))
+			if (args.Contains("file-log"))
+			{
+				game.LogSystem = new FileLogSystem(
+					Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt"),
+					game);
+			}
+			else if (args.Contains("ingame-log"))
 			{
 				var b = game.Bounds;
 				game.LogSystem = new InGameLogSystem(

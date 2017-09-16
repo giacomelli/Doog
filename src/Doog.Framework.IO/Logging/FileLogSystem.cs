@@ -1,10 +1,11 @@
 ﻿using System;
 using System.IO;
-using Doog.Framework;
 
-namespace Doog.Runners.Console
+namespace Doog.Framework
 {
-    // TODO: move to a Framework.IO project.
+    /// <summary>
+    /// A very basic file log system.
+    /// </summary>
     public class FileLogSystem : LogSystemBase, IDisposable
     {
         private StreamWriter file;

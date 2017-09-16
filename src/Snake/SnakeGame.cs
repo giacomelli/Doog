@@ -19,12 +19,7 @@ namespace Snake
             Bounds = new Rectangle(b.Left + 5, b.Top + 10, b.Width - 10, b.Height -10);
 
             base.Initialize(graphicSystem, physicSystem, textSystem, inputSystem, exitAction);
-         
-			if (Debug.Enabled)
-			{
-				WorldStatsConsole.Create(Bounds.Left + 2, Bounds.Top + 2, this);
-			}
-
+        
 			this.OpenScene<ClassicModeLevelScene>();
 		}
 

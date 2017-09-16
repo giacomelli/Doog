@@ -38,6 +38,10 @@
       <Project>{9035ADE3-AACF-40F4-BEC4-9A8263793B63}</Project>
       <Name>Doog.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Doog.Framework.IO\Doog.Framework.IO.csproj">
+      <Project>{DAC1CE23-5622-409F-87C3-775C6DEC6A38}</Project>
+      <Name>Doog.Framework.IO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
