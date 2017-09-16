@@ -1,13 +1,13 @@
 using System;
-using Snake.Framework;
-using Snake.Framework.Diagnostics;
-using Snake.Framework.Geometry;
-using Snake.Framework.Graphics;
-using Snake.Framework.Logging;
-using Snake.Framework.Physics;
-using Snake.Framework.Texts;
+using Doog.Framework;
+using Doog.Framework.Diagnostics;
+using Doog.Framework.Geometry;
+using Doog.Framework.Graphics;
+using Doog.Framework.Logging;
+using Doog.Framework.Physics;
+using Doog.Framework.Texts;
 using Snake.Game.Scenes;
-using Snake.Framework.Input;
+using Doog.Framework.Input;
 using Snake.Game.Scenes.Samples;
 
 namespace Snake.Game

@@ -1,6 +1,6 @@
-﻿using System;
-using Snake.Framework.Geometry;
-using Snake.Framework.Graphics;
+using System;
+using Doog.Framework.Geometry;
+using Doog.Framework.Graphics;
 using underlying = System.Console;
 
 namespace Snake.Runners.Console

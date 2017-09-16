@@ -1,9 +1,9 @@
 using System;
-using Snake.Framework;
-using Snake.Framework.Behaviors;
-using Snake.Framework.Geometry;
-using Snake.Framework.Behaviors.Commands;
-using Snake.Framework.Physics;
+using Doog.Framework;
+using Doog.Framework.Behaviors;
+using Doog.Framework.Geometry;
+using Doog.Framework.Behaviors.Commands;
+using Doog.Framework.Physics;
 
 namespace Snake.Game
 {

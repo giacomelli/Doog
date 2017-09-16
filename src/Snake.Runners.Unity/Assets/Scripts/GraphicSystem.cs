@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Snake.Framework.Geometry;
-using Snake.Framework.Graphics;
+using Doog.Framework.Geometry;
+using Doog.Framework.Graphics;
 using UnityEngine;
 
 public class GraphicSystem : MonoBehaviour, IGraphicSystem

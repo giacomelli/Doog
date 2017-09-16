@@ -1,11 +1,10 @@
-﻿using System;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Snake.Framework.Geometry;
-using Snake.Framework.Graphics;
+using Doog.Framework.Graphics;
 using Snake.Game;
-using Snake.Framework.Input;
+using Doog.Framework.Input;
 
 namespace Snake.Runners.MonoGameDesktop
 {
@@ -23,13 +22,13 @@ namespace Snake.Runners.MonoGameDesktop
         SpriteBatch m_spriteBatch;
         SnakeGame m_snakeGame;
         Graphics.SpriteBuffer m_spriteBuffer;
-        Framework.Geometry.Rectangle m_bounds;
+        Doog.Framework.Geometry.Rectangle m_bounds;
         SpriteFont m_defaultFont;
         Vector2 m_fontSize;
         Vector2 m_fontSizeHalf;
         Vector2 m_fontScale;
         Vector2 m_fontDrawScale;
-        Framework.Geometry.Rectangle ICanvas.Bounds
+        Doog.Framework.Geometry.Rectangle ICanvas.Bounds
         {
             get
             {
@@ -40,7 +39,7 @@ namespace Snake.Runners.MonoGameDesktop
         public SnakeMonoGame()
         {
             m_graphics = new GraphicsDeviceManager(this);
-            m_graphics.ToggleFullScreen();
+            //m_graphics.ToggleFullScreen();
             Content.RootDirectory = "Content";
         }
 
@@ -55,8 +54,8 @@ namespace Snake.Runners.MonoGameDesktop
             // TODO: Add your initialization logic here
             Window.Position = new Microsoft.Xna.Framework.Point(0, 0);
             Window.Title = "Doog - Snake";
-            m_graphics.PreferredBackBufferWidth = GraphicsDevice.Adapter.CurrentDisplayMode.Width;
-            m_graphics.PreferredBackBufferHeight = GraphicsDevice.Adapter.CurrentDisplayMode.Height;
+            m_graphics.PreferredBackBufferWidth = GraphicsDevice.Adapter.CurrentDisplayMode.Width - 100;
+            m_graphics.PreferredBackBufferHeight = GraphicsDevice.Adapter.CurrentDisplayMode.Height - 100;
             m_graphics.ApplyChanges();
             base.Initialize();
         }
@@ -75,7 +74,7 @@ namespace Snake.Runners.MonoGameDesktop
             m_fontDrawScale = m_fontScale * 1f; 
             m_fontSize = new Vector2(realFontSize.X, realFontSize.Y) * m_fontScale;
             m_fontSizeHalf = m_fontSize * 0.5f;
-            m_bounds = new Framework.Geometry.Rectangle(
+            m_bounds = new Doog.Framework.Geometry.Rectangle(
                 0.0f,
                 0.0f,
                 (int)(Window.ClientBounds.Width / m_fontSize.X),
@@ -85,8 +84,8 @@ namespace Snake.Runners.MonoGameDesktop
             m_snakeGame = new SnakeGame();
             m_snakeGame.Initialize(
                 this,
-                new Framework.Physics.PhysicSystem(),
-                new Framework.Texts.Map.MapTextSystem(m_snakeGame, "Slant"),
+                new Doog.Framework.Physics.PhysicSystem(),
+                new Doog.Framework.Texts.Map.MapTextSystem(m_snakeGame, "Slant"),
                 this,
                 Exit);
         }
@@ -161,7 +160,7 @@ namespace Snake.Runners.MonoGameDesktop
             }
         }
 
-        bool IInputSystem.IsKeyDown(Framework.Input.Keys key)
+        bool IInputSystem.IsKeyDown(Doog.Framework.Input.Keys key)
         {
             return Keyboard.GetState().IsKeyDown((Microsoft.Xna.Framework.Input.Keys)key);
         }

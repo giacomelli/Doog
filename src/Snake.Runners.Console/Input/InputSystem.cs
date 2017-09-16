@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Snake.Framework.Input;
+using System.Collections.Generic;
+using Doog.Framework.Input;
 using Underlying = System.Console;
 
 namespace Snake.Runners.Console.Input

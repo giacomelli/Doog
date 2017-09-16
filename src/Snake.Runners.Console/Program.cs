@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using Snake.Framework.Geometry;
-using Snake.Framework.Physics;
-using Snake.Framework.Texts.Map;
+using Doog.Framework.Geometry;
+using Doog.Framework.Physics;
+using Doog.Framework.Texts.Map;
 using Snake.Game;
 using Snake.Runners.Console.Input;
 

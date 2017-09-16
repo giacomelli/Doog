@@ -1,13 +1,30 @@
-Snake
+Doog
 ===========
 
-[![Build status](https://ci.appveyor.com/api/projects/status/4ixai1j2xs9pn90q/branch/master?svg=true)](https://ci.appveyor.com/project/giacomelli/snake-mg07x/branch/master) [![Coverage Status](https://coveralls.io/repos/github/giacomelli/snake/badge.svg?branch=master)](https://coveralls.io/github/giacomelli/snake?branch=master)
+[![Build status](https://ci.appveyor.com/api/projects/status/4ixai1j2xs9pn90q/branch/master?svg=true)](https://ci.appveyor.com/project/giacomelli/snake-mg07x/branch/master) [![Coverage Status](https://coveralls.io/repos/github/giacomelli/Doog/badge.svg?branch=master)](https://coveralls.io/github/giacomelli/Doog?branch=master)
 
-We will use classic game programming patterns in order to create a snake implementation that is agnostic of how its graphics, sounds and inputs are really implemented.
+Doog is a platform to create games that looks like old games, but using advanced game programming patterns in order to create games where the implementation is agnostic of how its graphics, sounds and inputs are really implemented.
 
-The first result will be quite simple, just a console rendering, but in the future we will implement more sofisticated output using Unity3D.
+The default support is for console/terminal graphics, as you can see in the images below, but we also have a initial MonoGame graphics implementation and an experimental implementio of Unity3d graphics.
+
+![](docs/gifs/Easings-2017-09-16.gif)
 
 --------
+
+## Feature
+* Animations (30+ easings)
+* Font System
+* Graphic system (console/terminal and MonoGame)
+* Input system
+* Log system (console and file)
+* Physic system (currently supporing just collision detection)
+* Transform (position, scale and rotation)
+
+## Games
+Nowadays we have just a Snake game implementation that show how to use Doog.Framework to create a old style game. 
+
+### Snake
+![](docs/gifs/Snake-2017-09-16.gif)
 
 ## Boundaries
 * Graphic agnostic
@@ -19,9 +36,9 @@ The first result will be quite simple, just a console rendering, but in the futu
 
 ## How to improve it?
 
-Create a fork of [Snake](https://github.com/giacomelli/snake/fork). 
+Create a fork of [Doog](https://github.com/giacomelli/Doog/fork). 
 
-Did you change it? [Submit a pull request](https://github.com/giacomelli/snake/pull/new/master).
+Did you change it? [Submit a pull request](https://github.com/giacomelli/Doog/pull/new/master).
 
 ## License
 Licensed under the The MIT License (MIT).
