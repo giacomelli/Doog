@@ -4,7 +4,7 @@ configuration: Release
 environment:
   clone_folder: c:\doog
   COVERALLS_REPO_TOKEN:
-    secure: IuPjLlnWW2ybi9qyQ3p6+y1loYFlP7NEJjVjM6czrHU4gruHvpjoiMq39E9rQG2F
+    secure: yvqm3RvF03eBaks4yC+CSWM+tiRIAYkipdAxU5pDmKbGUGUGH9EnuPdUnIsRQAu0
 
 install:
 - cmd: choco install monogame
