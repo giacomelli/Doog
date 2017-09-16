@@ -13,7 +13,7 @@ before_build:
 - cmd: nuget restore .\src\Doog.sln
 
 build:
-  project: src\Snake.sln
+  project: src\Doog.sln
   verbosity: minimal
 
 test_script:
