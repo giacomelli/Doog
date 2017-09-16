@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Doog.Framework;
+﻿using System.Collections.Generic;
 
 namespace Doog.Framework
 {
