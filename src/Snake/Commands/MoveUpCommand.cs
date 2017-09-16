@@ -1,6 +1,6 @@
-using Doog.Framework.Behaviors.Commands;
+﻿using Doog.Framework;
 
-namespace Snake.Game.Commands
+namespace Snake.Commands
 {
     public class MoveUpCommand : CommandBase<Snake>
     {

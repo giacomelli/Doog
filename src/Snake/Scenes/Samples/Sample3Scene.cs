@@ -1,10 +1,6 @@
-using System;
-using Doog.Framework;
-using Doog.Framework.Animations;
-using Doog.Framework.Geometry;
-using Doog.Framework.Graphics;
+﻿using Doog.Framework;
 
-namespace Snake.Game.Scenes.Samples
+namespace Snake.Scenes.Samples
 {
     public class Sample3Scene : SceneBase
     {

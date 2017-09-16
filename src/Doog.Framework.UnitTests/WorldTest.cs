@@ -1,16 +1,10 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Doog.Framework.Behaviors;
-using Doog.Framework.Graphics;
-using Doog.Framework.Logging;
-using Doog.Framework.Physics;
-using Doog.Framework.Texts;
-using Doog.Framework.Input;
 
 namespace Doog.Framework.UnitTests
 {
-	[TestFixture]
+    [TestFixture]
 	public class WorldTest
 	{
 		private IGraphicSystem graphicSystem;

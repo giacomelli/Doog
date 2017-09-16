@@ -1,10 +1,7 @@
-using System;
+﻿using System;
 using Doog.Framework;
-using Doog.Framework.Geometry;
-using Doog.Framework.Physics;
-using Doog.Framework.Animations;
 
-namespace Snake.Game
+namespace Snake
 {
     public class Portal : RectangleComponent, ICollidable
     {

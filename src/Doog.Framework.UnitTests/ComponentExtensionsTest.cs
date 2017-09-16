@@ -1,9 +1,6 @@
-using System.Linq;
+﻿using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Doog.Framework.Behaviors;
-using Doog.Framework.Geometry;
-using Doog.Framework.Graphics;
 
 namespace Doog.Framework.UnitTests
 {

@@ -1,5 +1,5 @@
-using System;
-namespace Doog.Framework.Animations
+﻿using System;
+namespace Doog.Framework
 {
 	/// <summary>
 	/// A linear easing with no easing and no acceleration.

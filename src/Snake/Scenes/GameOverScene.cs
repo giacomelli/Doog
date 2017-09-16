@@ -1,11 +1,7 @@
-using Doog.Framework;
-using Doog.Framework.Graphics;
-using Snake.Game.Scenes.Samples;
-using Doog.Framework.Animations;
-using Doog.Framework.Geometry;
-using Doog.Framework.Input;
+﻿using Doog.Framework;
+using Snake.Scenes.Samples;
 
-namespace Snake.Game.Scenes
+namespace Snake.Scenes
 {
     public class GameOverScene : SceneBase
     {

@@ -1,8 +1,5 @@
 ﻿using NUnit.Framework;
 using Rhino.Mocks;
-using Doog.Framework.Animations;
-using Doog.Framework.Geometry;
-using Doog.Framework.Logging;
 
 namespace Doog.Framework.UnitTests.Animations
 {

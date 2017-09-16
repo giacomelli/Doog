@@ -1,9 +1,6 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
-using Doog.Framework.Diagnostics;
 using Rhino.Mocks;
-using Doog.Framework.Texts;
-using Doog.Framework.Graphics;
 
 namespace Doog.Framework.UnitTests.Diagnostics
 {

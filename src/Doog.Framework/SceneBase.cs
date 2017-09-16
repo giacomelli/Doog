@@ -1,4 +1,4 @@
-using Doog.Framework.Graphics;
+﻿using Doog.Framework;
 
 namespace Doog.Framework
 {

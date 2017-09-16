@@ -1,7 +1,7 @@
 Doog
 ===========
 
-[![Build status](https://ci.appveyor.com/api/projects/status/4ixai1j2xs9pn90q/branch/master?svg=true)](https://ci.appveyor.com/project/giacomelli/snake-mg07x/branch/master) [![Coverage Status](https://coveralls.io/repos/github/giacomelli/Doog/badge.svg?branch=master)](https://coveralls.io/github/giacomelli/Doog?branch=master)
+[![Build status](https://ci.appveyor.com/api/projects/status/57spmopic2m8kau5?svg=true)](https://ci.appveyor.com/project/giacomelli/snake-mg07x/branch/master) [![Coverage Status](https://coveralls.io/repos/github/giacomelli/Doog/badge.svg?branch=master)](https://coveralls.io/github/giacomelli/Doog?branch=master)
 
 Doog is a platform to create games that looks like old games, but using advanced game programming patterns in order to create games where the implementation is agnostic of how its graphics, sounds and inputs are really implemented.
 

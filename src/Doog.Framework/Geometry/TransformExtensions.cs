@@ -1,4 +1,4 @@
-namespace Doog.Framework.Geometry
+﻿namespace Doog.Framework
 {
     /// <summary>
     /// Transform extensions methods.

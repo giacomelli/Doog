@@ -1,10 +1,9 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Doog.Framework;
-using Doog.Framework.Geometry;
 
-namespace Snake.Game
+namespace Snake
 {
-	public class WallSpawner : ComponentBase
+    public class WallSpawner : ComponentBase
 	{
         public WallSpawner(IWorldContext context)
             : base(context)

@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace Doog.Framework.Geometry
+namespace Doog.Framework
 {
     /// <summary>
     /// Point extension methods.

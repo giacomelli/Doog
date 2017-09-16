@@ -1,9 +1,6 @@
-using Doog.Framework;
-using Doog.Framework.Geometry;
-using Doog.Framework.Graphics;
-using Doog.Framework.Physics;
+﻿using Doog.Framework;
 
-namespace Snake.Game
+namespace Snake
 {
     public class Wall : RectangleComponent, IDrawable, ICollidable
     {

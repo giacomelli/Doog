@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Doog.Framework.Graphics;
+using Doog.Framework;
 
-namespace Doog.Framework.Texts.Map
+namespace Doog.Framework
 {
 	/// <summary>
 	/// An ITextSystem implementation that use fonts from map files.

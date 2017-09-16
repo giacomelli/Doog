@@ -1,11 +1,8 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using Doog.Framework.Geometry;
-using Doog.Framework.Physics;
-using Doog.Framework.Texts.Map;
-using Snake.Game;
+using Doog.Framework;
+using Snake;
 using Snake.Runners.Console.Input;
 
 namespace Snake.Runners.Console

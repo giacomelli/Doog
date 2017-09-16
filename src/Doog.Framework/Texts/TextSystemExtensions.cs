@@ -1,5 +1,4 @@
-using Doog.Framework.Geometry;
-using Doog.Framework.Texts;
+﻿using Doog.Framework;
 
 /// <summary>
 /// ITextSystem extension methods.

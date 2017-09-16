@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace Doog.Framework.Animations
+namespace Doog.Framework
 {
     internal static class EasingConstants
     {

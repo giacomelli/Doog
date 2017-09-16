@@ -1,7 +1,7 @@
-using System;
-using Doog.Framework.Graphics;
+﻿using System;
+using Doog.Framework;
 
-namespace Doog.Framework.Geometry
+namespace Doog.Framework
 {
     /// <summary>
     /// An circle component.

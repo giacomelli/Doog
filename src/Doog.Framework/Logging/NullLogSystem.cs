@@ -1,4 +1,4 @@
-namespace Doog.Framework.Logging
+﻿namespace Doog.Framework
 {
     /// <summary>
     /// An implementation of ILogSystem using null pattern.

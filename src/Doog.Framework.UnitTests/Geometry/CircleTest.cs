@@ -1,5 +1,5 @@
-using NUnit.Framework;
-using Doog.Framework.Geometry;
+﻿using NUnit.Framework;
+using Doog.Framework;
 
 namespace Doog.Framework.UnitTests.Geometry
 {

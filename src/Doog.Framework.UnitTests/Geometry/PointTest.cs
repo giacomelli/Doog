@@ -1,6 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
-using Doog.Framework.Geometry;
+using Doog.Framework;
 
 namespace Doog.Framework.UnitTests.Geometry
 {

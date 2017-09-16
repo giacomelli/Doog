@@ -1,6 +1,6 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Rhino.Mocks;
-using Doog.Framework.Geometry;
+using Doog.Framework;
 
 namespace Doog.Framework.UnitTests.Geometry
 {

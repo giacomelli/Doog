@@ -1,4 +1,4 @@
-namespace Doog.Framework.Behaviors
+﻿namespace Doog.Framework
 {
 	/// <summary>
 	/// Defines an interface for an updatable component.

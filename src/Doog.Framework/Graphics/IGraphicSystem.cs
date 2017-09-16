@@ -1,6 +1,6 @@
-using Doog.Framework.Geometry;
+﻿using Doog.Framework;
 
-namespace Doog.Framework.Graphics
+namespace Doog.Framework
 {
     public interface IGraphicSystem : ICanvas
     {

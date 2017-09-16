@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using Doog.Framework.Behaviors.Commands;
-using Doog.Framework.Input;
+﻿using System.Collections.Generic;
+using Doog.Framework;
 
-namespace Snake.Game.Commands
+namespace Snake.Commands
 {
     public class KeyboardCommandReader : ICommandReader
     {

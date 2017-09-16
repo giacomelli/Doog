@@ -1,10 +1,4 @@
-using System.Collections.Generic;
-using Doog.Framework.Geometry;
-using Doog.Framework.Graphics;
-using Doog.Framework.Logging;
-using Doog.Framework.Physics;
-using Doog.Framework.Texts;
-using Doog.Framework.Input;
+﻿using System.Collections.Generic;
 
 namespace Doog.Framework
 {

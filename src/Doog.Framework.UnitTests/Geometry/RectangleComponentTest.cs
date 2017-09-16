@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Rhino.Mocks;
-using Doog.Framework.Geometry;
-using Doog.Framework.Graphics;
 
 namespace Doog.Framework.UnitTests.Geometry
 {

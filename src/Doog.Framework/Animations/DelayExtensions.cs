@@ -1,5 +1,6 @@
-using System;
-namespace Doog.Framework.Animations
+﻿using System;
+
+namespace Doog.Framework
 {
     public static class DelayExtensions
     {

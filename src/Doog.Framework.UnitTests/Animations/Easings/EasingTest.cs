@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Doog.Framework.Animations;
+using Doog.Framework;
 
 namespace Doog.Framework.UnitTests.Animations
 {

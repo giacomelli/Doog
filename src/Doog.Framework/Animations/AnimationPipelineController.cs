@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace Doog.Framework.Animations
+namespace Doog.Framework
 {
     public static class AnimationPipelineController
     {

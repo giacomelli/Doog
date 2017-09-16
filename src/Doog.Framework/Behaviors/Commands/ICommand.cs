@@ -1,4 +1,4 @@
-namespace Doog.Framework.Behaviors.Commands
+﻿namespace Doog.Framework
 {
     public interface ICommand
     {

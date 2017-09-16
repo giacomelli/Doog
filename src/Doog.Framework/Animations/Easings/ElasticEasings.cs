@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace Doog.Framework.Animations
+namespace Doog.Framework
 {
   	/// <summary>
 	/// An InElastic easing: accelerating from zero velocity.

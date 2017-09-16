@@ -1,5 +1,5 @@
-using NUnit.Framework;
-using Doog.Framework.Logging;
+﻿using NUnit.Framework;
+using Doog.Framework;
 
 namespace Doog.Framework.UnitTests.Logging
 {

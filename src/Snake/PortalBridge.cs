@@ -1,7 +1,6 @@
-using Doog.Framework;
-using Doog.Framework.Geometry;
+﻿using Doog.Framework;
 
-namespace Snake.Game
+namespace Snake
 {
     public class PortalBridge
     {

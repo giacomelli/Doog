@@ -1,6 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Doog.Framework.Physics
+namespace Doog.Framework
 {
     /// <summary>
     /// Defines an interface for a physic system.

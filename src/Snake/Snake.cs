@@ -1,11 +1,7 @@
-using System;
+﻿using System;
 using Doog.Framework;
-using Doog.Framework.Behaviors;
-using Doog.Framework.Geometry;
-using Doog.Framework.Behaviors.Commands;
-using Doog.Framework.Physics;
 
-namespace Snake.Game
+namespace Snake
 {
     public sealed class Snake : ComponentBase, IUpdatable, ITransformable, ICollidable
     {

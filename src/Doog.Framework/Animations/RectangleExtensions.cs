@@ -1,7 +1,7 @@
-using System;
-using Doog.Framework.Geometry;
+﻿using System;
+using Doog.Framework;
 
-namespace Doog.Framework.Animations
+namespace Doog.Framework
 {
     public static class RectangleExtensions
     {

@@ -1,12 +1,9 @@
-using NUnit.Framework;
-using System;
-using Doog.Framework.Texts;
+﻿using NUnit.Framework;
 using Rhino.Mocks;
-using Doog.Framework.Geometry;
 
 namespace Doog.Framework.UnitTests
 {
-	[TestFixture]
+    [TestFixture]
 	public class TextSystemExtensionsTest
 	{
 		[Test]

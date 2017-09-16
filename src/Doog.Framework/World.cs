@@ -1,20 +1,13 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Doog.Framework.Behaviors;
-using Doog.Framework.Geometry;
-using Doog.Framework.Graphics;
-using Doog.Framework.Logging;
-using Doog.Framework.Physics;
-using Doog.Framework.Texts;
-using Doog.Framework.Input;
 
 namespace Doog.Framework
 {
-	/// <summary>
-	/// Responsible to control the game loop flow.
-	/// </summary>
-	public class World : IWorld
+    /// <summary>
+    /// Responsible to control the game loop flow.
+    /// </summary>
+    public class World : IWorld
 	{
 		private IDrawContext drawContext;
 		private IList<IUpdatable> updatables;

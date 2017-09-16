@@ -1,10 +1,6 @@
-using System.Linq;
-using Doog.Framework.Behaviors;
-using Doog.Framework.Geometry;
-using Doog.Framework.Graphics;
-using Doog.Framework.Physics;
+﻿using System.Linq;
 
-namespace Doog.Framework.Diagnostics
+namespace Doog.Framework
 {
     /// <summary>
     /// A console to show stats by game world.

@@ -1,9 +1,7 @@
-using Doog.Framework;
-using Doog.Framework.Geometry;
-using Doog.Framework.Graphics;
-using Snake.Game.Commands;
+﻿using Doog.Framework;
+using Snake.Commands;
 
-namespace Snake.Game.Scenes
+namespace Snake.Scenes
 {
     public class ClassicModeLevelScene : SceneBase
     {
