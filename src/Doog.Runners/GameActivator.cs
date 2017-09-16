@@ -27,5 +27,24 @@ namespace Doog.Runners
 
             return (World)Activator.CreateInstance(gameType);
         }
+
+        public static void Config(World game, string[] args)
+        {
+			//if (args.Contains("file-log"))
+			//{
+			//	game.LogSystem = new FileLogSystem(
+			//		Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt"),
+			//		game);
+			//}
+			//else 
+
+                if (args.Contains("ingame-log"))
+			{
+				var b = game.Bounds;
+				game.LogSystem = new InGameLogSystem(
+					new Rectangle(b.Left + 1, b.Bottom * 0.8f, b.Width - 2, (b.Height * 0.2f) - 1),
+					game);
+			}
+        }
     }
 }

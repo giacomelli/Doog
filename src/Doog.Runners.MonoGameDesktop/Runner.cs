@@ -10,6 +10,7 @@ namespace Doog.Runners.MonoGameDesktop
     /// </summary>
     public class Runner : Microsoft.Xna.Framework.Game, Doog.Framework.IGraphicSystem, Doog.Framework.IInputSystem
     {
+        string[] m_args;
         GraphicsDeviceManager m_graphics;
         SpriteBatch m_spriteBatch;
         Doog.Framework.World m_world;
@@ -28,12 +29,12 @@ namespace Doog.Runners.MonoGameDesktop
             }
         }
 
-        public Runner(Doog.Framework.World world)
+        public Runner(string[] args)
         {
+            m_args = args;
             m_graphics = new GraphicsDeviceManager(this);
             //m_graphics.ToggleFullScreen();
             Content.RootDirectory = "Content";
-            m_world = world;
         }
 
         /// <summary>
@@ -74,12 +75,15 @@ namespace Doog.Runners.MonoGameDesktop
                 (int)(Window.ClientBounds.Height / m_fontSize.Y));
 
             m_spriteBuffer = new Graphics.SpriteBuffer((int)(m_bounds.Width * m_bounds.Height));
+            m_world = GameActivator.CreateInstance(m_args);
             m_world.Initialize(
                 this,
                 new Doog.Framework.PhysicSystem(),
                 new Doog.Framework.MapTextSystem(m_world, "Slant"),
                 this,
                 Exit);
+
+            GameActivator.Config(m_world, m_args);
         }
 
         /// <summary>

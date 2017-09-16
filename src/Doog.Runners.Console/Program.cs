@@ -22,19 +22,7 @@ namespace Doog.Runners.Console
 		            inputSystem,
                     () => Environment.Exit(0));
 
-                if (args.Contains("file-log"))
-                {
-                    game.LogSystem = new FileLogSystem(
-                        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt"),
-                        game);
-                }
-                else if (args.Contains("console-log"))
-                {
-                    var b = game.Bounds;
-                    game.LogSystem = new ConsoleLogSystem(
-                        new Rectangle(b.Left + 1, b.Bottom * 0.8f, b.Width - 2, (b.Height * 0.2f) -1),
-                        game);
-                }
+                GameActivator.Config(game, args);
 
                 var secondsPerFrame = 1f / 120;
                 var previous = DateTime.Now;

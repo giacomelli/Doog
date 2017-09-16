@@ -13,7 +13,7 @@ namespace Doog.Runners.MonoGameDesktop
         [STAThread]
         static void Main(string[] args)
         {
-            using (var game = new Runner(GameActivator.CreateInstance(args)))
+            using (var game = new Runner(args))
                 game.Run();
         }
     }

@@ -1,23 +1,26 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
-using Doog.Framework;
 
-namespace Doog.Runners.Console
+namespace Doog.Framework
 {
-    // TODO: move to the Framework project, because it do not have any dependency to Console
-    // Maybe we can change the name to something like DebugLogSystem.
-    public class ConsoleLogSystem : LogSystemBase, IDrawable
+    /// <summary>
+    /// An in-game log system that display logs directly in game screen.
+    /// </summary>
+    /// <remarks>
+    /// Can be useful to debug purposes.
+    /// </remarks>
+    public class InGameLogSystem : LogSystemBase, IDrawable
     {
         private Rectangle bounds;
         private List<string> lines = new List<string>();
 
-        public ConsoleLogSystem(Rectangle bounds, IWorldContext context)
+        public InGameLogSystem(Rectangle bounds, IWorldContext context)
             : base(context)
         {
             this.bounds = bounds;
             Context = context;
             Enabled = true;
-            Tag = "ConsoleLogSystem";
+            Tag = "InGameLogSystem";
             context.AddComponent(this);
         }
 

@@ -135,6 +135,7 @@
     <Compile Include="Geometry\LineComponent.cs" />
     <Compile Include="Geometry\ILine.cs" />
     <Compile Include="Input\InputSystemExtensions.cs" />
+    <Compile Include="Logging\InGameLogSystem.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
