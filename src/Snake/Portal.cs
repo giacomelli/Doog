@@ -1,7 +1,7 @@
 ﻿using System;
 using Doog.Framework;
 
-namespace Snake.Game
+namespace Snake
 {
     public class Portal : RectangleComponent, ICollidable
     {

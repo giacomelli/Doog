@@ -1,4 +1,4 @@
-﻿namespace Snake.Game.Commands
+﻿namespace Snake.Commands
 {
     public static class SnakeCommandPool
     {

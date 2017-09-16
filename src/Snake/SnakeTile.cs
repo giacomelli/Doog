@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Doog.Framework;
 
-namespace Snake.Game
+namespace Snake
 {
     [DebuggerDisplay("{Transform.Position}")]
 	public class SnakeTile : RectangleComponent, ICollidable, IDrawable

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using Doog.Framework;
-using Snake.Game;
+using Snake;
 using Snake.Runners.Console.Input;
 
 namespace Snake.Runners.Console

@@ -1,6 +1,6 @@
 ﻿using Doog.Framework;
 
-namespace Snake.Game.Scenes.Samples
+namespace Snake.Scenes.Samples
 {
     public class Sample2Scene : SceneBase
     {

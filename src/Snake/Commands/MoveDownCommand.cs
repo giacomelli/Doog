@@ -1,12 +1,12 @@
 ﻿using Doog.Framework;
 
-namespace Snake.Game.Commands
+namespace Snake.Commands
 {
-    public class MoveUpCommand : CommandBase<Snake>
+    public class MoveDownCommand : CommandBase<Snake>
     {
         protected override void Execute(Snake target)
         {
-            target.MoveUp();
+            target.MoveDown();
         }
     }
 }

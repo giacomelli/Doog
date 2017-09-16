@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Doog.Framework;
 
-namespace Snake.Game
+namespace Snake
 {
     public class WallSpawner : ComponentBase
 	{

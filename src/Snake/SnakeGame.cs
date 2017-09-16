@@ -1,8 +1,8 @@
 ﻿using System;
 using Doog.Framework;
-using Snake.Game.Scenes;
+using Snake.Scenes;
 
-namespace Snake.Game
+namespace Snake
 {
     public class SnakeGame : World, IDisposable
 	{

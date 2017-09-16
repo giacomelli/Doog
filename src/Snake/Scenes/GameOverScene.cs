@@ -1,7 +1,7 @@
 ﻿using Doog.Framework;
-using Snake.Game.Scenes.Samples;
+using Snake.Scenes.Samples;
 
-namespace Snake.Game.Scenes
+namespace Snake.Scenes
 {
     public class GameOverScene : SceneBase
     {

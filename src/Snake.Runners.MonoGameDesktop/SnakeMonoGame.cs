@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Doog.Framework;
-using Snake.Game;
+using Snake;
 
 namespace Snake.Runners.MonoGameDesktop
 {

@@ -1,6 +1,6 @@
 ﻿using Doog.Framework;
 
-namespace Snake.Game
+namespace Snake
 {
     public class PortalBridge
     {

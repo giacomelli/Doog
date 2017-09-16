@@ -1,6 +1,6 @@
-﻿using Doog.Framework;
+﻿﻿using Doog.Framework;
 
-namespace Snake.Game
+namespace Snake
 {
     public class Food : RectangleComponent, IDrawable, ICollidable
 	{
