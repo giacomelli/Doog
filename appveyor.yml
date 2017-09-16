@@ -31,5 +31,5 @@ artifacts:
   - path: Snake.Runners.Console.zip
     name: Snake.Runners.Console
 
-- path: Snake.Runners.MonoGameDesktop.zip
-  name: Snake.Runners.MonoGameDesktop
+  - path: Snake.Runners.MonoGameDesktop.zip
+    name: Snake.Runners.MonoGameDesktop
