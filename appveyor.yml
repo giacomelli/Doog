@@ -18,7 +18,7 @@ build:
 
 after_build:
 - cmd: 7z a Snake.Runners.Console.zip .\src\Snake.Runners.Console\bin\Release\*.*
-- cmd: 7z a Snake.Runners.MonoGameDesktop.zip .\src\Snake.Runners.MonoGameDesktop\bin\Release\*.*
+- cmd: 7z a Snake.Runners.MonoGameDesktop.zip .\src\Snake.Runners.MonoGameDesktop\bin\DesktopGL\AnyCPU\Release\*.*
 
 test_script:
 - ps: >-
