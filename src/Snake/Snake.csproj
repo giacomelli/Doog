@@ -52,15 +52,6 @@
     <Compile Include="Commands\SnakeCommandPool.cs" />
     <Compile Include="Scenes\ClassicModeLevelScene.cs" />
     <Compile Include="Scenes\GameOverScene.cs" />
-    <Compile Include="Scenes\Samples\Sample1Scene.cs" />
-    <Compile Include="Scenes\Samples\Sample2Scene.cs" />
-    <Compile Include="Scenes\Samples\Sample3Scene.cs" />
-    <Compile Include="Scenes\Samples\Sample4Scene.cs" />
-    <Compile Include="Scenes\Samples\Sample5Scene.cs" />
-    <Compile Include="Scenes\Samples\Sample6Scene.cs" />
-    <Compile Include="Scenes\Samples\Sample7Scene.cs" />
-    <Compile Include="Scenes\Samples\Sample8Scene.cs" />
-    <Compile Include="Scenes\Samples\SampleComponent.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="FoodSpawner.cs" />
     <Compile Include="Portal.cs" />

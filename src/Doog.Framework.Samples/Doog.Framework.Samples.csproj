@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AD4421C0-750D-4FD1-A1C9-F5EA597AD344}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Doog.Framework.Samples</RootNamespace>
+    <AssemblyName>Doog.Framework.Samples</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sample1Scene.cs" />
+    <Compile Include="Sample2Scene.cs" />
+    <Compile Include="Sample3Scene.cs" />
+    <Compile Include="Sample4Scene.cs" />
+    <Compile Include="Sample5Scene.cs" />
+    <Compile Include="Sample6Scene.cs" />
+    <Compile Include="Sample7Scene.cs" />
+    <Compile Include="Sample8Scene.cs" />
+    <Compile Include="SampleComponent.cs" />
+    <Compile Include="MainScene.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Doog.Framework\Doog.Framework.csproj">
+      <Project>{9035ADE3-AACF-40F4-BEC4-9A8263793B63}</Project>
+      <Name>Doog.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,6 +1,4 @@
-﻿using Doog.Framework;
-
-namespace Snake.Scenes.Samples
+﻿namespace Doog.Framework.Samples
 {
     public class Sample1Scene : SceneBase
     {
@@ -20,7 +18,7 @@ namespace Snake.Scenes.Samples
             Context.RemoveAllComponents();
             var bounds = Context.Bounds;
 
-            var moveToFood1 = new Food(Context);
+            var moveToFood1 = new RectangleComponent(Point.Zero, Context);
             moveToFood1.Transform.Position = moveToSampleArea.LeftTopPoint();
             moveToFood1.Transform
                        .MoveTo(moveToSampleArea.RightBottomPoint(), 2, Easing.InBack)
@@ -28,7 +26,7 @@ namespace Snake.Scenes.Samples
                        .MoveTo(moveToSampleArea.RightTopPoint(), 2, Easing.Linear)
                        .PingPong();
 
-            var moveToFood2 = new Food(Context);
+            var moveToFood2 = new RectangleComponent(Point.Zero, Context);
             moveToFood2.Transform.Position = moveToSampleArea.RightBottomPoint();
             moveToFood2.Transform
                        .MoveTo(moveToSampleArea.LeftTopPoint(), 2, Easing.InBack)
@@ -36,7 +34,7 @@ namespace Snake.Scenes.Samples
                        .MoveTo(moveToSampleArea.LeftBottomPoint(), 2, Easing.Linear)
                        .PingPong();
 
-            var blinkFood = new Food(Context);
+            var blinkFood = new RectangleComponent(Point.Zero, Context);
             blinkFood.Transform.Position = new Point(30, 11);
             blinkFood
                 .Enable(1f)
@@ -60,7 +58,7 @@ namespace Snake.Scenes.Samples
             // Once blink
             for (var i = 0; i < 100; i++)
             {
-                var b = new Food(Context);
+                var b = new RectangleComponent(Point.Zero, Context);
                 b.Transform.Position = new Point(31 + i, 11);
                 b
                     .Delay(i * 0.05f)
@@ -77,7 +75,7 @@ namespace Snake.Scenes.Samples
 
             for (var i = 0; i < length; i++)
             {
-                var b = new Food(Context);
+                var b = new RectangleComponent(Point.Zero, Context);
                 b.Transform.Position = new Point(31 + i, 13);
                 b
                     .Disable(i * speed).OnlyForward()
