@@ -16,6 +16,10 @@ build:
   project: src\Doog.sln
   verbosity: minimal
 
+after_build:
+- cmd: 7z a Snake.Runners.Console.zip .\src\Snake.Runners.Console\bin\Release\*.*
+- cmd: 7z a Snake.Runners.MonoGameDesktop.zip .\src\Snake.Runners.MonoGameDesktop\bin\Release\*.*
+
 test_script:
 - ps: >-
     .\src\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -skipautoprops -register:user -target:nunit3-console.exe -register:user "-targetargs:src\Doog.Framework.UnitTests\bin\$env:CONFIGURATION\Doog.Framework.UnitTests.dll " -filter:"+[Doog.Framework]*" -output:opencoverCoverage.xml
@@ -24,6 +28,8 @@ test_script:
     .\src\packages\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i opencoverCoverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
 
 artifacts:
-  - path: .\src\Snake.Runners.Console\bin\Release\*.*
-    name: Snake.Runners.Console.zip
-    type: zip
+  - path: Snake.Runners.Console.zip
+    name: Snake.Runners.Console
+
+- path: Snake.Runners.MonoGameDesktop.zip
+  name: Snake.Runners.MonoGameDesktop
