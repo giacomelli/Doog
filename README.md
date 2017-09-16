@@ -1,7 +1,7 @@
 Doog
 ===========
 
-[![Build status](https://ci.appveyor.com/api/projects/status/57spmopic2m8kau5?svg=true)](https://ci.appveyor.com/project/giacomelli/snake-mg07x/branch/master) [![Coverage Status](https://coveralls.io/repos/github/giacomelli/Doog/badge.svg?branch=master)](https://coveralls.io/github/giacomelli/Doog?branch=master)
+[![Build status](https://ci.appveyor.com/api/projects/status/57spmopic2m8kau5?svg=true)](https://ci.appveyor.com/project/giacomelli/doog) [![Coverage Status](https://coveralls.io/repos/github/giacomelli/Doog/badge.svg?branch=master)](https://coveralls.io/github/giacomelli/Doog?branch=master)
 
 Doog is a platform to create games that looks like old games, but using advanced game programming patterns in order to create games where the implementation is agnostic of how its graphics, sounds and inputs are really implemented.
 
@@ -32,6 +32,23 @@ Nowadays we have just a Snake game implementation that show how to use Doog.Fram
 * Input agnostic
 * Use of classic game programming patterns (http://gameprogrammingpatterns.com)
 * Follow the SOLID principles
+
+## How to run?
+1. Download the binaries from the lastest CI build: [https://ci.appveyor.com/project/giacomelli/doog/build/artifacts](https://ci.appveyor.com/project/giacomelli/doog/build/artifacts)
+
+2. Open a console/terminal and type:
+
+**To run the Snake game:**
+```shell
+mono Doog.Runners.Console.exe Snake.dll
+```
+
+**To run the framework samples**:
+```shell
+mono Doog.Runners.Console.exe Doog.Framework.Samples.dll
+```
+
+*Note: the "mono" is only need in a non Windows SO*
 
 
 ## How to improve it?

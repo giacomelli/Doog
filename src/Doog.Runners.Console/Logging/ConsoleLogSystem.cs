@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Doog.Framework;
 
-namespace Snake.Runners.Console
+namespace Doog.Runners.Console
 {
     // TODO: move to the Framework project, because it do not have any dependency to Console
     // Maybe we can change the name to something like DebugLogSystem.

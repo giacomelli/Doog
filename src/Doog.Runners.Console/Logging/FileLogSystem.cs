@@ -2,7 +2,7 @@
 using System.IO;
 using Doog.Framework;
 
-namespace Snake.Runners.Console
+namespace Doog.Runners.Console
 {
     // TODO: move to a Framework.IO project.
     public class FileLogSystem : LogSystemBase, IDisposable

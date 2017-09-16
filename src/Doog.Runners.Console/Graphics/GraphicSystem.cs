@@ -2,7 +2,7 @@
 using Doog.Framework;
 using underlying = System.Console;
 
-namespace Snake.Runners.Console
+namespace Doog.Runners.Console
 {
     public class GraphicSystem : IGraphicSystem
     {

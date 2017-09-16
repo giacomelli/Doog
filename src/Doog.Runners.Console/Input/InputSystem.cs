@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿﻿using System.Collections.Generic;
 using Doog.Framework;
 using Underlying = System.Console;
 
-namespace Snake.Runners.Console.Input
+namespace Doog.Runners.Console
 {
     public class InputSystem : IInputSystem
     {

@@ -3,9 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Doog.Framework;
-using Snake.Runners.Console.Input;
 
-namespace Snake.Runners.Console
+namespace Doog.Runners.Console
 {
     internal class Program
     {
@@ -52,9 +51,6 @@ namespace Snake.Runners.Console
                         game);
                 }
 
-                // TODO: this should be moved to game loop inside the World class.
-                // There are samples how to implement it on chapter GAME LOOP.
-                // The game loop bellow is the "Fixed update time step, variable rendering.
                 var secondsPerFrame = 1f / 120;
                 var previous = DateTime.Now;
                 var lag = 0.0;

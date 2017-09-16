@@ -17,7 +17,7 @@ build:
   verbosity: minimal
 
 after_build:
-- cmd: 7z a Snake.Runners.Console.zip -r .\src\Snake.Runners.Console\bin\Release
+- cmd: 7z a Doog.Runners.Console.zip -r .\src\Doog.Runners.Console\bin\Release
 - cmd: 7z a Snake.Runners.MonoGameDesktop.zip -r .\src\Snake.Runners.MonoGameDesktop\bin\DesktopGL\AnyCPU\Release
 
 test_script:
@@ -28,8 +28,8 @@ test_script:
     .\src\packages\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i opencoverCoverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
 
 artifacts:
-  - path: Snake.Runners.Console.zip
-    name: Snake.Runners.Console
+  - path: Doog.Runners.Console.zip
+    name: Doog.Runners.Console
 
   - path: Snake.Runners.MonoGameDesktop.zip
     name: Snake.Runners.MonoGameDesktop

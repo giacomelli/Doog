@@ -8,11 +8,11 @@
 
           <Copy
               SourceFiles="@(FilesToCopy)"
-              DestinationFiles="@(FilesToCopy->'$(MSBuildProjectDirectory)\..\Snake.Runners.Console\bin\Debug\%(RecursiveDir)%(Filename)%(Extension)')"/>
+              DestinationFiles="@(FilesToCopy->'$(MSBuildProjectDirectory)\..\Doog.Runners.Console\bin\Debug\%(RecursiveDir)%(Filename)%(Extension)')"/>
 
 
           <Copy
               SourceFiles="@(FilesToCopy)"
-              DestinationFiles="@(FilesToCopy->'$(MSBuildProjectDirectory)\..\Snake.Runners.Unity\Assets\Scripts\references\%(RecursiveDir)%(Filename)%(Extension)')"/>
+              DestinationFiles="@(FilesToCopy->'$(MSBuildProjectDirectory)\..\Doog.Runners.Unity\Assets\Scripts\references\%(RecursiveDir)%(Filename)%(Extension)')"/>
     </Target>
 </Project>
