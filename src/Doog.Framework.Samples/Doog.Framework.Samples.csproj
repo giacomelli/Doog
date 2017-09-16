@@ -41,6 +41,7 @@
     <Compile Include="Sample8Scene.cs" />
     <Compile Include="SampleComponent.cs" />
     <Compile Include="MainScene.cs" />
+    <Compile Include="SamplesWorld.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Doog.Framework\Doog.Framework.csproj">
@@ -49,4 +50,6 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\msbuilds\CopyToRunners.targets" />
+  
 </Project>

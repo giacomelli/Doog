@@ -24,6 +24,12 @@ namespace Doog.Framework.Samples
 				.OpenScene<Sample6Scene>(Keys.D6)
 				.OpenScene<Sample7Scene>(Keys.D7)
 				.OpenScene<Sample8Scene>(Keys.D8);
+        } 
+
+        public override void Draw(IDrawContext drawContext)
+        {
+            drawContext.TextSystem
+                       .DrawCenter("Type 1 to 8 to load the sample scenes", "Default");
         }
     }
 }

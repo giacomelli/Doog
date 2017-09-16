@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Doog.Framework;
-using Snake;
 using Snake.Runners.Console.Input;
 
 namespace Snake.Runners.Console
@@ -11,7 +11,22 @@ namespace Snake.Runners.Console
     {
         private static void Main(string[] args)
         {
-            using (var game = new SnakeGame())
+            if(args.Length == 0)
+            {
+                throw new ArgumentException("Game assembly filename should be the first argument!");    
+            }
+
+            var gameName = args[0];
+            var gameAssembly = Assembly.LoadFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, gameName));
+            var worldType = typeof(World);
+            var gameType = gameAssembly.GetTypes().FirstOrDefault(t => worldType.IsAssignableFrom(t));
+
+            if (gameType == null)
+            {
+                throw new InvalidOperationException("Could not find a class that inherits from Doog.Framework.World class.");
+            }
+
+            using (var game = (World)Activator.CreateInstance(gameType))
             {
                 var gs = new GraphicSystem();
                 var ts = new MapTextSystem(game, "Slant");
@@ -33,7 +48,7 @@ namespace Snake.Runners.Console
                 {
                     var b = game.Bounds;
                     game.LogSystem = new ConsoleLogSystem(
-                        new Rectangle(b.Left + 1, b.Bottom * 0.8f, b.Width - 1, (b.Height * 0.2f)),
+                        new Rectangle(b.Left + 1, b.Bottom * 0.8f, b.Width - 2, (b.Height * 0.2f) -1),
                         game);
                 }
 

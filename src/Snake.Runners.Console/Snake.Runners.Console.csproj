@@ -42,10 +42,6 @@
       <Project>{9035ade3-aacf-40f4-bec4-9a8263793b63}</Project>
       <Name>Doog.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Snake\Snake.csproj">
-      <Project>{2410BD9F-180C-480B-AE43-7821BB9124BE}</Project>
-      <Name>Snake</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
