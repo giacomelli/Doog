@@ -11,12 +11,19 @@ namespace Doog.Runners
         public static World CreateInstance(string[] args)
         {
 			if (args.Length == 0)
-			{
-				throw new ArgumentException("Game assembly filename should be the first argument!");
+            {
+				throw new ArgumentException("Game assembly filename should be the first argument.");
 			}
 
 			var gameName = args[0];
-			var gameAssembly = Assembly.LoadFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, gameName));
+            var gameAssemblyFilename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, gameName);
+
+            if (!File.Exists(gameAssemblyFilename))
+            {
+                throw new InvalidOperationException("Game assembly file does not exist.");
+            }
+
+			var gameAssembly = Assembly.LoadFile(gameAssemblyFilename);
 			var worldType = typeof(World);
 			var gameType = gameAssembly.GetTypes().FirstOrDefault(t => worldType.IsAssignableFrom(t));
 
@@ -34,7 +41,7 @@ namespace Doog.Runners
 			{
 				WorldStatsConsole.Create(game.Bounds.Left + 2, game.Bounds.Top + 2, game);
 			}
-
+             
 			if (args.Contains("file-log"))
 			{
 				game.LogSystem = new FileLogSystem(

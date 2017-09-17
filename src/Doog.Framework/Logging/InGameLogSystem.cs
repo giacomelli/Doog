@@ -32,7 +32,7 @@ namespace Doog.Framework
 
 		public void Draw(IDrawContext ctx)
 		{
-            Context.GraphicSystem.Draw(bounds);
+            ctx.Canvas.Draw(bounds);
 
             for (int i = 0; i < lines.Count; i++)
             {
@@ -57,7 +57,7 @@ namespace Doog.Framework
 
         public IEnumerable<IComponent> GetChildren()
         {
-            throw new NotImplementedException();
+            return new IComponent[0];
         }
     }
 }
