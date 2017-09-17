@@ -1,0 +1,14 @@
+ <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+      <Target Name="AfterBuild">
+          <ItemGroup>
+              <FilesToCopy Include="$(MSBuildProjectDirectory)\bin\$(Configuration)\**\*.*" />
+			  <FilesToCopy Include="$(MSBuildProjectDirectory)\bin\DesktopGL\AnyCPU\$(Configuration)\**\*.*" />
+          </ItemGroup>
+
+          <Message Text="### Copying $(MSBuildProjectName) files to build folder ..." Importance="high" />
+
+          <Copy
+              SourceFiles="@(FilesToCopy)"
+              DestinationFiles="@(FilesToCopy->'$(MSBuildProjectDirectory)\..\..\build\%(RecursiveDir)%(Filename)%(Extension)')"/>
+    </Target>
+</Project>

@@ -210,5 +210,10 @@ namespace Doog.Framework
         {
             this.exitAction();
         }
+
+        public virtual void Dispose()
+        {
+            
+        }
 	}
 }

@@ -27,6 +27,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 
+/build
 /src/Snake.Runners.Unity/[Ll]ibrary/
 /src/Snake.Runners.Unity/[Tt]emp/
 /src/Snake.Runners.Unity/[Oo]bj/
