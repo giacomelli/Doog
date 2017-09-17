@@ -17,7 +17,7 @@ build:
   verbosity: minimal
 
 after_build:
-- cmd: 7z a Doog.zip -r .\build
+- cmd: 7z a Doog-bin.zip -r .\build
 
 test_script:
 - ps: >-
@@ -27,5 +27,5 @@ test_script:
     .\src\packages\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i opencoverCoverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
 
 artifacts:
-  - path: Doog.zip
-    name: Doog
+  - path: Doog-bin.zip
+    name: Doog-bin
