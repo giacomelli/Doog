@@ -52,7 +52,7 @@ mono Doog.Runners.Console.exe Snake.dll
 mono Doog.Runners.Console.exe Doog.Framework.Samples.dll
 ```
 
-## Using the MonoGame runner
+### Using the MonoGame runner
 
 *Snake game*:
 
