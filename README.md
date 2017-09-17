@@ -33,7 +33,7 @@ Nowadays we have just a Snake game implementation that show how to use Doog.Fram
 * Use of classic game programming patterns (http://gameprogrammingpatterns.com)
 * Follow the SOLID principles
 
-## How to run?
+## How to run it?
 1. Download the binaries from the lastest CI build: [https://ci.appveyor.com/project/giacomelli/doog/build/artifacts](https://ci.appveyor.com/project/giacomelli/doog/build/artifacts)
 
 2. Open a console/terminal and type:
@@ -69,6 +69,35 @@ mono Doog.Runners.MonoGameDesktop.exe Doog.Framework.Samples.dll
 
 *Note: the "mono" is only need in a non Windows SO*
 
+## How to debug it?
+If you are developing a game using Doog.Framework and want some help to debug it, you can use the runners arguments below:
+
+### debug-enabled
+Shows some stats about the game world in the left-top corner of the game screen. Informations like FPS and currenlty enabled components count.
+
+```shell
+mono Doog.Runners.Console.exe Snake.dll debug-enabled
+```
+
+### ingame-log
+Show the log messages registered by the LogSystem in the bottom part of the game screen.
+
+```shell
+mono Doog.Runners.Console.exe Snake.dll ingame-log
+```
+
+### file-log
+Write the log messages registered by the LogSystem to the log.txt file.
+
+```shell
+mono Doog.Runners.Console.exe Snake.dll file-log
+```
+
+You can combine those arguments:
+
+```shell
+mono Doog.Runners.Console.exe Snake.dll debug-enabled ingame-log
+```
 
 ## How to improve it?
 
