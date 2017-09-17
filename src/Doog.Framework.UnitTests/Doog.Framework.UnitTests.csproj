@@ -100,6 +100,7 @@
     <Compile Include="Geometry\LineExtensionsTest.cs" />
     <Compile Include="Behaviors\Commands\CommandBaseTest.cs" />
     <Compile Include="Input\InputSystemExtensionsTest.cs" />
+    <Compile Include="Logging\InGameLogSystemTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

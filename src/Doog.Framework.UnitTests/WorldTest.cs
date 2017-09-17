@@ -238,6 +238,7 @@ namespace Doog.Framework.UnitTests
         {
             Assert.IsFalse(exited);
             target.Exit();
+            target.Dispose();
             Assert.IsTrue(exited);
         }
 	}
