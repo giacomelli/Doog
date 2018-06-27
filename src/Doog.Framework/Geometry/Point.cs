@@ -21,7 +21,11 @@ namespace Doog.Framework
         public static readonly Point Seven = new Point(7);
         public static readonly Point Eight = new Point(8);
         public static readonly Point Nine = new Point(9);
-        public static readonly Point Ten= new Point(10);
+        public static readonly Point Ten = new Point(10);
+        public static readonly Point Up = new Point(0, -1);
+        public static readonly Point Right = new Point(1, 0);
+        public static readonly Point Down = new Point(0, 1);
+        public static readonly Point Left = new Point(-1, 0);
 
         private readonly float x;
         private readonly float y;
