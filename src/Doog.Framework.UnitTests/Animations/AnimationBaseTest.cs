@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using Rhino.Mocks;
+﻿using NSubstitute;
+using NUnit.Framework;
 
 namespace Doog.Framework.UnitTests.Animations
 {
@@ -10,15 +10,12 @@ namespace Doog.Framework.UnitTests.Animations
         public void Update_PlayStartedTimeGreaterThanSinceSceneStart_DoNotUpdate()
         {
             var sinceSceneStart = 0f;
-            var ctx = MockRepository.GenerateMock<IWorldContext>();
-            ctx.Expect(t => t.LogSystem).Return(MockRepository.GenerateMock<ILogSystem>());
+            var ctx = Substitute.For<IWorldContext>();
+            ctx.LogSystem.Returns(Substitute.For<ILogSystem>());
 
-            var time = MockRepository.GenerateMock<ITime>();
-            time.Expect(t => t.SinceSceneStart).WhenCalled(m =>
-            {
-                m.ReturnValue = sinceSceneStart; 
-            }).Return(0);
-            ctx.Expect(t => t.Time).Return(time);
+            var time = Substitute.For<ITime>();
+            time.SinceSceneStart.Returns (c => sinceSceneStart);
+            ctx.Time.Returns(time);
 
             var owner = new Transform(ctx);
             float currentValue = 0;
@@ -64,7 +61,7 @@ namespace Doog.Framework.UnitTests.Animations
         [Test]
         public void ToString_OwnerFromTo_String()
         {
-            var ctx = MockRepository.GenerateMock<IWorldContext>();
+            var ctx = Substitute.For<IWorldContext>();
             var owner = new Transform(ctx);
             var target = new FloatAnimation<Transform>(owner, 1, 3, 5, v => {});
             Assert.AreEqual("FloatAnimation<Transform>(1..3 in 5s)", target.ToString());
@@ -74,17 +71,14 @@ namespace Doog.Framework.UnitTests.Animations
 		public void Reverse_FromTo_ToFrom()
 		{
 			var sinceSceneStart = 0f;
-			var ctx = MockRepository.GenerateMock<IWorldContext>();
-			ctx.Expect(t => t.LogSystem).Return(MockRepository.GenerateMock<ILogSystem>());
+			var ctx = Substitute.For<IWorldContext>();
+            ctx.LogSystem.Returns(Substitute.For<ILogSystem>());
 
-			var time = MockRepository.GenerateMock<ITime>();
-			time.Expect(t => t.SinceSceneStart).WhenCalled(m =>
-			{
-				m.ReturnValue = sinceSceneStart;
-			}).Return(0);
-			ctx.Expect(t => t.Time).Return(time);
+            var time = Substitute.For<ITime>();
+            time.SinceSceneStart.Returns(c => sinceSceneStart);
+            ctx.Time.Returns(time);
 
-			var owner = new Transform(ctx);
+            var owner = new Transform(ctx);
 			float currentValue = 0;
             var target = new FloatAnimation<Transform>(owner, 1, 3, 5, v => currentValue = v);
 

@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Doog.Framework.UnitTests.Animations
 {
@@ -9,10 +9,9 @@ namespace Doog.Framework.UnitTests.Animations
         [Test]
         public void AllMethods_LogSystem_NoException()
         {
-			var ctx = MockRepository.GenerateMock<IWorldContext>();
-            var logSystem = MockRepository.GenerateMock<ILogSystem>();
-            logSystem.Expect(t => t.Error(null, null)).IgnoreArguments().Repeat.Times(4);
-			ctx.Expect(t => t.LogSystem).Return(logSystem);
+			var ctx = Substitute.For<IWorldContext>();
+            var logSystem = Substitute.For<ILogSystem>();
+			ctx.LogSystem.Returns(logSystem);
 
             var target = new DestroyedAnimationPipeline<Transform>(new Transform(ctx));
             Assert.AreEqual(AnimationState.Stopped, target.State);
@@ -21,8 +20,8 @@ namespace Doog.Framework.UnitTests.Animations
             target.Pause();
             target.Resume();
             target.Destroy();
-          
-            logSystem.VerifyAllExpectations();
+            
+            logSystem.ReceivedWithAnyArgs(5).Error(null, null);
         }
     }
 }

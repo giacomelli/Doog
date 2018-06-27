@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Doog.Framework.UnitTests.Animations
 {
@@ -9,10 +9,10 @@ namespace Doog.Framework.UnitTests.Animations
    		[Test]
 		public void GetLast_Animations_LastOne()
 		{
-            var anim1 = MockRepository.GenerateMock<IAnimation<Transform>>();
-            var actual = MockRepository.GenerateMock<IAnimationPipeline<Transform>>();
-         	actual.Expect(t => t.Get(1)).Return(anim1);
-            actual.Expect(t => t.Length).Return(2);
+            var anim1 = Substitute.For<IAnimation<Transform>>();
+            var actual = Substitute.For<IAnimationPipeline<Transform>>();
+         	actual.Get(1).Returns(anim1);
+            actual.Length.Returns(2);
 
             Assert.AreSame(anim1, actual.GetLast());
 		}
@@ -20,31 +20,29 @@ namespace Doog.Framework.UnitTests.Animations
 		[Test]
 		public void OnlyForward_Animations_LastIsOnlyForward()
 		{
-			var anim1 = MockRepository.GenerateMock<IAnimation<Transform>>();
-            anim1.Expect(t => t.Direction).SetPropertyWithArgument(AnimationDirection.Forward);
-
-			var actual = MockRepository.GenerateMock<IAnimationPipeline<Transform>>();
-			actual.Expect(t => t.Get(1)).Return(anim1);
-			actual.Expect(t => t.Length).Return(2);
+			var anim1 = Substitute.For<IAnimation<Transform>>();
+           
+			var actual = Substitute.For<IAnimationPipeline<Transform>>();
+            actual.Get(1).Returns(anim1);
+            actual.Length.Returns(2);
 
             actual.OnlyForward();
 
-            anim1.VerifyAllExpectations();
-		}
+            Assert.AreEqual(anim1.Direction, AnimationDirection.Forward);
+        }
 
 		[Test]
 		public void OnlyBackward_Animations_LastIsOnlyBackward()
 		{
-			var anim1 = MockRepository.GenerateMock<IAnimation<Transform>>();
-			anim1.Expect(t => t.Direction).SetPropertyWithArgument(AnimationDirection.Backward);
+			var anim1 = Substitute.For<IAnimation<Transform>>();
+		
+			var actual = Substitute.For<IAnimationPipeline<Transform>>();
+            actual.Get(1).Returns(anim1);
+            actual.Length.Returns(2);
 
-			var actual = MockRepository.GenerateMock<IAnimationPipeline<Transform>>();
-			actual.Expect(t => t.Get(1)).Return(anim1);
-			actual.Expect(t => t.Length).Return(2);
+            actual.OnlyBackward();
 
-			actual.OnlyBackward();
-
-			anim1.VerifyAllExpectations();
-		}
+            Assert.AreEqual(anim1.Direction, AnimationDirection.Backward);
+        }
     }
 }

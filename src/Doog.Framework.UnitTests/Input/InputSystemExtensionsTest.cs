@@ -1,7 +1,5 @@
 ﻿using NUnit.Framework;
-using System;
-using Rhino.Mocks;
-using Doog.Framework;
+using NSubstitute;
 
 namespace Doog.Framework.UnitTests.Input
 {
@@ -14,17 +12,15 @@ namespace Doog.Framework.UnitTests.Input
             var d1Called = false;
             var d2Called = false;
 
-            var input = MockRepository.GenerateMock<IInputSystem>();
-            input.Expect(i => i.IsKeyDown(Keys.D1)).Return(true);
-			input.Expect(i => i.IsKeyDown(Keys.D2)).Return(false);
+            var input = Substitute.For<IInputSystem>();
+            input.IsKeyDown(Keys.D1).Returns(true);
+			input.IsKeyDown(Keys.D2).Returns(false);
 
             input.IsKeyDown(Keys.D1, () => d1Called = true)
                  .IsKeyDown(Keys.D2, () => d2Called = true);
 
             Assert.IsTrue(d1Called);
             Assert.IsFalse(d2Called);
-
-            input.VerifyAllExpectations();
-        }
+         }
     }
 }

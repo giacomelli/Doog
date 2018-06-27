@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Doog.Framework.UnitTests.Animations
 {
@@ -14,11 +14,11 @@ namespace Doog.Framework.UnitTests.Animations
         public void InitializeTest()
         {
             sinceSceneStart = 0;
-			ctx = MockRepository.GenerateMock<IWorldContext>();
-			ctx.Expect(t => t.LogSystem).Return(MockRepository.GenerateMock<ILogSystem>());
-            var time = MockRepository.GenerateMock<ITime>();
-            time.Expect(t => t.SinceSceneStart).WhenCalled(m => m.ReturnValue = sinceSceneStart).Return(0);
-			ctx.Expect(t => t.Time).Return(time);
+			ctx = Substitute.For<IWorldContext>();
+			ctx.LogSystem.Returns(Substitute.For<ILogSystem>());
+            var time = Substitute.For<ITime>();
+            time.SinceSceneStart.Returns((c) => sinceSceneStart);
+			ctx.Time.Returns(time);
 
 			owner = new Transform(ctx);   
         }

@@ -1,7 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Doog.Framework;
+using NSubstitute;
 
 namespace Doog.Framework.UnitTests.Geometry
 {
@@ -11,7 +10,7 @@ namespace Doog.Framework.UnitTests.Geometry
 		[Test]
 		public void IncrementPosition_XAndY_PositionChanged()
 		{
-			var target = new Transform(0, 0, MockRepository.GenerateMock<IWorldContext>());
+			var target = new Transform(0, 0, Substitute.For<IWorldContext>());
 
 			target.IncrementPosition(1, -1);
 			Assert.AreEqual(1, target.Position.X);
@@ -25,7 +24,7 @@ namespace Doog.Framework.UnitTests.Geometry
 		[Test]
 		public void Intersect_PositionOrSizeChanged_IntersectChanged()
 		{
-            var ctx = MockRepository.GenerateMock<IWorldContext>();
+            var ctx = Substitute.For<IWorldContext>();
 			var target = new Transform(ctx);
 
 			Assert.IsTrue(target.Intersect(new Transform(ctx)));
@@ -49,7 +48,7 @@ namespace Doog.Framework.UnitTests.Geometry
 		[Test]
 		public void SetX_X_NewPosition()
 		{
-			var target = new Transform(0, 0, MockRepository.GenerateMock<IWorldContext>());
+			var target = new Transform(0, 0, Substitute.For<IWorldContext>());
 
             var oldPosition = target.Position;
 			target.SetX(1);
@@ -60,7 +59,7 @@ namespace Doog.Framework.UnitTests.Geometry
 		[Test]
 		public void SetY_Y_NewPosition()
 		{
-			var target = new Transform(0, 0, MockRepository.GenerateMock<IWorldContext>());
+			var target = new Transform(0, 0, Substitute.For<IWorldContext>());
 
 			var oldPosition = target.Position;
 			target.SetY(1);
@@ -71,7 +70,7 @@ namespace Doog.Framework.UnitTests.Geometry
         [Test]
         public void Scale_DiffValues_Scaled()
         {
-            var target = new Transform(5, 10, MockRepository.GenerateMock<IWorldContext>());
+            var target = new Transform(5, 10, Substitute.For<IWorldContext>());
             Assert.AreEqual(Point.Zero, target.Scale);
             Assert.AreEqual(new Rectangle(5, 10, 0, 0), target.BoundingBox);
 
@@ -91,7 +90,7 @@ namespace Doog.Framework.UnitTests.Geometry
         [Test]
         public void Rotation_360_KeepScaleAndBoxSize()
         {
-            var target = new Transform(5, 10,  MockRepository.GenerateMock<IWorldContext>());
+            var target = new Transform(5, 10,  Substitute.For<IWorldContext>());
             target.Scale = Point.Ten;           
             var expectedBoundingBox = new Rectangle(5, 10, 10, 10);
             Assert.AreEqual(expectedBoundingBox, target.BoundingBox);

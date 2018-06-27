@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Doog.Framework.UnitTests
 {
@@ -9,8 +9,8 @@ namespace Doog.Framework.UnitTests
         [Test]
         public void Initialize_Default_Methods()
         {
-            var context = MockRepository.GenerateMock<IWorldContext>();
-            var target = MockRepository.GeneratePartialMock<SceneBase>(context);
+            var context = Substitute.For<IWorldContext>();
+            var target = Substitute.For<SceneBase>(context);
             target.Initialize();
             target.Update();
             target.Draw(null);

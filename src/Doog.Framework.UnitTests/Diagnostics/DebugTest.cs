@@ -1,6 +1,4 @@
 using NUnit.Framework;
-using System;
-using Smocks;
 
 namespace Doog.Framework.UnitTests.Diagnostics
 {

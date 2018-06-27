@@ -6,25 +6,20 @@ environment:
   COVERALLS_REPO_TOKEN:
     secure: yvqm3RvF03eBaks4yC+CSWM+tiRIAYkipdAxU5pDmKbGUGUGH9EnuPdUnIsRQAu0
 
-install:
-- cmd: choco install monogame
-
 before_build:
-- cmd: nuget restore .\src\Doog.sln
+- cmd: dotnet --version
+- cmd: dotnet restore src
 
-build:
-  project: src\Doog.sln
-  verbosity: minimal
+build_script:
+# The default build
+- cmd: dotnet build src -c release
 
 after_build:
 - cmd: 7z a Doog-bin.zip -r .\build
 
 test_script:
-- ps: >-
-    .\src\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -skipautoprops -register:user -target:nunit3-console.exe -register:user "-targetargs:src\Doog.Framework.UnitTests\bin\$env:CONFIGURATION\Doog.Framework.UnitTests.dll " -filter:"+[Doog.Framework]*" -output:opencoverCoverage.xml
-
-- ps: >-
-    .\src\packages\coveralls.net.0.7.0\tools\csmacnz.Coveralls.exe --opencover -i opencoverCoverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
+- cmd: dotnet clean src/Doog.Framework.UnitTests
+- cmd: dotnet test src/Doog.Framework.UnitTests -f netcoreapp2.0
 
 artifacts:
   - path: Doog-bin.zip
