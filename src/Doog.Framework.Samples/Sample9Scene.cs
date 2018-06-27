@@ -19,11 +19,8 @@ namespace Doog.Framework.Samples
             actor = new SampleComponent(0, 0, Context) { Filled = true };
 
             var b = Context.Bounds;
-            bounds = new Rectangle(b.Left + 10, b.Top + 10, b.Width - 10, b.Height - 15);
-
-            inputStream = System.Console.OpenStandardInput(1);               
+            bounds = new Rectangle(b.Left + 10, b.Top + 10, b.Width - 10, b.Height - 15);            
         }
-        Stream inputStream;
 
         public override void Update()
         {
