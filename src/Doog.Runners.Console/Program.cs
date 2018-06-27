@@ -1,14 +1,11 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using Doog.Framework;
 
 namespace Doog.Runners.Console
 {
-    internal class Program
+    class Program
     {
-        private static void Main(string[] args)
+        static void Main(string[] args)
         { 
             using (var game = GameActivator.CreateInstance(args))
             {

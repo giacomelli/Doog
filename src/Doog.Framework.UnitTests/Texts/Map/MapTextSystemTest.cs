@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Doog.Framework.UnitTests
 {
@@ -10,8 +10,8 @@ namespace Doog.Framework.UnitTests
 		[Test]
 		public void GetFont_WrongFontName_Exception()
 		{
-		    var ctx = MockRepository.GenerateMock<IWorldContext>();
-            ctx.Expect(c => c.GraphicSystem).Return(MockRepository.GenerateMock<IGraphicSystem>());
+		    var ctx = Substitute.For<IWorldContext>();
+            ctx.GraphicSystem.Returns(Substitute.For<IGraphicSystem>());
 
 			var target = new MapTextSystem(ctx, "Avatar");
 			target.Initialize();
@@ -25,10 +25,10 @@ namespace Doog.Framework.UnitTests
 		[Test]
 		public void GetFont_FontName_Font()
 		{
-			var ctx = MockRepository.GenerateMock<IWorldContext>();
-			ctx.Expect(c => c.GraphicSystem).Return(MockRepository.GenerateMock<IGraphicSystem>());
+			var ctx = Substitute.For<IWorldContext>();
+            ctx.GraphicSystem.Returns(Substitute.For<IGraphicSystem>());
 
-			var target = new MapTextSystem(ctx, "Avatar");
+            var target = new MapTextSystem(ctx, "Avatar");
 			target.Initialize();
 			var actual = target.GetFont();
 			Assert.AreEqual("Avatar", actual.Name);
@@ -46,18 +46,17 @@ namespace Doog.Framework.UnitTests
 		[Test]
 		public void Draw_Args_Drawn()
 		{
-			var ctx = MockRepository.GenerateMock<IWorldContext>();
-            var gfx = MockRepository.GenerateMock<IGraphicSystem>();
-			ctx.Expect(c => c.GraphicSystem).Return(gfx);
-
-			gfx.Expect(g => g.Draw(5, 10, 'A'));
-			gfx.Expect(g => g.Draw(6, 10, 'B'));
-			gfx.Expect(g => g.Draw(7, 10, 'C'));
+			var ctx = Substitute.For<IWorldContext>();
+            var gfx = Substitute.For<IGraphicSystem>();
+            ctx.GraphicSystem.Returns(gfx);
+  
 			var target = new MapTextSystem(ctx, "Avatar");
 			target.Initialize();
 			target.Draw(5, 10, "ABC", "Default");
 
-			gfx.VerifyAllExpectations();
-		}
+            gfx.Received().Draw(5, 10, 'A');
+            gfx.Received().Draw(6, 10, 'B');
+            gfx.Received().Draw(7, 10, 'C');
+        }
 	}
 }

@@ -1,9 +1,9 @@
- <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-      <Target Name="AfterBuild">
+ <Project>
+      <Target Name="CopyToBuild" AfterTargets="AfterBuild">
           <ItemGroup>
-              <FilesToCopy Include="$(MSBuildProjectDirectory)\bin\$(Configuration)\**\*.*" />
-			  <FilesToCopy Include="$(MSBuildProjectDirectory)\bin\DesktopGL\AnyCPU\$(Configuration)\**\*.*" />
-          </ItemGroup>
+              <FilesToCopy Include="$(MSBuildProjectDirectory)\bin\$(Configuration)\netcoreapp2.0\**\*.*" />
+			  <FilesToCopy Include="$(MSBuildProjectDirectory)\bin\$(Configuration)\netstandard2.0\**\*.*" />
+	      </ItemGroup>
 
           <Message Text="### Copying $(MSBuildProjectName) files to build folder ..." Importance="high" />
 

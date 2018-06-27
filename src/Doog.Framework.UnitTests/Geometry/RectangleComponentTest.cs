@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Doog.Framework.UnitTests.Geometry
 {
@@ -9,10 +9,10 @@ namespace Doog.Framework.UnitTests.Geometry
 		[Test]
 		public void Constructor_OtherRectangleComponent_CopyProperties()
 		{
-			var ctx = MockRepository.GenerateMock<IWorldContext>();
-			var drawCtx = MockRepository.GenerateMock<IDrawContext>();
-			var canvas = MockRepository.GenerateMock<ICanvas>();
-			drawCtx.Expect(d => d.Canvas).Return(canvas);
+			var ctx = Substitute.For<IWorldContext>();
+			var drawCtx = Substitute.For<IDrawContext>();
+			var canvas = Substitute.For<ICanvas>();
+			drawCtx.Canvas.Returns(canvas);
 
             var other = new RectangleComponent(new Point(10, 20), ctx);
 			var target = new RectangleComponent(other);
@@ -25,12 +25,12 @@ namespace Doog.Framework.UnitTests.Geometry
 		[Test]
 		public void Constructor_OtherRectangle_CopyProperties()
 		{
-			var ctx = MockRepository.GenerateMock<IWorldContext>();
-			var drawCtx = MockRepository.GenerateMock<IDrawContext>();
-			var canvas = MockRepository.GenerateMock<ICanvas>();
-			drawCtx.Expect(d => d.Canvas).Return(canvas);
+			var ctx = Substitute.For<IWorldContext>();
+			var drawCtx = Substitute.For<IDrawContext>();
+			var canvas = Substitute.For<ICanvas>();
+            drawCtx.Canvas.Returns(canvas);
 
-			var other = new Rectangle(10, 20, 30, 40);
+            var other = new Rectangle(10, 20, 30, 40);
 			var target = new RectangleComponent(other, ctx);
 
 			Assert.AreEqual(other.LeftTopPoint(), target.Transform.Position);
@@ -42,7 +42,7 @@ namespace Doog.Framework.UnitTests.Geometry
 		[Test]
 		public void Constructor_PointAndScale_Properties()
 		{
-			var ctx = MockRepository.GenerateMock<IWorldContext>();
+			var ctx = Substitute.For<IWorldContext>();
 		
 			var target = new RectangleComponent(new Point(1, 2), 3, ctx);
 
@@ -55,7 +55,7 @@ namespace Doog.Framework.UnitTests.Geometry
 		[Test]
 		public void Constructor_XYAndScale_Properties()
 		{
-			var ctx = MockRepository.GenerateMock<IWorldContext>();
+			var ctx = Substitute.For<IWorldContext>();
 
 			var target = new RectangleComponent(1, 2, 3, ctx);
 
@@ -68,17 +68,15 @@ namespace Doog.Framework.UnitTests.Geometry
         [Test]
         public void Draw_Context_CircleDrawn()
         {
-            var ctx = MockRepository.GenerateMock<IWorldContext>();
-            var drawCtx = MockRepository.GenerateMock<IDrawContext>();
-            var canvas = MockRepository.GenerateMock<ICanvas>();
-            drawCtx.Expect(d => d.Canvas).Return(canvas);
+            var ctx = Substitute.For<IWorldContext>();
+            var drawCtx = Substitute.For<IDrawContext>();
+            var canvas = Substitute.For<ICanvas>();
+            drawCtx.Canvas.Returns(canvas);
 
             var target = new RectangleComponent(new Point(10, 20), ctx);
-			canvas.Expect(c => c.Draw(target.Transform.BoundingBox, true, '#'));
-
 			target.Draw(drawCtx);
 
-            canvas.VerifyAllExpectations();
+            canvas.Received().Draw(target.Transform.BoundingBox, true, '#');
         }
 	}
 }

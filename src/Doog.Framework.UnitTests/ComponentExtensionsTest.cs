@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Doog.Framework.UnitTests
 {
@@ -15,9 +15,9 @@ namespace Doog.Framework.UnitTests
         [SetUp]
         public void InitializeTest()
         {
-			c1 = MockRepository.GenerateMock<IUpdatable>();
-		    c2 = MockRepository.GenerateMock<IDrawable>();
-		    c3 = MockRepository.GenerateMock<IUpdatable>();
+			c1 = Substitute.For<IUpdatable>();
+		    c2 = Substitute.For<IDrawable>();
+		    c3 = Substitute.For<IUpdatable>();
          
 			target = new IComponent[] { c1, c2, c3 };
         }
@@ -38,9 +38,9 @@ namespace Doog.Framework.UnitTests
 		[Test]
 		public void GetWithTag_Tag_OnlyComponentsWithTag()
 		{
-			c1.Expect(c => c.Tag).Return("Tag1");
-			c2.Expect(c => c.Tag).Return("Tag2");
-			c3.Expect(c => c.Tag).Return("Tag1");
+			c1.Tag.Returns("Tag1");
+			c2.Tag.Returns("Tag2");
+			c3.Tag.Returns("Tag1");
 
 			var actual1 = target.GetWithTag("Tag1");
 			Assert.AreEqual(2, actual1.Count());
@@ -61,11 +61,11 @@ namespace Doog.Framework.UnitTests
 		[Test]
 		public void GetWithoutTag_Tag_OnlyComponentsWithoutTag()
 		{
-			c1.Expect(c => c.Tag).Return("Tag1");
-			c2.Expect(c => c.Tag).Return("Tag2");
-			c3.Expect(c => c.Tag).Return("Tag1");
+            c1.Tag.Returns("Tag1");
+            c2.Tag.Returns("Tag2");
+            c3.Tag.Returns("Tag1");
 
-			var actual1 = target.GetWithoutTag("Tag2");
+            var actual1 = target.GetWithoutTag("Tag2");
 			Assert.AreEqual(2, actual1.Count());
 			Assert.AreSame(c1, actual1.First());
 			Assert.AreSame(c3, actual1.Last());
@@ -85,28 +85,20 @@ namespace Doog.Framework.UnitTests
 		[Test]
 		public void EnablleAll_NoArgs_AllComponentsEnabled()
 		{
-            c1.Expect(c => c.Enabled).SetPropertyWithArgument(true);
-            c2.Expect(c => c.Enabled).SetPropertyWithArgument(true);
-            c3.Expect(c => c.Enabled).SetPropertyWithArgument(true);
-
             target.EnableAll();
-            c1.VerifyAllExpectations();
-            c2.VerifyAllExpectations();
-            c3.VerifyAllExpectations();
+            Assert.IsTrue(c1.Enabled);
+            Assert.IsTrue(c2.Enabled);
+            Assert.IsTrue(c3.Enabled);
         }
 
 		[Test]
 		public void DisablleAll_NoArgs_AllComponentsDisabled()
 		{
-			c1.Expect(c => c.Enabled).SetPropertyWithArgument(false);
-			c2.Expect(c => c.Enabled).SetPropertyWithArgument(false);
-			c3.Expect(c => c.Enabled).SetPropertyWithArgument(false);
-
 			target.DisableAll();
-			c1.VerifyAllExpectations();
-			c2.VerifyAllExpectations();
-			c3.VerifyAllExpectations();
-		}
+            Assert.IsFalse(c1.Enabled);
+            Assert.IsFalse(c2.Enabled);
+            Assert.IsFalse(c3.Enabled);
+        }
 
 		[Test]
 		public void GetOne_Type_FirtsOne()

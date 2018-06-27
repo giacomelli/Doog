@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Doog.Framework.UnitTests.Logging
 {
@@ -10,16 +10,12 @@ namespace Doog.Framework.UnitTests.Logging
         [Test]
         public void Draw_ManyLevels_MessagesDrawn()
         {
-            var ctx = MockRepository.GenerateMock<IWorldContext>();
-            ctx.Expect(c => c.Time).Return(MockRepository.GenerateMock<ITime>());
-            var textSystem = MockRepository.GenerateMock<ITextSystem>();
-            var drawContext = MockRepository.GenerateMock<IDrawContext>();
-            drawContext.Expect(t => t.Canvas).Return(MockRepository.GenerateMock<ICanvas>());
-            drawContext.Expect(c => c.TextSystem).Return(textSystem);
-
-            textSystem.Expect(t => t.Draw(1, 3, "INFO (00:00:00): x2", "Debug")).Return(textSystem);
-            textSystem.Expect(t => t.Draw(1, 4, "WARN (00:00:00): x3", "Debug")).Return(textSystem);
-            textSystem.Expect(t => t.Draw(1, 5, "ERROR (00:00:00): x4", "Debug")).Return(textSystem);
+            var ctx = Substitute.For<IWorldContext>();
+            ctx.Time.Returns(Substitute.For<ITime>());
+            var textSystem = Substitute.For<ITextSystem>();
+            var drawContext = Substitute.For<IDrawContext>();
+            drawContext.Canvas.Returns(Substitute.For<ICanvas>());
+            drawContext.TextSystem.Returns(textSystem);
 
             var target = new InGameLogSystem(new Rectangle(0, 1, 10, 4), ctx);
             target.Debug("x1", 1);
@@ -29,20 +25,22 @@ namespace Doog.Framework.UnitTests.Logging
 
             target.Draw(drawContext);
 
-            textSystem.VerifyAllExpectations();
+            textSystem.Received().Draw(1, 3, "INFO (00:00:00): x2", "Debug");
+            textSystem.Received().Draw(1, 4, "WARN (00:00:00): x3", "Debug");
+            textSystem.Received().Draw(1, 5, "ERROR (00:00:00): x4", "Debug");
         }
 
         [Test]
         public void AddChildren_Any_Exception()
         {
-			var ctx = MockRepository.GenerateMock<IWorldContext>();
+			var ctx = Substitute.For<IWorldContext>();
             var target = new InGameLogSystem(new Rectangle(0, 1, 10, 4), ctx);
            
             Assert.AreEqual(0, target.GetChildren().Count());
 
             Assert.Catch<System.NotImplementedException>(delegate
             {
-                target.AddChild(MockRepository.GenerateMock<IComponent>());
+                target.AddChild(Substitute.For<IComponent>());
             });
         }
     }

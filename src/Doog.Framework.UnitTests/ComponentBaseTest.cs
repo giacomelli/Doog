@@ -1,7 +1,5 @@
 ﻿using NUnit.Framework;
-using System;
-using Rhino.Mocks;
-using Doog.Framework;
+using NSubstitute;
 using System.Linq;
 
 namespace Doog.Framework.UnitTests
@@ -12,12 +10,11 @@ namespace Doog.Framework.UnitTests
         [Test]
         public void Enabled_Changed_CallOnMethods()
         {
-            var wc = MockRepository.GenerateMock<IWorldContext>();
-            var logSystem = MockRepository.GenerateMock<ILogSystem>();
-            logSystem.Expect(c => c.Debug(null)).IgnoreArguments().Repeat.Times(2);
-            wc.Expect(t => t.LogSystem).Return(logSystem);
+            var wc = Substitute.For<IWorldContext>();
+            var logSystem = Substitute.For<ILogSystem>();
+            wc.LogSystem.Returns(logSystem);
 
-            var target = MockRepository.GeneratePartialMock<ComponentBase>(wc, false); 
+            var target = Substitute.ForPartsOf<ComponentBase>(wc, false); 
 
             target.Enabled = false;
 
@@ -26,21 +23,21 @@ namespace Doog.Framework.UnitTests
                 target.Enabled = true;
             }
 
-            logSystem.VerifyAllExpectations();
+            logSystem.ReceivedWithAnyArgs(2).Debug(null);
         }
 
-		[Test]
+        [Test]
 		public void AddChild_Child_Added()
 		{
-			var wc = MockRepository.GenerateMock<IWorldContext>();
-            wc.Expect(t => t.AddComponent(null)).IgnoreArguments();
-			var target = MockRepository.GeneratePartialMock<ComponentBase>(wc, true);
-            target.AddChild(MockRepository.GenerateMock<IComponent>());
-            target.AddChild(MockRepository.GenerateMock<IComponent>());
+			var wc = Substitute.For<IWorldContext>();
+           
+			var target = Substitute.For<ComponentBase>(wc, true);
+            target.AddChild(Substitute.For<IComponent>());
+            target.AddChild(Substitute.For<IComponent>());
 
             Assert.AreEqual(2, target.GetChildren().Count());
 
-			wc.VerifyAllExpectations();
-		}
+            wc.ReceivedWithAnyArgs().AddComponent(null);
+        }
     }
 }

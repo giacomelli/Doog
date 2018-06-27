@@ -1,6 +1,6 @@
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Doog.Framework.UnitTests.Logging
 {
@@ -10,11 +10,11 @@ namespace Doog.Framework.UnitTests.Logging
         [Test]
         public void AllMethods_Args_Writing()
         {
-            var ctx = MockRepository.GenerateMock<IWorldContext>();
-            var time = MockRepository.GenerateMock<ITime>();
+            var ctx = Substitute.For<IWorldContext>();
+            var time = Substitute.For<ITime>();
             var now = DateTime.Now;
-            time.Expect(t => t.Now).Return(now);
-            ctx.Expect(t => t.Time).Return(time);
+            time.Now.Returns(now);
+            ctx.Time.Returns(time);
 
             var target = new StubLogSystem(ctx);
 			Assert.IsTrue(((ISceneSurvivable)target).CanSurvive(null, null));

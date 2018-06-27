@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Doog.Framework.UnitTests.Animations
 {
@@ -24,87 +24,77 @@ namespace Doog.Framework.UnitTests.Animations
         [Test]
         public void PauseAll_Animations_Paused()
         {
-            var c1 = MockRepository.GenerateMock<IAnimationPipelineController> ();
-            c1.Expect(t => t.Pause());
-           
-            var c2 = MockRepository.GenerateMock<IAnimationPipelineController>();
-			c2.Expect(t => t.Pause());
-
+            var c1 = Substitute.For<IAnimationPipelineController> ();
+            var c2 = Substitute.For<IAnimationPipelineController>();
+			
             AnimationPipelineController.AddController(c1);
             AnimationPipelineController.AddController(c2);
 
             AnimationPipelineController.PauseAll();
 
-            c1.VerifyAllExpectations();
-            c2.VerifyAllExpectations();
+            c1.Received().Pause();
+            c2.Received().Pause();
         }
 
 		[Test]
 		public void ResumeAll_Animations_Resumed()
 		{
-        	var c1 = MockRepository.GenerateMock<IAnimationPipelineController>();
-			c1.Expect(t => t.Resume());
-
-			var c2 = MockRepository.GenerateMock<IAnimationPipelineController>();
-			c2.Expect(t => t.Resume());
-
+        	var c1 = Substitute.For<IAnimationPipelineController>();
+			var c2 = Substitute.For<IAnimationPipelineController>();
+	
 			AnimationPipelineController.AddController(c1);
 			AnimationPipelineController.AddController(c2);
 
 			AnimationPipelineController.ResumeAll();
 
-			c1.VerifyAllExpectations();
-			c2.VerifyAllExpectations();
+            c1.Received().Resume();
+            c2.Received().Resume();
 		}
 
 		[Test]
 		public void DestroyAll_Animations_Resumed()
 		{
-			var c1 = MockRepository.GenerateMock<IAnimationPipelineController>();
-			c1.Expect(t => t.Destroy());
-			var c2 = MockRepository.GenerateMock<IAnimationPipelineController>();
-			c2.Expect(t => t.Destroy());
-
+			var c1 = Substitute.For<IAnimationPipelineController>();
+			var c2 = Substitute.For<IAnimationPipelineController>();
+		
 			AnimationPipelineController.AddController(c1);
 			AnimationPipelineController.AddController(c2);
 
 			AnimationPipelineController.DestroyAll();
 
-			c1.VerifyAllExpectations();
-			c2.VerifyAllExpectations();
-		}
+            c1.Received().Destroy();
+            c2.Received().Destroy();
+        }
 
         [Test]
         public void Pause_Pipeline_Paused()
         {
-            var animation = MockRepository.GenerateMock<IAnimation<Transform>>();
-            animation.Expect(t => t.Pause());
+            var animation = Substitute.For<IAnimation<Transform>>();
             var pipeline = AnimationPipeline<Transform>.Create(animation);
 
             var target = new AnimationPipelineController<Transform>(pipeline);
             target.Pause();
 
-            animation.VerifyAllExpectations();
+            animation.Received().Pause();
         }
 
 		[Test]
 		public void Resume_Pipeline_Resumed()
 		{
-            var animation = MockRepository.GenerateMock<IAnimation<Transform>>();
-            animation.Expect(t => t.Resume());
-			var pipeline = AnimationPipeline<Transform>.Create(animation);
+            var animation = Substitute.For<IAnimation<Transform>>();
+            var pipeline = AnimationPipeline<Transform>.Create(animation);
 		
 			var target = new AnimationPipelineController<Transform>(pipeline);
 			target.Resume();
 
-			animation.VerifyAllExpectations();
-		}
+            animation.Received().Resume();
+        }
 
 		[Test]
 		public void Destroy_Pipeline_Destroyed()
 		{
-            var ctx = MockRepository.GenerateMock<IWorldContext>();
-            ctx.Expect(t => t.LogSystem).Return(MockRepository.GenerateMock<ILogSystem>());
+            var ctx = Substitute.For<IWorldContext>();
+            ctx.LogSystem.Returns(Substitute.For<ILogSystem>());
             var animation = new FloatAnimation<Transform>(new Transform(ctx), 0, 1, 1, v => { });
          
 			var pipeline = AnimationPipeline<Transform>.Create(animation);

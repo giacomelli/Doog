@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Doog.Framework.UnitTests.Geometry
 {
@@ -9,7 +9,7 @@ namespace Doog.Framework.UnitTests.Geometry
 		[Test]
 		public void Constructor_X1Y1AndX2Y2_PointAAndPointB()
 		{
-			var ctx = MockRepository.GenerateMock<IWorldContext>();
+			var ctx = Substitute.For<IWorldContext>();
 			var target = new LineComponent(1, 2, 3, 4, ctx);
 
             Assert.AreEqual(new Point(1, 2), target.PointA);
@@ -23,17 +23,15 @@ namespace Doog.Framework.UnitTests.Geometry
         [Test]
         public void Draw_Context_LineDrawn()
         {
-            var ctx = MockRepository.GenerateMock<IWorldContext>();
-            var drawCtx = MockRepository.GenerateMock<IDrawContext>();
-            var canvas = MockRepository.GenerateMock<ICanvas>();
-            drawCtx.Expect(d => d.Canvas).Return(canvas);
+            var ctx = Substitute.For<IWorldContext>();
+            var drawCtx = Substitute.For<IDrawContext>();
+            var canvas = Substitute.For<ICanvas>();
+            drawCtx.Canvas.Returns(canvas);
 
             var target = new LineComponent(new Point(10, 20), new Point(15, 25), ctx);
-			canvas.Expect(c => c.Draw(target, '#'));
-
 			target.Draw(drawCtx);
 
-            canvas.VerifyAllExpectations();
+            canvas.Received().Draw(target, '#');
         }
-	}
+    }
 }

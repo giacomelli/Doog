@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Doog.Framework.UnitTests
 {
@@ -16,13 +16,13 @@ namespace Doog.Framework.UnitTests
 		public void InitializeTest()
 		{
             exited = false;
-			graphicSystem = MockRepository.GenerateMock<IGraphicSystem>();
-			physicSystem = MockRepository.GenerateMock<IPhysicSystem>();
-			var textSystem = MockRepository.GenerateMock<ITextSystem>();
-            var inputSystem = MockRepository.GenerateMock<IInputSystem>();
-			textSystem.Expect(t => t.GetFont(null)).IgnoreArguments().Return(MockRepository.GenerateMock<IFont>());
-            textSystem.Expect(t => t.Context).Return(MockRepository.GenerateMock<IWorldContext>());
-            var logSystem = MockRepository.GenerateMock<ILogSystem>();
+			graphicSystem = Substitute.For<IGraphicSystem>();
+			physicSystem = Substitute.For<IPhysicSystem>();
+			var textSystem = Substitute.For<ITextSystem>();
+            var inputSystem = Substitute.For<IInputSystem>();
+			textSystem.GetFont(null).ReturnsForAnyArgs(Substitute.For<IFont>());
+            textSystem.Context.Returns(Substitute.For<IWorldContext>());
+            var logSystem = Substitute.For<ILogSystem>();
             target = new World();
             target.Initialize(graphicSystem, physicSystem, textSystem, inputSystem, () => exited = true);
 		}
@@ -30,15 +30,11 @@ namespace Doog.Framework.UnitTests
 		[Test]
 		public void AddComponent_IUpdatable_Updated()
 		{
-			var updatable1 = MockRepository.GenerateMock<IUpdatable>();
-			updatable1.Expect(u => u.Update()).Repeat.Once();
-			updatable1.Expect(u => u.Enabled).Return(true);
+			var updatable1 = Substitute.For<IUpdatable>();
+            updatable1.Enabled.Returns(true);
 
-			var updatable2 = MockRepository.GenerateMock<IUpdatable>();
-            updatable2.Expect(u => u.Update()).Repeat.Times(0);
-
-			physicSystem.Expect(g => g.Update()).Repeat.Once();
-
+            var updatable2 = Substitute.For<IUpdatable>();
+          
 			target.AddComponent(updatable1);
 			Assert.AreEqual(1, target.Components.Count);
 
@@ -48,23 +44,19 @@ namespace Doog.Framework.UnitTests
 			target.Update(DateTime.Now);
 			target.Draw();
 
-			updatable1.VerifyAllExpectations();
-			graphicSystem.VerifyAllExpectations();
-			physicSystem.VerifyAllExpectations();
-		}
+            updatable1.Received(1).Update();
+            updatable2.Received(0).Update();
+            physicSystem.Received(1).Update();
+        }
 
-		[Test]
+        [Test]
 		public void AddComponent_IDrawable_Drawn()
 		{
-			var drawable1 = MockRepository.GenerateMock<IDrawable>();
-			drawable1.Expect(u => u.Draw(null)).IgnoreArguments().Repeat.Once();
-			drawable1.Expect(u => u.Enabled).Return(true);
+			var drawable1 = Substitute.For<IDrawable>();
+			drawable1.Enabled.Returns(true);
 
-			var updatable2 = MockRepository.GenerateMock<IDrawable>();
-			updatable2.Expect(u => u.Draw(null)).IgnoreArguments().Repeat.Times(0);
-
-			physicSystem.Expect(g => g.Update()).Repeat.Once();
-
+			var updatable2 = Substitute.For<IDrawable>();
+			
 			target.AddComponent(drawable1);
 			Assert.AreEqual(1, target.Components.Count);
 
@@ -74,20 +66,17 @@ namespace Doog.Framework.UnitTests
 			target.Update(DateTime.Now);
 			target.Draw();
 
-			drawable1.VerifyAllExpectations();
-			graphicSystem.VerifyAllExpectations();
-			physicSystem.VerifyAllExpectations();
-		}
+            drawable1.ReceivedWithAnyArgs(1).Draw(null);
+            updatable2.ReceivedWithAnyArgs(0).Draw(null);
+            physicSystem.Received(1).Update();
+        }
 
-		[Test]
+        [Test]
 		public void AddComponent_ICollidable_AddedToPhysicsSystem()
 		{
-			var collidable1 = MockRepository.GenerateMock<ICollidable>();
-			var collidable2 = MockRepository.GenerateMock<ICollidable>();
-
-			physicSystem.Expect(g => g.Update()).Repeat.Once();
-			physicSystem.Expect(g => g.AddCollidable(null)).IgnoreArguments().Repeat.Times(2);
-
+			var collidable1 = Substitute.For<ICollidable>();
+			var collidable2 = Substitute.For<ICollidable>();
+			
 			target.AddComponent(collidable1);
 			Assert.AreEqual(1, target.Components.Count);
 
@@ -97,60 +86,55 @@ namespace Doog.Framework.UnitTests
 			target.Update(DateTime.Now);
 			target.Draw();
 
-			collidable1.VerifyAllExpectations();
-			graphicSystem.VerifyAllExpectations();
-			physicSystem.VerifyAllExpectations();
-		}
+            physicSystem.Received(1).Update();
+            physicSystem.ReceivedWithAnyArgs(2).AddCollidable(null);
+        }
 
-		[Test]
+        [Test]
 		public void RemoveComponent_Component_Disabled()
 		{
-			var collidable1 = MockRepository.GenerateMock<ICollidable>();
-			collidable1.Expect(c => c.Enabled).SetPropertyWithArgument(false);
-
-			var collidable2 = MockRepository.GenerateMock<ICollidable>();
+			var collidable1 = Substitute.For<ICollidable>();
+            collidable1.Enabled = true;
+            var collidable2 = Substitute.For<ICollidable>();
+            collidable2.Enabled = true;
 
 			target.AddComponent(collidable1);
 			target.AddComponent(collidable2);
 
 			target.RemoveComponent(collidable1);
 
-			collidable1.VerifyAllExpectations();
-			collidable2.VerifyAllExpectations();
-		}
+            Assert.IsFalse(collidable1.Enabled);
+            Assert.IsTrue(collidable2.Enabled);
+        }
 
-		[Test]
+        [Test]
 		public void OpenScene_FirstScene_OnlyNewSceneComponents()
 		{
-			var oldComponent1 = MockRepository.GenerateMock<IUpdatable>();
-			var oldComponent2 = MockRepository.GenerateMock<IDrawable>();
-			var oldComponent3 = MockRepository.GenerateMock<ICollidable>();
+			var oldComponent1 = Substitute.For<IUpdatable>();
+			var oldComponent2 = Substitute.For<IDrawable>();
+			var oldComponent3 = Substitute.For<ICollidable>();
 
 			target.AddComponent(oldComponent1);
 			target.AddComponent(oldComponent2);
 			target.AddComponent(oldComponent3);
 
-			var scene = MockRepository.GenerateMock<IScene>();
-			var newComponent1 = MockRepository.GenerateMock<IUpdatable>();
-			newComponent1.Expect(c => c.Enabled).Return(true);
-			newComponent1.Expect(c => c.Update());
+			var scene = Substitute.For<IScene>();
+			var newComponent1 = Substitute.For<IUpdatable>();
+            newComponent1.Enabled = true;
 
-			var newComponent2 = MockRepository.GenerateMock<IDrawable>();
-			newComponent2.Expect(c => c.Enabled).Return(true);
-			newComponent2.Expect(c => c.Draw(null)).IgnoreArguments();
+            var newComponent2 = Substitute.For<IDrawable>();
+            newComponent2.Enabled = true;
 
-			var newComponent3 = MockRepository.GenerateMock<ICollidable>();
+			var newComponent3 = Substitute.For<ICollidable>();
 
-			scene.Expect(s => s.Initialize()).WhenCalled((m) =>
+			scene.When(s => s.Initialize()).Do((c) =>
 			{
 				target.RemoveAllComponents();
 				target.AddComponent(newComponent1);
 				target.AddComponent(newComponent2);
 				target.AddComponent(newComponent3);
 			});
-			scene.Expect(s => s.Update());
-			scene.Expect(s => s.Draw(null)).IgnoreArguments();
-
+		
             // Game not started yet.
 
             var now = DateTime.Now;
@@ -170,51 +154,46 @@ namespace Doog.Framework.UnitTests
        		target.OpenScene(scene);
 			Assert.AreEqual(3, target.Components.Count);
 
-			physicSystem.Expect(p => p.Update());
-            target.Update(now.AddSeconds(10));
+		    target.Update(now.AddSeconds(10));
 			target.Draw();
 
 			// New scene was opened, it's been 10 seconds since game startedd and 0 since new scene started.
 			Assert.AreEqual(10, target.Time.SinceGameStart);
 			Assert.AreEqual(0, target.Time.SinceSceneStart);
 
-			// It's been 20 seconds since game startedd and 10 since new scene started.
+			// It's been 20 seconds since game started and 10 since new scene started.
 			target.Update(now.AddSeconds(20));
 			Assert.AreEqual(20, target.Time.SinceGameStart);
 			Assert.AreEqual(10, target.Time.SinceSceneStart);
 
+            // Verifications.
+            newComponent1.Received().Update();
+            newComponent2.ReceivedWithAnyArgs().Draw(null);
+            newComponent3.DidNotReceiveWithAnyArgs().OnCollision(null);
+            scene.Received().Update();
+            scene.ReceivedWithAnyArgs().Draw(null);
+            physicSystem.Received().Update();
+        }
 
-			oldComponent1.VerifyAllExpectations();
-			oldComponent2.VerifyAllExpectations();
-			oldComponent3.VerifyAllExpectations();
-
-			newComponent1.VerifyAllExpectations();
-			newComponent2.VerifyAllExpectations();
-			newComponent3.VerifyAllExpectations();
-			physicSystem.VerifyAllExpectations();
-		}
-
-		[Test]
+        [Test]
 		public void OpenScene_FromIUpdatable_OpenScenesIsDeferedToBeginOfNextUpdateCycle()
 		{
-			var oldComponent1 = MockRepository.GenerateMock<IUpdatable>();
-			oldComponent1.Expect(c => c.Enabled).Return(true);
-			oldComponent1.Expect(c => c.Update());
+			var oldComponent1 = Substitute.For<IUpdatable>();
+            oldComponent1.Enabled = true;
 
-			var oldComponent2 = MockRepository.GenerateMock<IUpdatable>();
-			oldComponent2.Expect(c => c.Enabled).Return(true);
-		
-			var scene = MockRepository.GenerateMock<IScene>();
+			var oldComponent2 = Substitute.For<IUpdatable>();
+            oldComponent2.Enabled = true;
 
-			oldComponent2.Expect(c => c.Update()).WhenCalled(m =>
+            var scene = Substitute.For<IScene>();
+        
+			oldComponent2.When(c => c.Update()).Do(m =>
 			{
 				target.OpenScene(scene);
 			});
 
-			var oldComponent3 = MockRepository.GenerateMock<IUpdatable>();
-			oldComponent3.Expect(c => c.Enabled).Return(true);
-			oldComponent3.Expect(c => c.Update());
-
+			var oldComponent3 = Substitute.For<IUpdatable>();
+			oldComponent3.Enabled = true;
+		
 			target.AddComponent(oldComponent1);
 			target.AddComponent(oldComponent2);
 			target.AddComponent(oldComponent3);
@@ -223,15 +202,13 @@ namespace Doog.Framework.UnitTests
 			Assert.AreEqual(typeof(NullScene), target.CurrentScene.GetType());
 	
 			// Now scene should be opened.
-			scene.Expect(s => s.Initialize());
 			target.Update(DateTime.Now);
-			Assert.AreSame(scene, target.CurrentScene);
-			scene.VerifyAllExpectations();
-
-			oldComponent1.VerifyAllExpectations();
-			oldComponent2.VerifyAllExpectations();
-			oldComponent3.VerifyAllExpectations();
-		}
+            scene.Received().Initialize();
+            Assert.AreSame(scene, target.CurrentScene);
+			
+            oldComponent1.Received().Update();
+            oldComponent3.Received().Update();
+        }
 
         [Test]
         public void Exit_Called_Exit()

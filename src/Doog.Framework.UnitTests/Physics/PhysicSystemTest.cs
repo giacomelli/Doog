@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Rhino.Mocks;
+using NSubstitute;
 
 namespace Doog.Framework.UnitTests.Physics
 {
@@ -9,15 +9,17 @@ namespace Doog.Framework.UnitTests.Physics
 		[Test]
 		public void AnyCollision_NoCollision_False()
 		{
-            var context = MockRepository.GenerateMock<IWorldContext>();
+            var context = Substitute.For<IWorldContext>();
 			var target = new PhysicSystem();
-			var collidable1 = MockRepository.GenerateMock<ICollidable>();
-			collidable1.Expect(c => c.Enabled).Return(true);
-			collidable1.Expect(c => c.Transform).Return(new Transform(context) { Position = new Point(1, 1) });
+			var collidable1 = Substitute.For<ICollidable>();
+			collidable1.Enabled = true;
+            var t = new Transform(context) { Position = new Point(1, 1) };
+            collidable1.Transform.Returns(t);
 
-			var collidable2 = MockRepository.GenerateMock<ICollidable>();
-			collidable2.Expect(c => c.Enabled).Return(true);
-			collidable2.Expect(c => c.Transform).Return(new Transform(context) { Position = new Point(2, 2) });
+			var collidable2 = Substitute.For<ICollidable>();
+			collidable2.Enabled = true;
+            t = new Transform(context) { Position = new Point(2, 2) };
+            collidable2.Transform.Returns(t);
 
 			Assert.IsFalse(target.AnyCollision(collidable1));
 
@@ -27,27 +29,27 @@ namespace Doog.Framework.UnitTests.Physics
 			target.AddCollidable(collidable2);
 			Assert.IsFalse(target.AnyCollision(collidable1));
 			Assert.IsFalse(target.AnyCollision(collidable2));
-
-			collidable1.VerifyAllExpectations();
-			collidable2.VerifyAllExpectations();
 		}
 
 		[Test]
 		public void AnyCollision_Collisions_True()
 		{
-            var context = MockRepository.GenerateMock<IWorldContext>();
+            var context = Substitute.For<IWorldContext>();
 			var target = new PhysicSystem();
-			var collidable1 = MockRepository.GenerateMock<ICollidable>();
-			collidable1.Expect(c => c.Enabled).Return(true);
-			collidable1.Expect(c => c.Transform).Return(new Transform(context) { Position = new Point(1, 1) });
+			var collidable1 = Substitute.For<ICollidable>();
+			collidable1.Enabled = true;
+            var t = new Transform(context) { Position = new Point(1, 1) };
+            collidable1.Transform.Returns(t);
 
-			var collidable2 = MockRepository.GenerateMock<ICollidable>();
-			collidable2.Expect(c => c.Enabled).Return(true);
-			collidable2.Expect(c => c.Transform).Return(new Transform(context) { Position = new Point(1, 1) });
+			var collidable2 = Substitute.For<ICollidable>();
+			collidable2.Enabled = true;
+            t = new Transform(context) { Position = new Point(1, 1) };
+            collidable2.Transform.Returns(t);
 
-			var collidable3 = MockRepository.GenerateMock<ICollidable>();
-			collidable3.Expect(c => c.Enabled).Return(true);
-			collidable3.Expect(c => c.Transform).Return(new Transform(context) { Position = new Point(2, 2) });
+			var collidable3 = Substitute.For<ICollidable>();
+			collidable3.Enabled = true;
+            t = new Transform(context) { Position = new Point(2, 2) };
+            collidable3.Transform.Returns(t);
 
 			target.AddCollidable(collidable1);
 			target.AddCollidable(collidable2);
@@ -60,31 +62,30 @@ namespace Doog.Framework.UnitTests.Physics
 			Assert.IsFalse(target.AnyCollision(collidable1));
 			Assert.IsFalse(target.AnyCollision(collidable2));
 			Assert.IsFalse(target.AnyCollision(collidable3));
-
-			collidable1.VerifyAllExpectations();
-			collidable2.VerifyAllExpectations();
-			collidable3.VerifyAllExpectations();
 		}
 
 		[Test]
 		public void GetCollisions_Collidables_Collisions()
 		{
-            var context = MockRepository.GenerateMock<IWorldContext>();
+            var context = Substitute.For<IWorldContext>();
 			var target = new PhysicSystem();
-			var collidable1 = MockRepository.GenerateMock<ICollidable>();
-			collidable1.Expect(c => c.Enabled).Return(true);
-			collidable1.Expect(c => c.Transform).Return(new Transform(context) { Position = new Point(1, 1) });
+			var collidable1 = Substitute.For<ICollidable>();
+			collidable1.Enabled = true;
+            var t = new Transform(context) { Position = new Point(1, 1) };
+            collidable1.Transform.Returns(t);
 
-			var collidable2 = MockRepository.GenerateMock<ICollidable>();
-			collidable2.Expect(c => c.Enabled).Return(true);
-			collidable2.Expect(c => c.Transform).Return(new Transform(context) { Position = new Point(1, 1) });
+			var collidable2 = Substitute.For<ICollidable>();
+			collidable2.Enabled = true;
+            t = new Transform(context) { Position = new Point(1, 1) };
+            collidable2.Transform.Returns(t);
 
-			var collidable3 = MockRepository.GenerateMock<ICollidable>();
-			collidable3.Expect(c => c.Enabled).Return(true);
-			collidable3.Expect(c => c.Transform).Return(new Transform(context) { Position = new Point(1, 1) });
+			var collidable3 = Substitute.For<ICollidable>();
+			collidable3.Enabled = true;
+            t = new Transform(context) { Position = new Point(1, 1) };
+            collidable3.Transform.Returns(t);
 
-			var collidable4 = MockRepository.GenerateMock<ICollidable>();
-			collidable4.Expect(c => c.Enabled).Return(false);
+			var collidable4 = Substitute.For<ICollidable>();
+			collidable4.Enabled = false;
 
 			target.AddCollidable(collidable1);
 			target.AddCollidable(collidable2);
@@ -93,38 +94,32 @@ namespace Doog.Framework.UnitTests.Physics
 
 			Assert.AreEqual(3, target.GetCollisions(collidable1).Count);
 			Assert.AreEqual(3, target.GetCollisions(collidable2).Count);
-			Assert.AreEqual(3, target.GetCollisions(collidable3).Count);
-
-			collidable1.VerifyAllExpectations();
-			collidable2.VerifyAllExpectations();
-			collidable3.VerifyAllExpectations();
-			collidable4.VerifyAllExpectations();
+			Assert.AreEqual(3, target.GetCollisions(collidable3).Count);;
 		}
 
 		[Test]
 		public void Update_Collisions_OnCollisionCalled()
 		{
-			var context = MockRepository.GenerateMock<IWorldContext>();
+			var context = Substitute.For<IWorldContext>();
 			var target = new PhysicSystem();
-			var collidable1 = MockRepository.GenerateMock<ICollidable>();
-			collidable1.Expect(c => c.Enabled).Return(true);
-			collidable1.Expect(c => c.Transform).Return(new Transform(context) { Position = new Point(1, 1) });
-			collidable1.Expect(c => c.OnCollision(null)).IgnoreArguments().Repeat.Times(2);
-
-			var collidable2 = MockRepository.GenerateMock<ICollidable>();
-			collidable2.Expect(c => c.Enabled).Return(true);
-			collidable2.Expect(c => c.Transform).Return(new Transform(context) { Position = new Point(1, 1) });
-			collidable2.Expect(c => c.OnCollision(null)).IgnoreArguments().Repeat.Times(2);
-
-			var collidable3 = MockRepository.GenerateMock<ICollidable>();
-			collidable3.Expect(c => c.Enabled).Return(true);
-			collidable3.Expect(c => c.Transform).Return(new Transform(context) { Position = new Point(1, 1) });
-			collidable3.Expect(c => c.OnCollision(null)).IgnoreArguments().Repeat.Times(2);
-
-			var collidable4 = MockRepository.GenerateMock<ICollidable>();
-			collidable4.Expect(c => c.Enabled).Return(false);
-			collidable4.Expect(c => c.OnCollision(null)).IgnoreArguments().Repeat.Times(0);
-
+			var collidable1 = Substitute.For<ICollidable>();
+			collidable1.Enabled = true;
+            var t = new Transform(context) { Position = new Point(1, 1) };
+            collidable1.Transform.Returns(t);
+	
+			var collidable2 = Substitute.For<ICollidable>();
+			collidable2.Enabled = true;
+            t = new Transform(context) { Position = new Point(1, 1) };
+            collidable2.Transform.Returns(t);
+		
+			var collidable3 = Substitute.For<ICollidable>();
+			collidable3.Enabled = true;
+            t = new Transform(context) { Position = new Point(1, 1) };
+            collidable3.Transform.Returns(t);
+		
+			var collidable4 = Substitute.For<ICollidable>();
+			collidable4.Enabled = false;
+        
 			target.AddCollidable(collidable1);
 			target.AddCollidable(collidable2);
 			target.AddCollidable(collidable3);
@@ -132,10 +127,10 @@ namespace Doog.Framework.UnitTests.Physics
 
 			target.Update();
 
-			collidable1.VerifyAllExpectations();
-			collidable2.VerifyAllExpectations();
-			collidable3.VerifyAllExpectations();
-			collidable4.VerifyAllExpectations();
-		}
+            collidable1.ReceivedWithAnyArgs(2).OnCollision(null);
+            collidable2.ReceivedWithAnyArgs(2).OnCollision(null);
+            collidable3.ReceivedWithAnyArgs(2).OnCollision(null);
+            collidable4.DidNotReceiveWithAnyArgs().OnCollision(null);
+        }
 	}
 }
