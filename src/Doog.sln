@@ -22,8 +22,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Doog.Runners", "Doog.Runner
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Doog.Framework.IO", "Doog.Framework.IO\Doog.Framework.IO.csproj", "{DAC1CE23-5622-409F-87C3-775C6DEC6A38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{23927688-E7BB-44A3-82F6-EF77772E08E2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,10 +56,6 @@ Global
 		{DAC1CE23-5622-409F-87C3-775C6DEC6A38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAC1CE23-5622-409F-87C3-775C6DEC6A38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAC1CE23-5622-409F-87C3-775C6DEC6A38}.Release|Any CPU.Build.0 = Release|Any CPU
-		{23927688-E7BB-44A3-82F6-EF77772E08E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{23927688-E7BB-44A3-82F6-EF77772E08E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{23927688-E7BB-44A3-82F6-EF77772E08E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{23927688-E7BB-44A3-82F6-EF77772E08E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,7 +68,6 @@ Global
 		{88DA4BD0-A826-4743-A020-C26AB2B3DC6C} = {E79968DA-BDFE-4F81-B356-75CF4F51032B}
 		{585FCC9B-ED48-41E0-BD67-D4EBD0AABCA4} = {E79968DA-BDFE-4F81-B356-75CF4F51032B}
 		{DAC1CE23-5622-409F-87C3-775C6DEC6A38} = {4CD0194E-FE30-4243-B0AB-0276464EEC01}
-		{23927688-E7BB-44A3-82F6-EF77772E08E2} = {E79968DA-BDFE-4F81-B356-75CF4F51032B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C004F80F-E8A8-415A-AC80-D705C14172B0}
