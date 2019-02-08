@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Content Include="..\..\Doog\Framework\Texts\Map\Resources\Fonts\Default.txt">
+      <Link>Resources\Fonts\Default.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Doog\Framework\Texts\Map\Resources\Fonts\Slant.txt">
+      <Link>Resources\Fonts\Slant.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Doog\Framework\Texts\Map\Resources\Fonts\Debug.txt">
+      <Link>Resources\Fonts\Debug.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Doog\Framework\Texts\Map\Resources\Fonts\Avatar.txt">
+      <Link>Resources\Fonts\Avatar.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Doog\Framework\Texts\Map\Resources\Fonts\Big.txt">
+      <Link>Resources\Fonts\Big.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Doog\Framework\Texts\Map\Resources\Fonts\Blocks.txt">
+      <Link>Resources\Fonts\Blocks.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Doog\Framework\Texts\Map\Resources\Fonts\Doom.txt">
+      <Link>Resources\Fonts\Doom.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Doog\Framework\Texts\Map\Resources\Fonts\Graceful.txt">
+      <Link>Resources\Fonts\Graceful.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Doog\Framework\Texts\Map\Resources\Fonts\Modular.txt">
+      <Link>Resources\Fonts\Modular.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  
+  <Import Project="..\..\msbuilds\CopyToBuild.targets" />
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\Doog\Doog.csproj" />
+  </ItemGroup>
+ </Project>
