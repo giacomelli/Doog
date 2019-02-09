@@ -1,11 +1,11 @@
 Doog
 ===========
 
-[![Build status](https://ci.appveyor.com/api/projects/status/57spmopic2m8kau5?svg=true)](https://ci.appveyor.com/project/giacomelli/doog) [![Coverage Status](https://coveralls.io/repos/github/giacomelli/Doog/badge.svg?branch=master)](https://coveralls.io/github/giacomelli/Doog?branch=master)
+[![Build status](https://ci.appveyor.com/api/projects/status/57spmopic2m8kau5?svg=true)](https://ci.appveyor.com/project/giacomelli/doog)
 
 Doog is a platform to create console/terminal games, but using advanced game programming patterns.
 
-![](docs/gifs/Easings-2017-09-16.gif)
+![](docs/gifs/Easings.gif)
 
 --------
 
@@ -19,10 +19,10 @@ Doog is a platform to create console/terminal games, but using advanced game pro
 * Transform (position, scale and rotation)
 
 ## Games
-Nowadays we have just a Snake game implementation that show how to use Doog.Framework to create a old style game. 
+Nowadays we have just a Snake game implementation that show how to use Doog tof create a old style game. 
 
 ### Snake
-![](docs/gifs/Snake-2017-09-16.gif)
+![](docs/gifs/Snake.gif)
 
 ## Boundaries
 * Graphic agnostic
@@ -32,58 +32,61 @@ Nowadays we have just a Snake game implementation that show how to use Doog.Fram
 * Follow the SOLID principles
 
 ## How to run it?
-1. Download the binaries from the lastest CI build: [https://ci.appveyor.com/project/giacomelli/doog/build/artifacts](https://ci.appveyor.com/project/giacomelli/doog/build/artifacts)
 
-2. Open a console/terminal and type:
-
-*Snake game*:
+### Build
+Open a console/terminal and type:
+```shell
+git clone https://github.com/giacomelli/Doog.git
+cd Doog/src
+dotnet build
+```
+## Run Snake game
 
 ```shell
-dotnet Doog.Runners.Console.exe Snake.dll
+dotnet run --project Samples/Snake
 ```
 
-*Doog.Framework samples:*
-
+### Run Doog.samples
+dotnet run --project Samples/Snake
 ```shell
-dotnet Doog.Runners.Console.exe Doog.Framework.Samples.dll
+dotnet run --project Samples/Doog.Samples
 ```
 
 ## How to debug it?
-If you are developing a game using Doog.Framework and want some help to debug it, you can use the runners arguments below:
+If you are developing a game using Doog and want some help to debug it, you can use the runners arguments below:
 
 ### debug-enabled
 Shows some stats about the game world in the left-top corner of the game screen. Informations like FPS and currenlty enabled components count.
 
 ```shell
-dotnet Doog.Runners.Console.exe Snake.dll debug-enabled
+dotnet run --project Samples/Snake debug-enabled
 ```
 
 ### ingame-log
 Show the log messages registered by the LogSystem in the bottom part of the game screen.
 
 ```shell
-dotnet Doog.Runners.Console.exe Snake.dll ingame-log
+dotnet run --project Samples/Snake ingame-log
 ```
 
 ### file-log
 Write the log messages registered by the LogSystem to the log.txt file.
 
 ```shell
-dotnet Doog.Runners.Console.exe Snake.dll file-log
+dotnet run --project Samples/Snake file-log
 ```
 
-You can combine those arguments:
+### You can combine those arguments:
 
 ```shell
-dotnet Doog.Runners.Console.exe Snake.dll debug-enabled ingame-log
+dotnet run --project Samples/Snake debug-enabled ingame-log
 ```
 
 ## How to improve it?
 
-Create a fork of [Doog](https://github.com/giacomelli/Doog/fork). 
-
-Did you change it? [Submit a pull request](https://github.com/giacomelli/Doog/pull/new/master).
+* Create a fork of [Doog](https://github.com/giacomelli/Doog/fork). 
+* Did you change it? [Submit a pull request](https://github.com/giacomelli/Doog/pull/new/master).
 
 ## License
 Licensed under the The MIT License (MIT).
-In others words, you can use this library for developement any kind of software: open source, commercial, proprietary and alien.
+In others words, you can use this library for developement any kind of software: open source, commercial and proprietary.

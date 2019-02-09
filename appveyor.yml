@@ -1,5 +1,5 @@
 version: 0.0.{build}
-os: Visual Studio 2015
+os: Visual Studio 2017
 configuration: Release
 environment:
   clone_folder: c:\doog
@@ -11,16 +11,7 @@ before_build:
 - cmd: dotnet restore src
 
 build_script:
-# The default build
 - cmd: dotnet build src -c release
 
-after_build:
-- cmd: 7z a Doog-bin.zip -r .\build
-
 test_script:
-- cmd: dotnet clean src/Doog.Framework.UnitTests
-- cmd: dotnet test src/Doog.Framework.UnitTests -f netcoreapp2.0
-
-artifacts:
-  - path: Doog-bin.zip
-    name: Doog-bin
+- cmd: dotnet test src
