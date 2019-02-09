@@ -43,7 +43,7 @@ dotnet build
 ## Run Snake game
 
 ```shell
-
+dotnet run --project Samples/Snake
 ```
 
 ### Run Doog.samples
@@ -76,7 +76,7 @@ Write the log messages registered by the LogSystem to the log.txt file.
 dotnet run --project Samples/Snake file-log
 ```
 
-You can combine those arguments:
+### You can combine those arguments:
 
 ```shell
 dotnet run --project Samples/Snake debug-enabled ingame-log
