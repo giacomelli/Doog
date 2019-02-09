@@ -16,7 +16,7 @@ build_script:
 after_build:
 - cmd: 7z a Doog-bin.zip -r src\Doog\bin\**\*.dll
 - cmd: 7z a Doog-Samples-bin.zip -r src\Samples\Doog.Samples\bin\**\*.dll
-- cmd: 7z a Snake-bin.zip -r src\Doog\Snake\bin\**\*.dll
+- cmd: 7z a Snake-bin.zip -r src\Doog\Samples\Snake\bin\**\*.dll
 
 test_script:
 - cmd: dotnet test src
