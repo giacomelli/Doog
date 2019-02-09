@@ -13,18 +13,5 @@ before_build:
 build_script:
 - cmd: dotnet build src -c release
 
-after_build:
-- cmd: 7z a Doog-bin.zip -r src\Doog\bin\**\*.dll
-- cmd: 7z a Doog-Samples-bin.zip -r src\Samples\Doog.Samples\bin\**\*.dll
-- cmd: 7z a Snake-bin.zip -r src\Samples\Snake\bin\**\*.dll
-
 test_script:
 - cmd: dotnet test src
-
-artifacts:
-  - path: Doog-bin.zip
-    name: Doog-bin
-  - path: Doog-Samples-bin.zip
-    name: Doog-Samples-bin
-  - path: Snake-bin.zip
-    name: Snake-bin
