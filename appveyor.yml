@@ -6,4 +6,4 @@ environment:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
 
 build_script:
-- ps: build.ps1
+- ps: .\build.ps1
