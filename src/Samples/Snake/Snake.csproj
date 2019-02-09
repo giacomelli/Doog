@@ -42,9 +42,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Doog\Doog.csproj" />
-  </ItemGroup>
   
-  <Import Project="..\msbuilds\CopyToBuild.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Doog\Doog.csproj" />
+  </ItemGroup>
  </Project>

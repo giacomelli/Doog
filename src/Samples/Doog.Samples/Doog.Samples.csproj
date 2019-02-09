@@ -43,8 +43,6 @@
     </Content>
   </ItemGroup>
   
-  <Import Project="..\..\msbuilds\CopyToBuild.targets" />
-  
   <ItemGroup>
     <ProjectReference Include="..\..\Doog\Doog.csproj" />
   </ItemGroup>

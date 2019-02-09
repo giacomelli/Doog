@@ -1,4 +1,4 @@
-﻿using Doog.Runners.Console;
+﻿using Doog;
 
 namespace Snake
 {
