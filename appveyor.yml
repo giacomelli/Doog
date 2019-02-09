@@ -1,17 +1,9 @@
-version: 0.0.{build}
+version: 0.2.{build}
 os: Visual Studio 2017
 configuration: Release
 environment:
   clone_folder: c:\doog
-  COVERALLS_REPO_TOKEN:
-    secure: yvqm3RvF03eBaks4yC+CSWM+tiRIAYkipdAxU5pDmKbGUGUGH9EnuPdUnIsRQAu0
-
-before_build:
-- cmd: dotnet --version
-- cmd: dotnet restore src
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
 
 build_script:
-- cmd: dotnet build src -c release
-
-test_script:
-- cmd: dotnet test src
+- ps: build.ps1
