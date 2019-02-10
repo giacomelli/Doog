@@ -304,3 +304,4 @@ tools/**
 
 .vscode/
 .sonarqube/
+coverage.opencover.xml
