@@ -50,7 +50,7 @@ dotnet run --project Samples/Snake
 ```
 
 ### Run Doog.samples
-dotnet run --project Samples/Snake
+
 ```shell
 dotnet run --project Samples/Doog.Samples
 ```
