@@ -4,7 +4,7 @@ using Snake;
 using System;
 using System.Reflection;
 
-namespace Doog.Tests
+namespace Doog.Tests.Infrastructure.Runner
 {
     [TestFixture]
     public class GameActivatorTest

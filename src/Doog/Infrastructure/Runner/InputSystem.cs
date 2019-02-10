@@ -1,6 +1,5 @@
-﻿﻿using System.Collections.Generic;
-using Doog;
-using Underlying = System.Console;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Doog
 {
@@ -34,9 +33,9 @@ namespace Doog
                 }
             }
             
-            if (Underlying.KeyAvailable)
+            if (Console.KeyAvailable)
             {
-                var consoleKey = Underlying.ReadKey(true);
+                var consoleKey = Console.ReadKey(true);
                 m_buffer.Enqueue((Keys)consoleKey.Key);
 
                 if ((int)consoleKey.Key == (int)key)
