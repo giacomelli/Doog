@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using NUnit.Framework;
 
 namespace Doog.Tests
@@ -9,14 +10,21 @@ namespace Doog.Tests
         [Test]
         public void Render_NoArgs_Rendered()
         {
-            var target = new GraphicSystem();
-            target.Initialize();
-  
-            target.Draw(5, 10, '1');
-            target.Render();
+            using (var output = new StringWriter())
+            {
+                Console.SetOut(output);
 
-            target.Draw(5, 10, '2');
-            target.Render();
+                var target = new GraphicSystem();
+                target.Initialize();
+
+                target.Draw(5, 10, '1');
+                target.Render();
+
+                target.Draw(5, 10, '2');
+                target.Render();
+
+                Assert.AreEqual("", output.ToString());
+            }
         }
     }
 }
