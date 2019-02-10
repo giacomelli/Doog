@@ -4,13 +4,10 @@ namespace Snake
 {
     public class PortalBridge
     {
-        private readonly Portal portalA;
-        private readonly Portal portalB;
-
-        private PortalBridge(Point pointA, Point pointB, char sprite, IWorldContext ctx)
+         private PortalBridge(Point pointA, Point pointB, char sprite, IWorldContext ctx)
         {
-            portalA = new Portal(pointA, ctx) { Sprite = sprite };
-            portalB = new Portal(pointB, ctx) { Sprite = sprite };
+            var portalA = new Portal(pointA, ctx) { Sprite = sprite };
+            var portalB = new Portal(pointB, ctx) { Sprite = sprite };
 
             portalA.SomethingEnteredCallback = portalB.ExitSomething;
             portalB.SomethingEnteredCallback = portalA.ExitSomething;

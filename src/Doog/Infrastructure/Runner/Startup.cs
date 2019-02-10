@@ -3,13 +3,15 @@ using System.Reflection;
 
 namespace Doog
 {
-    public class Startup
+    public static class Startup
     {
         public static void Run(Assembly gameAssembly, string[] args)
         {
             using (var game = GameActivator.CreateInstance(gameAssembly, args))
             {
                 var gs = new GraphicSystem();
+
+                // TODO: create a StartupConfig to pass arguments as defaultFontName.
                 var ts = new MapTextSystem(game, "Slant");
                 var inputSystem = new InputSystem();
                 game.Initialize(
@@ -27,7 +29,7 @@ namespace Doog
 
                 game.Update(previous);
 
-                for (; ; )
+                while(true)
                 {
                     var current = DateTime.Now;
                     var elapsed = current - previous;

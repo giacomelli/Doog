@@ -12,9 +12,6 @@ namespace Doog
         // https://stackoverflow.com/a/11683720/956886
         public static void Iterate(this ILine line, Action<float, float> step)
         {
-            var pointA = line.PointA;
-            var pointB = line.PointB;
-
             var x = (int)Math.Round(line.PointA.X);
             var x2 = (int)Math.Round(line.PointB.X);
             var y = (int)Math.Round(line.PointA.Y);
@@ -31,7 +28,7 @@ namespace Doog
             int longest = Math.Abs(w);
             int shortest = Math.Abs(h);
 
-            if (!(longest > shortest))
+            if (longest <= shortest)
             {
                 longest = Math.Abs(h);
                 shortest = Math.Abs(w);
@@ -47,7 +44,7 @@ namespace Doog
 
                 numerator += shortest;
 
-                if (!(numerator < longest))
+                if (numerator >= longest)
                 {
                     numerator -= longest;
                     x += dx1;

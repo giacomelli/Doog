@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Globalization;
 
-/// <summary>
-/// String extension methods.
-/// </summary>
-public static class StringExtensions
+namespace Doog
 {
-	public static string With(this string message, params object[] args)
-	{
-		return String.Format(CultureInfo.InvariantCulture, message, args);
-	}
+    /// <summary>
+    /// String extension methods.
+    /// </summary>
+    public static class StringExtensions
+    {
+        public static string With(this string message, params object[] args)
+        {
+            return String.Format(CultureInfo.InvariantCulture, message, args);
+        }
+    }
 }

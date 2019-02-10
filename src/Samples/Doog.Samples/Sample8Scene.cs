@@ -5,8 +5,7 @@ namespace Doog.Samples
     public class Sample8Scene : SceneBase
     {
         RectangleComponent interactiveRectangle;
-        IAnimationPipelineController animCtrl;
-
+     
         public Sample8Scene(IWorldContext context)
             : base(context)
         {
@@ -24,7 +23,7 @@ namespace Doog.Samples
             interactiveRectangle.Filled = true;
             interactiveRectangle.Transform.CentralizePivot();
 
-            animCtrl = interactiveRectangle.Transform
+            var animCtrl = interactiveRectangle.Transform
                 .MoveTo(bounds.RightCenterPoint() - new Point(10, 0), 5f, Easing.InBounce)
                 .MoveTo(bounds.LeftCenterPoint() + new Point(10, 0), 5f, Easing.InBounce)
                 .PingPong();
@@ -57,11 +56,6 @@ namespace Doog.Samples
 
             var rectSize3 = new RectangleComponent(17, 40, 2, Context);
             rectSize3.Filled = false;
-
-
-            var lineSize1 = new LineComponent(10, 38, 10, 38, Context);
-            var lineSize2 = new LineComponent(13, 38, 14, 38, Context);
-            var lineSize3 = new LineComponent(17, 38, 19, 38, Context);
         }
 
         public override void Update()

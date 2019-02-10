@@ -7,8 +7,8 @@ namespace Snake
     {
         private const float MaxSpeed = 20;
         private const float Acceleration = 0.25f;
-        public EventHandler FoodEaten;
-        public EventHandler Died;
+        public event EventHandler FoodEaten;
+        public event EventHandler Died;
 
         private readonly ICommandReader m_commandReader;
         private SnakeTile tail;

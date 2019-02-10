@@ -9,7 +9,7 @@ namespace Doog
         public static float Rand(this float maxValue)
         {
             return maxValue * (float)rnd.NextDouble();
-;       }
+        }
 
         public static float Rand(this float maxValue, float minValue)
 		{

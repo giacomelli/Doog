@@ -12,7 +12,6 @@ namespace Doog
 		private IDrawContext drawContext;
 		private IList<IUpdatable> updatables;
 		private IList<IDrawable> drawables;
-		private int updatablesCount;
 		private int drawablesCount;
 		private IList<IComponent> componentsToRemove;
 		private IScene pendingSceneToOpen;
@@ -142,7 +141,7 @@ namespace Doog
 				// Remove the components selected by the scene to be removed from world.
 				foreach (var c in componentsToRemove)
 				{
-					Components.Remove(c as IComponent);
+					Components.Remove(c);
 					updatables.Remove(c as IUpdatable);
 					drawables.Remove(c as IDrawable);
 					PhysicSystem.RemoveCollidable(c as ICollidable);
@@ -168,7 +167,7 @@ namespace Doog
 			OpenSceneIfPending(now);
 			CurrentScene.Update();
 
-			updatablesCount = updatables.Count;
+			var updatablesCount = updatables.Count;
 			drawablesCount = drawables.Count;
 
             IUpdatable current;

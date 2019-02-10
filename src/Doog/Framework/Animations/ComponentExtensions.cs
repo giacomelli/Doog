@@ -5,7 +5,7 @@ namespace Doog
     /// <summary>
     /// Component extension methods.
     /// </summary>
-    public static class ComponentExtensions
+    public static partial class ComponentExtensions
     {
         /// <summary>
         /// Animate the flaot value between the values defined in to and from arguments.

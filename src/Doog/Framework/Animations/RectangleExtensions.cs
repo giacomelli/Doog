@@ -1,9 +1,8 @@
 ﻿using System;
-using Doog;
 
 namespace Doog
 {
-    public static class RectangleExtensions
+    public static partial class RectangleExtensions
     {
         public static IAnimationPipeline<RectangleComponent> Iterate(this RectangleComponent owner, float duration, IEasing easing, Action<float, float> callback)
         {
