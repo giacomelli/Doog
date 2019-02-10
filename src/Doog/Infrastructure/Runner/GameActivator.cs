@@ -7,10 +7,10 @@ namespace Doog
 {
     public static class GameActivator
     {
-        public static World CreateInstance(Assembly gameAssembly, string[] args)
+        public static World CreateInstance(Assembly gameAssembly)
         {			
 			var worldType = typeof(World);
-			var gameType = gameAssembly.GetTypes().FirstOrDefault(t => worldType.IsAssignableFrom(t));
+			var gameType = gameAssembly.GetTypes().FirstOrDefault(worldType.IsAssignableFrom);
 
 			if (gameType == null)
 			{
@@ -22,6 +22,8 @@ namespace Doog
 
         public static void Config(World game, string[] args)
         {
+            Debug.Initialize(args);
+
 			if (Debug.Enabled)
 			{
 				WorldStatsConsole.Create(game.Bounds.Left + 2, game.Bounds.Top + 2, game);

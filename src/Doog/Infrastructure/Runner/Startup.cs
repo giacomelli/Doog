@@ -7,7 +7,7 @@ namespace Doog
     {
         public static void Run(Assembly gameAssembly, string[] args)
         {
-            using (var game = GameActivator.CreateInstance(gameAssembly, args))
+            using (var game = GameActivator.CreateInstance(gameAssembly))
             {
                 var gs = new GraphicSystem();
 

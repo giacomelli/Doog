@@ -31,9 +31,11 @@
   
   <ItemGroup>
     <ProjectReference Include="..\Doog\Doog.csproj" />
+    <ProjectReference Include="..\Samples\Snake\Snake.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\" />
     <Folder Include="Infrastructure\Logging\" />
+    <Folder Include="Infrastructure\Runner\" />
   </ItemGroup>
  </Project>
