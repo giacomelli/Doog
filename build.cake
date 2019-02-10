@@ -10,7 +10,7 @@ Task("Build")
 {
     var settings = new DotNetCoreBuildSettings
     {
-        Configuration = "Release"
+        Configuration = "Release",
     };
 
     DotNetCoreBuild(solutionDir, settings);
@@ -19,7 +19,15 @@ Task("Build")
 Task("Test")
     .Does(() =>
 {
-    DotNetCoreTest(solutionDir);
+    var settings = new DotNetCoreTestSettings
+    {
+        ArgumentCustomization = args => {
+            return args.Append("/p:CollectCoverage=true")
+                       .Append("/p:CoverletOutputFormat=opencover");
+        }
+    };
+
+    DotNetCoreTest(solutionDir, settings);
 });
 
 Task("SonarBegin")
@@ -29,6 +37,7 @@ Task("SonarBegin")
         Key = "Doog",
         Organization = "giacomelli-github",
         Url = "https://sonarcloud.io",
+        OpenCoverReportsPath = "**/*.opencover.xml",
         Login = sonarLogin   
      });
 });
