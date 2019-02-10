@@ -1,9 +1,11 @@
 ﻿using System;
+
 namespace Doog.Tests
 {
-    public class StubComponent
+    public class StubComponent : ComponentBase
     {
-        public StubComponent()
+        public StubComponent(IWorldContext context, bool addToContext) 
+            : base(context, addToContext)
         {
         }
     }

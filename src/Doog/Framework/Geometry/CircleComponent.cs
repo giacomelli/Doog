@@ -24,7 +24,6 @@ namespace Doog
         }
 
         public Transform Transform { get; private set; }
-        public float Radius { get; set; }
         public char Sprite { get; set; }
         public bool Filled { get; set; }
 

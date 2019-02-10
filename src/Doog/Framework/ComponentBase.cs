@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using Doog;
 
 namespace Doog
 {
     [DebuggerDisplay("{Tag}")]
     public abstract class ComponentBase : IComponent
     {
-        private IList<IComponent> children;
-        private bool enabled;
+        private readonly IList<IComponent> _children;
+        private bool _enabled;
 
         protected ComponentBase(IWorldContext context, bool addToContext)
         {
             Context = context;
-            enabled = true;
+            _enabled = true;
 			Tag = GetType().Name;
-            children = new List<IComponent>();
+            _children = new List<IComponent>();
 
             if (addToContext)
             {
@@ -33,14 +31,14 @@ namespace Doog
         {
             get 
             {
-                return enabled;
+                return _enabled;
             }
 
             set 
             {
-                if(value != enabled)
+                if(value != _enabled)
                 {
-                    enabled = value;
+                    _enabled = value;
 
                     if (value)
                     {
@@ -53,6 +51,7 @@ namespace Doog
                 }    
             }
         }
+
 		public string Tag { get; set; }
         public IWorldContext Context { get; private set; }
 
@@ -66,12 +65,12 @@ namespace Doog
 
         public void AddChild(IComponent component)
         {
-            children.Add(component);
+            _children.Add(component);
         }
 
         public IEnumerable<IComponent> GetChildren()
         {
-            return children;
+            return _children;
         }
 
         protected virtual void OnEnabled()

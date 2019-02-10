@@ -37,6 +37,7 @@ Task("SonarBegin")
         Key = "Doog",
         Organization = "giacomelli-github",
         Url = "https://sonarcloud.io",
+        Exclusions = "**/Samples/**/*.cs,**/Doog.Tests/*.cs,**/Runner/InputSystem.cs,**/Runner/Startup.cs",
         OpenCoverReportsPath = "**/*.opencover.xml",
         Login = sonarLogin   
      });

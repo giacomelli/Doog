@@ -1,9 +1,10 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
-namespace Doog.Tests.Framework.Animations
+namespace Doog.Tests.Framework.Animations.Easings
 {
     [TestFixture]
-    public class BackEasingsTest
+    public class EasingTest
     {
         [Test]
         public void Calculate_InBack_Value()
@@ -27,5 +28,11 @@ namespace Doog.Tests.Framework.Animations
 
             CollectionAssert.Contains(Easing.All, actual);
 		}
+
+        [Test]
+        public void Constants_HalfPI_Value()
+        {
+            Assert.AreEqual(1.57079637f, EasingConstants.HalfPI);
+        }
     }
 }

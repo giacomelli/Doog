@@ -10,7 +10,7 @@ namespace Doog.Tests.Framework
         public void Initialize_Default_Methods()
         {
             var context = Substitute.For<IWorldContext>();
-            var target = Substitute.For<SceneBase>(context);
+            var target = Substitute.ForPartsOf<SceneBase>(context);
             target.Initialize();
             target.Update();
             target.Draw(null);
