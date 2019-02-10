@@ -303,3 +303,4 @@ tools/**
 *.xsd.cs
 
 .vscode/
+.sonarqube/
