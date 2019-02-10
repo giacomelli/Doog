@@ -32,4 +32,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Doog\Doog.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Infrastructure\Logging\" />
+  </ItemGroup>
  </Project>
