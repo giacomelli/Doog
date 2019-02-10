@@ -2,7 +2,7 @@
 using System;
 using NSubstitute;
 
-namespace Doog.UnitTests
+namespace Doog.Tests.Framework.Texts.Map
 {
     [TestFixture]
 	public class MapTextSystemTest

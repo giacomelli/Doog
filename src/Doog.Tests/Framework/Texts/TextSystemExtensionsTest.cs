@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using NSubstitute;
 
-namespace Doog.UnitTests
+namespace Doog.Tests.Framework.Texts
 {
     [TestFixture]
 	public class TextSystemExtensionsTest

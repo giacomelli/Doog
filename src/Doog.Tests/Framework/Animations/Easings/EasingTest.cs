@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
-using Doog;
 
-namespace Doog.UnitTests.Animations
+namespace Doog.Tests.Framework.Animations
 {
     [TestFixture]
     public class BackEasingsTest

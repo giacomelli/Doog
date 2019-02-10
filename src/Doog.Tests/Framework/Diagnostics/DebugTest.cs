@@ -1,6 +1,6 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
-namespace Doog.UnitTests.Diagnostics
+namespace Doog.Tests.Framework.Diagnostics
 {
     [TestFixture]
     public class DebugTest

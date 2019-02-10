@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using NSubstitute;
 
-namespace Doog.UnitTests.Geometry
+namespace Doog.Tests.Framework.Geometry
 {
 	[TestFixture]
 	public class TransformTest

@@ -2,7 +2,7 @@
 using NSubstitute;
 using System.Linq;
 
-namespace Doog.UnitTests
+namespace Doog.Tests.Framework
 {
     [TestFixture]
     public class ComponentBaseTest

@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using NSubstitute;
 
-namespace Doog.UnitTests.Logging
+namespace Doog.Tests.Framework.Logging
 {
     [TestFixture]
     public class LogSystemBaseTest
