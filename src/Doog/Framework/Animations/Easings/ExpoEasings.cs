@@ -9,7 +9,7 @@ namespace Doog
     {
         public float Calculate(float time)
         {
-            return (time == 0.0f) ? time : (float) Math.Pow(2, 10 * (time - 1));
+            return time.EqualsTo(0.0f) ? time : (float) Math.Pow(2, 10 * (time - 1));
 		}
     }
 
@@ -20,7 +20,7 @@ namespace Doog
 	{
         public float Calculate(float time)
 		{
-            return (time == 1.0f) ? time : 1 - (float) Math.Pow(2, -10 * time);
+            return time.EqualsTo(1.0f) ? time : 1 - (float) Math.Pow(2, -10 * time);
 		}
 	}
 
@@ -31,7 +31,7 @@ namespace Doog
 	{
         public float Calculate(float time)
 		{
-            if (time == 0f || time == 1f) 
+            if (time.EqualsTo(0.0f) || time.EqualsTo(1.0f)) 
             { 
                 return time;
             }

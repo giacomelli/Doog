@@ -208,6 +208,7 @@ namespace Doog
         {
             this._exitAction();
         }
+
         public void Dispose()
         {
             Dispose(true);

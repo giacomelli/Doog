@@ -28,7 +28,7 @@ namespace Snake.Scenes
 
             for (int i = 0; i < MaxSnakes; i++)
             {
-                var snake = new Snake(Context, new KeyboardCommandReader(Context.InputSystem, new KeyBinding()));
+                var snake = new Snake(Context, new KeyboardCommandReader(Context.InputSystem, KeyBinding.Default));
                 snake.Initialize(center.X, center.Y + i, 5);
                 snake.Died += delegate
                 {

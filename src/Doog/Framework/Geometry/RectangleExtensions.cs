@@ -61,12 +61,12 @@ namespace Doog
 
         public static bool IsXBorder(this Rectangle rect, float x)
         {
-            return x.EqualsTo(rect.Left) || (x >= rect.Right && x <= rect.Right);
+            return x.EqualsTo(rect.Left) || x.EqualsTo(rect.Right);
         }
 
         public static bool IsYBorder(this Rectangle rect, float y)
         {
-            return y.EqualsTo(rect.Top) || (y >= rect.Bottom && y <= rect.Bottom);
+            return y.EqualsTo(rect.Top) || y.EqualsTo(rect.Bottom);
         }
 
         public static bool IsBorder(this Rectangle rect, float x, float y)
