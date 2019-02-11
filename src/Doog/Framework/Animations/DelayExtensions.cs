@@ -3,15 +3,7 @@
 namespace Doog
 {
     public static class DelayExtensions
-    {
-		public static IAnimationPipeline<TOwner> Delay<TOwner>(this TOwner owner, float seconds)
-			where TOwner : IComponent
-		{
-			var delayAnimation = new DelayAnimation<TOwner>(owner, seconds);
-
-			return AnimationPipeline<TOwner>.Create(delayAnimation);
-		}
-
+    {		
         public static IAnimationPipeline<TOwner> Delay<TOwner>(this TOwner owner, float seconds, Action callback = null)
              where TOwner : IComponent
         {
@@ -19,16 +11,6 @@ namespace Doog
 
             return AnimationPipeline<TOwner>.Create(delayAnimation);
         }
-
-		public static IAnimationPipeline<TOwner> Delay<TOwner>(this IAnimationPipeline<TOwner> pipeline, float seconds)
-			where TOwner : IComponent
-		{
-			var delayAnimation = new DelayAnimation<TOwner>(pipeline.Owner, seconds);
-
-			pipeline.Add(delayAnimation);
-
-			return pipeline;
-		}
 
         public static IAnimationPipeline<TOwner> Delay<TOwner>(this IAnimationPipeline<TOwner> pipeline, float seconds, Action callback = null)
 			 where TOwner : IComponent

@@ -34,7 +34,7 @@ namespace Doog
 		void Reverse();
 	}
 
-    public interface IAnimation<TComponent> : IAnimation
+    public interface IAnimation<out TComponent> : IAnimation
         where TComponent : IComponent
     {
         TComponent Owner { get; }

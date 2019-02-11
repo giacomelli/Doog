@@ -86,8 +86,7 @@ namespace Doog
                 Rebuild();
             }
         }
-
-        // TODO: when we support 3D, so this will need to change
+        
         public float Rotation
         {
             get

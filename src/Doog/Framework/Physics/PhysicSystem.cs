@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Doog;
 
 namespace Doog
 {
@@ -11,7 +8,7 @@ namespace Doog
     /// </summary>
 	public class PhysicSystem : IPhysicSystem
 	{
-		private IList<ICollidable> collidables = new List<ICollidable>();
+		private readonly IList<ICollidable> collidables = new List<ICollidable>();
 
 		public void AddCollidable(ICollidable collidable)
 		{
@@ -92,12 +89,10 @@ namespace Doog
 						continue;
 					}
 
-					if (collidable1BoundingBox.Intersect(collidable2.Transform.BoundingBox))
+					if (collidable1BoundingBox.Intersect(collidable2.Transform.BoundingBox)
+                    && !found(collidable1, collidable2))
 					{
-						if (!found(collidable1, collidable2))
-						{
-							return;
-						}
+                        return;						
 					}
 				}
 			}

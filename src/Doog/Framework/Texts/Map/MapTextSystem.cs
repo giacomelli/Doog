@@ -10,13 +10,13 @@ namespace Doog
 	/// </summary>
 	public class MapTextSystem : ITextSystem
 	{
-		private Dictionary<string, MapFont> fonts = new Dictionary<string, MapFont>();
-		private string defaultFontName;
+		private readonly Dictionary<string, MapFont> _fonts = new Dictionary<string, MapFont>();
+		private readonly string _defaultFontName;
 
 		public MapTextSystem(IWorldContext context, string defaultFontName)
 		{
             this.Context = context;
-			this.defaultFontName = defaultFontName;
+			this._defaultFontName = defaultFontName;
 		}
 
         public IWorldContext Context { get; private set; }
@@ -30,7 +30,7 @@ namespace Doog
 			{
 				var font = MapFont.LoadFromFile(ff);
 
-				fonts.Add(font.Name, font);
+				_fonts.Add(font.Name, font);
 			}
 		}
 
@@ -47,11 +47,11 @@ namespace Doog
 
 		public IFont GetFont(string fontName = null)
 		{
-			fontName = fontName ?? defaultFontName;
+			fontName = fontName ?? _defaultFontName;
 
-			if (fonts.ContainsKey(fontName))
+			if (_fonts.ContainsKey(fontName))
 			{
-				return fonts[fontName];
+				return _fonts[fontName];
 			}
 
 			throw new ArgumentException(

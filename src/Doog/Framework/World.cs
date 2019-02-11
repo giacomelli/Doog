@@ -9,14 +9,14 @@ namespace Doog
     /// </summary>
     public class World : IWorld
 	{
-		private IDrawContext drawContext;
-		private IList<IUpdatable> updatables;
-		private IList<IDrawable> drawables;
-		private int drawablesCount;
-		private IList<IComponent> componentsToRemove;
-		private IScene pendingSceneToOpen;
-        private Time time;
-        private Action exitAction;
+		private IDrawContext _drawContext;
+		private IList<IUpdatable> _updatables;
+		private IList<IDrawable> _drawables;
+		private int _drawablesCount;
+		private IList<IComponent> _componentsToRemove;
+		private IScene _pendingSceneToOpen;
+        private Time _time;
+        private Action _exitAction;
 
 		public virtual void Initialize(
             IGraphicSystem graphicSystem, 
@@ -26,17 +26,17 @@ namespace Doog
             Action exitAction)
 		{
 			Components = new List<IComponent>();
-			componentsToRemove = new List<IComponent>();
-			updatables = new List<IUpdatable>();
-			drawables = new List<IDrawable>();
+			_componentsToRemove = new List<IComponent>();
+			_updatables = new List<IUpdatable>();
+			_drawables = new List<IDrawable>();
 
-            time = new Time();
-			pendingSceneToOpen = new NullScene(this);
+            _time = new Time();
+			_pendingSceneToOpen = new NullScene(this);
 
 			graphicSystem.Initialize();
 			textSystem.Initialize();
 
-			drawContext = new DrawContext(graphicSystem, textSystem);
+			_drawContext = new DrawContext(graphicSystem, textSystem);
 			GraphicSystem = graphicSystem;
 
 			Bounds = Bounds == Rectangle.Zero ? graphicSystem.Bounds : Bounds;
@@ -48,7 +48,7 @@ namespace Doog
 
             InputSystem = inputSystem;
 
-            this.exitAction = exitAction;
+            this._exitAction = exitAction;
 		}
 
 		public IScene CurrentScene { get; private set; }
@@ -59,7 +59,7 @@ namespace Doog
         {
             get
             {
-                return time;
+                return _time;
             }
         }
 
@@ -83,14 +83,14 @@ namespace Doog
 
 			if (u != null)
 			{
-				updatables.Add(u);
+				_updatables.Add(u);
 			}
 
 			var d = component as IDrawable;
 
 			if (d != null)
 			{
-				drawables.Add(d);
+				_drawables.Add(d);
 			}
 
 			var c = component as ICollidable;
@@ -102,63 +102,62 @@ namespace Doog
 		}
 
 		public void RemoveComponent(IComponent component)
-		{
-			// TODO: maybe we should use another property (removed?) to mark a object to be removed.
+		{			
 			component.Enabled = false;
-			componentsToRemove.Add(component);
+			_componentsToRemove.Add(component);
 		}
 
 		public void OpenScene(IScene scene)
 		{
-			pendingSceneToOpen = scene;
+			_pendingSceneToOpen = scene;
 		}
 
 		private void OpenSceneIfPending(DateTime now)
 		{
-			if (pendingSceneToOpen != null)
+			if (_pendingSceneToOpen != null)
 			{
-                LogSystem.Debug("WORLD: opening scene {0}", pendingSceneToOpen.GetType().Name);
+                LogSystem.Debug("WORLD: opening scene {0}", _pendingSceneToOpen.GetType().Name);
 
 				// Time.
-				if (time.SinceGameStart <= float.Epsilon)
+				if (_time.SinceGameStart <= float.Epsilon)
 				{
-					time.MarkAsGameStarted(now);
+					_time.MarkAsGameStarted(now);
 				}
 
-				time.MarkAsSceneStarted(now);
-                time.Update(now);
+				_time.MarkAsSceneStarted(now);
+                _time.Update(now);
 
 				// Call new scene initialization, in this moment the scene decide which components will be kept
 				// on world and wich objects will be removed.
-				pendingSceneToOpen.Initialize();
+				_pendingSceneToOpen.Initialize();
 
 				// Remove the scene survivors from components to remove.
-				var sceneSurvivables = componentsToRemove
-					.Where(c => (c is ISceneSurvivable) && ((ISceneSurvivable)c).CanSurvive(CurrentScene, pendingSceneToOpen));
+				var sceneSurvivables = _componentsToRemove
+					.Where(c => (c is ISceneSurvivable) && ((ISceneSurvivable)c).CanSurvive(CurrentScene, _pendingSceneToOpen));
 				sceneSurvivables.EnableAll();
-				componentsToRemove = componentsToRemove.Except(sceneSurvivables).ToList();
+				_componentsToRemove = _componentsToRemove.Except(sceneSurvivables).ToList();
 
 				// Remove the components selected by the scene to be removed from world.
-				foreach (var c in componentsToRemove)
+				foreach (var c in _componentsToRemove)
 				{
 					Components.Remove(c);
-					updatables.Remove(c as IUpdatable);
-					drawables.Remove(c as IDrawable);
+					_updatables.Remove(c as IUpdatable);
+					_drawables.Remove(c as IDrawable);
 					PhysicSystem.RemoveCollidable(c as ICollidable);
 				}
 
-				componentsToRemove.Clear();
+				_componentsToRemove.Clear();
 
 				// Change the current world scene.
-				CurrentScene = pendingSceneToOpen;
+				CurrentScene = _pendingSceneToOpen;
 
-				pendingSceneToOpen = null;
+				_pendingSceneToOpen = null;
 
                 LogSystem.Debug("WORLD: scene opened");
 			}
             else 
             {
-                time.Update(now);
+                _time.Update(now);
             }
 		}
 
@@ -167,14 +166,14 @@ namespace Doog
 			OpenSceneIfPending(now);
 			CurrentScene.Update();
 
-			var updatablesCount = updatables.Count;
-			drawablesCount = drawables.Count;
+			var updatablesCount = _updatables.Count;
+			_drawablesCount = _drawables.Count;
 
             IUpdatable current;
 
 			for (int i = 0; i < updatablesCount; i++)
 			{
-                current = updatables[i];
+                current = _updatables[i];
 
 				if (current.Enabled)
 				{
@@ -190,29 +189,33 @@ namespace Doog
 		{
 		    IDrawable current;
 
-			for (int i = 0; i < drawablesCount; i++)
+			for (int i = 0; i < _drawablesCount; i++)
 			{
-                current = drawables[i];
+                current = _drawables[i];
 
 				if (current.Enabled)
 				{
-					current.Draw(drawContext);
+					current.Draw(_drawContext);
 				}
 			}
 
-			CurrentScene.Draw(drawContext);
+			CurrentScene.Draw(_drawContext);
 
 			GraphicSystem.Render();
 		}
 
         public void Exit()
         {
-            this.exitAction();
+            this._exitAction();
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
-        public virtual void Dispose()
+        protected virtual void Dispose(bool disposing)
         {
-            
         }
-	}
+    }
 }

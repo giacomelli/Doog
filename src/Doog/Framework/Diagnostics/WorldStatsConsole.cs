@@ -20,7 +20,7 @@ namespace Doog
             return new WorldStatsConsole(x, y, context);
         }
 
-        public void Draw(IDrawContext ctx)
+        public void Draw(IDrawContext drawContext)
         {
             var components = Context.Components;
             var enabledComponentsCount = components.Count(c => c.Enabled);
@@ -32,7 +32,7 @@ namespace Doog
 
             var x = position.X;
             var y = position.Y;
-            var ts = ctx.TextSystem;
+            var ts = drawContext.TextSystem;
 
             ts
                 .Draw(x, y,   "FPS                        : {0:N0}".With(1f / Context.Time.SinceLastFrame), "Debug")

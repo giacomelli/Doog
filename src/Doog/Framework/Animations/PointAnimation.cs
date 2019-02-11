@@ -9,8 +9,8 @@ namespace Doog
     public class PointAnimation<TOwner> : AnimationBase<TOwner, Point>
         where TOwner : IComponent
     {
-        private Func<TOwner, Point> getFrom;
-        private Action<Point> callback;
+        private readonly Func<TOwner, Point> getFrom;
+        private readonly Action<Point> callback;
 
         public PointAnimation(TOwner owner, Func<TOwner, Point> getFrom, Point to, float duration, Action<Point> callback)
             : base(owner, duration)

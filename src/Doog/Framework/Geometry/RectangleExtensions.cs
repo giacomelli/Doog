@@ -100,8 +100,7 @@ namespace Doog
                 {
                     var topLine = new Line(rect.LeftTop, rect.RightTop);
                     var bottomLine = new Line(rect.LeftBottom, rect.RightBottom);
-
-                    // TODO: look for a better way to do this.
+                    
                     topLine.Iterate((x1, y1) =>
                     {
                         bottomLine.Iterate((x2, y2) =>

@@ -7,11 +7,11 @@ namespace Doog
     /// </summary>
     public struct Circle : ICircle
     {
-        private readonly float left;
-        private readonly float top;
-        private readonly float right;
-        private readonly float bottom;
-        private readonly float radius;
+        private readonly float _left;
+        private readonly float _top;
+        private readonly float _right;
+        private readonly float _bottom;
+        private readonly float _radius;
 
         public Circle(Point point, float radius)
             : this(point.X, point.Y, radius)
@@ -20,16 +20,15 @@ namespace Doog
 
         public Circle(float left, float top, float radius)
         {
-            this.left = left;
-            this.top = top;
-            this.radius = radius;
-            this.right = left + radius * 2;
-            this.bottom = top + radius * 2; 
+            _left = left;
+            _top = top;
+            _radius = radius;
+            _right = left + radius * 2;
+            _bottom = top + radius * 2; 
         }
 
         public static Point GetPoint(Point position, float radius, float angleInDegrees)
-        {
-            // TODO: create a type Angle (with properties Radians and Degrees)
+        {            
             var angleInRadians = angleInDegrees * Math.PI / 180f;
             return new Point(
                 position.X + radius * (float)Math.Cos(angleInRadians),
@@ -40,7 +39,7 @@ namespace Doog
 		{
 			get
 			{
-				return left;
+				return _left;
 			}
 		}
 
@@ -48,7 +47,7 @@ namespace Doog
 		{
 			get
 			{
-				return top;
+				return _top;
 			}
 		}
 
@@ -56,7 +55,7 @@ namespace Doog
 		{
 			get
 			{
-				return right;
+				return _right;
 			}
 		}
 
@@ -64,7 +63,7 @@ namespace Doog
 		{
 			get
 			{
-				return bottom;
+				return _bottom;
 			}
 		}
 
@@ -72,15 +71,15 @@ namespace Doog
         {
             get
             {
-                return radius;
+                return _radius;
             }
         }
 
 		public Point GetCenter()
 		{
 			return new Point(
-				left + (right - left) / 2,
-				top + (bottom - top) / 2);
+				_left + (_right - _left) / 2,
+				_top + (_bottom - _top) / 2);
 		}
     }
 }

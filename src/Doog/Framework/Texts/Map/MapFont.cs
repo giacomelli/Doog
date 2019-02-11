@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Doog;
 
 namespace Doog
 {
-	/// <summary>
-	/// An IFont implementation that use a map (file) to build the texts.
-	/// </summary>
-	/// <remarks>
-	/// To see the map file format, take a look on existing map font files on Resources/Fonts folder.
-	/// </remarks>
-	public class MapFont : IFont
+    /// <summary>
+    /// An IFont implementation that use a map (file) to build the texts.
+    /// </summary>
+    /// <remarks>
+    /// To see the map file format, take a look on existing map font files on Resources/Fonts folder.
+    /// </remarks>
+    public class MapFont : IFont
 	{
-		private Dictionary<char, List<string>> charsData = new Dictionary<char, List<string>>();
-		private Dictionary<string, Point> textsSizeCache = new Dictionary<string, Point>();
+		private readonly Dictionary<char, List<string>> _charsData = new Dictionary<char, List<string>>();
+		private readonly Dictionary<string, Point> _textsSizeCache = new Dictionary<string, Point>();
 
 
 		private MapFont()
@@ -27,7 +26,7 @@ namespace Doog
 
 		public Point GetTextSize(string text)
 		{
-			if (!textsSizeCache.ContainsKey(text))
+			if (!_textsSizeCache.ContainsKey(text))
 			{
                 var x = 0f;
 
@@ -37,10 +36,10 @@ namespace Doog
 					text,
 					(cx, cy, c) => { x = cx; });
 
-				textsSizeCache.Add(text, new Point(x, Size.Y));
+				_textsSizeCache.Add(text, new Point(x, Size.Y));
 			}
 
-			return textsSizeCache[text];
+			return _textsSizeCache[text];
 		}
 
 		public static MapFont LoadFromFile(string fileName)
@@ -63,7 +62,7 @@ namespace Doog
 			var currentCharReadLines = 0;
 
 			// Space.
-			font.charsData.Add(' ', new List<string> { string.Empty.PadRight((int)font.Size.X, ' ') });
+			font._charsData.Add(' ', new List<string> { string.Empty.PadRight((int)font.Size.X, ' ') });
 
 			for (int i = 4; i < content.Length; i++)
 			{
@@ -71,7 +70,7 @@ namespace Doog
 
 				if (font.Size.Y.EqualsTo(currentCharReadLines))
 				{
-					font.charsData.Add(currentChar, currentCharData);
+					font._charsData.Add(currentChar, currentCharData);
 					currentChar++;
 					currentCharData = new List<string>();
 					currentCharReadLines = 0;
@@ -96,9 +95,9 @@ namespace Doog
 		{
 			var longestLine = 0;
 
-			if (charsData.ContainsKey(c))
+			if (_charsData.ContainsKey(c))
 			{
-				var charData = charsData[c];
+				var charData = _charsData[c];
 
 				for (int i = 0; i < charData.Count; i++)
 				{

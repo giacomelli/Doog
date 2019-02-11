@@ -6,13 +6,13 @@ namespace Doog
     public class RectangleIterateAnimation<TOwner> : AnimationBase<TOwner, float>
         where TOwner : IComponent
     {
-        Rectangle r;
-        float x;
-        float y;
+        readonly Rectangle _rect;
+        float _x;
+        float _y;
         float dec;
-        private readonly Action<float, float> callback;
-        private Action<float> currentUpdateValue;
-        private bool filled;
+        private readonly Action<float, float> _callback;
+        private Action<float> _currentUpdateValue;
+        readonly private bool _filled;
 
 		public RectangleIterateAnimation(TOwner owner, Rectangle rectangle, bool filled, float duration, Action<float, float> callback)
             : this(owner, rectangle, rectangle.LeftTopPoint(), filled, duration, callback)
@@ -23,46 +23,46 @@ namespace Doog
         public RectangleIterateAnimation(TOwner owner, Rectangle rectangle, Point fromPoint, bool filled, float duration, Action<float, float> callback)
             : base(owner, duration)
         {
-            this.callback = callback;
-            r = rectangle;
-            this.filled = filled;
+            this._callback = callback;
+            _rect = rectangle;
+            this._filled = filled;
             From = 1f;
-            To = filled ? r.Width * r.Height + r.Width : r.Width * 2 + r.Height * 2 - 2;
-            x = fromPoint.X;
-            y = fromPoint.Y;
+            To = filled ? _rect.Width * _rect.Height + _rect.Width : _rect.Width * 2 + _rect.Height * 2 - 2;
+            _x = fromPoint.X;
+            _y = fromPoint.Y;
             ChooseCurrentUpdateValue();
         }
 
         protected override void UpdateValue(float time)
         {
-            currentUpdateValue(time);
+            _currentUpdateValue(time);
         }
 
         private void UpdateValueForwardFilled(float time)
         {
             var v = Easing.Calculate(From, To, time);
-            y = r.Top + v - dec;
+            _y = _rect.Top + v - dec;
           
-            if (y >= r.Bottom)
+            if (_y >= _rect.Bottom)
             {
                 dec = v;
-                x++;
-                y = r.Bottom;
+                _x++;
+                _y = _rect.Bottom;
             }
 
-			callback(x, y);
+			_callback(_x, _y);
 		}
 
         private void UpdateValueBackward(float time)
         {
             var v = Easing.Calculate(To, From, time);
-            y = r.Bottom - v + dec;
-            callback(x, y);
+            _y = _rect.Bottom - v + dec;
+            _callback(_x, _y);
 
-            if (y < r.Top)
+            if (_y < _rect.Top)
             {
                 dec = v;
-                x--;
+                _x--;
             }
         }
 
@@ -70,114 +70,114 @@ namespace Doog
         {
             var v = Easing.Calculate(From, To, time);
 
-            if (y <= r.Top)
+            if (_y <= _rect.Top)
             {
-                x = r.Left + v;
+                _x = _rect.Left + v;
 
-                if (x >= r.Right - 1)
+                if (_x >= _rect.Right - 1)
                 {
-                    x = r.Right - 1;
-                    y = r.Top + 1;
+                    _x = _rect.Right - 1;
+                    _y = _rect.Top + 1;
 					dec = v;
 				}
             }
-            else if (x >= r.Right - 1)
+            else if (_x >= _rect.Right - 1)
             {
-                y = r.Top + v - dec;
+                _y = _rect.Top + v - dec;
 
-                if (y >= r.Bottom - 1)
+                if (_y >= _rect.Bottom - 1)
                 {
-                    y = r.Bottom - 1;
-                    x = r.Right - 2;
+                    _y = _rect.Bottom - 1;
+                    _x = _rect.Right - 2;
 					dec = v;
 				}
             }
-            else if (y >= r.Bottom - 1)
+            else if (_y >= _rect.Bottom - 1)
             {
-                x = r.Right - 1 - (v - dec);
+                _x = _rect.Right - 1 - (v - dec);
 
-                if (x <= r.Left)
+                if (_x <= _rect.Left)
                 {
-                    x = r.Left;
-                    y = r.Bottom - 2;
+                    _x = _rect.Left;
+                    _y = _rect.Bottom - 2;
 					dec = v;
 				}
             }
             else
             {
-                y = r.Bottom - 2 - v + dec;
+                _y = _rect.Bottom - 2 - v + dec;
 
-                if (y < r.Top)
+                if (_y < _rect.Top)
                 {
-                    y = r.Top;
+                    _y = _rect.Top;
                 }
             }
 
-            callback(x, y);
+            _callback(_x, _y);
         }
 
 		private void UpdateValueBackwardNotFilled(float time)
 		{
 			var v = Easing.Calculate(To, From, time);
 
-            if (x <= r.Left)
+            if (_x <= _rect.Left)
             {
-                y = r.Top + v;
+                _y = _rect.Top + v;
 
-                if (y >= r.Bottom - 1)
+                if (_y >= _rect.Bottom - 1)
                 {
-                    y = r.Bottom - 1;
-                    x = r.Left + 1;
+                    _y = _rect.Bottom - 1;
+                    _x = _rect.Left + 1;
                     dec = v;
                 }
             }
-            else if (y >= r.Bottom - 1)
+            else if (_y >= _rect.Bottom - 1)
             {
-                x = r.Left + v - dec;
+                _x = _rect.Left + v - dec;
 
-                if (x >= r.Right - 1)
+                if (_x >= _rect.Right - 1)
                 {
-                    x = r.Right - 1;
-                    y = r.Bottom - 2;
+                    _x = _rect.Right - 1;
+                    _y = _rect.Bottom - 2;
                     dec = v;
                 }
             }
-            else if (x >= r.Right - 1)
+            else if (_x >= _rect.Right - 1)
             {
-                y = r.Bottom - 2 - (v - dec);
+                _y = _rect.Bottom - 2 - (v - dec);
 
-                if (y <= r.Top)
+                if (_y <= _rect.Top)
                 {
-                    y = r.Top;
-                    x = r.Right - 2;
+                    _y = _rect.Top;
+                    _x = _rect.Right - 2;
                     dec = v;
                 }
             }
             else 
             {
-                x = r.Right - 2 - (v - dec);
+                _x = _rect.Right - 2 - (v - dec);
             }
 			
-			callback(x, y);
+			_callback(_x, _y);
 		}
 
         private void ChooseCurrentUpdateValue()
         {
-            if (filled)
+            if (_filled)
             {
-                currentUpdateValue = From <= To ? (Action<float>)UpdateValueForwardFilled : UpdateValueBackward;
+                _currentUpdateValue = From <= To ? (Action<float>)UpdateValueForwardFilled : UpdateValueBackward;
             }
             else
             {
-                currentUpdateValue = From <= To ? (Action<float>)UpdateValueForwardNotFilled : UpdateValueBackwardNotFilled;
+                _currentUpdateValue = From <= To ? (Action<float>)UpdateValueForwardNotFilled : UpdateValueBackwardNotFilled;
             }
         }
 
         public override void Reset()
         {
             base.Reset();
-            x = r.Left;
-            y = r.Top;
+            _x = _rect.Left;
+            _y = _rect.Top;
         }
 
         public override void Reverse()
@@ -188,21 +188,21 @@ namespace Doog
 
             if (From <= To)
             {
-                x = r.Left;
-                y = r.Top;
+                _x = _rect.Left;
+                _y = _rect.Top;
                 ChooseCurrentUpdateValue();
             }
             else
             {
-                if (filled)
+                if (_filled)
                 {
-                    x = r.Right;
-                    y = r.Bottom;
+                    _x = _rect.Right;
+                    _y = _rect.Bottom;
                 }
                 else
                 {
-					x = r.Left;
-					y = r.Top;
+					_x = _rect.Left;
+					_y = _rect.Top;
                 }
                 ChooseCurrentUpdateValue();
             }

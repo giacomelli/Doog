@@ -11,8 +11,8 @@ namespace Doog
     /// </remarks>
     public class InGameLogSystem : LogSystemBase, IDrawable
     {
-        private Rectangle bounds;
-        private List<string> lines = new List<string>();
+        private readonly Rectangle bounds;
+        private readonly List<string> lines = new List<string>();
 
         public InGameLogSystem(Rectangle bounds, IWorldContext context)
             : base(context)
@@ -30,13 +30,13 @@ namespace Doog
 
         public IWorldContext Context { get; private set; }
 
-		public void Draw(IDrawContext ctx)
+		public void Draw(IDrawContext drawContext)
 		{
-            ctx.Canvas.Draw(bounds);
+            drawContext.Canvas.Draw(bounds);
 
             for (int i = 0; i < lines.Count; i++)
             {
-                ctx.TextSystem.Draw(bounds.Left + 1, bounds.Top + 2 + i, lines[i], "Debug");
+                drawContext.TextSystem.Draw(bounds.Left + 1, bounds.Top + 2 + i, lines[i], "Debug");
             }
         }
 

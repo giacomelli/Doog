@@ -8,7 +8,7 @@ namespace Doog
     /// </summary>
     public class FileLogSystem : LogSystemBase, IDisposable
     {
-        private StreamWriter file;
+        private readonly StreamWriter file;
         private bool disposedValue = false;
 
         public FileLogSystem(string filePath, IWorldContext context)
@@ -39,6 +39,7 @@ namespace Doog
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

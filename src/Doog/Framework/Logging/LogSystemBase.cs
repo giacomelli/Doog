@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace Doog
+﻿namespace Doog
 {
     public abstract class LogSystemBase : ILogSystem, ISceneSurvivable
     {
-        private IWorldContext context;
+        private readonly IWorldContext context;
 
         protected LogSystemBase(IWorldContext context)
         {
