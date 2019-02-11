@@ -17,7 +17,7 @@ namespace Doog.Tests.Framework.Animations
 			ctx = Substitute.For<IWorldContext>();
 			ctx.LogSystem.Returns(Substitute.For<ILogSystem>());
 			var time = Substitute.For<ITime>();
-		    time.SinceSceneStart.Returns(sinceSceneStart);
+		    time.SinceSceneStart.Returns(c => sinceSceneStart);
             ctx.Time.Returns(time);
 
             owner = new RectangleComponent(5, 10, ctx);
