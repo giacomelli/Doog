@@ -3,6 +3,9 @@ using Doog;
 
 namespace Doog
 {
+    /// <summary>
+    /// Rectangle iterate animation.
+    /// </summary>
     public class RectangleIterateAnimation<TOwner> : AnimationBase<TOwner, float>
         where TOwner : IComponent
     {
@@ -14,12 +17,29 @@ namespace Doog
         private Action<float> _currentUpdateValue;
         readonly private bool _filled;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Doog.RectangleIterateAnimation`1"/> class.
+        /// </summary>
+        /// <param name="owner">Owner.</param>
+        /// <param name="rectangle">Rectangle.</param>
+        /// <param name="filled">If set to <c>true</c> filled.</param>
+        /// <param name="duration">Duration.</param>
+        /// <param name="callback">Callback.</param>
 		public RectangleIterateAnimation(TOwner owner, Rectangle rectangle, bool filled, float duration, Action<float, float> callback)
             : this(owner, rectangle, rectangle.LeftTopPoint(), filled, duration, callback)
         {
             
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Doog.RectangleIterateAnimation`1"/> class.
+        /// </summary>
+        /// <param name="owner">Owner.</param>
+        /// <param name="rectangle">Rectangle.</param>
+        /// <param name="fromPoint">From point.</param>
+        /// <param name="filled">If set to <c>true</c> filled.</param>
+        /// <param name="duration">Duration.</param>
+        /// <param name="callback">Callback.</param>
         public RectangleIterateAnimation(TOwner owner, Rectangle rectangle, Point fromPoint, bool filled, float duration, Action<float, float> callback)
             : base(owner, duration)
         {
@@ -33,6 +53,10 @@ namespace Doog
             ChooseCurrentUpdateValue();
         }
 
+        /// <summary>
+        /// Updates the value.
+        /// </summary>
+        /// <param name="time">Time.</param>
         protected override void UpdateValue(float time)
         {
             _currentUpdateValue(time);
@@ -173,6 +197,9 @@ namespace Doog
             }
         }
 
+        /// <summary>
+        /// Reset the animation.
+        /// </summary>
         public override void Reset()
         {
             base.Reset();
@@ -180,6 +207,9 @@ namespace Doog
             _y = _rect.Top;
         }
 
+        /// <summary>
+        /// Reverse the animation.
+        /// </summary>
         public override void Reverse()
         {
             base.Reverse();
