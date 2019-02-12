@@ -94,7 +94,9 @@ namespace Doog
         /// <value>To.</value>
         protected TValue To { get; set; }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Play the animation.
+        /// </summary>
         public virtual void Play()
         {
             if (State == AnimationState.NotPlayed || State == AnimationState.Stopped)
@@ -108,7 +110,9 @@ namespace Doog
             }
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Pause the animation.
+        /// </summary>
         public void Pause()
         {
             if (State == AnimationState.Playing)
@@ -119,7 +123,9 @@ namespace Doog
             }
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Resume the animation.
+        /// </summary>
         public void Resume()
         {
             if (State == AnimationState.Paused)
@@ -130,7 +136,9 @@ namespace Doog
             }
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Stop the animation.
+        /// </summary>
         public void Stop()
         {
             if (State != AnimationState.NotPlayed)
@@ -140,7 +148,9 @@ namespace Doog
             }
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Reset the animation.
+        /// </summary>
         public virtual void Reset()
         {
             Log.Debug("{0}: reset", this);
@@ -148,7 +158,9 @@ namespace Doog
             State = AnimationState.NotPlayed;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Reverse the animation.
+        /// </summary>
         public virtual void Reverse()
         {
 			var temp = From;
@@ -199,13 +211,17 @@ namespace Doog
                 Duration);
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Called when component became enabled.
+        /// </summary>
         protected override void OnEnabled()
         {
             Resume();
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Called when component became disabled.
+        /// </summary>
         protected override void OnDisabled()
         {
             Pause();

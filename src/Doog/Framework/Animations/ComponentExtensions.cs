@@ -8,15 +8,15 @@ namespace Doog
     public static partial class ComponentExtensions
     {
         /// <summary>
-        /// Animate the flaot value between the values defined in to and from arguments.
+        /// Animates the floot value between the values defined in to and from arguments.
         /// </summary>
-        /// <returns>The to.</returns>
+        /// <returns>The animation pipeline.</returns>
         /// <param name="component">Component.</param>
         /// <param name="from">From.</param>
         /// <param name="to">To.</param>
         /// <param name="duration">Duration.</param>
         /// <param name="easing">Easing.</param>
-        /// <param name="callback">Callback.</param>
+        /// <param name="callback">Callback.</param>        
         public static IAnimationPipeline<TOwner> To<TOwner>(this TOwner component, float from, float to, float duration, IEasing easing, Action<float> callback)
             where TOwner : IComponent
         {
@@ -26,6 +26,16 @@ namespace Doog
             return AnimationPipeline<TOwner>.Create(animation);
         }
 
+        /// <summary>
+        /// Animates the floot value between the values defined in to and from arguments.
+        /// </summary>
+        /// <returns>The animation pipeline.</returns>
+        /// <param name="pipeline">The animation pipeline.</param>
+        /// <param name="from">From.</param>
+        /// <param name="to">To.</param>
+        /// <param name="duration">Duration.</param>
+        /// <param name="easing">Easing.</param>
+        /// <param name="callback">Callback.</param>
         public static IAnimationPipeline<TOwner> To<TOwner>(this IAnimationPipeline<TOwner> pipeline, float from, float to, float duration, IEasing easing, Action<float> callback)
 		  where TOwner : IComponent
 		{
@@ -39,7 +49,7 @@ namespace Doog
         /// <summary>
         /// Animates the boolean values using the start value.
         /// </summary>
-        /// <returns>The toogle.</returns>
+        /// <returns>The animation pipeline.</returns>
         /// <param name="component">Component.</param>
         /// <param name="start">If set to <c>true</c> start.</param>
         /// <param name="duration">Duration.</param>
@@ -53,6 +63,15 @@ namespace Doog
             });
 	    }
 
+        /// <summary>
+        /// Animates the boolean values using the start value.
+        /// </summary>
+        /// <returns>The animation pipeline.</returns>
+        /// <param name="pipeline">The animation pipeline.</param>
+        /// <param name="start">If set to <c>true</c> start.</param>
+        /// <param name="duration">Duration.</param>
+        /// <param name="easing">Easing.</param>
+        /// <param name="callback">Callback.</param>
         public static IAnimationPipeline<TOwner> Toogle<TOwner>(this IAnimationPipeline<TOwner> pipeline, bool start, float duration, IEasing easing, Action<bool> callback)
 			where TOwner : IComponent
 		{
@@ -62,6 +81,12 @@ namespace Doog
 			});
 		}
 
+        /// <summary>
+        /// Enables the component after duration seconds.
+        /// </summary>
+        /// <returns>The animation pipeline.</returns>
+        /// <param name="owner">The component.</param>
+        /// <param name="duration">Duration.</param>
         public static IAnimationPipeline<TOwner> Enable<TOwner>(this TOwner owner, float duration)
 		    where TOwner : IComponent
         {
@@ -71,7 +96,12 @@ namespace Doog
             });
 		}
 
-		public static IAnimationPipeline<TOwner> Enable<TOwner>(this TOwner owner)
+        /// <summary>
+        /// Enables the component.
+        /// </summary>
+        /// <returns>The animation pipeline.</returns>
+        /// <param name="owner">The component.</param>
+        public static IAnimationPipeline<TOwner> Enable<TOwner>(this TOwner owner)
 		   where TOwner : IComponent
 		{
 			return owner.Do(() =>
@@ -80,6 +110,12 @@ namespace Doog
 			});
 		}
 
+        /// <summary>
+        /// Enables the component after duration seconds.
+        /// </summary>
+        /// <returns>The animation pipeline.</returns>
+        /// <param name="pipeline">The animation pipeline.</param>
+        /// <param name="duration">Duration.</param>
         public static IAnimationPipeline<TOwner> Enable<TOwner>(this IAnimationPipeline<TOwner> pipeline, float duration)
 			where TOwner : IComponent
 		{
@@ -89,7 +125,13 @@ namespace Doog
             });
 		}
 
-		public static IAnimationPipeline<TComponent> Enable<TComponent>(this IAnimationPipeline<TComponent> pipeline)
+
+        /// <summary>
+        /// Enables the component.
+        /// </summary>
+        /// <returns>The animation pipeline.</returns>
+        /// <param name="pipeline">The animation pipeline.</param>        
+        public static IAnimationPipeline<TComponent> Enable<TComponent>(this IAnimationPipeline<TComponent> pipeline)
 			where TComponent : IComponent
 		{
             return pipeline.Do(() =>
@@ -98,6 +140,12 @@ namespace Doog
             });
 		}
 
+        /// <summary>
+        /// Disables the component after duration seconds.
+        /// </summary>
+        /// <returns>The animation pipeline.</returns>
+        /// <param name="owner">The component.</param>
+        /// <param name="duration">Duration.</param>
         public static IAnimationPipeline<TOwner> Disable<TOwner>(this TOwner owner, float duration)
 			where TOwner : IComponent
 		{
@@ -107,6 +155,11 @@ namespace Doog
             });
 		}
 
+        /// <summary>
+        /// Disables the component.
+        /// </summary>
+        /// <returns>The animation pipeline.</returns>
+        /// <param name="owner">The component.</param>
 		public static IAnimationPipeline<TOwner> Disable<TOwner>(this TOwner owner)
 			where TOwner : IComponent
 		{
@@ -116,6 +169,12 @@ namespace Doog
 			});
 		}
 
+        /// <summary>
+        /// Disables the component after duration seconds.
+        /// </summary>
+        /// <returns>The animation pipeline.</returns>
+        /// <param name="pipeline">The animation pipeline.</param>
+        /// <param name="duration">Duration.</param>
         public static IAnimationPipeline<TOwner> Disable<TOwner>(this IAnimationPipeline<TOwner> pipeline, float duration)
             where TOwner : IComponent
         {
@@ -125,6 +184,11 @@ namespace Doog
             });
 		}
 
+        /// <summary>
+        /// Disables the component after duration seconds.
+        /// </summary>
+        /// <returns>The animation pipeline.</returns>
+        /// <param name="pipeline">The animation pipeline.</param>
         public static IAnimationPipeline<TOwner> Disable<TOwner>(this IAnimationPipeline<TOwner> pipeline)
 			where TOwner : IComponent
 		{
