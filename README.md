@@ -2,8 +2,8 @@ Doog
 ===========
 
 [![Build status](https://ci.appveyor.com/api/projects/status/57spmopic2m8kau5/branch/master?svg=true)](https://ci.appveyor.com/project/giacomelli/doog)
-[![Quality status](https://sonarcloud.io/api/project_badges/measure?project=Doog&metric=alert_status)](https://sonarcloud.io/dashboard?id= Doog)
-[![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project= Doog&metric=coverage)](https://sonarcloud.io/dashboard?id= Doog)
+[![Quality status](https://sonarcloud.io/api/project_badges/measure?project=Doog&metric=alert_status)](https://sonarcloud.io/dashboard?id=Doog)
+[![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=Doog&metric=coverage)](https://sonarcloud.io/dashboard?id= Doog)
 [![License](http://img.shields.io/:license-MIT-blue.svg)](https://raw.githubusercontent.com/giacomelli/Doog/master/LICENSE)
 
 Doog is a framework to create console/terminal games, but using advanced game programming patterns.
