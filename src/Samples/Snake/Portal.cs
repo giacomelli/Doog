@@ -9,7 +9,7 @@ namespace Snake
         private const float TeleportTime = .5f;
         private bool recharging;
         private RectangleComponent teleportEffect;
-        private char originalSprite;
+        private Pixel originalPixel;
 
 
         public Portal(Point position, IWorldContext ctx)
@@ -19,7 +19,7 @@ namespace Snake
 
             teleportEffect = new RectangleComponent(Transform.Position, 3, ctx)
             {
-                Sprite = '.',
+                Pixel = Pixel.Blue('.'),
                 Enabled = false
             };
             teleportEffect.Transform.CentralizePivotX();
@@ -32,8 +32,8 @@ namespace Snake
         {
             something.Enabled = false;
             recharging = true;
-            originalSprite = Sprite;
-            Sprite = '.';
+            originalPixel = Pixel;
+            Pixel = Pixel.DarkBlue('.');
         
             teleportEffect.Transform.Position = something.Transform.Position;
             teleportEffect.Enabled = true;
@@ -56,7 +56,7 @@ namespace Snake
             this.Delay(TeleportTime * 10, () =>
             {
                 recharging = false;
-                Sprite = originalSprite;
+                Pixel = originalPixel;
             }).Once();
         }
 

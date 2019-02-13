@@ -46,7 +46,7 @@ namespace Doog.Samples
 
         public override void Draw(IDrawContext drawContext)
         {
-            drawContext.Canvas.Draw(lines);
+            drawContext.Canvas.Draw(lines, Pixel.Default);
         }
 
     }

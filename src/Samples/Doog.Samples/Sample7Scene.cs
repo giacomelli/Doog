@@ -22,9 +22,9 @@ namespace Doog.Samples
 
             var center = Context.Bounds.GetCenter();
 
-            hourLine = new LineComponent(center, center, Context) { Sprite = '#' };
-            secondLine = new LineComponent(center, center, Context) { Sprite = 'o' };
-            minuteLine = new LineComponent(center, center, Context) { Sprite = '.' };
+            hourLine = new LineComponent(center, center, Context) { Pixel = Pixel.White('#') };
+            secondLine = new LineComponent(center, center, Context) { Pixel = Pixel.White('o') };
+            minuteLine = new LineComponent(center, center, Context) { Pixel = Pixel.White('.') };
 
             circle = new CircleComponent(center, Context.Bounds.Height / 2f, Context)
             {
@@ -44,7 +44,7 @@ namespace Doog.Samples
         public override void Draw(IDrawContext drawContext)
         {
             drawContext.Canvas
-                       .Draw(circle);
+                       .Draw(circle, false, Pixel.Default);
 
             drawContext.TextSystem
                        .Draw(0, 0, Context.Time.Now.ToString("HH:mm:ss"), "Default");

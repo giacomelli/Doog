@@ -175,7 +175,7 @@
         public override void Draw(IDrawContext drawContext)
         {
             drawContext.Canvas
-                   .Draw(moveToSampleArea);
+                   .Draw(moveToSampleArea, false, Pixel.Default);
 
             drawContext.TextSystem
                 .DrawCenter(0, -10, numberSample1.ToString("N0"))

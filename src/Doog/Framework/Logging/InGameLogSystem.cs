@@ -53,7 +53,7 @@ namespace Doog
         /// <param name="drawContext">The draw context.</param>
         public void Draw(IDrawContext drawContext)
 		{
-            drawContext.Canvas.Draw(_bounds);
+            drawContext.Canvas.Draw(_bounds, false, Pixel.Default);
 
             for (int i = 0; i < _lines.Count; i++)
             {

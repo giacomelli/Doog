@@ -7,8 +7,8 @@ namespace Snake
     [DebuggerDisplay("{Transform.Position}")]
 	public class SnakeTile : RectangleComponent, ICollidable, IDrawable
 	{
-        public const char HeadSprite = '@';
-		public const char BodySprite = 'o';
+        public static readonly Pixel HeadPixel = Pixel.Red('@');
+		public static readonly Pixel BodyPixel = Pixel.Green('o');
    		private Action onCollisionFood;
 		private Action onCollisionTile;
 		private Action onCollisionWall;
@@ -20,7 +20,7 @@ namespace Snake
 			this.onCollisionTile = onCollisionTile;
             this.onCollisionWall = onCollisionWall;
 
-            Sprite = BodySprite;
+            Pixel = BodyPixel;
 		}
 
 		public SnakeTile Next { get; set; }

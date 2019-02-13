@@ -23,7 +23,7 @@ namespace Doog.Tests.Framework.Geometry
             Assert.AreEqual(28, circle.Bottom);
 			target.Draw(drawCtx);
 
-            canvas.Received().Draw(target, true, '#');
+            canvas.Received().Draw(target, true, Pixel.White('#'));
         }
 	}
 }

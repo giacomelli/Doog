@@ -16,7 +16,7 @@ namespace Snake.Scenes
         
             var hilightWall = new RectangleComponent(Point.Zero, Context)
             {
-                Sprite = ' '
+                Pixel = Pixel.DarkGray(' ')
             };
 
             this.Iterate(Context.Bounds, false, 15, Easing.Linear, (x, y) =>

@@ -9,7 +9,7 @@ namespace Snake
 		public Food(IWorldContext context)
             : base(0, 0, context)
 		{
-            Sprite = 'o';
+            Pixel = Pixel.Yellow('o');
             Transform.Scale = DefaultScale;
      	}
 

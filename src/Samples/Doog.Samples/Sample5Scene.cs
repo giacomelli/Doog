@@ -27,7 +27,7 @@ namespace Doog.Samples
             for (int i = 0; i < bar.Length; i++)
             {
                 bar[i] = new SampleComponent(0, 0, Context);
-                bar[i].Sprite = '.';
+                bar[i].Pixel = Pixel.White('.');
             }
 
             StartAnimation();

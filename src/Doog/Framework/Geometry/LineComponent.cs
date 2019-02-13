@@ -19,7 +19,7 @@ namespace Doog
         {
 			Transform = new Transform(pointA.X, pointA.Y, context);
             PointB = pointB;
-			Sprite = '#';
+			Pixel = Pixel.White('#');
         }
 
         /// <summary>
@@ -63,9 +63,9 @@ namespace Doog
         public Point PointB { get; set; }
 
         /// <summary>
-        /// Gets or sets the sprite.
+        /// Gets or sets the pixel.
         /// </summary>       
-        public char Sprite { get; set; }
+        public Pixel Pixel { get; set; }
 
         /// <summary>
         /// Draws the instance on the specified draw context.
@@ -73,7 +73,7 @@ namespace Doog
         /// <param name="drawContext">The draw context.</param>
         public virtual void Draw(IDrawContext drawContext)
         {
-            drawContext.Canvas.Draw(this, Sprite);
+            drawContext.Canvas.Draw(this, Pixel);
         }
     }
 }

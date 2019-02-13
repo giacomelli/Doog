@@ -60,7 +60,7 @@ namespace Doog
 				x,
 				y,
 				text,
-				(cx, cy, c) => Context.GraphicSystem.Draw(cx, cy, c));
+				(cx, cy, c) => Context.GraphicSystem.Draw(cx, cy, Pixel.White(c)));
 
             return this;
 		}

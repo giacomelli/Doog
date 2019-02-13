@@ -32,7 +32,7 @@ namespace Doog
         {
             Transform = new Transform(x, y, context);
             Transform.Scale = new Point(radius * 2);
-            Sprite = '#';
+            Pixel = Pixel.White('#'); ;
             Filled = true;
         }
 
@@ -42,9 +42,9 @@ namespace Doog
         public Transform Transform { get; private set; }
 
         /// <summary>
-        /// Gets or sets the sprite.
+        /// Gets or sets the pixel.
         /// </summary>        
-        public char Sprite { get; set; }
+        public Pixel Pixel { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="CircleComponent"/> is filled.
@@ -70,7 +70,7 @@ namespace Doog
         /// <param name="drawContext">The draw context.</param>
         public virtual void Draw(IDrawContext drawContext)
         {
-            drawContext.Canvas.Draw(this, Filled, Sprite);
+            drawContext.Canvas.Draw(this, Filled, Pixel);
         }
 
         Point ICircle.GetCenter()

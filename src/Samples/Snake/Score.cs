@@ -13,7 +13,7 @@ namespace Snake
             {
                 var effect = new RectangleComponent(snake.Head.Transform.Position, ctx)
                 {
-                    Sprite = '+'
+                    Pixel = Pixel.DarkRed('+')
                 };
 
                 effect
