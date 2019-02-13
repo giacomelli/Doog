@@ -19,7 +19,7 @@ namespace Doog
         void Update(DateTime now);
 
         /// <summary>
-        /// Draw this instance on current framew.
+        /// Draw this instance on current frame.
         /// </summary>
         void Draw(); 
     }

@@ -5,8 +5,17 @@ using System.Reflection;
 
 namespace Doog
 {
+    /// <summary>
+    /// Responsible for instanciate the World's implementation in the game assembly and configure the environment based on the passed args.
+    /// </summary>
     public static class GameActivator
     {
+        /// <summary>
+        /// Creates the World implementation instance from game assembly.
+        /// </summary>
+        /// <param name="gameAssembly">The game assembly.</param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException">Could not find a class that inherits from Doog.World class.</exception>
         public static World CreateInstance(Assembly gameAssembly)
         {			
 			var worldType = typeof(World);
@@ -20,6 +29,11 @@ namespace Doog
             return (World)Activator.CreateInstance(gameType);
         }
 
+        /// <summary>
+        /// Configure the game based on specified args.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <param name="args">The arguments.</param>
         public static void Config(World game, string[] args)
         {
             Debug.Initialize(args);

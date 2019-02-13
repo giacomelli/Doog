@@ -1,14 +1,24 @@
-﻿using Doog;
-
-namespace Doog
+﻿namespace Doog
 {
-	public class NullScene : SceneBase
+    /// <summary> 
+    /// A Null object pattern IScene's implementation.
+    /// </summary>
+    /// <seealso cref="Doog.SceneBase" />
+    public class NullScene : SceneBase
 	{
-		public NullScene(IWorldContext context)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NullScene"/> class.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        public NullScene(IWorldContext context)
             : base(context)
         {
 		}
 
+        /// <summary>
+        /// Draws the instance on the specified draw context.
+        /// </summary>
+        /// <param name="drawContext">The draw context.</param>
         public override void Draw(IDrawContext drawContext)
         {
        		drawContext.TextSystem.DrawCenter(

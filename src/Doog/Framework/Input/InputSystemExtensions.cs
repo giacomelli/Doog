@@ -8,7 +8,7 @@ namespace Doog
     public static class InputSystemExtensions
     {
         /// <summary>
-        /// Runs the action if specified key is down in the current framew.
+        /// Runs the action if specified key is down in the current frame.
         /// </summary>
         /// <returns>The input system.</returns>
         /// <param name="input">The input system.</param>

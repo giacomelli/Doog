@@ -18,7 +18,15 @@ namespace Doog
         private Time _time;
         private Action _exitAction;
 
-		public virtual void Initialize(
+        /// <summary>
+        /// Initializes the specified graphic system.
+        /// </summary>
+        /// <param name="graphicSystem">The graphic system.</param>
+        /// <param name="physicSystem">The physic system.</param>
+        /// <param name="textSystem">The text system.</param>
+        /// <param name="inputSystem">The input system.</param>
+        /// <param name="exitAction">The exit action.</param>
+        public virtual void Initialize(
             IGraphicSystem graphicSystem, 
             IPhysicSystem physicSystem, 
             ITextSystem textSystem,
@@ -51,31 +59,56 @@ namespace Doog
             this._exitAction = exitAction;
 		}
 
-		public IScene CurrentScene { get; private set; }
+        /// <summary>
+        /// Gets the current scene.
+        /// </summary>
+        public IScene CurrentScene { get; private set; }
 
-		public Rectangle Bounds { get; protected set; }
+        /// <summary>
+        /// Gets the bounds.
+        /// </summary>
+        public Rectangle Bounds { get; protected set; }
 
-        public ITime Time
-        {
-            get
-            {
-                return _time;
-            }
-        }
+        /// <summary>
+        /// Gets the time.
+        /// </summary>
+        public ITime Time => _time;
 
-		public IGraphicSystem GraphicSystem { get; private set; }
+        /// <summary>
+        /// Gets the graphic system.
+        /// </summary>
+        public IGraphicSystem GraphicSystem { get; private set; }
 
+        /// <summary>
+        /// Gets the input system.
+        /// </summary>
         public IInputSystem InputSystem { get; private set; }
 
-		public IPhysicSystem PhysicSystem { get; private set; }
+        /// <summary>
+        /// Gets the physic system.
+        /// </summary>
+        public IPhysicSystem PhysicSystem { get; private set; }
 
-	    public ILogSystem LogSystem { get; set; }
+        /// <summary>
+        /// Gets the log system.
+        /// </summary>
+        public ILogSystem LogSystem { get; set; }
 
-		public IFontSystem FontSystem { get; private set; }
+        /// <summary>
+        /// Gets the font system.
+        /// </summary>
+        public IFontSystem FontSystem { get; private set; }
 
-		public IList<IComponent> Components { get; private set; }
+        /// <summary>
+        /// Gets the components.
+        /// </summary>
+        public IList<IComponent> Components { get; private set; }
 
-		public void AddComponent(IComponent component)
+        /// <summary>
+        /// Adds the component.
+        /// </summary>
+        /// <param name="component">The component.</param>
+        public void AddComponent(IComponent component)
 		{
            	Components.Add(component);
 
@@ -101,13 +134,21 @@ namespace Doog
 			}
 		}
 
-		public void RemoveComponent(IComponent component)
+        /// <summary>
+        /// Removes the component.
+        /// </summary>
+        /// <param name="component">The component.</param>
+        public void RemoveComponent(IComponent component)
 		{			
 			component.Enabled = false;
 			_componentsToRemove.Add(component);
 		}
 
-		public void OpenScene(IScene scene)
+        /// <summary>
+        /// Opens the scene.
+        /// </summary>
+        /// <param name="scene">The scene.</param>
+        public void OpenScene(IScene scene)
 		{
 			_pendingSceneToOpen = scene;
 		}
@@ -161,7 +202,11 @@ namespace Doog
             }
 		}
 
-		public void Update(DateTime now)
+        /// <summary>
+        /// Update the instance.
+        /// </summary>
+        /// <param name="now">The current real world time.</param>
+        public void Update(DateTime now)
 		{
 			OpenSceneIfPending(now);
 			CurrentScene.Update();
@@ -185,7 +230,10 @@ namespace Doog
             InputSystem.Update();
 		}
 
-		public void Draw()
+        /// <summary>
+        /// Draw this instance on current frame.
+        /// </summary>
+        public void Draw()
 		{
 		    IDrawable current;
 
@@ -204,17 +252,27 @@ namespace Doog
 			GraphicSystem.Render();
 		}
 
+        /// <summary>
+        /// Exit the world.
+        /// </summary>
         public void Exit()
         {
             this._exitAction();
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
         }

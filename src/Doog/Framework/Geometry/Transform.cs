@@ -4,44 +4,54 @@ using System.Diagnostics;
 namespace Doog
 {
     /// <summary>
-    /// Component used to manipulate the position and size.
-    /// <remarks>
-    /// In the future we can add rotation and scale to it.
-    /// </remarks>
+    /// Component used to manipulate the position, size, scale and rotation.
     /// </summary>
     [DebuggerDisplay("{BoundingBox}")]
     public class Transform : ComponentBase
     {
-        private Point position;
-        private Point scale;
-        private float rotation;
-        private Point pivot;
-        private Rectangle originalBoundingBox;
+        private Point _position;
+        private Point _scale;
+        private float _rotation;
+        private Point _pivot;
+        private Rectangle _originalBoundingBox;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Transform"/> class.
+        /// </summary>
+        /// <param name="context">The world context.</param>
         public Transform(IWorldContext context)
             : this(0, 0, context)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Transform"/> class.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="context">The context.</param>
         public Transform(float x, float y, IWorldContext context)
             : base(context)
         {
-            scale = Point.Zero;
-            pivot = Point.Zero;
-            originalBoundingBox = new Rectangle(x, y, 0, 0);
+            _scale = Point.Zero;
+            _pivot = Point.Zero;
+            _originalBoundingBox = new Rectangle(x, y, 0, 0);
             Position = new Point(x, y);
         }
 
+        /// <summary>
+        /// Gets or sets the position.
+        /// </summary>        
         public Point Position
         {
             get
             {
-                return position;
+                return _position;
             }
 
             set
             {
-                position = value;
+                _position = value;
                 Rebuild();
             }
         }
@@ -62,63 +72,89 @@ namespace Doog
         {
             get
             {
-                return pivot;
+                return _pivot;
             }
 
             set
             {
-                pivot = value;
+                _pivot = value;
                 Rebuild();
             }
         }
 
+        /// <summary>
+        /// Gets or sets the scale.
+        /// </summary>        
         public Point Scale
         {
             get
             {
-                return scale;
+                return _scale;
             }
 
             set
             {
-                scale = value;
-                originalBoundingBox = new Rectangle(originalBoundingBox.Left, originalBoundingBox.Top, value.X, value.Y);
+                _scale = value;
+                _originalBoundingBox = new Rectangle(_originalBoundingBox.Left, _originalBoundingBox.Top, value.X, value.Y);
                 Rebuild();
             }
         }
-        
+
+        /// <summary>
+        /// Gets or sets the rotation.
+        /// </summary>        
         public float Rotation
         {
             get
             {
-                return rotation;
+                return _rotation;
             }
 
             set
             {
-                rotation = value;
+                _rotation = value;
                 Rebuild();
             }
         }
 
+        /// <summary>
+        /// Gets the bounding box.
+        /// </summary>
         public Rectangle BoundingBox { get; private set; }
 
-
+        /// <summary>
+        /// Increments the position.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
         public void IncrementPosition(float x, float y)
         {
-            Position = new Point(position.X + x, position.Y + y);
+            Position = new Point(_position.X + x, _position.Y + y);
         }
 
+        /// <summary>
+        /// Sets the x position.
+        /// </summary>
+        /// <param name="x">The x.</param>
         public void SetX(float x)
         {
-            Position = new Point(x, position.Y);
+            Position = new Point(x, _position.Y);
         }
 
+        /// <summary>
+        /// Sets the y position.
+        /// </summary>
+        /// <param name="y">The y.</param>
         public void SetY(float y)
         {
-            Position = new Point(position.X, y);
+            Position = new Point(_position.X, y);
         }
 
+        /// <summary>
+        /// Determines whether this instance intersects the specified one.
+        /// </summary>
+        /// <param name="other">The other transform.</param>
+        /// <returns>True if intersects, otherwise false.</returns>
         public bool Intersect(Transform other)
         {
             return BoundingBox.Intersect(other.BoundingBox);
@@ -126,17 +162,17 @@ namespace Doog
 
         private void Rebuild()
         {
-            var cos = (float)Math.Cos(rotation * Math.PI / 180f);
-            var sin = (float)Math.Sin(rotation * Math.PI / 180f);
+            var cos = (float)Math.Cos(_rotation * Math.PI / 180f);
+            var sin = (float)Math.Sin(_rotation * Math.PI / 180f);
 
-            var r = originalBoundingBox;
-            var center = r.LeftTop + scale * pivot;
+            var r = _originalBoundingBox;
+            var center = r.LeftTop + _scale * _pivot;
        
             BoundingBox = new Rectangle(
-                CalculateCorner(position, r.LeftTop, center, cos, sin),
-                CalculateCorner(position, r.RightTop, center, cos, sin),
-                CalculateCorner(position, r.RightBottom, center, cos, sin),
-                CalculateCorner(position, r.LeftBottom, center, cos, sin)
+                CalculateCorner(_position, r.LeftTop, center, cos, sin),
+                CalculateCorner(_position, r.RightTop, center, cos, sin),
+                CalculateCorner(_position, r.RightBottom, center, cos, sin),
+                CalculateCorner(_position, r.LeftBottom, center, cos, sin)
             );
         }
 

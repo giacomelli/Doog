@@ -7,9 +7,16 @@ namespace Doog
     /// </summary>
     public static class LineExtensions
     {
-        // https://en.wikipedia.org/wiki/Line_drawing_algorithm
-        // https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
-        // https://stackoverflow.com/a/11683720/956886
+        /// <summary>
+        /// Iterates through the line points.
+        /// </summary>
+        /// <param name="line">The line.</param>
+        /// <param name="step">The action called for each point iterated.</param>
+        /// <remarks>
+        /// https://en.wikipedia.org/wiki/Line_drawing_algorithm
+        /// https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
+        /// https://stackoverflow.com/a/11683720/956886
+        /// </remarks>
         public static void Iterate(this ILine line, Action<float, float> step)
         {
             var x = (int)Math.Round(line.PointA.X);

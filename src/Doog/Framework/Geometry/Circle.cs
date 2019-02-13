@@ -13,11 +13,22 @@ namespace Doog
         private readonly float _bottom;
         private readonly float _radius;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Circle"/> struct.
+        /// </summary>
+        /// <param name="point">The pivot point.</param>
+        /// <param name="radius">The radius.</param>
         public Circle(Point point, float radius)
             : this(point.X, point.Y, radius)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Circle"/> struct.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="top">The top.</param>
+        /// <param name="radius">The radius.</param>
         public Circle(float left, float top, float radius)
         {
             _left = left;
@@ -27,6 +38,13 @@ namespace Doog
             _bottom = top + radius * 2; 
         }
 
+        /// <summary>
+        /// Gets a point in the circle in the specified position, radius and angle.
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="angleInDegrees">The angle in degrees.</param>
+        /// <returns>The point.</returns>
         public static Point GetPoint(Point position, float radius, float angleInDegrees)
         {            
             var angleInRadians = angleInDegrees * Math.PI / 180f;
@@ -35,38 +53,29 @@ namespace Doog
                 position.Y + radius * (float)Math.Sin(angleInRadians));
         }
 
-		public float Left
-		{
-			get
-			{
-				return _left;
-			}
-		}
+        /// <summary>
+        /// Gets the most left x coordinate.
+        /// </summary>
+        public float Left => _left;
 
-		public float Top
-		{
-			get
-			{
-				return _top;
-			}
-		}
+        /// <summary>
+        /// Gets the most top y coordinate.
+        /// </summary>
+        public float Top => _top;
 
-		public float Right
-		{
-			get
-			{
-				return _right;
-			}
-		}
+        /// <summary>
+        /// Gets the most right x coordinate.
+        /// </summary>
+        public float Right => _right;
 
-		public float Bottom 
-		{
-			get
-			{
-				return _bottom;
-			}
-		}
+        /// <summary>
+        /// Gets the most bottom y coordinate.
+        /// </summary>
+        public float Bottom => _bottom;
 
+        /// <summary>
+        /// Gets the radius.
+        /// </summary>        
         public float Radius 
         {
             get
@@ -75,7 +84,11 @@ namespace Doog
             }
         }
 
-		public Point GetCenter()
+        /// <summary>
+        /// Gets the center point.
+        /// </summary>
+        /// <returns></returns>
+        public Point GetCenter()
 		{
 			return new Point(
 				_left + (_right - _left) / 2,

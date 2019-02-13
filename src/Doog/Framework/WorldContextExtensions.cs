@@ -1,5 +1,4 @@
 ﻿using System;
-using Doog;
 
 namespace Doog
 {
@@ -8,6 +7,11 @@ namespace Doog
     /// </summary>
 	public static class WorldContextExtensions
 	{
+        /// <summary>
+        /// Removes the components without tag.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="tags">The tags.</param>
         public static void RemoveComponentsWithoutTag(this IWorldContext context, params string[] tags)
 		{
             var toRemove = context.Components.GetWithoutTag(tags);
@@ -18,6 +22,10 @@ namespace Doog
 			}
 		}
 
+        /// <summary>
+        /// Removes all components.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public static void RemoveAllComponents(this IWorldContext context)
 		{
 			foreach (var c in context.Components)
@@ -26,6 +34,11 @@ namespace Doog
 			}
 		}
 
+        /// <summary>
+        /// Opens the scene.
+        /// </summary>
+        /// <typeparam name="TScene">The type of the scene.</typeparam>
+        /// <param name="context">The context.</param>
         public static void OpenScene<TScene>(this IWorldContext context)
             where TScene : IScene
         {
@@ -34,7 +47,13 @@ namespace Doog
             context.OpenScene(scene);
         }
 
-		public static void OpenScene(this IWorldContext context, string name)
+        /// <summary>
+        /// Opens the scene with the specified name.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="name">The scene name.</param>
+        /// <exception cref="ArgumentException">Could not find a scene with name '{0}'".With(name)</exception>
+        public static void OpenScene(this IWorldContext context, string name)
 		{
             var sceneType =  Type.GetType(name) ?? context.GetType().Assembly.GetType(name);
 
@@ -48,7 +67,14 @@ namespace Doog
 			context.OpenScene(scene);
 		}
 
-		public static IWorldContext OpenScene<TScene>(this IWorldContext context, Keys ifKeyIsDown)
+        /// <summary>
+        /// Opens the scene if specified key is down.
+        /// </summary>
+        /// <typeparam name="TScene">The type of the scene.</typeparam>
+        /// <param name="context">The context.</param>
+        /// <param name="ifKeyIsDown">If key is down.</param>
+        /// <returns></returns>
+        public static IWorldContext OpenScene<TScene>(this IWorldContext context, Keys ifKeyIsDown)
 		 where TScene : IScene
 		{
 			if (context.InputSystem.IsKeyDown(ifKeyIsDown))

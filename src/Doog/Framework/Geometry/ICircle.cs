@@ -21,7 +21,7 @@
         float Right { get; }
 
         /// <summary>
-        /// Gets the most left y coordinate.
+        /// Gets the most bottom y coordinate.
         /// </summary>
         float Bottom { get; }
 
@@ -33,6 +33,7 @@
         /// <summary>
         /// Gets the center point.
         /// </summary>
+        /// <returns>The point.</returns>
 		Point GetCenter();
     }
 }

@@ -3,8 +3,19 @@ using System.Reflection;
 
 namespace Doog
 {
+    /// <summary>
+    /// Game startup class.
+    /// </summary>
     public static class Startup
     {
+        /// <summary>
+        /// Runs the specified game assembly using the args passed.
+        /// </summary>
+        /// <remarks>
+        /// This method should be called inside in your Program.cs Main method.
+        /// </remarks>
+        /// <param name="gameAssembly">The game assembly.</param>
+        /// <param name="args">The arguments.</param>
         public static void Run(Assembly gameAssembly, string[] args)
         {
             using (var game = GameActivator.CreateInstance(gameAssembly))

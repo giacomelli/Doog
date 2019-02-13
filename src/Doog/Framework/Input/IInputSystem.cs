@@ -6,7 +6,7 @@
     public interface IInputSystem
     {
         /// <summary>
-        /// Verify if specified key is down in the current framew.
+        /// Verify if specified key is down in the current frame.
         /// </summary>
         /// <returns><c>true</c>, if key down is down, <c>false</c> otherwise.</returns>
         /// <param name="key">The key.</param>

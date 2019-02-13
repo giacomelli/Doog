@@ -8,34 +8,50 @@ namespace Doog
     /// </summary>
     public class FileLogSystem : LogSystemBase, IDisposable
     {
-        private readonly StreamWriter file;
-        private bool disposedValue = false;
+        private readonly StreamWriter _file;
+        private bool _disposedValue = false;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileLogSystem"/> class.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <param name="context">The context.</param>
         public FileLogSystem(string filePath, IWorldContext context)
             : base(context)
         {
-            file = File.CreateText(filePath);
-            file.AutoFlush = true;
+            _file = File.CreateText(filePath);
+            _file.AutoFlush = true;
         }
 
+        /// <summary>
+        /// Writes the specified full message.
+        /// </summary>
+        /// <param name="fullMessage">The full message.</param>
         protected override void Write(string fullMessage)
         {
-            file.WriteLine(fullMessage);
+            _file.WriteLine(fullMessage);
         }
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
-                    file.Close();
+                    _file.Close();
                 }
 
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);

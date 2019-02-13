@@ -2,17 +2,27 @@
 
 namespace Doog
 {
+    /// <summary>
+    /// An IGraphicSystem's console implementation.
+    /// </summary>
+    /// <seealso cref="Doog.IGraphicSystem" />
     public class GraphicSystem : IGraphicSystem
     {
         private const char EmptySprite = ' ';
         private char[,] _sprites;
         private char[,] _lastFrame;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GraphicSystem"/> class.
+        /// </summary>
         public GraphicSystem()
         {
 			Bounds = new Rectangle(0, 0, Console.WindowWidth - 1, Console.WindowHeight - 1);
 		}
 
+        /// <summary>
+        /// Initialize this instance.
+        /// </summary>
         public void Initialize()
         {
             _sprites = new char[Console.WindowWidth, Console.WindowHeight];
@@ -26,8 +36,17 @@ namespace Doog
             Console.Clear();
         }
 
+        /// <summary>
+        /// Gets the bounds.
+        /// </summary>
         public Rectangle Bounds { get; private set; }
 
+        /// <summary>
+        /// Draw the sprite in the specified x and y coordinates.
+        /// </summary>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        /// <param name="sprite">The sprite.</param>
         public void Draw(float x, float y, char sprite)
         {
             if (Bounds.Contains(x, y))
@@ -36,6 +55,9 @@ namespace Doog
             }
         }
 
+        /// <summary>
+        /// Render all objects register by the Draw method in the current frame.
+        /// </summary>
         public void Render()
         {
             var left = (int)Bounds.Left;

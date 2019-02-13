@@ -16,15 +16,31 @@ namespace Doog
 		private readonly Dictionary<char, List<string>> _charsData = new Dictionary<char, List<string>>();
 		private readonly Dictionary<string, Point> _textsSizeCache = new Dictionary<string, Point>();
 
-
-		private MapFont()
+        /// <summary>
+        /// Prevents a default instance of the <see cref="MapFont"/> class from being created.
+        /// </summary>
+        private MapFont()
 		{
 		}
 
-		public string Name { get; private set; }
-		public Point Size { get; private set; }
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        public string Name { get; private set; }
 
-		public Point GetTextSize(string text)
+        /// <summary>
+        /// Gets the size.
+        /// </summary>
+        public Point Size { get; private set; }
+
+        /// <summary>
+        /// Gets the size of the text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns>
+        /// The text size.
+        /// </returns>
+        public Point GetTextSize(string text)
 		{
 			if (!_textsSizeCache.ContainsKey(text))
 			{
@@ -42,7 +58,12 @@ namespace Doog
 			return _textsSizeCache[text];
 		}
 
-		public static MapFont LoadFromFile(string fileName)
+        /// <summary>
+        /// Loads the MapFont from file.
+        /// </summary>
+        /// <param name="fileName">The filename.</param>
+        /// <returns>The MapFont.</returns>
+        public static MapFont LoadFromFile(string fileName)
 		{
 			var font = new MapFont();
 			var content = File.ReadAllLines(fileName).ToArray();
@@ -83,7 +104,14 @@ namespace Doog
 			return font;
 		}
 
-		public void Process(float x, float y, string text, Action<float, float, char> processChar)
+        /// <summary>
+        /// Processes the text.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="processChar">The process character.</param>
+        public void Process(float x, float y, string text, Action<float, float, char> processChar)
 		{
 			foreach (char c in text.ToUpperInvariant())
 			{
