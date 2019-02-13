@@ -57,7 +57,7 @@ namespace Doog
 
             for (int i = 0; i < _lines.Count; i++)
             {
-                drawContext.TextSystem.Draw(_bounds.Left + 1, _bounds.Top + 2 + i, _lines[i], "Debug");
+                drawContext.TextSystem.Draw(_bounds.Left + 1, _bounds.Top + 2 + i, _lines[i], fontName:"Debug");
             }
         }
 

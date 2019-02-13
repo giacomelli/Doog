@@ -86,7 +86,7 @@ namespace Snake.Scenes
         public override void Draw(IDrawContext drawContext)
         {
             drawContext.TextSystem
-                       .Draw(Context.Bounds.Left, 3, "Doog's Snake");
+                       .Draw(Context.Bounds.Left, 3, "Doog's Snake", Color.DarkGreen);
         }
     }
 }

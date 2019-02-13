@@ -23,6 +23,6 @@
         /// <param name="y">The y coordinate.</param>
         /// <param name="text">The text.</param>
         /// <param name="fontName">The font name.</param>
-		ITextSystem Draw(float x, float y, string text, string fontName = null);
+		ITextSystem Draw(float x, float y, string text, Color color = Color.White, string fontName = null);
 	}
 }

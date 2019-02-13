@@ -7,6 +7,7 @@ namespace Snake
         private Wall(float x, float y, IWorldContext context)
             : base(x, y, context)
         {
+            Pixel = Pixel.DarkGray('#');
         }
 
         public static Wall Create(float x, float y, float scaleX, float scaleY, IWorldContext context)

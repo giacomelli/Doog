@@ -45,12 +45,12 @@ namespace Snake.Scenes
         public override void Draw(IDrawContext drawContext)
         {
             drawContext.TextSystem
-                   .Draw(Context.Bounds.Left, 3, "Doog's Snake")
-                   .DrawCenter("Game over");
+                   .Draw(Context.Bounds.Left, 3, "Doog's Snake", Color.DarkGreen)
+                   .DrawCenter("Game over", Color.Red);
 
             if (showPressStart)
             {
-                drawContext.TextSystem.DrawCenter(0, 5, "Press ENTER to try again or Q to quit", "Default");
+                drawContext.TextSystem.DrawCenter(0, 5, "Press ENTER to try again or Q to quit", fontName:"Default");
             }
         }
     }

@@ -54,13 +54,13 @@ namespace Doog
         /// <returns>
         /// The draw.
         /// </returns>
-        public ITextSystem Draw(float x, float y, string text, string fontName = null)
+        public ITextSystem Draw(float x, float y, string text, Color color = Color.White, string fontName = null)
 		{
 			((MapFont)GetFont(fontName)).Process(
 				x,
 				y,
 				text,
-				(cx, cy, c) => Context.GraphicSystem.Draw(cx, cy, Pixel.White(c)));
+				(cx, cy, c) => Context.GraphicSystem.Draw(cx, cy, new Pixel(c, color)));
 
             return this;
 		}

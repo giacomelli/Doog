@@ -48,7 +48,8 @@ namespace Snake
                    .Draw(
                        Transform.Position.X,
                        Transform.Position.Y - Transform.Pivot.Y,
-                       $"{points:000000}");
+                       $"{points:000000}",
+                       Color.DarkYellow);
         }
     }
 }
