@@ -50,6 +50,7 @@ namespace Doog
         /// <param name="x">The x coordinate.</param>
         /// <param name="y">The y coordinate.</param>
         /// <param name="text">The text.</param>
+        /// <param name="color">The text color.</param>
         /// <param name="fontName">The font name.</param>
         /// <returns>
         /// The draw.

@@ -11,6 +11,7 @@
         /// <param name="textSystem">The text system.</param>
         /// <param name="text">The text.</param>
         /// <param name="bounds">The bounds.</param>
+        /// <param name="color">The text color.</param>
         /// <param name="fontName">Name of the font.</param>
         /// <returns>The text system.</returns>
         public static ITextSystem DrawCenter(this ITextSystem textSystem, string text, Rectangle bounds, Color color, string fontName = null)
@@ -36,6 +37,7 @@
         /// </summary>
         /// <param name="textSystem">The text system.</param>
         /// <param name="text">The text.</param>
+        /// <param name="color">The text color.</param>
         /// <param name="fontName">Name of the font.</param>
         /// <returns>The text system.</returns>
         public static ITextSystem DrawCenter(this ITextSystem textSystem, string text, Color color, string fontName = null)
@@ -63,6 +65,7 @@
         /// <param name="offsetY">The offset y.</param>
         /// <param name="text">The text.</param>
         /// <param name="bounds">The bounds.</param>
+        /// <param name="color">The text color.</param>
         /// <param name="fontName">Name of the font.</param>
         /// <returns>The text system.</returns>
         public static ITextSystem DrawCenter(this ITextSystem textSystem, float offsetX, float offsetY, string text, Rectangle bounds, Color color, string fontName = null)
@@ -97,6 +100,7 @@
         /// <param name="offsetX">The offset x.</param>
         /// <param name="offsetY">The offset y.</param>
         /// <param name="text">The text.</param>
+        /// <param name="color">The text color.</param>
         /// <param name="fontName">Name of the font.</param>
         /// <returns>The text system.</returns>
         public static ITextSystem DrawCenter(this ITextSystem textSystem, float offsetX, float offsetY, string text, Color color, string fontName = null)
@@ -125,6 +129,7 @@
         /// <param name="y">The y.</param>
         /// <param name="text">The text.</param>
         /// <param name="bounds">The bounds.</param>
+        /// <param name="color">The text color.</param>
         /// <param name="fontName">Name of the font.</param>
         /// <returns>The text system.</returns>
         public static ITextSystem DrawCenterX(this ITextSystem textSystem, float y, string text, Rectangle bounds, Color color, string fontName = null)
@@ -156,6 +161,7 @@
         /// <param name="textSystem">The text system.</param>
         /// <param name="y">The y.</param>
         /// <param name="text">The text.</param>
+        /// <param name="color">The text color.</param>
         /// <param name="fontName">Name of the font.</param>
         /// <returns>The text system.</returns>
         public static ITextSystem DrawCenterX(this ITextSystem textSystem, float y, string text, Color color, string fontName = null)
@@ -183,6 +189,7 @@
         /// <param name="x">The x.</param>
         /// <param name="text">The text.</param>
         /// <param name="bounds">The bounds.</param>
+        /// <param name="color">The text color.</param>
         /// <param name="fontName">Name of the font.</param>
         /// <returns>The text system.</returns>
         public static ITextSystem DrawCenterY(this ITextSystem textSystem, float x, string text, Rectangle bounds, Color color, string fontName = null)
@@ -214,6 +221,7 @@
         /// <param name="textSystem">The text system.</param>
         /// <param name="x">The x.</param>
         /// <param name="text">The text.</param>
+        /// <param name="color">The text color.</param>
         /// <param name="fontName">Name of the font.</param>
         /// <returns>The text system.</returns>
         public static ITextSystem DrawCenterY(this ITextSystem textSystem, float x, string text, Color color, string fontName = null)
@@ -240,6 +248,7 @@
         /// <param name="textSystem">The text system.</param>
         /// <param name="position">The position.</param>
         /// <param name="text">The text.</param>
+        /// <param name="color">The text color.</param>
         /// <param name="fontName">Name of the font.</param>
         /// <returns>The text system.</returns>
         public static ITextSystem Draw(this ITextSystem textSystem, Point position, string text, Color color, string fontName = null)
@@ -264,6 +273,7 @@
         /// Draw the specified text in the x and y coordinate.
         /// </summary>
         /// <returns>The draw.</returns>
+        /// <param name="textSystem">The text system.</param>
         /// <param name="x">The x coordinate.</param>
         /// <param name="y">The y coordinate.</param>
         /// <param name="text">The text.</param>
