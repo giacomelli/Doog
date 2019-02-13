@@ -177,7 +177,7 @@ namespace Doog
         /// </returns>
         public override string ToString()
         {
-            return "{0}, {1} | {2}, {3}".With(Left, Top, Width, Height);
+            return $"{Left}, {Top} | {Width}, {Height}";
         }
 
 

@@ -1,4 +1,7 @@
-﻿namespace Doog
+﻿using System;
+using System.Globalization;
+
+namespace Doog
 {
     /// <summary>
     /// A base class for log system.
@@ -71,7 +74,9 @@
         /// <param name="args">The arguments.</param>
         protected virtual void Write(string level, string message, params object[] args)
         {
-            Write("{0} ({1:HH:mm:ss}): {2}".With(level, _context.Time.Now, message.With(args)));   
+            var formattedMessage = String.Format(CultureInfo.InvariantCulture, message, args);
+
+            Write($"{level} ({_context.Time.Now:HH:mm:ss}): {formattedMessage}");   
         }
 
         /// <summary>

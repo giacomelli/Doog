@@ -248,7 +248,7 @@ namespace Doog
 
         private void Log(string message, params object[] args)
         {
-            Owner.Context.LogSystem.Debug("PIPELINE: {0}".With(message), args);
+            Owner.Context.LogSystem.Debug($"PIPELINE: {message}", args);
         }
     }
 }

@@ -203,12 +203,7 @@ namespace Doog
         /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Doog.AnimationBase`2"/>.</returns>
         public override string ToString()
         {
-            return "{0}<{1}>({2}..{3} in {4}s)".With(
-                GetType().Name.TrimEnd('`', '1'), 
-                Owner.GetType().Name, 
-                From, 
-                To, 
-                Duration);
+            return $"{GetType().Name.TrimEnd('`', '1')}<{Owner.GetType().Name}>({From}..{To} in {Duration}s)";
         }
 
         /// <summary>

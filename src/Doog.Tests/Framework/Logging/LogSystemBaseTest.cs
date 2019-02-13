@@ -24,7 +24,7 @@ namespace Doog.Tests.Framework.Logging
 			target.Error("d: {0}", 4);
 
             Assert.AreEqual(
-                @"DEBUG ({0:HH:mm:ss}): a: 1INFO ({0:HH:mm:ss}): b: 2WARN ({0:HH:mm:ss}): c: 3ERROR ({0:HH:mm:ss}): d: 4".With(now), 
+                $"DEBUG ({now:HH:mm:ss}): a: 1INFO ({now:HH:mm:ss}): b: 2WARN ({now:HH:mm:ss}): c: 3ERROR ({now:HH:mm:ss}): d: 4", 
                 target.ToString());
         }
     }

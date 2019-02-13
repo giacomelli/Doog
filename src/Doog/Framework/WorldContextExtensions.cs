@@ -59,7 +59,7 @@ namespace Doog
 
             if (sceneType == null)
             {
-                throw new ArgumentException("Could not find a scene with name '{0}'".With(name));
+                throw new ArgumentException($"Could not find a scene with name '{name}'");
             }
 
 			var scene = Activator.CreateInstance(sceneType, context) as IScene;

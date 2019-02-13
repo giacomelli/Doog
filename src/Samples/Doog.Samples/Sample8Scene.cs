@@ -69,7 +69,7 @@ namespace Doog.Samples
 
         public override void Draw(IDrawContext drawContext)
         {
-            drawContext.TextSystem.DrawCenter("Rotation: {0}".With(interactiveRectangle.Transform.Rotation), "Default");
+            drawContext.TextSystem.DrawCenter($"Rotation: {interactiveRectangle.Transform.Rotation}", "Default");
         }
     }
 }

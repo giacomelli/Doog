@@ -83,7 +83,7 @@ namespace Doog
 			}
 
 			throw new ArgumentException(
-				"There is no font with name '{0}'. Please, verify if the file Reosurces/Fonts/{0}.txt exists".With(fontName),
+				$"There is no font with name '{0}'. Please, verify if the file Reosurces/Fonts/{fontName}.txt exists",
 				"fontName");
 		}
 	}

@@ -52,15 +52,15 @@ namespace Doog
             var ts = drawContext.TextSystem;
 
             ts
-                .Draw(x, y,   "FPS                        : {0:N0}".With(1f / Context.Time.SinceLastFrame), "Debug")
-                .Draw(x, ++y, "Since scene start          : {0:N0}".With(Context.Time.SinceSceneStart), "Debug")
-                .Draw(x, ++y, "Components                 : {0}".With(components.Count), "Debug")
-                .Draw(x, ++y, "Enabled components         : {0}".With(enabledComponentsCount), "Debug")
-                .Draw(x, ++y, "Disabled components        : {0}".With(disabledComponentsCount), "Debug")
-                .Draw(x, ++y, "Updatable components       : {0}".With(updatablesCount), "Debug")
-                .Draw(x, ++y, "Drawable components        : {0}".With(drawablesCount), "Debug")
-                .Draw(x, ++y, "Collidable components      : {0}".With(collidablesCount), "Debug")
-                .Draw(x, ++y, "Scene survivable components: {0}".With(sceneSurvivablescount), "Debug");
+                .Draw(x, y,   $"FPS                        : {(1f / Context.Time.SinceLastFrame):N0}", "Debug")
+                .Draw(x, ++y, $"Since scene start          : {Context.Time.SinceSceneStart:N0}", "Debug")
+                .Draw(x, ++y, $"Components                 : {components.Count}", "Debug")
+                .Draw(x, ++y, $"Enabled components         : {enabledComponentsCount}", "Debug")
+                .Draw(x, ++y, $"Disabled components        : {disabledComponentsCount}", "Debug")
+                .Draw(x, ++y, $"Updatable components       : {updatablesCount}", "Debug")
+                .Draw(x, ++y, $"Drawable components        : {drawablesCount}", "Debug")
+                .Draw(x, ++y, $"Collidable components      : {collidablesCount}", "Debug")
+                .Draw(x, ++y, $"Scene survivable components: {sceneSurvivablescount}", "Debug");
 
         }
 
