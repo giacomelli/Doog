@@ -8,7 +8,7 @@
         /// <summary>
         /// The default pixel.
         /// </summary>
-        public static Pixel Default = new Pixel('.', Color.White);
+        public static readonly Pixel Default = new Pixel('.', Color.White);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Doog.Pixel"/> struct.
@@ -30,6 +30,52 @@
         /// Gets the color.
         /// </summary>
         public Color Color { get; }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Pixel))
+            {
+                return false;
+            }
+
+            return ((Pixel)obj) == this;
+        }
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 17;
+                hash = hash * 23 + Char.GetHashCode();
+                hash = hash * 23 + Color.GetHashCode();
+
+                return hash;
+            }
+        }
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return $"{Char} {Color}";
+        }
 
         /// <summary>
         /// Creates a black pixel with the specified char.

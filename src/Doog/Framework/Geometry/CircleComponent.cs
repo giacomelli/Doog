@@ -1,7 +1,4 @@
-﻿using System;
-using Doog;
-
-namespace Doog
+﻿namespace Doog
 {
     /// <summary>
     /// An circle component.
@@ -30,9 +27,11 @@ namespace Doog
         public CircleComponent(float x, float y, float radius, IWorldContext context)
             : base(context)
         {
-            Transform = new Transform(x, y, context);
-            Transform.Scale = new Point(radius * 2);
-            Pixel = Pixel.White('#'); ;
+            Transform = new Transform(x, y, context)
+            {
+                Scale = new Point(radius * 2)
+            };
+            Pixel = Pixel.White('#');
             Filled = true;
         }
 
