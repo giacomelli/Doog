@@ -3,13 +3,26 @@ using System.Reflection;
 
 namespace Doog
 {
-    public class Startup
+    /// <summary>
+    /// Game startup class.
+    /// </summary>
+    public static class Startup
     {
+        /// <summary>
+        /// Runs the specified game assembly using the args passed.
+        /// </summary>
+        /// <remarks>
+        /// This method should be called inside in your Program.cs Main method.
+        /// </remarks>
+        /// <param name="gameAssembly">The game assembly.</param>
+        /// <param name="args">The arguments.</param>
         public static void Run(Assembly gameAssembly, string[] args)
         {
-            using (var game = GameActivator.CreateInstance(gameAssembly, args))
+            using (var game = GameActivator.CreateInstance(gameAssembly))
             {
                 var gs = new GraphicSystem();
+
+                // TODO: create a StartupConfig to pass arguments as defaultFontName.
                 var ts = new MapTextSystem(game, "Slant");
                 var inputSystem = new InputSystem();
                 game.Initialize(
@@ -27,7 +40,7 @@ namespace Doog
 
                 game.Update(previous);
 
-                for (; ; )
+                while(true)
                 {
                     var current = DateTime.Now;
                     var elapsed = current - previous;

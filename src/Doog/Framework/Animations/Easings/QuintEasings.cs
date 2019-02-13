@@ -5,6 +5,13 @@
 	/// </summary>
 	public class InQuintEasing : IEasing
     {
+        /// <summary>
+        /// Calculate the easing to the specified time.
+        /// </summary>
+        /// <param name="time">Time.</param>
+        /// <returns>
+        /// The easing to the time.
+        /// </returns>
         public float Calculate(float time)
         {
             return time * time * time * time * time;
@@ -16,6 +23,13 @@
 	/// </summary>
 	public class OutQuintEasing : IEasing
 	{
+        /// <summary>
+        /// Calculate the easing to the specified time.
+        /// </summary>
+        /// <param name="time">Time.</param>
+        /// <returns>
+        /// The easing to the time.
+        /// </returns>
         public float Calculate(float time)
 		{
             return 1 + (--time) * time * time * time * time;
@@ -27,6 +41,13 @@
 	/// </summary>
 	public class InOutQuintEasing : IEasing
 	{
+        /// <summary>
+        /// Calculate the easing to the specified time.
+        /// </summary>
+        /// <param name="time">Time.</param>
+        /// <returns>
+        /// The easing to the time.
+        /// </returns>
         public float Calculate(float time)
 		{
 

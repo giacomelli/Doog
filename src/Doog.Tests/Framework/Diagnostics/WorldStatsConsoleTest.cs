@@ -2,7 +2,7 @@
 using System;
 using NSubstitute;
 
-namespace Doog.UnitTests.Diagnostics
+namespace Doog.Tests.Framework.Diagnostics
 {
     [TestFixture]
     public class WorldStatsConsoleTest

@@ -9,6 +9,7 @@
     <PackageReference Include="nunit" Version="3.9.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.9.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="coverlet.msbuild" Version="2.5.1" />
   </ItemGroup>
   
   
@@ -30,5 +31,11 @@
   
   <ItemGroup>
     <ProjectReference Include="..\Doog\Doog.csproj" />
+    <ProjectReference Include="..\Samples\Snake\Snake.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Infrastructure\Logging\" />
+    <Folder Include="Infrastructure\Runner\" />
   </ItemGroup>
  </Project>

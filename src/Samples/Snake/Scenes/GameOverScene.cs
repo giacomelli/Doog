@@ -13,8 +13,7 @@ namespace Snake.Scenes
         public override void Initialize()
         {
             Context.RemoveComponentsWithoutTag("Score", "Wall");
-            var toPoint = Context.Bounds.GetCenter();
-
+        
             var hilightWall = new RectangleComponent(Point.Zero, Context)
             {
                 Sprite = ' '

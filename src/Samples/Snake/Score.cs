@@ -48,7 +48,7 @@ namespace Snake
                    .Draw(
                        Transform.Position.X,
                        Transform.Position.Y - Transform.Pivot.Y,
-                       "{0:000000}".With(points));
+                       $"{points:000000}");
         }
     }
 }

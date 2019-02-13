@@ -5,35 +5,35 @@ namespace Snake.Commands
 {
     public class KeyboardCommandReader : ICommandReader
     {
-        private readonly KeyBinding m_binding;
-        private readonly IInputSystem m_input;
+        private readonly KeyBinding _binding;
+        private readonly IInputSystem _input;
 
         public KeyboardCommandReader(IInputSystem input, KeyBinding binding)
         {
-            m_binding = binding;
-            m_input = input;
+            _binding = binding;
+            _input = input;
         }
 
         public IEnumerable<ICommand> Read()
         {
-            if (m_input.IsKeyDown(Keys.DownArrow)) 
+            if (_input.IsKeyDown(_binding.MoveDown)) 
             {
-                return new[] { SnakeCommandPool.MoveDown };
+                return new[] { MoveDownCommand.Default };
             }
 
-            if (m_input.IsKeyDown(Keys.UpArrow))
+            if (_input.IsKeyDown(_binding.MoveUp))
             {
-                return new[] { SnakeCommandPool.MoveUp };
+                return new[] { MoveUpCommand.Default };
             }
 
-            if (m_input.IsKeyDown(Keys.LeftArrow))
+            if (_input.IsKeyDown(_binding.MoveLeft))
             {
-                return new[] { SnakeCommandPool.MoveLeft };
+                return new[] { MoveLeftCommand.Default };
             }
 
-            if (m_input.IsKeyDown(Keys.RightArrow))
+            if (_input.IsKeyDown(_binding.MoveRight))
             {
-                return new[] { SnakeCommandPool.MoveRight };
+                return new[] { MoveRightCommand.Default };
             }
 
             return new ICommand[] { };

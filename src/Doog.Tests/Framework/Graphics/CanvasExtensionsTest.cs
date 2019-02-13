@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using NSubstitute;
 
-namespace Doog.UnitTests.Graphics
+namespace Doog.Tests.Framework.Graphics
 {
     [TestFixture]
     public class CanvasExtensionsTest

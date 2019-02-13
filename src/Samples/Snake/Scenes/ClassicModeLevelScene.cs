@@ -6,8 +6,7 @@ namespace Snake.Scenes
     public class ClassicModeLevelScene : SceneBase
     {
         private const int MaxSnakes = 1;
-        private Snake[] snakes;
-
+    
         public ClassicModeLevelScene(IWorldContext context)
             : base(context)
         {
@@ -25,11 +24,11 @@ namespace Snake.Scenes
             wallSpawner.Spawn();
 
             // Create the snakes.
-            snakes = new Snake[MaxSnakes];
+            var snakes = new Snake[MaxSnakes];
 
             for (int i = 0; i < MaxSnakes; i++)
             {
-                var snake = new Snake(Context, new KeyboardCommandReader(Context.InputSystem, new KeyBinding()));
+                var snake = new Snake(Context, new KeyboardCommandReader(Context.InputSystem, KeyBinding.Default));
                 snake.Initialize(center.X, center.Y + i, 5);
                 snake.Died += delegate
                 {

@@ -1,8 +1,8 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Threading;
 
-namespace Doog.UnitTests
+namespace Doog.Tests.Framework
 {
     [TestFixture]
     public class TimeTest

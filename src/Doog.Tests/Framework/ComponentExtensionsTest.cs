@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using NSubstitute;
 
-namespace Doog.UnitTests
+namespace Doog.Tests.Framework
 {
     [TestFixture]
     public class ComponentExtensionsTest

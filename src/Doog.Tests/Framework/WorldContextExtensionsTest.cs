@@ -3,7 +3,7 @@ using System;
 using NSubstitute;
 using System.Collections.Generic;
 
-namespace Doog.UnitTests
+namespace Doog.Tests.Framework
 {
     [TestFixture]
     public class WorldContextExtensionsTest

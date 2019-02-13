@@ -63,7 +63,7 @@ namespace Doog.Samples
         {
             drawContext.TextSystem
                    .DrawCenterX(10, Easing.All[currentEasingIndex].GetType().Name.Replace("Easing", ""))
-                   .Draw(1, 1, "Use down and up arrows to navigate between the {0} easings available".With(Easing.All.Length), "Default");
+                   .Draw(1, 1, $"Use down and up arrows to navigate between the {Easing.All.Length} easings available", "Default");
         }
 
         private void StartAnimation()

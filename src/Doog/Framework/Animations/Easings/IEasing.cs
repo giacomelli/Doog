@@ -1,14 +1,12 @@
-﻿using System;
-
-namespace Doog
+﻿namespace Doog
 {
-	/// <summary>
-	/// Define an interface to easing function.
-	/// </summary>
-	/// <remarks>
-	/// http://easings.net
-	/// </remarks>
-	public interface IEasing
+    /// <summary>
+    /// Define an interface to easing function.
+    /// </summary>
+    /// <remarks>
+    /// http://easings.net
+    /// </remarks>
+    public interface IEasing
     {
         /// <summary>
         /// Calculate the easing to the specified time.

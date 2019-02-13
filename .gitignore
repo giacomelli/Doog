@@ -303,3 +303,5 @@ tools/**
 *.xsd.cs
 
 .vscode/
+.sonarqube/
+coverage.opencover.xml

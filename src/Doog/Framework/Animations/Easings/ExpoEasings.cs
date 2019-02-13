@@ -7,9 +7,16 @@ namespace Doog
 	/// </summary>
 	public class InExpoEasing : IEasing
     {
+        /// <summary>
+        /// Calculate the easing to the specified time.
+        /// </summary>
+        /// <param name="time">Time.</param>
+        /// <returns>
+        /// The easing to the time.
+        /// </returns>
         public float Calculate(float time)
         {
-            return (time == 0.0f) ? time : (float) Math.Pow(2, 10 * (time - 1));
+            return time.EqualsTo(0.0f) ? time : (float) Math.Pow(2, 10 * (time - 1));
 		}
     }
 
@@ -18,9 +25,16 @@ namespace Doog
 	/// </summary>
 	public class OutExpoEasing : IEasing
 	{
+        /// <summary>
+        /// Calculate the easing to the specified time.
+        /// </summary>
+        /// <param name="time">Time.</param>
+        /// <returns>
+        /// The easing to the time.
+        /// </returns>
         public float Calculate(float time)
 		{
-            return (time == 1.0f) ? time : 1 - (float) Math.Pow(2, -10 * time);
+            return time.EqualsTo(1.0f) ? time : 1 - (float) Math.Pow(2, -10 * time);
 		}
 	}
 
@@ -29,9 +43,16 @@ namespace Doog
 	/// </summary>
 	public class InOutExpoEasing : IEasing
 	{
+        /// <summary>
+        /// Calculate the easing to the specified time.
+        /// </summary>
+        /// <param name="time">Time.</param>
+        /// <returns>
+        /// The easing to the time.
+        /// </returns>
         public float Calculate(float time)
 		{
-            if (time == 0f || time == 1f) 
+            if (time.EqualsTo(0.0f) || time.EqualsTo(1.0f)) 
             { 
                 return time;
             }
