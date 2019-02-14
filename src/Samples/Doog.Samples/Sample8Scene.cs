@@ -22,7 +22,7 @@ namespace Doog.Samples
             {
                 Tag = "Interactive",
                 Filled = true,
-                Pixel = Pixel.Green('#')
+                Pixel = Pixel.Green()
             };
             interactiveRectangle.Transform.CentralizePivot();
 
@@ -39,7 +39,7 @@ namespace Doog.Samples
             var rect2 = new RectangleComponent(10, 1, 10, Context)
             {
                 Filled = false,
-                Pixel = Pixel.Red('o')
+                Pixel = Pixel.Red()
             };
             rect2.Transform
                  .RotateTo(360, 5, Easing.InOutElastic)
@@ -48,7 +48,7 @@ namespace Doog.Samples
             var rect3 = new RectangleComponent(140, 1, 10, Context)
             {
                 Filled = false,
-                Pixel = Pixel.Blue('o')
+                Pixel = Pixel.Blue()
             };
             rect3.Transform
                  .RotateTo(-360, 5, Easing.InOutElastic)

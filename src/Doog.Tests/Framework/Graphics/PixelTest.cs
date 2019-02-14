@@ -90,7 +90,7 @@ namespace Doog.Tests.Framework.Graphics
                 {
                     var actual = (Pixel)method.Invoke(null, new object[] { (char) @char });
                     Assert.AreEqual(@char, actual.Char);
-                    Assert.AreEqual((Color)color, actual.Color);
+                    Assert.AreEqual((Color)color, actual.ForegroundColor);
                 }
             }
         }

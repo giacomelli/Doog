@@ -9,16 +9,32 @@
         /// The default pixel.
         /// </summary>
         public static readonly Pixel Default = new Pixel('.', Color.White);
+        //public static readonly Pixel Red = new Pixel(' ', Color.Red, Color.Red);
+        //public static readonly Pixel Green = new Pixel(' ', Color.Green, Color.Green);
+        //public static readonly Pixel Blue = new Pixel(' ', Color.Blue, Color.Blue);
+        //public static readonly Pixel Yellow = new Pixel(' ', Color.Yellow, Color.Yellow);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Doog.Pixel"/> struct.
         /// </summary>
         /// <param name="char">The char.</param>
-        /// <param name="color">The color.</param>
-        public Pixel(char @char, Color color)
+        /// <param name="foregroundColor">The foreground color.</param>
+        /// <param name="backgroundColor">The background color.</param>
+        public Pixel(char @char, Color foregroundColor, Color backgroundColor)
         {
             Char = @char;
-            Color = color;
+            ForegroundColor = foregroundColor;
+            BackgroundColor = backgroundColor;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Doog.Pixel"/> struct.
+        /// </summary>
+        /// <param name="char">The char.</param>
+        /// <param name="foregroundColor">The foreground color.</param>
+        public Pixel(char @char, Color foregroundColor)
+            : this(@char, foregroundColor, Color.Black)
+        {
         }
 
         /// <summary>
@@ -27,9 +43,14 @@
         public char Char { get; }
 
         /// <summary>
-        /// Gets the color.
+        /// Gets the foreground color.
         /// </summary>
-        public Color Color { get; }
+        public Color ForegroundColor { get; }
+
+        /// <summary>
+        /// Gets the foreground color.
+        /// </summary>
+        public Color BackgroundColor { get; }
 
         /// <summary>
         /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
@@ -60,7 +81,8 @@
             {
                 int hash = 17;
                 hash = hash * 23 + Char.GetHashCode();
-                hash = hash * 23 + Color.GetHashCode();
+                hash = hash * 23 + ForegroundColor.GetHashCode();
+                hash = hash * 23 + BackgroundColor.GetHashCode();
 
                 return hash;
             }
@@ -74,7 +96,7 @@
         /// </returns>
         public override string ToString()
         {
-            return $"{Char} {Color}";
+            return $"{Char} {ForegroundColor} / {BackgroundColor}";
         }
 
         /// <summary>
@@ -82,9 +104,9 @@
         /// </summary>
         /// <returns>The pixel.</returns>
         /// <param name="char">The char.</param>
-        public static Pixel Black(char @char)
+        public static Pixel Black(char @char, Color backgroundColor = Color.Black)
         {
-            return new Pixel(@char, Color.Black);
+            return new Pixel(@char, Color.Black, backgroundColor);
         }
 
         /// <summary>
@@ -92,9 +114,14 @@
         /// </summary>
         /// <returns>The pixel.</returns>
         /// <param name="char">The char.</param>
-        public static Pixel Blue(char @char)
+        public static Pixel Blue(char @char, Color backgroundColor = Color.Black)
         {
-            return new Pixel(@char, Color.Blue);
+            return new Pixel(@char, Color.Blue, backgroundColor);
+        }
+
+        public static Pixel Blue()
+        {
+            return new Pixel(' ', Color.Blue, Color.Blue);
         }
 
         /// <summary>
@@ -102,9 +129,9 @@
         /// </summary>
         /// <returns>The pixel.</returns>
         /// <param name="char">The char.</param>
-        public static Pixel Cyan(char @char)
+        public static Pixel Cyan(char @char, Color backgroundColor = Color.Black)
         {
-            return new Pixel(@char, Color.Cyan);
+            return new Pixel(@char, Color.Cyan, backgroundColor);
         }
 
         /// <summary>
@@ -112,9 +139,9 @@
         /// </summary>
         /// <returns>The pixel.</returns>
         /// <param name="char">The char.</param>
-        public static Pixel DarkBlue(char @char)
+        public static Pixel DarkBlue(char @char, Color backgroundColor = Color.Black)
         {
-            return new Pixel(@char, Color.DarkBlue);
+            return new Pixel(@char, Color.DarkBlue, backgroundColor);
         }
 
         /// <summary>
@@ -122,9 +149,9 @@
         /// </summary>
         /// <returns>The pixel.</returns>
         /// <param name="char">The char.</param>
-        public static Pixel DarkCyan(char @char)
+        public static Pixel DarkCyan(char @char, Color backgroundColor = Color.Black)
         {
-            return new Pixel(@char, Color.DarkCyan);
+            return new Pixel(@char, Color.DarkCyan, backgroundColor);
         }
 
         /// <summary>
@@ -132,9 +159,9 @@
         /// </summary>
         /// <returns>The pixel.</returns>
         /// <param name="char">The char.</param>
-        public static Pixel DarkGray(char @char)
+        public static Pixel DarkGray(char @char, Color backgroundColor = Color.Black)
         {
-            return new Pixel(@char, Color.DarkGray);
+            return new Pixel(@char, Color.DarkGray, backgroundColor);
         }
 
         /// <summary>
@@ -142,9 +169,9 @@
         /// </summary>
         /// <returns>The pixel.</returns>
         /// <param name="char">The char.</param>
-        public static Pixel DarkGreen(char @char)
+        public static Pixel DarkGreen(char @char, Color backgroundColor = Color.Black)
         {
-            return new Pixel(@char, Color.DarkGreen);
+            return new Pixel(@char, Color.DarkGreen, backgroundColor);
         }
 
         /// <summary>
@@ -152,9 +179,9 @@
         /// </summary>
         /// <returns>The pixel.</returns>
         /// <param name="char">The char.</param>
-        public static Pixel DarkMagenta(char @char)
+        public static Pixel DarkMagenta(char @char, Color backgroundColor = Color.Black)
         {
-            return new Pixel(@char, Color.DarkMagenta);
+            return new Pixel(@char, Color.DarkMagenta, backgroundColor);
         }
 
         /// <summary>
@@ -162,9 +189,9 @@
         /// </summary>
         /// <returns>The pixel.</returns>
         /// <param name="char">The char.</param>
-        public static Pixel DarkRed(char @char)
+        public static Pixel DarkRed(char @char, Color backgroundColor = Color.Black)
         {
-            return new Pixel(@char, Color.DarkRed);
+            return new Pixel(@char, Color.DarkRed, backgroundColor);
         }
 
         /// <summary>
@@ -172,9 +199,9 @@
         /// </summary>
         /// <returns>The pixel.</returns>
         /// <param name="char">The char.</param>
-        public static Pixel DarkYellow(char @char)
+        public static Pixel DarkYellow(char @char, Color backgroundColor = Color.Black)
         {
-            return new Pixel(@char, Color.DarkYellow);
+            return new Pixel(@char, Color.DarkYellow, backgroundColor);
         }
 
         /// <summary>
@@ -182,9 +209,9 @@
         /// </summary>
         /// <returns>The pixel.</returns>
         /// <param name="char">The char.</param>
-        public static Pixel Gray(char @char)
+        public static Pixel Gray(char @char, Color backgroundColor = Color.Black)
         {
-            return new Pixel(@char, Color.Gray);
+            return new Pixel(@char, Color.Gray, backgroundColor);
         }
 
         /// <summary>
@@ -192,9 +219,14 @@
         /// </summary>
         /// <returns>The pixel.</returns>
         /// <param name="char">The char.</param>
-        public static Pixel Green(char @char)
+        public static Pixel Green(char @char, Color backgroundColor = Color.Black)
         {
-            return new Pixel(@char, Color.Green);
+            return new Pixel(@char, Color.Green, backgroundColor);
+        }
+
+        public static Pixel Green()
+        {
+            return new Pixel(' ', Color.Green, Color.Green);
         }
 
         /// <summary>
@@ -202,9 +234,9 @@
         /// </summary>
         /// <returns>The pixel.</returns>
         /// <param name="char">The char.</param>
-        public static Pixel Magenta(char @char)
+        public static Pixel Magenta(char @char, Color backgroundColor = Color.Black)
         {
-            return new Pixel(@char, Color.Magenta);
+            return new Pixel(@char, Color.Magenta, backgroundColor);
         }
 
         /// <summary>
@@ -212,9 +244,14 @@
         /// </summary>
         /// <returns>The pixel.</returns>
         /// <param name="char">The char.</param>
-        public static Pixel Red(char @char)
+        public static Pixel Red(char @char, Color backgroundColor = Color.Black)
         {
-            return new Pixel(@char, Color.Red);
+            return new Pixel(@char, Color.Red, backgroundColor);
+        }
+
+        public static Pixel Red()
+        {
+            return new Pixel(' ', Color.Red, Color.Red);
         }
 
         /// <summary>
@@ -222,9 +259,9 @@
         /// </summary>
         /// <returns>The pixel.</returns>
         /// <param name="char">The char.</param>
-        public static Pixel White(char @char)
+        public static Pixel White(char @char, Color backgroundColor = Color.Black)
         {
-            return new Pixel(@char, Color.White);
+            return new Pixel(@char, Color.White, backgroundColor);
         }
 
         /// <summary>
@@ -232,9 +269,14 @@
         /// </summary>
         /// <returns>The pixel.</returns>
         /// <param name="char">The char.</param>
-        public static Pixel Yellow(char @char)
+        public static Pixel Yellow(char @char, Color backgroundColor = Color.Black)
         {
-            return new Pixel(@char, Color.Yellow);
+            return new Pixel(@char, Color.Yellow, backgroundColor);
+        }
+
+        public static Pixel Yellow()
+        {
+            return new Pixel(' ', Color.Yellow, Color.Yellow);
         }
 
         /// <summary>
@@ -245,7 +287,9 @@
         /// <returns><c>true</c> if <c>a</c> and <c>b</c> are equal; otherwise, <c>false</c>.</returns>
         public static bool operator ==(Pixel a, Pixel b)
         {
-            return a.Char == b.Char && a.Color == b.Color;
+            return a.Char == b.Char 
+                && a.ForegroundColor == b.ForegroundColor
+                && a.BackgroundColor == b.BackgroundColor;
         }
 
         /// <summary>
@@ -256,7 +300,9 @@
         /// <returns><c>true</c> if <c>a</c> and <c>b</c> are not equal; otherwise, <c>false</c>.</returns>
         public static bool operator !=(Pixel a, Pixel b)
         {
-            return a.Char != b.Char || a.Color != b.Color;
+            return a.Char != b.Char
+                || a.ForegroundColor != b.ForegroundColor
+                || a.BackgroundColor != b.BackgroundColor;
         }
     }
 }

@@ -25,15 +25,17 @@ namespace Doog
         /// </summary>
         public void Initialize()
         {
-            _pixels = new Pixel[Console.WindowWidth, Console.WindowHeight];
+            Console.CursorVisible = false;
+            Console.BackgroundColor = (ConsoleColor) EmptyPixel.BackgroundColor;
+            Console.ForegroundColor = (ConsoleColor) EmptyPixel.ForegroundColor;
+            Console.Clear();
 
+            _pixels = new Pixel[Console.WindowWidth, Console.WindowHeight];
             Fill(_pixels, EmptyPixel);
 
             _lastFrame = new Pixel[Console.WindowWidth, Console.WindowHeight];
 
             Array.Copy(_pixels, _lastFrame, _lastFrame.Length);
-            Console.CursorVisible = false;
-            Console.Clear();
         }
 
         /// <summary>
@@ -73,7 +75,8 @@ namespace Doog
                     if (pixel != lastFramePixel)
                     {
                         Console.SetCursorPosition(x, y);
-                        Console.ForegroundColor = (ConsoleColor) pixel.Color;
+                        Console.BackgroundColor = (ConsoleColor) pixel.BackgroundColor;
+                        Console.ForegroundColor = (ConsoleColor) pixel.ForegroundColor;
                         Console.Write(pixel.Char);
                     }
 
