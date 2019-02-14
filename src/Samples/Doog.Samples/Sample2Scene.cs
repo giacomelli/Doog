@@ -1,6 +1,4 @@
-﻿using Doog;
-
-namespace Doog.Samples
+﻿namespace Doog.Samples
 {
     public class Sample2Scene : SceneBase
     {
