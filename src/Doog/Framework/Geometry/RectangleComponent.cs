@@ -73,7 +73,7 @@ namespace Doog
             : base(context)
         {
             Transform = new Transform(x, y, context);
-            Sprite = '#';
+            Pixel = new Pixel('#');
             Filled = false;
         }
 
@@ -83,9 +83,9 @@ namespace Doog
         public Transform Transform { get; private set; }
 
         /// <summary>
-        /// Gets or sets the sprite.
+        /// Gets or sets the pixel.
         /// </summary>
-        public char Sprite { get; set; }
+        public Pixel Pixel { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="RectangleComponent"/> is filled.
@@ -101,7 +101,7 @@ namespace Doog
         /// <param name="drawContext">The draw context.</param>
         public virtual void Draw(IDrawContext drawContext)
         {
-            drawContext.Canvas.Draw(Transform.BoundingBox, Filled, Sprite);
+            drawContext.Canvas.Draw(Transform.BoundingBox, Filled, Pixel);
         }
     }
 }

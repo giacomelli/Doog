@@ -52,15 +52,15 @@ namespace Doog
             var ts = drawContext.TextSystem;
 
             ts
-                .Draw(x, y,   $"FPS                        : {(1f / Context.Time.SinceLastFrame):N0}", "Debug")
-                .Draw(x, ++y, $"Since scene start          : {Context.Time.SinceSceneStart:N0}", "Debug")
-                .Draw(x, ++y, $"Components                 : {components.Count}", "Debug")
-                .Draw(x, ++y, $"Enabled components         : {enabledComponentsCount}", "Debug")
-                .Draw(x, ++y, $"Disabled components        : {disabledComponentsCount}", "Debug")
-                .Draw(x, ++y, $"Updatable components       : {updatablesCount}", "Debug")
-                .Draw(x, ++y, $"Drawable components        : {drawablesCount}", "Debug")
-                .Draw(x, ++y, $"Collidable components      : {collidablesCount}", "Debug")
-                .Draw(x, ++y, $"Scene survivable components: {sceneSurvivablescount}", "Debug");
+                .Draw(x, y,   $"FPS                        : {(1f / Context.Time.SinceLastFrame):N0}", fontName:"Debug")
+                .Draw(x, ++y, $"Since scene start          : {Context.Time.SinceSceneStart:N0}", fontName:"Debug")
+                .Draw(x, ++y, $"Components                 : {components.Count}", fontName: "Debug")
+                .Draw(x, ++y, $"Enabled components         : {enabledComponentsCount}", fontName: "Debug")
+                .Draw(x, ++y, $"Disabled components        : {disabledComponentsCount}", fontName: "Debug")
+                .Draw(x, ++y, $"Updatable components       : {updatablesCount}", fontName: "Debug")
+                .Draw(x, ++y, $"Drawable components        : {drawablesCount}", fontName: "Debug")
+                .Draw(x, ++y, $"Collidable components      : {collidablesCount}", fontName: "Debug")
+                .Draw(x, ++y, $"Scene survivable components: {sceneSurvivablescount}", fontName: "Debug");
 
         }
 

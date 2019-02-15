@@ -1,5 +1,6 @@
 #tool nuget:?package=MSBuild.SonarQube.Runner.Tool&version=4.3.1
 #addin nuget:?package=Cake.Sonar&version=1.1.18
+#addin nuget:?package=Cake.Git&version=0.19.0
 
 var target = Argument("target", "Default");
 var solutionDir = "src";
@@ -33,8 +34,10 @@ Task("Test")
 Task("SonarBegin")
     .Does(() => 
 {
-     SonarBegin(new SonarBeginSettings {
+    var branch = GitBranchCurrent(".");
+    SonarBegin(new SonarBeginSettings {
         Key = "Doog",
+        Branch = branch.FriendlyName,
         Organization = "giacomelli-github",
         Url = "https://sonarcloud.io",
         Exclusions = "**/Samples/**/*.cs,**/Doog.Tests/*.cs,**/Runner/InputSystem.cs,**/Runner/GraphicSystem.cs,**/Runner/Startup.cs",

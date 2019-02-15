@@ -19,10 +19,10 @@ namespace Doog.Tests.Infrastructure.Runner
                     var target = new GraphicSystem();
                     target.Initialize();
 
-                    target.Draw(5, 10, '1');
+                    target.Draw(5, 10, '1'.Blue());
                     target.Render();
 
-                    target.Draw(5, 10, '2');
+                    target.Draw(5, 10, '2'.Red());
                     target.Render();
                 }
             }

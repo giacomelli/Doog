@@ -13,7 +13,7 @@ namespace Snake
             {
                 var effect = new RectangleComponent(snake.Head.Transform.Position, ctx)
                 {
-                    Sprite = '+'
+                    Pixel = '+'.DarkRed()
                 };
 
                 effect
@@ -48,7 +48,8 @@ namespace Snake
                    .Draw(
                        Transform.Position.X,
                        Transform.Position.Y - Transform.Pivot.Y,
-                       $"{points:000000}");
+                       $"{points:000000}",
+                       Color.DarkYellow);
         }
     }
 }

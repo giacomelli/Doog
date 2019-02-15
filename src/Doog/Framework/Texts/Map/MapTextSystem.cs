@@ -50,17 +50,18 @@ namespace Doog
         /// <param name="x">The x coordinate.</param>
         /// <param name="y">The y coordinate.</param>
         /// <param name="text">The text.</param>
+        /// <param name="color">The text color.</param>
         /// <param name="fontName">The font name.</param>
         /// <returns>
         /// The draw.
         /// </returns>
-        public ITextSystem Draw(float x, float y, string text, string fontName = null)
+        public ITextSystem Draw(float x, float y, string text, Color color = Color.White, string fontName = null)
 		{
 			((MapFont)GetFont(fontName)).Process(
 				x,
 				y,
 				text,
-				(cx, cy, c) => Context.GraphicSystem.Draw(cx, cy, c));
+				(cx, cy, c) => Context.GraphicSystem.Draw(cx, cy, new Pixel(c, color)));
 
             return this;
 		}

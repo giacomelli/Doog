@@ -1,7 +1,4 @@
-﻿using System;
-using Doog;
-
-namespace Doog
+﻿namespace Doog
 {
     /// <summary>
     /// An circle component.
@@ -30,9 +27,11 @@ namespace Doog
         public CircleComponent(float x, float y, float radius, IWorldContext context)
             : base(context)
         {
-            Transform = new Transform(x, y, context);
-            Transform.Scale = new Point(radius * 2);
-            Sprite = '#';
+            Transform = new Transform(x, y, context)
+            {
+                Scale = new Point(radius * 2)
+            };
+            Pixel = new Pixel('#');
             Filled = true;
         }
 
@@ -42,9 +41,9 @@ namespace Doog
         public Transform Transform { get; private set; }
 
         /// <summary>
-        /// Gets or sets the sprite.
+        /// Gets or sets the pixel.
         /// </summary>        
-        public char Sprite { get; set; }
+        public Pixel Pixel { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="CircleComponent"/> is filled.
@@ -70,7 +69,7 @@ namespace Doog
         /// <param name="drawContext">The draw context.</param>
         public virtual void Draw(IDrawContext drawContext)
         {
-            drawContext.Canvas.Draw(this, Filled, Sprite);
+            drawContext.Canvas.Draw(this, Filled, Pixel);
         }
 
         Point ICircle.GetCenter()

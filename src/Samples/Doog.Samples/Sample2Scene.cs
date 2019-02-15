@@ -1,6 +1,4 @@
-﻿using Doog;
-
-namespace Doog.Samples
+﻿namespace Doog.Samples
 {
     public class Sample2Scene : SceneBase
     {
@@ -46,7 +44,7 @@ namespace Doog.Samples
 
         public override void Draw(IDrawContext drawContext)
         {
-            drawContext.Canvas.Draw(lines);
+            drawContext.Canvas.Draw(lines, Pixel.Default);
         }
 
     }

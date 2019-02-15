@@ -72,13 +72,13 @@ namespace Snake
 
             if (newPosition != hpos)
             {
-                Head.Sprite = SnakeTile.BodySprite;
+                Head.Pixel = SnakeTile.BodyPixel;
                 tail.Transform.Position = newPosition;
                 Head.Next = tail;
                 Head = tail;
                 tail = tail.Next;
                 Head.Next = null;
-                Head.Sprite = SnakeTile.HeadSprite;
+                Head.Pixel = SnakeTile.HeadPixel;
 
                 lastPositionChangeTime = Context.Time.SinceSceneStart;
             }

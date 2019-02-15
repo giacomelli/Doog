@@ -1,6 +1,4 @@
-﻿using Doog;
-
-namespace Doog.Samples
+﻿namespace Doog.Samples
 {
     public class Sample5Scene : SceneBase
     {
@@ -27,7 +25,7 @@ namespace Doog.Samples
             for (int i = 0; i < bar.Length; i++)
             {
                 bar[i] = new SampleComponent(0, 0, Context);
-                bar[i].Sprite = '.';
+                bar[i].Pixel = '.'.White();
             }
 
             StartAnimation();

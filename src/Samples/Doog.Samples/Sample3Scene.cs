@@ -1,6 +1,4 @@
-﻿using Doog;
-
-namespace Doog.Samples
+﻿namespace Doog.Samples
 {
     public class Sample3Scene : SceneBase
     {
@@ -40,7 +38,7 @@ namespace Doog.Samples
                    .Delay(i * 2)
                    .Enable()
                    .ScaleTo(bounds.Width, bounds.Height, 5f, Easing.InBounce)
-                    .Disable()
+                   .Disable()
                    .Loop();
             }
         }

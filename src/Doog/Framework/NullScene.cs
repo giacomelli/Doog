@@ -23,7 +23,7 @@
         {
        		drawContext.TextSystem.DrawCenter(
 				"TIP: You have not set any scene yet. Use the World.OpenScene to open the first scene of your game",
-				"Default");
+				fontName:"Default");
 		}
 	}
 }

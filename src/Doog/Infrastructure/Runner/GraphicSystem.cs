@@ -8,9 +8,9 @@ namespace Doog
     /// <seealso cref="Doog.IGraphicSystem" />
     public class GraphicSystem : IGraphicSystem
     {
-        private const char EmptySprite = ' ';
-        private char[,] _sprites;
-        private char[,] _lastFrame;
+        private static readonly Pixel EmptyPixel = Pixel.Black;
+        private Pixel[,] _pixels;
+        private Pixel[,] _lastFrame;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GraphicSystem"/> class.
@@ -25,15 +25,17 @@ namespace Doog
         /// </summary>
         public void Initialize()
         {
-            _sprites = new char[Console.WindowWidth, Console.WindowHeight];
-
-            Fill(_sprites, EmptySprite);
-
-            _lastFrame = new char[Console.WindowWidth, Console.WindowHeight];
-
-            Array.Copy(_sprites, _lastFrame, _lastFrame.Length);
             Console.CursorVisible = false;
+            Console.BackgroundColor = (ConsoleColor) EmptyPixel.BackgroundColor;
+            Console.ForegroundColor = (ConsoleColor) EmptyPixel.ForegroundColor;
             Console.Clear();
+
+            _pixels = new Pixel[Console.WindowWidth, Console.WindowHeight];
+            Fill(_pixels, EmptyPixel);
+
+            _lastFrame = new Pixel[Console.WindowWidth, Console.WindowHeight];
+
+            Array.Copy(_pixels, _lastFrame, _lastFrame.Length);
         }
 
         /// <summary>
@@ -42,16 +44,16 @@ namespace Doog
         public Rectangle Bounds { get; private set; }
 
         /// <summary>
-        /// Draw the sprite in the specified x and y coordinates.
+        /// Draw the pixel in the specified x and y coordinates.
         /// </summary>
         /// <param name="x">The x coordinate.</param>
         /// <param name="y">The y coordinate.</param>
-        /// <param name="sprite">The sprite.</param>
-        public void Draw(float x, float y, char sprite)
+        /// <param name="pixel">The pixel.</param>
+        public void Draw(float x, float y, Pixel pixel)
         {
             if (Bounds.Contains(x, y))
             {
-                _sprites[(int)x, (int)y] = sprite;
+                _pixels[(int)x, (int)y] = pixel;
             }
         }
 
@@ -67,22 +69,24 @@ namespace Doog
             {
                 for (int y = top; y < Bounds.Bottom; y++)
                 {
-                    var sprite = _sprites[x, y];
-                    var lastFrameSprite = _lastFrame[x, y];
+                    var pixel = _pixels[x, y];
+                    var lastFramePixel = _lastFrame[x, y];
 
-                    if (sprite != lastFrameSprite)
+                    if (pixel != lastFramePixel)
                     {
                         Console.SetCursorPosition(x, y);
-                        Console.Write(sprite);
+                        Console.BackgroundColor = (ConsoleColor) pixel.BackgroundColor;
+                        Console.ForegroundColor = (ConsoleColor) pixel.ForegroundColor;
+                        Console.Write(pixel.Char);
                     }
 
-                    _lastFrame[x, y] = sprite;
-                    _sprites[x, y] = EmptySprite;
+                    _lastFrame[x, y] = pixel;
+                    _pixels[x, y] = EmptyPixel;
                 }
             }
         }
 
-        private static void Fill(char[,] buffer, char ch)
+        private static void Fill(Pixel[,] buffer, Pixel pixel)
         {
             var width = buffer.GetUpperBound(0);
             var height = buffer.GetUpperBound(1);
@@ -91,7 +95,7 @@ namespace Doog
             {
                 for (int y = 0; y < height; y++)
                 {
-                    buffer[x, y] = ch;
+                    buffer[x, y] = pixel;
                 }
             }
         }
