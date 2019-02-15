@@ -31,7 +31,7 @@ namespace Doog.Tests.Framework.Geometry
             var target = new LineComponent(new Point(10, 20), new Point(15, 25), ctx);
 			target.Draw(drawCtx);
 
-            canvas.Received().Draw(target, Pixel.White('#'));
+            canvas.Received().Draw(target, '#'.White());
         }
     }
 }

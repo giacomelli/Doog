@@ -19,7 +19,7 @@ namespace Doog
         {
 			Transform = new Transform(pointA.X, pointA.Y, context);
             PointB = pointB;
-			Pixel = Pixel.White('#');
+            Pixel = new Pixel('#');
         }
 
         /// <summary>

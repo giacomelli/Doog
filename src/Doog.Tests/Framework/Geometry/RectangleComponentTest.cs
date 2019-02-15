@@ -76,7 +76,7 @@ namespace Doog.Tests.Framework.Geometry
             var target = new RectangleComponent(new Point(10, 20), ctx);
 			target.Draw(drawCtx);
 
-            canvas.Received().Draw(target.Transform.BoundingBox, true, Pixel.White('#'));
+            canvas.Received().Draw(target.Transform.BoundingBox, true, '#'.White());
         }
 	}
 }

@@ -25,7 +25,7 @@
             for (int i = 0; i < bar.Length; i++)
             {
                 bar[i] = new SampleComponent(0, 0, Context);
-                bar[i].Pixel = Pixel.White('.');
+                bar[i].Pixel = '.'.White();
             }
 
             StartAnimation();

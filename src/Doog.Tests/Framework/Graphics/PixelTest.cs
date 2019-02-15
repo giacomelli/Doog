@@ -72,26 +72,23 @@ namespace Doog.Tests.Framework.Graphics
         [Test]
         public void ToString_Pixel_CharAndColor()
         {
-            var a = new Pixel('.', Color.Black);
-            var b = new Pixel('x', Color.White);
+            var a = new Pixel('.', Color.Black, Color.White);
+            var b = new Pixel('x', Color.White, Color.Black);
 
-            Assert.AreEqual(". Black", a.ToString());
-            Assert.AreEqual("x White", b.ToString());
+            Assert.AreEqual(". Black / White", a.ToString());
+            Assert.AreEqual("x White / Black", b.ToString());
         }
 
         [Test]
-        public void StaticColor_Char_Pixel()
+        public void ConstPixel_Color_Pixel()
         {
             for (int color = (int)Color.Black; color <= (int)Color.White; color++)
             {
-                var method = typeof(Pixel).GetMethod(((Color)color).ToString(), BindingFlags.Public | BindingFlags.Static);
-
-                for (int @char = 0; @char < 3; @char++)
-                {
-                    var actual = (Pixel)method.Invoke(null, new object[] { (char) @char });
-                    Assert.AreEqual(@char, actual.Char);
-                    Assert.AreEqual((Color)color, actual.ForegroundColor);
-                }
+                var field = typeof(Pixel).GetField (((Color)color).ToString(), BindingFlags.Public | BindingFlags.Static);
+                var actual = (Pixel)field.GetValue(null);
+                Assert.AreEqual(' ', actual.Char);
+                Assert.AreEqual((Color)color, actual.ForegroundColor);
+                Assert.AreEqual((Color)color, actual.BackgroundColor);
             }
         }
     }

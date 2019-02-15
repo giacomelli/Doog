@@ -73,7 +73,7 @@ namespace Doog
             : base(context)
         {
             Transform = new Transform(x, y, context);
-            Pixel = Pixel.White('#');
+            Pixel = new Pixel('#');
             Filled = false;
         }
 

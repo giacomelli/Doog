@@ -8,7 +8,7 @@ namespace Doog
     /// <seealso cref="Doog.IGraphicSystem" />
     public class GraphicSystem : IGraphicSystem
     {
-        private static readonly Pixel EmptyPixel = Pixel.Black(' ');
+        private static readonly Pixel EmptyPixel = Pixel.Black;
         private Pixel[,] _pixels;
         private Pixel[,] _lastFrame;
 

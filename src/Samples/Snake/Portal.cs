@@ -19,7 +19,7 @@ namespace Snake
 
             teleportEffect = new RectangleComponent(Transform.Position, 3, ctx)
             {
-                Pixel = Pixel.Blue('.'),
+                Pixel = '.'.Blue(),
                 Enabled = false
             };
             teleportEffect.Transform.CentralizePivotX();
@@ -33,7 +33,7 @@ namespace Snake
             something.Enabled = false;
             recharging = true;
             originalPixel = Pixel;
-            Pixel = Pixel.DarkBlue('.');
+            Pixel = new Pixel('.', Color.DarkBlue);
         
             teleportEffect.Transform.Position = something.Transform.Position;
             teleportEffect.Enabled = true;

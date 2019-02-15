@@ -7,8 +7,8 @@ namespace Snake
     [DebuggerDisplay("{Transform.Position}")]
 	public class SnakeTile : RectangleComponent, ICollidable, IDrawable
 	{
-        public static readonly Pixel HeadPixel = Pixel.Red('@');
-		public static readonly Pixel BodyPixel = Pixel.Green('o');
+        public static readonly Pixel HeadPixel = '@'.Red();
+        public static readonly Pixel BodyPixel = 'o'.Green();
    		private Action onCollisionFood;
 		private Action onCollisionTile;
 		private Action onCollisionWall;

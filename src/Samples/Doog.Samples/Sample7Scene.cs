@@ -20,9 +20,9 @@
 
             var center = Context.Bounds.GetCenter();
 
-            hourLine = new LineComponent(center, center, Context) { Pixel = Pixel.White('#') };
-            secondLine = new LineComponent(center, center, Context) { Pixel = Pixel.White('o') };
-            minuteLine = new LineComponent(center, center, Context) { Pixel = Pixel.White('.') };
+            hourLine = new LineComponent(center, center, Context) { Pixel = '#'.White() };
+            secondLine = new LineComponent(center, center, Context) { Pixel = 'o'.White() };
+            minuteLine = new LineComponent(center, center, Context) { Pixel = '.'.White() };
 
             circle = new CircleComponent(center, Context.Bounds.Height / 2f, Context)
             {

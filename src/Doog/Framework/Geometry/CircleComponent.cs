@@ -31,7 +31,7 @@
             {
                 Scale = new Point(radius * 2)
             };
-            Pixel = Pixel.White('#');
+            Pixel = new Pixel('#');
             Filled = true;
         }
 

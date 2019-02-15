@@ -54,7 +54,7 @@
         /// <returns>The text system.</returns>
         public static ITextSystem DrawCenter(this ITextSystem textSystem, string text, string fontName = null)
         {
-            return textSystem.DrawCenter(text, textSystem.Context.Bounds, Color.White, fontName);
+            return textSystem.DrawCenter(text, Color.White, fontName);
         }
 
         /// <summary>
@@ -119,7 +119,7 @@
         /// <returns>The text system.</returns>
         public static ITextSystem DrawCenter(this ITextSystem textSystem, float offsetX, float offsetY, string text, string fontName = null)
         {
-            return textSystem.DrawCenter(offsetX, offsetY, text, textSystem.Context.Bounds, Color.White, fontName);
+            return textSystem.DrawCenter(offsetX, offsetY, text, Color.White, fontName);
         }
 
         /// <summary>
@@ -179,7 +179,7 @@
         /// <returns>The text system.</returns>
         public static ITextSystem DrawCenterX(this ITextSystem textSystem, float y, string text, string fontName = null)
         {
-            return textSystem.DrawCenterX(y, text, textSystem.Context.Bounds, Color.White, fontName);
+            return textSystem.DrawCenterX(y, text, Color.White, fontName);
         }
 
         /// <summary>

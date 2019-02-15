@@ -6,13 +6,104 @@
     public struct Pixel
     {
         /// <summary>
+        /// The default character.
+        /// </summary>
+        public const char DefaultChar = ' ';
+
+        /// <summary>
+        /// The default foreground color.
+        /// </summary>
+        public const Color DefaultForegroundColor = Color.White;
+
+        /// <summary>
+        /// The default background color.
+        /// </summary>
+        public const Color DefaultBackgroundColor = Color.Black;
+
+        /// <summary>
         /// The default pixel.
         /// </summary>
-        public static readonly Pixel Default = new Pixel('.', Color.White);
-        //public static readonly Pixel Red = new Pixel(' ', Color.Red, Color.Red);
-        //public static readonly Pixel Green = new Pixel(' ', Color.Green, Color.Green);
-        //public static readonly Pixel Blue = new Pixel(' ', Color.Blue, Color.Blue);
-        //public static readonly Pixel Yellow = new Pixel(' ', Color.Yellow, Color.Yellow);
+        public static readonly Pixel Default = new Pixel(DefaultChar);
+
+        /// <summary>
+        /// The black pixel.
+        /// </summary>
+        public static readonly Pixel Black = new Pixel(Color.Black);
+
+        /// <summary>
+        /// The dark blue pixel.
+        /// </summary>
+        public static readonly Pixel DarkBlue = new Pixel(Color.DarkBlue);
+
+        /// <summary>
+        /// The dark green pixel.
+        /// </summary>
+        public static readonly Pixel DarkGreen = new Pixel(Color.DarkGreen);
+
+        /// <summary>
+        /// The dark cyan pixel.
+        /// </summary>
+        public static readonly Pixel DarkCyan = new Pixel(Color.DarkCyan);
+
+        /// <summary>
+        /// The dark red pixel.
+        /// </summary>
+        public static readonly Pixel DarkRed = new Pixel(Color.DarkRed);
+
+        /// <summary>
+        /// The dark magenta pixel.
+        /// </summary>
+        public static readonly Pixel DarkMagenta = new Pixel(Color.DarkMagenta);
+
+        /// <summary>
+        /// The dark yellow pixel.
+        /// </summary>
+        public static readonly Pixel DarkYellow = new Pixel(Color.DarkYellow);
+
+        /// <summary>
+        /// The gray pixel.
+        /// </summary>
+        public static readonly Pixel Gray = new Pixel(Color.Gray);
+
+        /// <summary>
+        /// The dark gray pixel.
+        /// </summary>
+        public static readonly Pixel DarkGray = new Pixel(Color.DarkGray);
+
+        /// <summary>
+        /// The blue pixel.
+        /// </summary>
+        public static readonly Pixel Blue = new Pixel(Color.Blue);
+
+        /// <summary>
+        /// The green pixel.
+        /// </summary>
+        public static readonly Pixel Green = new Pixel(Color.Green);
+
+        /// <summary>
+        /// The cyan pixel.
+        /// </summary>
+        public static readonly Pixel Cyan = new Pixel(Color.Cyan);
+
+        /// <summary>
+        /// The red pixel.
+        /// </summary>
+        public static readonly Pixel Red = new Pixel(Color.Red);
+
+        /// <summary>
+        /// The magenta pixel.
+        /// </summary>
+        public static readonly Pixel Magenta = new Pixel(Color.Magenta);
+
+        /// <summary>
+        /// The yellow pixel.
+        /// </summary>
+        public static readonly Pixel Yellow = new Pixel(Color.Yellow);
+
+        /// <summary>
+        /// The white pixel.
+        /// </summary>
+        public static readonly Pixel White = new Pixel(Color.White);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Doog.Pixel"/> struct.
@@ -20,7 +111,7 @@
         /// <param name="char">The char.</param>
         /// <param name="foregroundColor">The foreground color.</param>
         /// <param name="backgroundColor">The background color.</param>
-        public Pixel(char @char, Color foregroundColor, Color backgroundColor)
+        public Pixel(char @char, Color foregroundColor = DefaultForegroundColor, Color backgroundColor = DefaultBackgroundColor)
         {
             Char = @char;
             ForegroundColor = foregroundColor;
@@ -28,12 +119,11 @@
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Doog.Pixel"/> struct.
+        /// Initializes a new instance of the <see cref="Pixel"/> struct using the default char (' ') and same color for foreground and background.
         /// </summary>
-        /// <param name="char">The char.</param>
-        /// <param name="foregroundColor">The foreground color.</param>
-        public Pixel(char @char, Color foregroundColor)
-            : this(@char, foregroundColor, Color.Black)
+        /// <param name="color">The foreground and background color.</param>
+        public Pixel(Color color)
+            : this (DefaultChar, color, color)
         {
         }
 
@@ -98,187 +188,7 @@
         {
             return $"{Char} {ForegroundColor} / {BackgroundColor}";
         }
-
-        /// <summary>
-        /// Creates a black pixel with the specified char.
-        /// </summary>
-        /// <returns>The pixel.</returns>
-        /// <param name="char">The char.</param>
-        public static Pixel Black(char @char, Color backgroundColor = Color.Black)
-        {
-            return new Pixel(@char, Color.Black, backgroundColor);
-        }
-
-        /// <summary>
-        /// Creates a blue pixel with the specified char.
-        /// </summary>
-        /// <returns>The pixel.</returns>
-        /// <param name="char">The char.</param>
-        public static Pixel Blue(char @char, Color backgroundColor = Color.Black)
-        {
-            return new Pixel(@char, Color.Blue, backgroundColor);
-        }
-
-        public static Pixel Blue()
-        {
-            return new Pixel(' ', Color.Blue, Color.Blue);
-        }
-
-        /// <summary>
-        /// Creates a cyan pixel with the specified char.
-        /// </summary>
-        /// <returns>The pixel.</returns>
-        /// <param name="char">The char.</param>
-        public static Pixel Cyan(char @char, Color backgroundColor = Color.Black)
-        {
-            return new Pixel(@char, Color.Cyan, backgroundColor);
-        }
-
-        /// <summary>
-        /// Creates a dark blue pixel with the specified char.
-        /// </summary>
-        /// <returns>The pixel.</returns>
-        /// <param name="char">The char.</param>
-        public static Pixel DarkBlue(char @char, Color backgroundColor = Color.Black)
-        {
-            return new Pixel(@char, Color.DarkBlue, backgroundColor);
-        }
-
-        /// <summary>
-        /// Creates a dark cyan pixel with the specified char.
-        /// </summary>
-        /// <returns>The pixel.</returns>
-        /// <param name="char">The char.</param>
-        public static Pixel DarkCyan(char @char, Color backgroundColor = Color.Black)
-        {
-            return new Pixel(@char, Color.DarkCyan, backgroundColor);
-        }
-
-        /// <summary>
-        /// Creates a dark gray pixel with the specified char.
-        /// </summary>
-        /// <returns>The pixel.</returns>
-        /// <param name="char">The char.</param>
-        public static Pixel DarkGray(char @char, Color backgroundColor = Color.Black)
-        {
-            return new Pixel(@char, Color.DarkGray, backgroundColor);
-        }
-
-        /// <summary>
-        /// Creates a dark green pixel with the specified char.
-        /// </summary>
-        /// <returns>The pixel.</returns>
-        /// <param name="char">The char.</param>
-        public static Pixel DarkGreen(char @char, Color backgroundColor = Color.Black)
-        {
-            return new Pixel(@char, Color.DarkGreen, backgroundColor);
-        }
-
-        /// <summary>
-        /// Creates a dark green pixel with the specified char.
-        /// </summary>
-        /// <returns>The pixel.</returns>
-        /// <param name="char">The char.</param>
-        public static Pixel DarkMagenta(char @char, Color backgroundColor = Color.Black)
-        {
-            return new Pixel(@char, Color.DarkMagenta, backgroundColor);
-        }
-
-        /// <summary>
-        /// Creates a dark red pixel with the specified char.
-        /// </summary>
-        /// <returns>The pixel.</returns>
-        /// <param name="char">The char.</param>
-        public static Pixel DarkRed(char @char, Color backgroundColor = Color.Black)
-        {
-            return new Pixel(@char, Color.DarkRed, backgroundColor);
-        }
-
-        /// <summary>
-        /// Creates a dark yellow pixel with the specified char.
-        /// </summary>
-        /// <returns>The pixel.</returns>
-        /// <param name="char">The char.</param>
-        public static Pixel DarkYellow(char @char, Color backgroundColor = Color.Black)
-        {
-            return new Pixel(@char, Color.DarkYellow, backgroundColor);
-        }
-
-        /// <summary>
-        /// Creates a gray pixel with the specified char.
-        /// </summary>
-        /// <returns>The pixel.</returns>
-        /// <param name="char">The char.</param>
-        public static Pixel Gray(char @char, Color backgroundColor = Color.Black)
-        {
-            return new Pixel(@char, Color.Gray, backgroundColor);
-        }
-
-        /// <summary>
-        /// Creates a green pixel with the specified char.
-        /// </summary>
-        /// <returns>The pixel.</returns>
-        /// <param name="char">The char.</param>
-        public static Pixel Green(char @char, Color backgroundColor = Color.Black)
-        {
-            return new Pixel(@char, Color.Green, backgroundColor);
-        }
-
-        public static Pixel Green()
-        {
-            return new Pixel(' ', Color.Green, Color.Green);
-        }
-
-        /// <summary>
-        /// Creates a magenta pixel with the specified char.
-        /// </summary>
-        /// <returns>The pixel.</returns>
-        /// <param name="char">The char.</param>
-        public static Pixel Magenta(char @char, Color backgroundColor = Color.Black)
-        {
-            return new Pixel(@char, Color.Magenta, backgroundColor);
-        }
-
-        /// <summary>
-        /// Creates a red pixel with the specified char.
-        /// </summary>
-        /// <returns>The pixel.</returns>
-        /// <param name="char">The char.</param>
-        public static Pixel Red(char @char, Color backgroundColor = Color.Black)
-        {
-            return new Pixel(@char, Color.Red, backgroundColor);
-        }
-
-        public static Pixel Red()
-        {
-            return new Pixel(' ', Color.Red, Color.Red);
-        }
-
-        /// <summary>
-        /// Creates a white pixel with the specified char.
-        /// </summary>
-        /// <returns>The pixel.</returns>
-        /// <param name="char">The char.</param>
-        public static Pixel White(char @char, Color backgroundColor = Color.Black)
-        {
-            return new Pixel(@char, Color.White, backgroundColor);
-        }
-
-        /// <summary>
-        /// Creates a yellow pixel with the specified char.
-        /// </summary>
-        /// <returns>The pixel.</returns>
-        /// <param name="char">The char.</param>
-        public static Pixel Yellow(char @char, Color backgroundColor = Color.Black)
-        {
-            return new Pixel(@char, Color.Yellow, backgroundColor);
-        }
-
-        public static Pixel Yellow()
-        {
-            return new Pixel(' ', Color.Yellow, Color.Yellow);
-        }
-
+      
         /// <summary>
         /// Determines whether a specified instance of <see cref="Doog.Pixel"/> is equal to another specified <see cref="Doog.Pixel"/>.
         /// </summary>

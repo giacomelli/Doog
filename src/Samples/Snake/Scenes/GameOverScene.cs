@@ -13,10 +13,10 @@ namespace Snake.Scenes
         public override void Initialize()
         {
             Context.RemoveComponentsWithoutTag("Score", "Wall");
-        
+
             var hilightWall = new RectangleComponent(Point.Zero, Context)
             {
-                Pixel = Pixel.DarkGray(' ')
+                Pixel = Pixel.DarkGray
             };
 
             this.Iterate(Context.Bounds, false, 15, Easing.Linear, (x, y) =>
