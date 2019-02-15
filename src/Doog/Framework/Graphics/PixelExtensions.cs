@@ -1,9 +1,12 @@
-﻿namespace Doog
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Doog
 {
     /// <summary>
     /// Pixel extension methods.
     /// </summary>
-    public static class PixelExtensions
+    public static partial class PixelExtensions
     {
         /// <summary>
         /// Creates a black pixel using the specified char.
@@ -163,6 +166,13 @@
         public static Pixel Yellow(this char @char)
         {
             return new Pixel(@char, Color.Yellow);
+        }
+
+        public static Pixel[] Pixels(this IEnumerable<char> chars, Pixel colorsFrom)
+        {
+            return chars
+                    .Select(c => new Pixel(c, colorsFrom.ForegroundColor, colorsFrom.BackgroundColor))
+                    .ToArray();
         }
     }
 }

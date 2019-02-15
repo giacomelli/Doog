@@ -5,7 +5,7 @@ namespace Doog
     /// <summary>
     /// A rectangle component.
     /// </summary>
-    public class RectangleComponent : ComponentBase, IDrawable, ITransformable
+    public class RectangleComponent : ComponentBase, IDrawable, ITransformable, IPixelable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RectangleComponent"/> class.

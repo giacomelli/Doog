@@ -9,9 +9,17 @@ namespace Snake
 		public Food(IWorldContext context)
             : base(0, 0, context)
 		{
-            Pixel = 'o'.Yellow();
+            Pixel = '.'.Yellow();
             Transform.Scale = DefaultScale;
-     	}
+
+            //this
+            //    .ForegroundColorTo(Color.DarkBlue, 1, Easing.InOutBounce)
+            //    .PingPong();
+
+            this
+                .CharTo(new char[] { 'o', 'O' }, 0.25f, Easing.Linear)
+                .Loop();
+        }
 
   		public void OnCollision(Collision collision)
 		{
