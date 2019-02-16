@@ -5,6 +5,7 @@
 var target = Argument("target", "Default");
 var solutionDir = "src";
 var sonarLogin = "cf36fef221b4268b5989d3b044f6167cc739b78f";
+var branch = EnvironmentVariable("APPVEYOR_REPO_BRANCH") ?? GitBranchCurrent(".").FriendlyName;
 
 Task("Build")
     .Does(() =>
@@ -34,10 +35,9 @@ Task("Test")
 Task("SonarBegin")
     .Does(() => 
 {
-    var branch = GitBranchCurrent(".");
     SonarBegin(new SonarBeginSettings {
         Key = "Doog",
-        Branch = branch.FriendlyName,
+        Branch = branch,
         Organization = "giacomelli-github",
         Url = "https://sonarcloud.io",
         Exclusions = "**/Samples/**/*.cs,**/Doog.Tests/*.cs,**/Runner/InputSystem.cs,**/Runner/GraphicSystem.cs,**/Runner/Startup.cs",
