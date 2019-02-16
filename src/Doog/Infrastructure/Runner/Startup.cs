@@ -30,7 +30,9 @@ namespace Doog
                     new PhysicSystem(),
                     ts,
                     inputSystem,
-                    () => Environment.Exit(0));
+                    () => Terminate(gs));
+
+                Console.CancelKeyPress += (sender, e) => Terminate(gs);
 
                 GameActivator.Config(game, args);
 
@@ -56,6 +58,12 @@ namespace Doog
                     game.Draw();
                 }
             }
+        }
+
+        private static void Terminate(GraphicSystem gs)
+        {
+            gs.Terminate();
+            Environment.Exit(0);
         }
     }
 }

@@ -39,6 +39,16 @@ namespace Doog
         }
 
         /// <summary>
+        /// Terminate this instance.
+        /// </summary>
+        public void Terminate()
+        {
+            Console.CursorVisible = true;
+            Console.ResetColor();
+            Console.Clear();
+        }
+
+        /// <summary>
         /// Gets the bounds.
         /// </summary>
         public Rectangle Bounds { get; private set; }
