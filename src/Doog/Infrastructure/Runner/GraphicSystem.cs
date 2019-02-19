@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Doog
 {
@@ -25,6 +26,8 @@ namespace Doog
         /// </summary>
         public void Initialize()
         {
+            InitializeConsoleConfig();
+
             Console.CursorVisible = false;
             Console.BackgroundColor = (ConsoleColor) EmptyPixel.BackgroundColor;
             Console.ForegroundColor = (ConsoleColor) EmptyPixel.ForegroundColor;
@@ -43,6 +46,7 @@ namespace Doog
         /// </summary>
         public void Terminate()
         {
+            TerminateConsoleConfig();
             Console.CursorVisible = true;
             Console.ResetColor();
             Console.Clear();
@@ -107,6 +111,31 @@ namespace Doog
                 {
                     buffer[x, y] = pixel;
                 }
+            }
+        }
+
+        private static void InitializeConsoleConfig()
+        {
+            // Console implementation for Unix platforms (https://github.com/dotnet/corefx/blob/v2.0.0/src/System.Console/src/System/ConsolePal.Unix.cs) 
+            // is letting escape typed chars even when ReadKey(true) is used:
+            //  - https://github.com/dotnet/corefx/issues/25916#issuecomment-376689779
+            //  - https://github.com/dotnet/corefx/issues/25916
+            //  - https://github.com/dotnet/corefx/issues/34501
+            // 
+            // The code below is just a temp workaround until those issue been solved.
+            //
+            // *need to run on a bash.
+            if (Environment.OSVersion.Platform == PlatformID.Unix)
+            {
+                Process.Start("stty", "-echo");
+            }
+        }
+
+        private static void TerminateConsoleConfig()
+        {
+            if (Environment.OSVersion.Platform == PlatformID.Unix)
+            {
+                Process.Start("stty", "echo");
             }
         }
     }
