@@ -123,8 +123,6 @@ namespace Doog
             //  - https://github.com/dotnet/corefx/issues/34501
             // 
             // The code below is just a temp workaround until those issue been solved.
-            //
-            // *need to run on a bash.
             if (Environment.OSVersion.Platform == PlatformID.Unix)
             {
                 Process.Start("stty", "-echo");
