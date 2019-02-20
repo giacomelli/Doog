@@ -33,6 +33,10 @@ namespace Doog
         /// </summary>
         public void Initialize()
 		{
+            // Already intialized?
+            if (_fonts.Count > 0)
+                return;
+
 			var fontsFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources/Fonts");
 			var fontsFiles = Directory.GetFiles(fontsFolder, "*.txt");
 

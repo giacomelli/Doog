@@ -33,6 +33,11 @@ namespace Doog
         IFontSystem FontSystem { get; }
 
         /// <summary>
+        /// Gets the text system.
+        /// </summary>
+        ITextSystem TextSystem { get; }
+
+        /// <summary>
         /// Gets the bounds.
         /// </summary>
 		Rectangle Bounds { get; }
@@ -58,6 +63,8 @@ namespace Doog
         /// </summary>
         /// <param name="component">The component.</param>
 		void RemoveComponent(IComponent component);
+
+        void AddSubWorld(IWorld subWorld);
 
         /// <summary>
         /// Opens the scene.

@@ -17,6 +17,7 @@ namespace Doog
 		private IScene _pendingSceneToOpen;
         private Time _time;
         private Action _exitAction;
+        private IList<IWorld> _subWorlds;
 
         /// <summary>
         /// Initializes the specified graphic system.
@@ -37,6 +38,7 @@ namespace Doog
 			_componentsToRemove = new List<IComponent>();
 			_updatables = new List<IUpdatable>();
 			_drawables = new List<IDrawable>();
+            _subWorlds = new List<IWorld>();
 
             _time = new Time();
 			_pendingSceneToOpen = new NullScene(this);
@@ -50,10 +52,9 @@ namespace Doog
 			Bounds = Bounds == Rectangle.Zero ? graphicSystem.Bounds : Bounds;
 			PhysicSystem = physicSystem;
 
-	        LogSystem = new NullLogSystem();
-           
+	        LogSystem = new NullLogSystem();           
             FontSystem = textSystem;
-
+            TextSystem = textSystem;
             InputSystem = inputSystem;
 
             this._exitAction = exitAction;
@@ -100,6 +101,11 @@ namespace Doog
         public IFontSystem FontSystem { get; private set; }
 
         /// <summary>
+        /// Gets the text system.
+        /// </summary>
+        public ITextSystem TextSystem { get; private set; }
+
+        /// <summary>
         /// Gets the components.
         /// </summary>
         public IList<IComponent> Components { get; private set; }
@@ -133,6 +139,11 @@ namespace Doog
 				PhysicSystem.AddCollidable(c);
 			}
 		}
+
+        public void AddSubWorld(IWorld subWorld)
+        {
+            _subWorlds.Add(subWorld);
+        }
 
         /// <summary>
         /// Removes the component.
@@ -226,6 +237,11 @@ namespace Doog
 				}
 			}
 
+            foreach(var sub in _subWorlds)
+            {
+                sub.Update(now);
+            }
+
 			PhysicSystem.Update();
             InputSystem.Update();
 		}
@@ -249,7 +265,12 @@ namespace Doog
 
 			CurrentScene.Draw(_drawContext);
 
-			GraphicSystem.Render();
+            foreach (var sub in _subWorlds)
+            {
+                sub.Draw();
+            }
+
+            GraphicSystem.Render();
 		}
 
         /// <summary>
