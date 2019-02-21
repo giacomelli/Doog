@@ -96,9 +96,17 @@ namespace Doog
         /// Adds the child to the component,.
         /// </summary>
         /// <param name="component">Component.</param>
-        public void AddChild(IComponent component)
+        public virtual void AddChild(IComponent component)
         {
             _children.Add(component);
+
+            if (this is ITransformable thisTranformable)
+            {
+                if (component is ITransformable componentTransformable)
+                    thisTranformable.Transform.AddChild(componentTransformable.Transform);
+                else if (component is Transform componentTransform)
+                    thisTranformable.Transform.AddChild(componentTransform);
+            }
         }
 
         /// <summary>

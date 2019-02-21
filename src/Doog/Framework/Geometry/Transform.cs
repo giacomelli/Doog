@@ -162,18 +162,47 @@ namespace Doog
 
         private void Rebuild()
         {
-            var cos = (float)Math.Cos(_rotation * Math.PI / 180f);
-            var sin = (float)Math.Sin(_rotation * Math.PI / 180f);
+            Rebuild(_position, _rotation, _scale, _pivot);
+        }
+
+        private void Rebuild(Point position, float rotation, Point scale, Point pivot)
+        {
+            var cos = (float)Math.Cos(rotation * Math.PI / 180f);
+            var sin = (float)Math.Sin(rotation * Math.PI / 180f);
 
             var r = _originalBoundingBox;
-            var center = r.LeftTop + _scale * _pivot;
+            var center = r.LeftTop + scale * pivot;
        
             BoundingBox = new Rectangle(
-                CalculateCorner(_position, r.LeftTop, center, cos, sin),
-                CalculateCorner(_position, r.RightTop, center, cos, sin),
-                CalculateCorner(_position, r.RightBottom, center, cos, sin),
-                CalculateCorner(_position, r.LeftBottom, center, cos, sin)
+                CalculateCorner(position, r.LeftTop, center, cos, sin),
+                CalculateCorner(position, r.RightTop, center, cos, sin),
+                CalculateCorner(position, r.RightBottom, center, cos, sin),
+                CalculateCorner(position, r.LeftBottom, center, cos, sin)
             );
+
+            foreach(var c in GetChildren())
+            {
+                if(c is Transform t)
+                {
+                    t.Rebuild(
+                        t._position + position,
+                        t._rotation + rotation,
+                        t._scale + scale,
+                        t._pivot);
+                }
+            }
+        }
+
+        public override void AddChild(IComponent component)
+        {
+            base.AddChild(component);
+
+            if (component is Transform t)
+                t.Rebuild(
+                        t._position + _position,
+                        t._rotation + _rotation,
+                        t._scale + _scale,
+                        t._pivot);
         }
 
         private Point CalculateCorner(Point pos, Point corner, Point center, float angleCos, float angleSin)
