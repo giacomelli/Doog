@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using Doog;
 
 namespace Doog.Tests.Framework.Logging
 {

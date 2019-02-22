@@ -93,3 +93,6 @@ dotnet run --project Samples/Snake debug-enabled ingame-log
 ## License
 Licensed under the The MIT License (MIT).
 In others words, you can use this library for developement any kind of software: open source, commercial and proprietary.
+
+
+TODO: Como fazer colisão

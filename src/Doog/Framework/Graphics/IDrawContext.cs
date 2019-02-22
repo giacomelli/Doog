@@ -1,6 +1,4 @@
-﻿using Doog;
-
-namespace Doog
+﻿namespace Doog
 {
     /// <summary>
     /// Defines an interface for a draw context.

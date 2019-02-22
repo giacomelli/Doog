@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Reflection;
 using NUnit.Framework;
 
 namespace Doog.Tests.Framework.Graphics

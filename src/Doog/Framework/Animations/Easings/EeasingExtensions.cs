@@ -1,5 +1,4 @@
-﻿using System;
-namespace Doog
+﻿namespace Doog
 {
     /// <summary>
     /// Easing extensions methods.

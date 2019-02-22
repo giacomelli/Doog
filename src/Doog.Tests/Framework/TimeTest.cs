@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Threading;
 
 namespace Doog.Tests.Framework
 {

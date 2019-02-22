@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Doog.Samples", "Samples\Doo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snake", "Samples\Snake\Snake.csproj", "{F5FD1342-B445-484F-B31F-9F4165EC3C2A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakout", "Samples\Breakout\Breakout.csproj", "{54c1bfe9-f182-4f7e-9b7e-d79e286416c8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{F5FD1342-B445-484F-B31F-9F4165EC3C2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5FD1342-B445-484F-B31F-9F4165EC3C2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5FD1342-B445-484F-B31F-9F4165EC3C2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54c1bfe9-f182-4f7e-9b7e-d79e286416c8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54c1bfe9-f182-4f7e-9b7e-d79e286416c8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54c1bfe9-f182-4f7e-9b7e-d79e286416c8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54c1bfe9-f182-4f7e-9b7e-d79e286416c8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{409F760B-9D20-4B74-9CFE-4ACB5D429DAC} = {00EBE47F-4065-44E6-93B8-774E6359D261}
 		{F5FD1342-B445-484F-B31F-9F4165EC3C2A} = {00EBE47F-4065-44E6-93B8-774E6359D261}
+		{54c1bfe9-f182-4f7e-9b7e-d79e286416c8} = {00EBE47F-4065-44E6-93B8-774E6359D261}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C004F80F-E8A8-415A-AC80-D705C14172B0}

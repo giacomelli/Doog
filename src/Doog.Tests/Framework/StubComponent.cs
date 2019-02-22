@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace Doog.Tests
 {
     public class StubComponent : ComponentBase

@@ -1,7 +1,4 @@
-﻿using System;
-using Doog;
-
-namespace Doog
+﻿namespace Doog
 {
     /// <summary>
     /// An line component.

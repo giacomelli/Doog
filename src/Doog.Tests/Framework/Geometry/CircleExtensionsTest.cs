@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using NUnit.Framework;
-using Doog;
+﻿using NUnit.Framework;
 
 namespace Doog.Tests.Framework.Geometry
 {

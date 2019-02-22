@@ -1,6 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
-using Doog;
 
 namespace Doog.Tests.Framework.Geometry
 {

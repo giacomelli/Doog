@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Doog
 {
@@ -17,6 +18,23 @@ namespace Doog
         public static IInputSystem IsKeyDown(this IInputSystem input, Keys key, Action action)
         {
             if(input.IsKeyDown(key))
+            {
+                action();
+            }
+
+            return input;
+        }
+
+        /// <summary>
+        /// Runs the action if any specified keys are down in the current frame.
+        /// </summary>
+        /// <returns>The input system.</returns>
+        /// <param name="input">The input system.</param>
+        /// <param name="action">The action.</param>
+        /// <param name="keys">The keys.</param>
+        public static IInputSystem Do(this IInputSystem input, Action action, params Keys[] keys)
+        {
+            if(keys.Any(key => input.IsKeyDown(key)))
             {
                 action();
             }
