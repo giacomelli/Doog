@@ -110,6 +110,11 @@ namespace Doog
         /// <param name="component">The component.</param>
         public void AddComponent(IComponent component)
 		{
+			if (Components.Contains(component))
+			{
+				throw new InvalidOperationException($"The component {component.ToString()} is already added.");
+			}
+
            	Components.Add(component);
 
 			var u = component as IUpdatable;

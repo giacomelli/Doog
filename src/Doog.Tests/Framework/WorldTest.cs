@@ -49,6 +49,20 @@ namespace Doog.Tests.Framework
             physicSystem.Received(1).Update();
         }
 
+		[Test]
+		public void AddComponent_ExistingComponent_Exception()
+		{
+			var component = Substitute.For<IUpdatable>();
+
+			target.AddComponent(component);
+			Assert.AreEqual(1, target.Components.Count);
+
+			Assert.Throws(typeof(InvalidOperationException), () =>
+			{
+				target.AddComponent(component);
+			});
+        }
+
         [Test]
 		public void AddComponent_IDrawable_Drawn()
 		{
