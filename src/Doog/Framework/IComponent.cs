@@ -36,5 +36,10 @@ namespace Doog
         /// </summary>
         /// <returns>The children.</returns>
         IEnumerable<IComponent> GetChildren();
+
+        /// <summary>
+        /// Removes the component from the its context.
+        /// </summary>
+		void Remove();
     }
 }

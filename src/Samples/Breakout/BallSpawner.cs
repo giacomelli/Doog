@@ -12,6 +12,12 @@ namespace Breakout
 			for (int i = 0; i < balls.Length; i++)
 			{
 				balls[i] = new Ball(Context) { Enabled = false };
+				balls[i].Fall += (o, s) =>
+				{
+					var ball = (Ball)o;
+					ball.Enabled = false;
+					this.Spawn();
+				};
 			}
 		}
 
@@ -22,7 +28,8 @@ namespace Breakout
 				if (!balls[i].Enabled)
 				{
 					balls[i].Enabled = true;
-					balls[i].Transform.Position = Context.Bounds.GetCenter();
+					balls[i].Transform.Position = new Point((int)Context.Bounds.GetCenter().X,
+					(int)Context.Bounds.GetCenter().Y);
 					break;
 				}
 			}

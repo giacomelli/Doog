@@ -142,6 +142,11 @@
         /// </summary>
         public Color BackgroundColor { get; }
 
+		public Pixel WithChar(char ch)
+		{
+			return new Pixel(ch, ForegroundColor, BackgroundColor);
+		}
+
         /// <summary>
         /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
         /// </summary>

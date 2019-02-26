@@ -92,5 +92,13 @@ namespace Doog
         {
             return new IComponent[0];
         }
-    }
+
+        /// <summary>
+        /// Removes the component from the its context.
+        /// </summary>
+		public void Remove()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

@@ -23,7 +23,8 @@
         .OpenScene<Sample7Scene>(Keys.D7)
         .OpenScene<Sample8Scene>(Keys.D8)
         .OpenScene<Sample9Scene>(Keys.D9)
-        .OpenScene<BreakoutScene>(Keys.D0);
+        .OpenScene<BreakoutScene>(Keys.D0)
+        .OpenScene<SampleBScene>(Keys.B);
     }
 
     public override void Draw(IDrawContext drawContext)

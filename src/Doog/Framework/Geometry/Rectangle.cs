@@ -112,8 +112,8 @@ namespace Doog
         /// <returns>True if intersects, othewise false</returns>
         public bool Intersect(Rectangle other)
         {
-            if (Left > other.Right || other.Left > Right
-             || Top > other.Bottom || other.Top > Bottom)
+            if ((int)Left > (int)other.Right || (int)other.Left > (int)Right
+             || (int)Top > (int)other.Bottom || (int)other.Top > Bottom)
             {
                 return false;
             }

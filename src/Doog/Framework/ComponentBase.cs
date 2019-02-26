@@ -40,6 +40,15 @@ namespace Doog
 		}
 
         /// <summary>
+        /// Removes the component from the its context.
+        /// </summary>
+
+		public void Remove()
+		{
+			Context.RemoveComponent(this);
+		}
+
+        /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:Doog.ComponentBase"/> is enabled.
         /// </summary>
         /// <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>

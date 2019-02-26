@@ -25,10 +25,13 @@ namespace Breakout.Scenes
             wallSpawner.Spawn();
 
 			var paddle = new Paddle(Context, new KeyboardCommandReader(Context.InputSystem, KeyBinding.Default));
-			paddle.Initialize(100.0f);
+			paddle.Initialize(200.0f);
 
             ballSpawner = BallSpawner.Create(Context);
 			ballSpawner.Spawn();
+
+			var tileSpawner = new TileSpawner(Context);
+			tileSpawner.SpawnLevel1();
 
             bounds = Context.Bounds;
 
@@ -38,6 +41,15 @@ namespace Breakout.Scenes
             // or each Breakout will have its own score instance.
             // Score.Create(new Point(bounds.Right, bounds.Top), paddle, Context);
         }
+
+		public override void Update()
+		{
+			base.Update();
+			if (Context.InputSystem.IsKeyDown(Keys.Escape))
+			{
+				Context.Exit();
+			}
+		}
 
         public void ChangeToGameOver()
         {

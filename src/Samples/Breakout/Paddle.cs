@@ -23,7 +23,7 @@ namespace Breakout
 		public void Initialize(float speed)
         {
             this.speed = speed;
-			Transform.Position = Context.Bounds.BottomCenterPoint() + Point.Up * 2;
+			Transform.Position = Context.Bounds.BottomCenterPoint() + Point.Up * 3;
         }
 
         public void Update()

@@ -67,7 +67,33 @@ namespace Doog
         {
             if (Bounds.Contains(x, y))
             {
-                _pixels[(int)x, (int)y] = pixel;
+				var roundedX = (int)Math.Round(x);
+				var roundedY = (int)Math.Round(y);
+
+				var xDecimal = x - roundedX;
+				var yDecimal = y - roundedY;
+				int? xFix = null;
+				int? yFix = null;
+				if (xDecimal >= 0.4 && xDecimal <= 0.6)
+				{
+					xFix = (int)Math.Ceiling(x);
+					_pixels[xFix.Value, roundedY] = pixel;
+				}
+
+				if (yDecimal >= 0.4 && yDecimal <= 0.6)
+				{
+					yFix = (int)Math.Ceiling(y);
+					_pixels[roundedX, yFix.Value] = pixel;
+				}
+
+				if (!xFix.HasValue && !yFix.HasValue)
+				{
+					_pixels[roundedX, roundedY] = pixel;
+				}
+				else if (xFix.HasValue && yFix.HasValue)
+				{
+					_pixels[xFix.Value, yFix.Value] = pixel;
+				}
             }
         }
 

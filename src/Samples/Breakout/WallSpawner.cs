@@ -23,10 +23,10 @@ namespace Breakout
             var height = bounds.Height;
 
             // Borders
-            walls.Add(Wall.Create(left, top, width, 0, Context));
-			walls.Add(Wall.Create(right, top, 0, height, Context));
-			walls.Add(Wall.Create(left, bottom , width, 0, Context));
-			walls.Add(Wall.Create(left, top, 0, height, Context));
+            walls.Add(Wall.Create(left, top - 1, width + 1, 1, Context, "TopWall"));
+			walls.Add(Wall.Create(right - 0.5f, top, 1, height, Context, "RightWall"));
+			walls.Add(Wall.Create(left, bottom , width, 1, Context, "BottomWall"));
+			walls.Add(Wall.Create(left, top, 1, height, Context, "LeftWall"));
 
             return walls;
 		}
