@@ -33,7 +33,7 @@ namespace Doog.Tests.Framework
 		{
 			var wc = Substitute.For<IWorldContext>();
            
-			var target = Substitute.For<ComponentBase>(wc, true);
+			var target = Substitute.ForPartsOf<ComponentBase>(wc, true);
             target.AddChild(Substitute.For<IComponent>());
             target.AddChild(Substitute.For<IComponent>());
 
