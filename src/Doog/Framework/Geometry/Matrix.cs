@@ -139,6 +139,30 @@ namespace Doog
         }
 
         /// <summary>
+        /// Creates a rotation matrix.
+        /// </summary>
+        /// <returns>The rotation.</returns>
+        /// <param name="rotation">The rotation in degrees.</param>
+        /// <remarks>
+        /// See: 
+        /// * http://web.cse.ohio-state.edu/~shen.94/681/Site/Slides_files/transformation_review.pdf
+        /// * https://www.wolframalpha.com/input/?i=rotation+matrix
+        /// </remarks>
+        public static Matrix CreateRotation(float rotation)
+        {
+            var cos = (float)Math.Cos(rotation * Math.PI / 180f);
+            var sin = (float)Math.Sin(rotation * Math.PI / 180f);
+
+            var result = _identity;
+            result.M11 = cos;
+            result.M12 = -sin;
+            result.M21 = sin;
+            result.M22 = cos;
+
+            return result;
+        }
+
+        /// <summary>
         /// Multiplies two matrices.
         /// </summary>
         /// <param name="left">The left <see cref="Doog.Matrix"/> to multiply.</param>

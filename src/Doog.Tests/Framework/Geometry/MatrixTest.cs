@@ -83,6 +83,17 @@ namespace Doog.Tests.Framework.Geometry
         }
 
         [Test]
+        public void CreateRotation_RotationDegree_RotationMatrix()
+        {
+            var expected = new Matrix(         0.5f,      -0.866025388f, 0f,
+                                       0.866025388f,               0.5f, 0f,
+                                                 0f,                 0f, 1f);
+
+            var actual = Matrix.CreateRotation(60);
+            AssertMatrix(expected, actual);
+        }
+
+        [Test]
         public void Translation_GetAndSet_Point()
         { 
             var actual = Matrix.CreateTranslation(11, 22);
