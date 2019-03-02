@@ -9,7 +9,7 @@ namespace Doog.Tests.Framework.Geometry
         /// https://www.intmath.com/matrices-determinants/matrix-multiplication-examples.php
         /// </summary>
         [Test]
-        public void Multiply_OtherMatrixSample1_ResultMatrix()
+        public void MultiplyOperator_OtherMatrixSample1_ResultMatrix()
         {
             var left = new Matrix(-4, 4, -2,
                                   -1, 5,  0,
@@ -44,6 +44,36 @@ namespace Doog.Tests.Framework.Geometry
 
             var actual = left * right;
             AssertMatrix(expected, actual);
+        }
+
+        [Test]
+        public void EqualsOperator_AllNumbersEquals_True()
+        {
+            var target = new Matrix(-4, 4, -2,
+                                  -1, 5, 0,
+                                   1, 6, 2);
+
+            var other = new Matrix(-4, 4, -2,
+                                  -1, 5, 0,
+                                   1, 6, 2);
+
+            Assert.IsTrue(target == other);
+            Assert.IsFalse(target != other);
+        }
+
+        [Test]
+        public void EqualsOperator_AllNumbersAreNotEquals_False()
+        {
+            var target = new Matrix(-4, 4, -2,
+                                  -1, 5, 0,
+                                   1, 6, 2);
+
+            var other = new Matrix(-4, 4, -2,
+                                  -1, 5, 0,
+                                   1, 6, 1);
+
+            Assert.IsFalse(target == other);
+            Assert.IsTrue(target != other);
         }
 
         [Test]
@@ -91,6 +121,11 @@ namespace Doog.Tests.Framework.Geometry
 
             var actual = Matrix.CreateRotation(60);
             AssertMatrix(expected, actual);
+
+            var translation = Matrix.CreateTranslation(11, 22);
+            var multiplication = translation * actual;
+            Assert.IsFalse(actual == multiplication);
+            Assert.IsFalse(translation == multiplication);
         }
 
         [Test]

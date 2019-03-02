@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Doog
 {
@@ -8,6 +9,7 @@ namespace Doog
     /// <remarks>
     /// Based on https://github.com/MonoGame/MonoGame/blob/develop/MonoGame.Framework/Matrix.cs
     /// </remarks>
+    [DebuggerDisplay("{DebugDisplayString,nq}")]
     public struct Matrix
     {
         private static Matrix _identity = new Matrix(1f, 0f, 0f,
@@ -99,6 +101,21 @@ namespace Doog
             {
                 M13 = value.X;
                 M23 = value.Y;
+            }
+        }
+
+        internal string DebugDisplayString
+        {
+            get
+            {
+                if (this == _identity)
+                {
+                    return "Identity";
+                }
+
+                return $@"| {M11}, {M12}, {M13} |
+| {M21}, {M22}, {M23} |
+| {M31}, {M32}, {M33} |";
             }
         }
 
@@ -196,6 +213,46 @@ namespace Doog
             left.M33 = m33;
 
             return left;
+        }
+
+        /// <summary>
+        /// Determines whether a specified instance of <see cref="Doog.Matrix"/> is equal to another specified <see cref="Doog.Matrix"/>.
+        /// </summary>
+        /// <param name="first">The first <see cref="Doog.Matrix"/> to compare.</param>
+        /// <param name="second">The second <see cref="Doog.Matrix"/> to compare.</param>
+        /// <returns><c>true</c> if <c>matrix1</c> and <c>matrix2</c> are equal; otherwise, <c>false</c>.</returns>
+        public static bool operator ==(Matrix first, Matrix second)
+        {
+            return (
+                first.M11 == second.M11 &&
+                first.M12 == second.M12 &&
+                first.M13 == second.M13 &&
+                first.M21 == second.M21 &&
+                first.M22 == second.M22 &&
+                first.M23 == second.M23 &&
+                first.M31 == second.M31 &&
+                first.M32 == second.M32 &&
+                first.M33 == second.M33);
+        }
+
+        /// <summary>
+        /// Determines whether a specified instance of <see cref="Doog.Matrix"/> is not equal to another specified <see cref="Doog.Matrix"/>.
+        /// </summary>
+        /// <param name="first">The first <see cref="Doog.Matrix"/> to compare.</param>
+        /// <param name="second">The second <see cref="Doog.Matrix"/> to compare.</param>
+        /// <returns><c>true</c> if <c>matrix1</c> and <c>matrix2</c> are not equal; otherwise, <c>false</c>.</returns>
+        public static bool operator !=(Matrix first, Matrix second)
+        {
+            return (
+                first.M11 != second.M11 ||
+                first.M12 != second.M12 ||
+                first.M13 != second.M13 ||
+                first.M21 != second.M21 ||
+                first.M22 != second.M22 ||
+                first.M23 != second.M23 ||
+                first.M31 != second.M31 ||
+                first.M32 != second.M32 ||
+                first.M33 != second.M33);
         }
     }
 }
