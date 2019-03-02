@@ -87,19 +87,53 @@ namespace Doog
         }
 
         /// <summary>
+        /// Gets or sets the translation.
+        /// </summary>
+        public Point Translation
+        {
+            get
+            {
+                return new Point(M13, M23);
+            }
+            set
+            {
+                M13 = value.X;
+                M23 = value.Y;
+            }
+        }
+
+        /// <summary>
         /// Creates a translation matrix.
         /// </summary>
         /// <returns>The translation.</returns>
         /// <param name="x">The x coordinate.</param>
         /// <param name="y">The y coordinate.</param>
         /// <remarks>
-        /// See: https://en.wikipedia.org/wiki/Transformation_matrix
+        /// See: http://web.cse.ohio-state.edu/~shen.94/681/Site/Slides_files/transformation_review.pdf
         /// </remarks>
         public static Matrix CreateTranslation(float x, float y)
         {
             var result = _identity;
             result.M13 = x;
             result.M23 = y;
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creates a scaling matrix.
+        /// </summary>
+        /// <returns>The scaling.</returns>
+        /// <param name="xScale">The x scale factor.</param>
+        /// <param name="yScale">The y scale factor.</param>
+        /// <remarks>
+        /// See: http://web.cse.ohio-state.edu/~shen.94/681/Site/Slides_files/transformation_review.pdf
+        /// </remarks>
+        public static Matrix CreateScale(float xScale, float yScale)
+        {
+            var result = _identity;
+            result.M11 = xScale;
+            result.M22 = yScale;
 
             return result;
         }

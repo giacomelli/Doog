@@ -64,6 +64,36 @@ namespace Doog.Tests.Framework.Geometry
             AssertMatrix(expected, actual);
         }
 
+        [Test]
+        public void CreateScale_XAndYScaleFactor_ScalingMatrix()
+        {
+            var expected = new Matrix(11f, 0f, 0f,
+                                      0f, 22f, 0f,
+                                      0f, 0f, 1f);
+
+            var actual = Matrix.CreateScale(11, 22);
+            AssertMatrix(expected, actual);
+
+            expected = new Matrix(33f, 0f, 0f,
+                                  0f, 44f, 0f,
+                                  0f, 0f, 1f);
+
+            actual = Matrix.CreateScale(33, 44);
+            AssertMatrix(expected, actual);
+        }
+
+        [Test]
+        public void Translation_GetAndSet_Point()
+        { 
+            var actual = Matrix.CreateTranslation(11, 22);
+            Assert.AreEqual(11, actual.Translation.X);
+            Assert.AreEqual(22, actual.Translation.Y);
+
+            actual.Translation = new Point(33, 44);
+            Assert.AreEqual(33, actual.Translation.X);
+            Assert.AreEqual(44, actual.Translation.Y);
+        }
+
         private void AssertMatrix(Matrix expected, Matrix actual)
         {
             Assert.AreEqual(expected.M11, actual.M11);
