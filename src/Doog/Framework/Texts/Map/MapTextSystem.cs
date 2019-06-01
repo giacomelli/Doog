@@ -29,12 +29,16 @@ namespace Doog
         public IWorldContext Context { get; private set; }
 
         /// <summary>
+        /// Gets the fonts folder path.
+        /// </summary>
+        protected virtual string FontsFolderPath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources/Fonts");
+
+        /// <summary>
         /// Initialize this instance.
         /// </summary>
         public void Initialize()
 		{
-			var fontsFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources/Fonts");
-			var fontsFiles = Directory.GetFiles(fontsFolder, "*.txt");
+			var fontsFiles = Directory.GetFiles(FontsFolderPath, "*.txt");
 
 			foreach (var ff in fontsFiles)
 			{
@@ -87,5 +91,5 @@ namespace Doog
 				$"There is no font with name '{0}'. Please, verify if the file Reosurces/Fonts/{fontName}.txt exists",
 				"fontName");
 		}
-	}
+    }
 }
