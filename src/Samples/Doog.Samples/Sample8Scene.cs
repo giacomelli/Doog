@@ -17,7 +17,7 @@ namespace Doog.Samples
             var bounds = Context.Bounds;
             var center = bounds.GetCenter();
 
-            var rect = new Rectangle(center.X, center.Y, 20, 20);
+            var rect = new Rectangle(0, 0, 20, 20);
             interactiveRectangle = new RectangleComponent(rect, Context)
             {
                 Tag = "Interactive",

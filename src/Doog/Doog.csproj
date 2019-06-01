@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD;NETSTANDARD2_0;GRAPHICS_DEBUG</DefineConstants>
     <DocumentationFile>bin\Debug\netstandard2.0\Doog.xml</DocumentationFile>
   </PropertyGroup>
 </Project>

@@ -71,7 +71,7 @@ namespace Doog.Tests.Framework.Geometry
         public void Scale_DiffValues_Scaled()
         {
             var target = new Transform(5, 10, Substitute.For<IWorldContext>());
-            Assert.AreEqual(Point.Zero, target.Scale);
+            Assert.AreEqual(Point.One, target.Scale);
             Assert.AreEqual(new Rectangle(5, 10, 0, 0), target.BoundingBox);
 
             target.Scale = Point.One;

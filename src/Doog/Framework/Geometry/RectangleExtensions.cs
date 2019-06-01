@@ -183,7 +183,7 @@ namespace Doog
                         bottomLine.Iterate((x2, y2) =>
                         {
                             var verticalLine = new Line(x1, y1, x2, y2);
-                            verticalLine.Iterate(step);
+                                verticalLine.Iterate(step);
                         });
                     });
                 }

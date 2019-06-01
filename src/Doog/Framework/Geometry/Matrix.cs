@@ -104,11 +104,13 @@ namespace Doog
             }
         }
 
+        public bool IsIdentity => this == _identity;
+
         internal string DebugDisplayString
         {
             get
             {
-                if (this == _identity)
+                if (IsIdentity)
                 {
                     return "Identity";
                 }

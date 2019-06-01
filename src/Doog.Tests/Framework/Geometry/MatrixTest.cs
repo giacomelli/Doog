@@ -140,6 +140,29 @@ namespace Doog.Tests.Framework.Geometry
             Assert.AreEqual(44, actual.Translation.Y);
         }
 
+        [Test]
+        public void IsIdentity_NonIdentityMatrix_False()
+        {
+            var actual = Matrix.CreateTranslation(11, 22);
+            Assert.IsFalse(actual.IsIdentity);
+
+            actual = Matrix.CreateRotation(90);
+            Assert.IsFalse(actual.IsIdentity);
+
+            actual = Matrix.CreateScale(2, 3);
+            Assert.IsFalse(actual.IsIdentity);
+        }
+
+        [Test]
+        public void IsIdentity_IdentityMatrix_True()
+        {
+            var actual = new Matrix(1, 0, 0,
+                                    0, 1, 0,
+                                    0, 0, 1);
+
+            Assert.IsTrue(actual.IsIdentity);
+        }
+
         private void AssertMatrix(Matrix expected, Matrix actual)
         {
             Assert.AreEqual(expected.M11, actual.M11);

@@ -102,6 +102,10 @@ namespace Doog
         public virtual void Draw(IDrawContext drawContext)
         {
             drawContext.Canvas.Draw(Transform.BoundingBox, Filled, Pixel);
+
+#if GRAPHICS_DEBUG
+            drawContext.Canvas.Draw(Transform.GetPivotWorldPosition(), Pixel.Magenta);
+#endif
         }
     }
 }

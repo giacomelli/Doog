@@ -43,5 +43,18 @@
 
             return transform;
         }
+
+        public static Point GetPivotLocalPosition(this Transform transform)
+        {
+            var bb = transform.BoundingBox;
+            var pivot = transform.Pivot;
+
+            return new Point(bb.Width * pivot.X, bb.Height * pivot.Y);
+        }
+
+        public static Point GetPivotWorldPosition(this Transform transform)
+        {
+            return transform.Position + transform.GetPivotLocalPosition();
+        }
     }
 }

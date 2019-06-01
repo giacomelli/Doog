@@ -9,11 +9,13 @@ namespace Doog
     [DebuggerDisplay("{BoundingBox}")]
     public class Transform : ComponentBase
     {
-        private Point _position;
         private Point _scale;
         private float _rotation;
         private Point _pivot;
         private Rectangle _originalBoundingBox;
+        private Matrix _translationMatrix;
+        private Matrix _scalingMatrix;
+        private Matrix _rotationMatrix;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Transform"/> class.
@@ -33,9 +35,9 @@ namespace Doog
         public Transform(float x, float y, IWorldContext context)
             : base(context)
         {
-            _scale = Point.Zero;
+            _scale = Point.One;
             _pivot = Point.Zero;
-            _originalBoundingBox = new Rectangle(x, y, 0, 0);
+            _originalBoundingBox = new Rectangle(x, y, 1, 1);
             Position = new Point(x, y);
         }
 
@@ -46,12 +48,12 @@ namespace Doog
         {
             get
             {
-                return _position;
+                return _translationMatrix.Translation;
             }
 
             set
             {
-                _position = value;
+                _translationMatrix.Translation = value;
                 Rebuild();
             }
         }
@@ -78,7 +80,7 @@ namespace Doog
             set
             {
                 _pivot = value;
-                Rebuild();
+              //  Rebuild();
             }
         }
 
@@ -94,9 +96,12 @@ namespace Doog
 
             set
             {
+                var scaleValueForMatrix = (value - _scale) + Point.One;
+                _scalingMatrix = Matrix.CreateScale(scaleValueForMatrix.X, scaleValueForMatrix.Y);
                 _scale = value;
-                _originalBoundingBox = new Rectangle(_originalBoundingBox.Left, _originalBoundingBox.Top, value.X, value.Y);
-                Rebuild();
+               
+                //_originalBoundingBox = new Rectangle(_originalBoundingBox.Left, _originalBoundingBox.Top, value.X, value.Y);
+               // Rebuild();
             }
         }
 
@@ -113,7 +118,8 @@ namespace Doog
             set
             {
                 _rotation = value;
-                Rebuild();
+                _rotationMatrix = Matrix.CreateRotation(value);
+               //Rebuild();
             }
         }
 
@@ -129,7 +135,8 @@ namespace Doog
         /// <param name="y">The y.</param>
         public void IncrementPosition(float x, float y)
         {
-            Position = new Point(_position.X + x, _position.Y + y);
+            var current = _translationMatrix.Translation;
+            Position = new Point(current.X + x, current.Y + y);
         }
 
         /// <summary>
@@ -138,7 +145,7 @@ namespace Doog
         /// <param name="x">The x.</param>
         public void SetX(float x)
         {
-            Position = new Point(x, _position.Y);
+            Position = new Point(x, _translationMatrix.Translation.Y);
         }
 
         /// <summary>
@@ -147,7 +154,7 @@ namespace Doog
         /// <param name="y">The y.</param>
         public void SetY(float y)
         {
-            Position = new Point(_position.X, y);
+            Position = new Point(_translationMatrix.Translation.X, y);
         }
 
         /// <summary>
@@ -162,24 +169,31 @@ namespace Doog
 
         private void Rebuild()
         {
-            var cos = (float)Math.Cos(_rotation * Math.PI / 180f);
-            var sin = (float)Math.Sin(_rotation * Math.PI / 180f);
-
+            //var r = new Rectangle(_originalBoundingBox.Left, _originalBoundingBox.Right, _scale.X, _scale.Y);
             var r = _originalBoundingBox;
-            var center = r.LeftTop + _scale * _pivot;
-       
+            var pivotWorldPos = this.GetPivotWorldPosition();
+            var pivotLocalPos = this.GetPivotLocalPosition();
+
             BoundingBox = new Rectangle(
-                CalculateCorner(_position, r.LeftTop, center, cos, sin),
-                CalculateCorner(_position, r.RightTop, center, cos, sin),
-                CalculateCorner(_position, r.RightBottom, center, cos, sin),
-                CalculateCorner(_position, r.LeftBottom, center, cos, sin)
-            );
+               CalculateCorner(r.LeftTop, Point.Zero, pivotWorldPos, pivotLocalPos),
+               CalculateCorner(r.RightTop, Point.Right, pivotWorldPos, pivotLocalPos),
+               CalculateCorner(r.RightBottom, new Point(1,1), pivotWorldPos, pivotLocalPos),
+               CalculateCorner(r.LeftBottom, Point.Down, pivotWorldPos, pivotLocalPos)
+           );
         }
 
-        private Point CalculateCorner(Point pos, Point corner, Point center, float angleCos, float angleSin)
+        private Point CalculateCorner(Point cornerWorlPos, Point cornerLocalPos, Point pivotWorldPos, Point pivotLocalPos)
         {
-            return new Point(((corner.X - center.X) * angleCos - (corner.Y - center.Y) * angleSin) + pos.X,
-                             ((corner.Y - center.Y) * angleCos + (corner.X - center.X) * angleSin) + pos.Y);
+            var originTranslationMatrix = Matrix.CreateTranslation(pivotWorldPos.X, pivotWorldPos.Y);
+
+            var pivotCornerPosition = cornerWorlPos - pivotLocalPos;
+            var cornerTranslationMatrix = Matrix.CreateTranslation(pivotCornerPosition.X, pivotCornerPosition.Y);
+         
+            // http://web.cse.ohio-state.edu/~shen.94/681/Site/Slides_files/transformation_review.pdf
+            // Affine Transformation 
+            var transformMatrix = originTranslationMatrix * _scalingMatrix * cornerTranslationMatrix;
+       
+            return cornerWorlPos.Transform(transformMatrix);
         }
     }
 }

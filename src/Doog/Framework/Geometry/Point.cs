@@ -180,6 +180,13 @@ namespace Doog
             return string.Format("X={0}, Y={1}", X, Y);
         }
 
+        public Point Transform(Matrix matrix)
+        {
+            return new Point(
+                matrix.M11 * X + matrix.M12 * Y + matrix.M13,
+                matrix.M21 * X + matrix.M22 * Y + matrix.M23);
+        }
+
         /// <summary>
         /// Calculates the linear interpolation between the points in the time specified.
         /// </summary>

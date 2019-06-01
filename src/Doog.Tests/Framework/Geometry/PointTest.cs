@@ -162,5 +162,19 @@ namespace Doog.Tests.Framework.Geometry
 
             Assert.AreEqual("X=1, Y=2", target.ToString());
         }
+
+        [Test]
+        public void Transform_Matrix_XAndYTranformed()
+        {
+            var target = new Point(10, 20);
+            var matrix = new Matrix(1, 2, 3, 
+                                    4, 5, 6, 
+                                    7, 8, 9);
+
+            var actual = target.Transform(matrix);
+
+            Assert.AreEqual(53, actual.X);
+            Assert.AreEqual(146, actual.Y);
+        }
     }
 }
