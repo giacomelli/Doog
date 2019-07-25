@@ -1,14 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Doog;
-
-namespace Doog
+﻿namespace Doog
 {
+    /// <summary>
+    /// Defines an interface for collidable objects in the phisycs system.
+    /// </summary>
+    /// <seealso cref="Doog.IComponent" />
     public interface ICollidable : IComponent
     {
-		Transform Transform { get; }
+        /// <summary>
+        /// Gets the transform.
+        /// </summary>
+        Transform Transform { get; }
+
+        /// <summary>
+        /// Called when some collidable collides with this instance.
+        /// </summary>
+        /// <param name="collision">The collision.</param>
         void OnCollision(Collision collision);
     }
 }

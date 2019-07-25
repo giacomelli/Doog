@@ -1,22 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using Doog;
 
 namespace Doog
 {
+    /// <summary>
+    /// A component base class.
+    /// </summary>
     [DebuggerDisplay("{Tag}")]
     public abstract class ComponentBase : IComponent
     {
-        private IList<IComponent> children;
-        private bool enabled;
+        private readonly IList<IComponent> _children;
+        private bool _enabled;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Doog.ComponentBase"/> class.
+        /// </summary>
+        /// <param name="context">The world context.</param>
+        /// <param name="addToContext">If set to <c>true</c> the component will be added to context.</param>
         protected ComponentBase(IWorldContext context, bool addToContext)
         {
             Context = context;
-            enabled = true;
+            _enabled = true;
 			Tag = GetType().Name;
-            children = new List<IComponent>();
+            _children = new List<IComponent>();
 
             if (addToContext)
             {
@@ -24,23 +30,31 @@ namespace Doog
             }
         }
 
-		protected ComponentBase(IWorldContext context)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Doog.ComponentBase"/> class.
+        /// </summary>
+        /// <param name="context">The world context.</param>
+        protected ComponentBase(IWorldContext context)
             : this(context, true)
 		{
 		}
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:Doog.ComponentBase"/> is enabled.
+        /// </summary>
+        /// <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>
         public virtual bool Enabled
         {
             get 
             {
-                return enabled;
+                return _enabled;
             }
 
             set 
             {
-                if(value != enabled)
+                if(value != _enabled)
                 {
-                    enabled = value;
+                    _enabled = value;
 
                     if (value)
                     {
@@ -53,9 +67,23 @@ namespace Doog
                 }    
             }
         }
+
+        /// <summary>
+        /// Gets or sets the tag.
+        /// </summary>
+        /// <value>The tag.</value>
 		public string Tag { get; set; }
+
+        /// <summary>
+        /// Gets the world context.
+        /// </summary>
+        /// <value>The context.</value>
         public IWorldContext Context { get; private set; }
 
+        /// <summary>
+        /// Gets the log sytem.
+        /// </summary>
+        /// <value>The log.</value>
         protected ILogSystem Log 
         {
             get
@@ -64,21 +92,35 @@ namespace Doog
             }
         }
 
+        /// <summary>
+        /// Adds the child to the component,.
+        /// </summary>
+        /// <param name="component">Component.</param>
         public void AddChild(IComponent component)
         {
-            children.Add(component);
+            _children.Add(component);
         }
 
+        /// <summary>
+        /// Gets the children components.
+        /// </summary>
+        /// <returns>The children.</returns>
         public IEnumerable<IComponent> GetChildren()
         {
-            return children;
+            return _children;
         }
 
+        /// <summary>
+        /// Called when component became enabled.
+        /// </summary>
         protected virtual void OnEnabled()
         {
             Log.Debug("{0} enabled.", this);
         }
 
+        /// <summary>
+        /// Called when component became disabled.
+        /// </summary>
         protected virtual void OnDisabled()
         {
             Log.Debug("{0} disabled.", this);

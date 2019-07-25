@@ -5,6 +5,9 @@
 	/// </summary>
 	public interface IUpdatable : IComponent
 	{
+        /// <summary>
+        /// Update this instance.
+        /// </summary>
 		void Update();
 	}
 }

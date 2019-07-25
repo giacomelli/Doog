@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Doog;
 
-namespace Doog.UnitTests.Logging
+namespace Doog.Tests.Framework.Logging
 {
     [TestFixture]
     public class NullLogSystemTest

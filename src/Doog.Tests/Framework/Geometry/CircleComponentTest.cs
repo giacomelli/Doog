@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using NSubstitute;
 
-namespace Doog.UnitTests.Geometry
+namespace Doog.Tests.Framework.Geometry
 {
     [TestFixture]
     public class CircleComponentTest
@@ -23,7 +23,7 @@ namespace Doog.UnitTests.Geometry
             Assert.AreEqual(28, circle.Bottom);
 			target.Draw(drawCtx);
 
-            canvas.Received().Draw(target, true, '#');
+            canvas.Received().Draw(target, true, '#'.White());
         }
 	}
 }

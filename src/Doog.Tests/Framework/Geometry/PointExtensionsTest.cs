@@ -2,7 +2,7 @@
 using System;
 using Doog;
 
-namespace Doog.UnitTests.Geometry
+namespace Doog.Tests.Framework.Geometry
 {
     [TestFixture]
     public class PointExtensionsTest

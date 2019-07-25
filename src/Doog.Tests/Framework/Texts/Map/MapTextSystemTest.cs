@@ -2,7 +2,7 @@
 using System;
 using NSubstitute;
 
-namespace Doog.UnitTests
+namespace Doog.Tests.Framework.Texts.Map
 {
     [TestFixture]
 	public class MapTextSystemTest
@@ -54,9 +54,9 @@ namespace Doog.UnitTests
 			target.Initialize();
 			target.Draw(5, 10, "ABC", "Default");
 
-            gfx.Received().Draw(5, 10, 'A');
-            gfx.Received().Draw(6, 10, 'B');
-            gfx.Received().Draw(7, 10, 'C');
+            gfx.Received().Draw(5, 10, 'A'.White());
+            gfx.Received().Draw(6, 10, 'B'.White());
+            gfx.Received().Draw(7, 10, 'C'.White());
         }
 	}
 }

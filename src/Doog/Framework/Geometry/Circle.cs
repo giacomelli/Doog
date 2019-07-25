@@ -7,80 +7,92 @@ namespace Doog
     /// </summary>
     public struct Circle : ICircle
     {
-        private readonly float left;
-        private readonly float top;
-        private readonly float right;
-        private readonly float bottom;
-        private readonly float radius;
+        private readonly float _left;
+        private readonly float _top;
+        private readonly float _right;
+        private readonly float _bottom;
+        private readonly float _radius;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Circle"/> struct.
+        /// </summary>
+        /// <param name="point">The pivot point.</param>
+        /// <param name="radius">The radius.</param>
         public Circle(Point point, float radius)
             : this(point.X, point.Y, radius)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Circle"/> struct.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="top">The top.</param>
+        /// <param name="radius">The radius.</param>
         public Circle(float left, float top, float radius)
         {
-            this.left = left;
-            this.top = top;
-            this.radius = radius;
-            this.right = left + radius * 2;
-            this.bottom = top + radius * 2; 
+            _left = left;
+            _top = top;
+            _radius = radius;
+            _right = left + radius * 2;
+            _bottom = top + radius * 2; 
         }
 
+        /// <summary>
+        /// Gets a point in the circle in the specified position, radius and angle.
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="angleInDegrees">The angle in degrees.</param>
+        /// <returns>The point.</returns>
         public static Point GetPoint(Point position, float radius, float angleInDegrees)
-        {
-            // TODO: create a type Angle (with properties Radians and Degrees)
+        {            
             var angleInRadians = angleInDegrees * Math.PI / 180f;
             return new Point(
                 position.X + radius * (float)Math.Cos(angleInRadians),
                 position.Y + radius * (float)Math.Sin(angleInRadians));
         }
 
-		public float Left
-		{
-			get
-			{
-				return left;
-			}
-		}
+        /// <summary>
+        /// Gets the most left x coordinate.
+        /// </summary>
+        public float Left => _left;
 
-		public float Top
-		{
-			get
-			{
-				return top;
-			}
-		}
+        /// <summary>
+        /// Gets the most top y coordinate.
+        /// </summary>
+        public float Top => _top;
 
-		public float Right
-		{
-			get
-			{
-				return right;
-			}
-		}
+        /// <summary>
+        /// Gets the most right x coordinate.
+        /// </summary>
+        public float Right => _right;
 
-		public float Bottom 
-		{
-			get
-			{
-				return bottom;
-			}
-		}
+        /// <summary>
+        /// Gets the most bottom y coordinate.
+        /// </summary>
+        public float Bottom => _bottom;
 
+        /// <summary>
+        /// Gets the radius.
+        /// </summary>        
         public float Radius 
         {
             get
             {
-                return radius;
+                return _radius;
             }
         }
 
-		public Point GetCenter()
+        /// <summary>
+        /// Gets the center point.
+        /// </summary>
+        /// <returns></returns>
+        public Point GetCenter()
 		{
 			return new Point(
-				left + (right - left) / 2,
-				top + (bottom - top) / 2);
+				_left + (_right - _left) / 2,
+				_top + (_bottom - _top) / 2);
 		}
     }
 }

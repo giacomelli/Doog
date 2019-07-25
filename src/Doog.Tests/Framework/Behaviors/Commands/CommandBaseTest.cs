@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using NSubstitute; 
 
-namespace Doog.UnitTests.Behaviors.Commands
+namespace Doog.Tests.Framework.Behaviors.Commands
 {
     [TestFixture]
     public class CommandBaseTest

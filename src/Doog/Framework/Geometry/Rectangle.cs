@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace Doog
 {
@@ -9,8 +8,18 @@ namespace Doog
     [DebuggerDisplay("{Left}, {Top}, {Right}, {Bottom}")]
     public struct Rectangle
     {
+        /// <summary>
+        /// new Rectangle(0, 0, 0, 0).
+        /// </summary>
         public static readonly Rectangle Zero = new Rectangle(0, 0, 0, 0);
-     
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Rectangle"/> struct.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="top">The top.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
         public Rectangle(float left, float top, float width, float height)
         {
             this.LeftTop = new Point(left, top);
@@ -31,49 +40,63 @@ namespace Doog
             this.Height = leftTop.DistanceFrom(leftBottom);
         }
 
+        /// <summary>
+        /// Gets the left top point.
+        /// </summary>
         public Point LeftTop { get; private set; }
+
+        /// <summary>
+        /// Gets the right top point.
+        /// </summary>
         public Point RightTop { get; private set; }
+
+        /// <summary>
+        /// Gets the right bottom point.
+        /// </summary>
         public Point RightBottom { get; private set; }
+
+        /// <summary>
+        /// Gets the left bottom point.
+        /// </summary>
         public Point LeftBottom { get; private set; }
 
+        /// <summary>
+        /// Gets the left.
+        /// </summary>
+        public float Left => LeftTop.X;
 
+        /// <summary>
+        /// Gets the top.
+        /// </summary>   
+        public float Top => LeftTop.Y;
 
-		public float Left
-        {
-            get
-            {
-                return LeftTop.X;
-            }
-        }
+        /// <summary>
+        /// Gets the right.
+        /// </summary>
+        public float Right => RightTop.X;
 
-        public float Top
-        {
-            get
-            {
-                return LeftTop.Y;
-            }
-        }
+        /// <summary>
+        /// Gets the bottom.
+        /// </summary>
+        public float Bottom => RightBottom.Y;
 
-        public float Right
-        {
-            get
-            {
-                return RightTop.X;
-            }
-        }
-
-        public float Bottom
-        {
-            get
-            {
-                return RightBottom.Y;
-            }
-        }
-
+        /// <summary>
+        /// Gets the width.
+        /// </summary>
         public float Width { get; private set; }
-     
+
+        /// <summary>
+        /// Gets the height.
+        /// </summary>
         public float Height { get; private set; }
-      
+
+        /// <summary>
+        /// Determines whether the specified point is a point in the rectangle.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <returns>
+        ///   <c>true</c> if contains the specified point; otherwise, <c>false</c>.
+        /// </returns>
         public bool Contains(Point point)
         {
             return !(point.X < Left ||
@@ -82,7 +105,12 @@ namespace Doog
                     point.Y > Bottom);
         }
 
-		public bool Intersect(Rectangle other)
+        /// <summary>
+        /// Determines whether this rectangle intersects the specified one.
+        /// </summary>
+        /// <param name="other">The other rectangle.</param>
+        /// <returns>True if intersects, othewise false</returns>
+        public bool Intersect(Rectangle other)
         {
             if (Left > other.Right || other.Left > Right
              || Top > other.Bottom || other.Top > Bottom)
@@ -93,6 +121,10 @@ namespace Doog
             return true;
         }
 
+        /// <summary>
+        /// Gets the center.
+        /// </summary>
+        /// <returns>The center point.</returns>
         public Point GetCenter()
         {
             return new Point(
@@ -100,6 +132,13 @@ namespace Doog
                 Top + (Bottom - Top) / 2);
         }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
         public override bool Equals(object obj)
         {
             if (!(obj is Rectangle))
@@ -110,6 +149,12 @@ namespace Doog
             return ((Rectangle)obj) == this;
         }
 
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
         public override int GetHashCode()
         {
             unchecked
@@ -124,11 +169,26 @@ namespace Doog
             }
         }
 
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
-            return "{0}, {1} | {2}, {3}".With(Left, Top, Width, Height);
+            return $"{Left}, {Top} | {Width}, {Height}";
         }
 
+
+        /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="a">The rectangle A.</param>
+        /// <param name="b">The rectangle B.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static bool operator ==(Rectangle a, Rectangle b)
         {
             return a.Left.EqualsTo(b.Left)
@@ -138,16 +198,40 @@ namespace Doog
 
         }
 
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="a">The rectangle A.</param>
+        /// <param name="b">The rectangle B.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static bool operator !=(Rectangle a, Rectangle b)
         {
             return !(a == b);
         }
 
+        /// <summary>
+        /// Implements the operator *
+        /// </summary>
+        /// <param name="a">The rectangle A.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static Rectangle operator *(Rectangle a, float multiplier)
         {
             return new Rectangle(a.Left, a.Top, a.Width * multiplier, a.Height * multiplier);
         }
 
+        /// <summary>
+        /// Implements the operator +
+        /// </summary>
+        /// <param name="a">The rectangle A.</param>
+        /// <param name="b">The point to sum.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static Rectangle operator +(Rectangle a, Point b)
         {
             return new Rectangle(

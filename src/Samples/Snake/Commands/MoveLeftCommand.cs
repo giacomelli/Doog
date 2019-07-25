@@ -4,9 +4,11 @@ namespace Snake.Commands
 {
     public class MoveLeftCommand : CommandBase<Snake>
     {
-        protected override void Execute(Snake snake)
+        protected override void Execute(Snake target)
         {
-            snake.MoveLeft();
+            target.MoveLeft();
         }
+
+        public static MoveLeftCommand Default => new MoveLeftCommand();
     }
 }

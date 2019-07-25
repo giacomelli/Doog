@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using NSubstitute;
 
-namespace Doog.UnitTests.Animations
+namespace Doog.Tests.Framework.Animations
 {
     [TestFixture]
     public class AnimationPipelineTest

@@ -61,6 +61,10 @@
             };
         }
 
+        /// <summary>
+        /// Gets a random easing.
+        /// </summary>
+        /// <returns>An easing.</returns>
         public static IEasing Random()
         {
             return All.Rand();

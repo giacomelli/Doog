@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using NSubstitute;
 
-namespace Doog.UnitTests.Physics
+namespace Doog.Tests.Framework.Physics
 {
     [TestFixture]
 	public class PhysicSystemTest

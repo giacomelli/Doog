@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Doog;
 
-namespace Doog.UnitTests.Geometry
+namespace Doog.Tests.Framework.Geometry
 {
     [TestFixture]
     public class CircleTsst

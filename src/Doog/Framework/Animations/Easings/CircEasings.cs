@@ -7,6 +7,13 @@ namespace Doog
     /// </summary>
     public class InCircEasing : IEasing
     {
+        /// <summary>
+        /// Calculate the easing to the specified time.
+        /// </summary>
+        /// <param name="time">Time.</param>
+        /// <returns>
+        /// The easing to the time.
+        /// </returns>
         public float Calculate(float time)
         {
             return 1 - (float)Math.Sqrt(1 - (time * time));
@@ -18,6 +25,13 @@ namespace Doog
     /// </summary>
     public class OutCircEasing : IEasing
     {
+        /// <summary>
+        /// Calculate the easing to the specified time.
+        /// </summary>
+        /// <param name="time">Time.</param>
+        /// <returns>
+        /// The easing to the time.
+        /// </returns>
         public float Calculate(float time)
         {
             return (float)Math.Sqrt((2 - time) * time);
@@ -29,6 +43,13 @@ namespace Doog
     /// </summary>
     public class InOutCircEasing : IEasing
     {
+        /// <summary>
+        /// Calculate the easing to the specified time.
+        /// </summary>
+        /// <param name="time">Time.</param>
+        /// <returns>
+        /// The easing to the time.
+        /// </returns>
         public float Calculate(float time)
         {
 			if (time < 0.5f)

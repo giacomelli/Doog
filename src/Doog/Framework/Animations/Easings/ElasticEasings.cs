@@ -7,6 +7,13 @@ namespace Doog
 	/// </summary>
 	public class InElasticEasing : IEasing
     {
+        /// <summary>
+        /// Calculate the easing to the specified time.
+        /// </summary>
+        /// <param name="time">Time.</param>
+        /// <returns>
+        /// The easing to the time.
+        /// </returns>
         public float Calculate(float time)
         {
             return (float) (Math.Sin(13 * EasingConstants.HalfPI * time) * Math.Pow(2, 10 * (time - 1)));
@@ -18,6 +25,13 @@ namespace Doog
 	/// </summary>
 	public class OutElasticEasing : IEasing
 	{
+        /// <summary>
+        /// Calculate the easing to the specified time.
+        /// </summary>
+        /// <param name="time">Time.</param>
+        /// <returns>
+        /// The easing to the time.
+        /// </returns>
         public float Calculate(float time)
 		{
             return (float)(Math.Sin(-13 * EasingConstants.HalfPI * (time + 1)) * Math.Pow(2, -10 * time) + 1);
@@ -29,6 +43,13 @@ namespace Doog
 	/// </summary>
 	public class InOutElasticEasing : IEasing
 	{
+        /// <summary>
+        /// Calculate the easing to the specified time.
+        /// </summary>
+        /// <param name="time">Time.</param>
+        /// <returns>
+        /// The easing to the time.
+        /// </returns>
         public float Calculate(float time)
         {
 			if (time < 0.5f)

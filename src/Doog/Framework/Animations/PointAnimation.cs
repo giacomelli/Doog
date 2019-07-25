@@ -9,9 +9,17 @@ namespace Doog
     public class PointAnimation<TOwner> : AnimationBase<TOwner, Point>
         where TOwner : IComponent
     {
-        private Func<TOwner, Point> getFrom;
-        private Action<Point> callback;
+        private readonly Func<TOwner, Point> getFrom;
+        private readonly Action<Point> callback;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PointAnimation{TOwner}"/> class.
+        /// </summary>
+        /// <param name="owner">The owner.</param>
+        /// <param name="getFrom">The get from ponit.</param>
+        /// <param name="to">The to point.</param>
+        /// <param name="duration">The duration.</param>
+        /// <param name="callback">The callback.</param>
         public PointAnimation(TOwner owner, Func<TOwner, Point> getFrom, Point to, float duration, Action<Point> callback)
             : base(owner, duration)
         {
@@ -20,12 +28,19 @@ namespace Doog
             this.callback = callback;
         }
 
+        /// <summary>
+        /// Play the animation.
+        /// </summary>
         public override void Play()
         {
             From = getFrom(Owner);
 			base.Play();
         }
 
+        /// <summary>
+        /// Updates the value.
+        /// </summary>
+        /// <param name="time">The animation time.</param>
         protected override void UpdateValue(float time)
         {
             callback(new Point(
@@ -33,7 +48,10 @@ namespace Doog
                 Easing.Calculate(From.Y, To.Y, time)));
         }
 
-		public override void Reset()
+        /// <summary>
+        /// Reset the animation.
+        /// </summary>
+        public override void Reset()
 		{
             callback(From);
 			base.Reset();

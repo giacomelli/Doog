@@ -23,7 +23,7 @@ namespace Snake
 			this.OpenScene<ClassicModeLevelScene>();
 		}
 
-		protected virtual void Dispose(bool disposing)
+		protected override void Dispose(bool disposing)
 		{
 			if (!disposed)
 			{

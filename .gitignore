@@ -290,8 +290,8 @@ __pycache__/
 *.pyc
 
 # Cake - Uncomment if you are using it
-# tools/**
-# !tools/packages.config
+tools/**
+!tools/packages.config
 
 # Telerik's JustMock configuration file
 *.jmconfig
@@ -303,3 +303,5 @@ __pycache__/
 *.xsd.cs
 
 .vscode/
+.sonarqube/
+coverage.opencover.xml

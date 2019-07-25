@@ -12,7 +12,7 @@ namespace Snake.Commands
 
         public Keys MoveRight { get; set; }
 
-        public static KeyBinding Default = new KeyBinding
+        public static KeyBinding Default => new KeyBinding
         {
             MoveDown = Keys.DownArrow,
             MoveLeft = Keys.LeftArrow,

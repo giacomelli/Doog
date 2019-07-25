@@ -8,5 +8,7 @@ namespace Snake.Commands
         {
             target.MoveRight();
         }
+
+        public static MoveRightCommand Default => new MoveRightCommand();
     }
 }

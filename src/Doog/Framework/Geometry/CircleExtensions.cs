@@ -8,7 +8,16 @@ namespace Doog
     /// </summary>
     public static class CircleExtensions
     {
-        // http://www.mathopenref.com/coordcirclealgorithm.html
+        /// <summary>
+        /// Iterates through the circle points.
+        /// </summary>
+        /// <param name="circle">The circle.</param>
+        /// <param name="step">Action called each point iterate.</param>
+        /// <param name="radiusStep">The radius step.</param>
+        /// <param name="degreesStepSize">The degrees step size.</param>
+        /// <remarks>
+        /// http://www.mathopenref.com/coordcirclealgorithm.html
+        /// </remarks> 
         public static void Iterate(this ICircle circle, Action<float, float> step, float radiusStep = 1f, float degreesStepSize = 1f)
         {
             if (radiusStep <= 0)

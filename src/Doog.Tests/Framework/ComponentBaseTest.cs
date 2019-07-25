@@ -2,7 +2,7 @@
 using NSubstitute;
 using System.Linq;
 
-namespace Doog.UnitTests
+namespace Doog.Tests.Framework
 {
     [TestFixture]
     public class ComponentBaseTest
@@ -14,12 +14,14 @@ namespace Doog.UnitTests
             var logSystem = Substitute.For<ILogSystem>();
             wc.LogSystem.Returns(logSystem);
 
-            var target = Substitute.ForPartsOf<ComponentBase>(wc, false); 
-
-            target.Enabled = false;
+            var target = new StubComponent(wc, false)
+            {
+                Enabled = false
+            };
 
             if (!target.Enabled)
             {
+                Assert.IsFalse(target.Enabled);
                 target.Enabled = true;
             }
 

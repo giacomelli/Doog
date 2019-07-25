@@ -27,6 +27,13 @@ namespace Doog
 			}
         }
 
+        /// <summary>
+        /// Calculate the easing to the specified time.
+        /// </summary>
+        /// <param name="time">Time.</param>
+        /// <returns>
+        /// The easing to the time.
+        /// </returns>
         public float Calculate(float time)
         {
             return 1 - GetBounce(1 - time);
@@ -38,6 +45,13 @@ namespace Doog
 	/// </summary>
 	public class OutBounceEasing : IEasing
     {
+        /// <summary>
+        /// Calculate the easing to the specified time.
+        /// </summary>
+        /// <param name="time">Time.</param>
+        /// <returns>
+        /// The easing to the time.
+        /// </returns>
         public float Calculate(float time)
         {
             return InBounceEasing.GetBounce(time);
@@ -49,6 +63,13 @@ namespace Doog
 	/// </summary>
 	public class InOutBounceEasing : IEasing
 	{
+        /// <summary>
+        /// Calculate the easing to the specified time.
+        /// </summary>
+        /// <param name="time">Time.</param>
+        /// <returns>
+        /// The easing to the time.
+        /// </returns>
         public float Calculate(float time)
 		{
 			if (time < 0.5f)

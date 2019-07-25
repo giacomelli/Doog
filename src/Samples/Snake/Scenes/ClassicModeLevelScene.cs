@@ -6,8 +6,7 @@ namespace Snake.Scenes
     public class ClassicModeLevelScene : SceneBase
     {
         private const int MaxSnakes = 1;
-        private Snake[] snakes;
-
+    
         public ClassicModeLevelScene(IWorldContext context)
             : base(context)
         {
@@ -25,11 +24,11 @@ namespace Snake.Scenes
             wallSpawner.Spawn();
 
             // Create the snakes.
-            snakes = new Snake[MaxSnakes];
+            var snakes = new Snake[MaxSnakes];
 
             for (int i = 0; i < MaxSnakes; i++)
             {
-                var snake = new Snake(Context, new KeyboardCommandReader(Context.InputSystem, new KeyBinding()));
+                var snake = new Snake(Context, new KeyboardCommandReader(Context.InputSystem, KeyBinding.Default));
                 snake.Initialize(center.X, center.Y + i, 5);
                 snake.Died += delegate
                 {
@@ -57,25 +56,25 @@ namespace Snake.Scenes
             PortalBridge.Create(
                 bounds.TopCenterPoint() + new Point(offsetFromRightX, offsetY),
                 bounds.LeftBottomPoint() + new Point(offsetFromLeftX, -offsetY - 1),
-                '1',
+                Pixel.Red,
                 Context);
 
             PortalBridge.Create(
 				bounds.TopCenterPoint() + new Point(offsetFromLeftX, offsetY),
 				bounds.RightBottomPoint() + new Point(offsetFromRightX, -offsetY - 1),
-                '2',
+                Pixel.Green,
 				Context);
 
             PortalBridge.Create(
                 bounds.LeftCenterPoint() + new Point(offsetFromLeftX, offsetY),
                 bounds.RightCenterPoint() + new Point(offsetFromRightX, -offsetY),
-                '3',
+                Pixel.Blue,
                 Context);
 
             PortalBridge.Create(
                 bounds.LeftCenterPoint() + new Point(offsetFromLeftX, -offsetY),
                 bounds.RightCenterPoint() + new Point(offsetFromRightX, offsetY),
-                '4',
+                Pixel.Yellow,
                 Context);
         }
 
@@ -87,7 +86,7 @@ namespace Snake.Scenes
         public override void Draw(IDrawContext drawContext)
         {
             drawContext.TextSystem
-                       .Draw(Context.Bounds.Left, 3, "Doog's Snake");
+                       .Draw(Context.Bounds.Left, 3, "Doog's Snake", Color.DarkGreen);
         }
     }
 }

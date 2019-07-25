@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using NSubstitute;
 
-namespace Doog.UnitTests.Geometry
+namespace Doog.Tests.Framework.Geometry
 {
     [TestFixture]
     public class LineComponentTest
@@ -31,7 +31,7 @@ namespace Doog.UnitTests.Geometry
             var target = new LineComponent(new Point(10, 20), new Point(15, 25), ctx);
 			target.Draw(drawCtx);
 
-            canvas.Received().Draw(target, '#');
+            canvas.Received().Draw(target, '#'.White());
         }
     }
 }

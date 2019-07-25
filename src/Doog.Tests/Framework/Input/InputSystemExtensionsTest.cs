@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using NSubstitute;
 
-namespace Doog.UnitTests.Input
+namespace Doog.Tests.Framework.Input
 {
     [TestFixture]
     public class InputSystemExtensionsTest

@@ -3,24 +3,41 @@
 namespace Doog
 {
     /// <summary>
-    /// A console to show stats by game world.
+    /// A console to show stats of the game world.
     /// </summary>
     public class WorldStatsConsole : ComponentBase, IDrawable, ISceneSurvivable
     {
-        private readonly Point position;
-   
+        private readonly Point _position;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorldStatsConsole"/> class.
+        /// </summary>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        /// <param name="context">The context.</param>
         private WorldStatsConsole(float x, float y, IWorldContext context)
             : base(context)
         {
-            this.position = new Point(x, y);
+            this._position = new Point(x, y);
         }
 
+        /// <summary>
+        /// Creates the WorldStatsConsole on the specified position and context.
+        /// </summary>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        /// <param name="context">The context.</param>
+        /// <returns></returns>
         public static WorldStatsConsole Create(float x, float y, IWorldContext context)
         {
             return new WorldStatsConsole(x, y, context);
         }
 
-        public void Draw(IDrawContext ctx)
+        /// <summary>
+        /// Draws the instance on the specified draw context.
+        /// </summary>
+        /// <param name="drawContext">The draw context.</param>
+        public void Draw(IDrawContext drawContext)
         {
             var components = Context.Components;
             var enabledComponentsCount = components.Count(c => c.Enabled);
@@ -30,23 +47,31 @@ namespace Doog
             var collidablesCount = components.Count(c => c is ICollidable);
             var sceneSurvivablescount = components.Count(c => c is ISceneSurvivable);
 
-            var x = position.X;
-            var y = position.Y;
-            var ts = ctx.TextSystem;
+            var x = _position.X;
+            var y = _position.Y;
+            var ts = drawContext.TextSystem;
 
             ts
-                .Draw(x, y,   "FPS                        : {0:N0}".With(1f / Context.Time.SinceLastFrame), "Debug")
-                .Draw(x, ++y, "Since scene start          : {0:N0}".With(Context.Time.SinceSceneStart), "Debug")
-                .Draw(x, ++y, "Components                 : {0}".With(components.Count), "Debug")
-                .Draw(x, ++y, "Enabled components         : {0}".With(enabledComponentsCount), "Debug")
-                .Draw(x, ++y, "Disabled components        : {0}".With(disabledComponentsCount), "Debug")
-                .Draw(x, ++y, "Updatable components       : {0}".With(updatablesCount), "Debug")
-                .Draw(x, ++y, "Drawable components        : {0}".With(drawablesCount), "Debug")
-                .Draw(x, ++y, "Collidable components      : {0}".With(collidablesCount), "Debug")
-                .Draw(x, ++y, "Scene survivable components: {0}".With(sceneSurvivablescount), "Debug");
+                .Draw(x, y,   $"FPS                        : {(1f / Context.Time.SinceLastFrame):N0}", fontName:"Debug")
+                .Draw(x, ++y, $"Since scene start          : {Context.Time.SinceSceneStart:N0}", fontName:"Debug")
+                .Draw(x, ++y, $"Components                 : {components.Count}", fontName: "Debug")
+                .Draw(x, ++y, $"Enabled components         : {enabledComponentsCount}", fontName: "Debug")
+                .Draw(x, ++y, $"Disabled components        : {disabledComponentsCount}", fontName: "Debug")
+                .Draw(x, ++y, $"Updatable components       : {updatablesCount}", fontName: "Debug")
+                .Draw(x, ++y, $"Drawable components        : {drawablesCount}", fontName: "Debug")
+                .Draw(x, ++y, $"Collidable components      : {collidablesCount}", fontName: "Debug")
+                .Draw(x, ++y, $"Scene survivable components: {sceneSurvivablescount}", fontName: "Debug");
 
         }
 
+        /// <summary>
+        /// Verify if this instance can survive when scene changes.
+        /// </summary>
+        /// <param name="fromScene">From scene.</param>
+        /// <param name="toScene">To scene.</param>
+        /// <returns>
+        ///   <c>true</c>, if can survive, <c>false</c> otherwise.
+        /// </returns>
         public bool CanSurvive(IScene fromScene, IScene toScene)
         {
             return true;

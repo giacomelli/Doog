@@ -6,12 +6,12 @@ namespace Doog
     internal class AnimationPipeline<TOwner> : IAnimationPipeline<TOwner>
         where TOwner : IComponent
     {
-        private List<IAnimation<TOwner>> animations;
+        private readonly List<IAnimation<TOwner>> animations;
         private int currentAnimationIndex;
         private IAnimation currentAnimation;
         private IAnimationPipelineController controller;
         private int currentTimes;
-        private int maxTimes;
+        private int _times;
         private int timesDivider;
 
         protected AnimationPipeline()
@@ -73,16 +73,16 @@ namespace Doog
             return Run(PipelineKind.Once);
         }
 
-        public IAnimationPipelineController Loop(int maxTimes = 0)
+        public IAnimationPipelineController Loop(int times = 0)
         {
-            this.maxTimes = maxTimes;
+            _times = times;
             timesDivider = 1;
             return Run(PipelineKind.Loop);
         }
 
-        public IAnimationPipelineController PingPong(int maxTimes = 0)
+        public IAnimationPipelineController PingPong(int times = 0)
         {
-            this.maxTimes = maxTimes;
+            _times = times;
             timesDivider = 2;
             return Run(PipelineKind.PingPong);
         }
@@ -198,7 +198,7 @@ namespace Doog
             else
             {
                 // Loop or PingPong with maxTimes.
-                if (maxTimes > 0 && currentTimes / timesDivider == maxTimes)
+                if (_times > 0 && currentTimes / timesDivider == _times)
                 {
                     Destroy();
                 }
@@ -248,7 +248,7 @@ namespace Doog
 
         private void Log(string message, params object[] args)
         {
-            Owner.Context.LogSystem.Debug("PIPELINE: {0}".With(message), args);
+            Owner.Context.LogSystem.Debug($"PIPELINE: {message}", args);
         }
     }
 }

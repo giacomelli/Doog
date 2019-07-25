@@ -2,7 +2,7 @@
 using System.Text;
 using Doog;
 
-namespace Doog.UnitTests.Logging
+namespace Doog.Tests.Framework.Logging
 {
     public class StubLogSystem : LogSystemBase
     {

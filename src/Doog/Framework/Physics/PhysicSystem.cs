@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Doog;
 
 namespace Doog
 {
@@ -11,19 +8,34 @@ namespace Doog
     /// </summary>
 	public class PhysicSystem : IPhysicSystem
 	{
-		private IList<ICollidable> collidables = new List<ICollidable>();
+		private readonly IList<ICollidable> _collidables = new List<ICollidable>();
 
-		public void AddCollidable(ICollidable collidable)
+        /// <summary>
+        /// Adds a collidable object to the physics system.
+        /// </summary>
+        /// <param name="collidable">The collidable.</param>
+        public void AddCollidable(ICollidable collidable)
 		{
-			collidables.Add(collidable);
+			_collidables.Add(collidable);
 		}
 
-		public void RemoveCollidable(ICollidable collidable)
+        /// <summary>
+        /// Removes the collidable object from the physics system.
+        /// </summary>
+        /// <param name="collidable">The collidable.</param>
+        public void RemoveCollidable(ICollidable collidable)
 		{
-			collidables.Remove(collidable);
+			_collidables.Remove(collidable);
 		}
 
-		public IList<Collision> GetCollisions(ICollidable collidable)
+        /// <summary>
+        /// Gets the collisions of the specified collidable with others collidables in the physics system.
+        /// </summary>
+        /// <param name="collidable">The collidable.</param>
+        /// <returns>
+        /// The collisions.
+        /// </returns>
+        public IList<Collision> GetCollisions(ICollidable collidable)
 		{
 			var collisions = new List<Collision>();
 			FindCollisions((collidable1, collidable2) =>
@@ -36,7 +48,14 @@ namespace Doog
 			return collisions;
 		}
 
-		public bool AnyCollision(ICollidable collidable)
+        /// <summary>
+        /// Determinies whether the specified collidable is colliding with others collidables in the physics system.
+        /// </summary>
+        /// <param name="collidable">The collidable.</param>
+        /// <returns>
+        /// True if collides, otherwise false.
+        /// </returns>
+        public bool AnyCollision(ICollidable collidable)
 		{
 			var result = false;
 
@@ -54,7 +73,10 @@ namespace Doog
 			return result;
 		}
 
-		public void Update()
+        /// <summary>
+        /// Updates this instance.
+        /// </summary>
+        public void Update()
 		{
 			FindCollisions((collidable1, collidable2) =>
 			{
@@ -67,14 +89,14 @@ namespace Doog
 
 		private void FindCollisions(Func<ICollidable, ICollidable, bool> found)
 		{
-            var count = collidables.Count;
+            var count = _collidables.Count;
             ICollidable collidable1;
             ICollidable collidable2;
             Rectangle collidable1BoundingBox;
 
 		    for (int i = 0; i < count; i++)
 			{
-				collidable1 = collidables[i];
+				collidable1 = _collidables[i];
 
 				if (!collidable1.Enabled)
 				{
@@ -85,19 +107,17 @@ namespace Doog
 
 				for (int j = i + 1; j < count; j++)
 				{
-					collidable2 = collidables[j];
+					collidable2 = _collidables[j];
 
 					if (!collidable2.Enabled)
 					{
 						continue;
 					}
 
-					if (collidable1BoundingBox.Intersect(collidable2.Transform.BoundingBox))
+					if (collidable1BoundingBox.Intersect(collidable2.Transform.BoundingBox)
+                    && !found(collidable1, collidable2))
 					{
-						if (!found(collidable1, collidable2))
-						{
-							return;
-						}
+                        return;						
 					}
 				}
 			}

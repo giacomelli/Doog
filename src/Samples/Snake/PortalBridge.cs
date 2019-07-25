@@ -4,21 +4,18 @@ namespace Snake
 {
     public class PortalBridge
     {
-        private readonly Portal portalA;
-        private readonly Portal portalB;
-
-        private PortalBridge(Point pointA, Point pointB, char sprite, IWorldContext ctx)
+         private PortalBridge(Point pointA, Point pointB, Pixel pixel, IWorldContext ctx)
         {
-            portalA = new Portal(pointA, ctx) { Sprite = sprite };
-            portalB = new Portal(pointB, ctx) { Sprite = sprite };
+            var portalA = new Portal(pointA, ctx) { Pixel = pixel };
+            var portalB = new Portal(pointB, ctx) { Pixel = pixel };
 
             portalA.SomethingEnteredCallback = portalB.ExitSomething;
             portalB.SomethingEnteredCallback = portalA.ExitSomething;
         }
 
-        public static PortalBridge Create(Point pointA, Point pointB, char sprite, IWorldContext ctx)
+        public static PortalBridge Create(Point pointA, Point pointB, Pixel pixel, IWorldContext ctx)
         {
-            return new PortalBridge(pointA, pointB, sprite, ctx);
+            return new PortalBridge(pointA, pointB, pixel, ctx);
         }
     }
 }

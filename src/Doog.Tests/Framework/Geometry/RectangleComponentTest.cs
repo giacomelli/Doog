@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using NSubstitute;
 
-namespace Doog.UnitTests.Geometry
+namespace Doog.Tests.Framework.Geometry
 {
     [TestFixture]
     public class RectangleComponentTest
@@ -76,7 +76,7 @@ namespace Doog.UnitTests.Geometry
             var target = new RectangleComponent(new Point(10, 20), ctx);
 			target.Draw(drawCtx);
 
-            canvas.Received().Draw(target.Transform.BoundingBox, true, '#');
+            canvas.Received().Draw(target.Transform.BoundingBox, true, '#'.White());
         }
 	}
 }

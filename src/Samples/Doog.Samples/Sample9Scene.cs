@@ -1,12 +1,9 @@
-﻿using System.IO;
-
-namespace Doog.Samples
+﻿namespace Doog.Samples
 {
     public class Sample9Scene : SceneBase
     {
         private SampleComponent actor;
-        private Rectangle bounds;
-
+     
         public Sample9Scene(IWorldContext context)
             : base(context)
         {
@@ -17,9 +14,6 @@ namespace Doog.Samples
         {
             Context.RemoveAllComponents();
             actor = new SampleComponent(0, 0, Context) { Filled = true };
-
-            var b = Context.Bounds;
-            bounds = new Rectangle(b.Left + 10, b.Top + 10, b.Width - 10, b.Height - 15);            
         }
 
         public override void Update()

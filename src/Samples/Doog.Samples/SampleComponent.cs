@@ -1,6 +1,4 @@
-﻿using Doog;
-
-namespace Doog.Samples
+﻿namespace Doog.Samples
 {
     public class SampleComponent : RectangleComponent, IDrawable
     {

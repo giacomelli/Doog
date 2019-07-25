@@ -1,6 +1,6 @@
-using NUnit.Framework;
-using System;
-namespace Doog.UnitTests
+﻿using NUnit.Framework;
+
+namespace Doog.Tests.Framework
 {
     [TestFixture]
     public class RandomExtensionsTest

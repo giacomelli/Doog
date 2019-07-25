@@ -7,8 +7,8 @@ namespace Snake
     {
         private const float MaxSpeed = 20;
         private const float Acceleration = 0.25f;
-        public EventHandler FoodEaten;
-        public EventHandler Died;
+        public event EventHandler FoodEaten;
+        public event EventHandler Died;
 
         private readonly ICommandReader m_commandReader;
         private SnakeTile tail;
@@ -72,13 +72,13 @@ namespace Snake
 
             if (newPosition != hpos)
             {
-                Head.Sprite = SnakeTile.BodySprite;
+                Head.Pixel = SnakeTile.BodyPixel;
                 tail.Transform.Position = newPosition;
                 Head.Next = tail;
                 Head = tail;
                 tail = tail.Next;
                 Head.Next = null;
-                Head.Sprite = SnakeTile.HeadSprite;
+                Head.Pixel = SnakeTile.HeadPixel;
 
                 lastPositionChangeTime = Context.Time.SinceSceneStart;
             }
